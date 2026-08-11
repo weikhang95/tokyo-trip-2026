@@ -1504,15 +1504,28 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
   </div>
 
   <div class="card">
-    <h3><span class="zh on">预订事项与关键时间节点 (勾选自动保存)</span><span class="en">Booking Timeline & Action Checklist</span></h3>
+    <h3><span class="zh on">预订事项与关键时间节点 (含官方凭据与预订链接)</span><span class="en">Booking Timeline & Official Evidence</span></h3>
+    
+    <div class="note-box tip" style="margin-bottom:16px;">
+      <strong>🚌 河口湖高速巴士官方预订凭据与规则：</strong>
+      <span class="zh on">
+        <strong>· 路线名称</strong>：东京站 ⇄ 河口湖・富士山线 (富士急バス / 京王バス 联营)<br/>
+        <strong>· 上车地点</strong>：<a href="https://maps.google.com/?q=Tokyo+Station+Yaesu+South+Exit" target="_blank" style="color:var(--ai);text-decoration:underline;">东京站八重洲南口 9号巴士站</a> (一楼地面，零阶梯)<br/>
+        <strong>· 官方预订网址</strong>：<a href="https://www.highwaybus.com/gp/inbound/inbPlanList?lineGroupNo=1&lineNo=110" target="_blank" style="color:var(--shu);font-weight:800;text-decoration:underline;">Highwaybus.com 官方中文网</a> 或 <a href="https://japanbusonline.com/en/CourseDetail/index/11300060001" target="_blank" style="color:var(--shu);font-weight:800;text-decoration:underline;">Japan Bus Online 官网</a><br/>
+        <strong>· 放票时间凭据</strong>：乘车前 1 个月当天 10:00 (JST) / 09:00 (MYR) 准时开抢票。<br/>
+        <strong>· 去程放票</strong>：10/06 巴士票 $\rightarrow$ <strong>2026年9月6日 09:00 MYR 开抢</strong> (¥2,300/人)<br/>
+        <strong>· 回程放票</strong>：10/07 巴士票 $\rightarrow$ <strong>2026年9月7日 09:00 MYR 开抢</strong> (¥2,300/人)
+      </span>
+    </div>
+
     <div class="check-list">
       <label class="check-item">
         <input type="checkbox" id="chk-1" onchange="saveCheck('chk-1')"/>
-        <span><strong>【进行中】</strong> 预订 Yoin TOKYO 32号房 (Airbnb 免费取消至 10/2)</span>
+        <span><strong>【已确认】</strong> 预订 Yoin TOKYO 32号房 (Airbnb 免费取消至 10/2)</span>
       </label>
       <label class="check-item">
         <input type="checkbox" id="chk-2" onchange="saveCheck('chk-2')"/>
-        <span><strong>【进行中】</strong> 预订東横INN 富士河口湖大桥 (10/6-7 旺季尽早)</span>
+        <span><strong>【已确认】</strong> 预订<a href="https://maps.google.com/?q=Toyoko+Inn+Fuji+Kawaguchiko+Ohashi" target="_blank">東横INN 富士河口湖大桥</a> (含早餐，备用计程车约 ¥1,000)</span>
       </label>
       <label class="check-item">
         <input type="checkbox" id="chk-3" onchange="saveCheck('chk-3')"/>
@@ -1520,7 +1533,11 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
       </label>
       <label class="check-item">
         <input type="checkbox" id="chk-4" onchange="saveCheck('chk-4')"/>
-        <span><strong>【8月内】</strong> 预订东京站 ⇄ 河口湖高速巴士往返车票 (highwaybus.com)</span>
+        <span>⏰ <strong>【9月6日 09:00 MYR】</strong> 在 <a href="https://www.highwaybus.com/gp/inbound/inbPlanList?lineGroupNo=1&lineNo=110" target="_blank" style="color:var(--shu);font-weight:800;text-decoration:underline;">Highwaybus.com</a> 抢 10/06 去程 08:00 巴士票</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" id="chk-4-2" onchange="saveCheck('chk-4-2')"/>
+        <span>⏰ <strong>【9月7日 09:00 MYR】</strong> 在 <a href="https://www.highwaybus.com/gp/inbound/inbPlanList?lineGroupNo=1&lineNo=110" target="_blank" style="color:var(--shu);font-weight:800;text-decoration:underline;">Highwaybus.com</a> 抢 10/07 回程 14:00 巴士票</span>
       </label>
       <label class="check-item">
         <input type="checkbox" id="chk-5" onchange="saveCheck('chk-5')"/>

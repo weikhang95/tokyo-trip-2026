@@ -657,9 +657,10 @@ ol[style*="margin-left:18px"]{
     bottom:max(var(--space-xs),env(safe-area-inset-bottom, 0px));
     display:grid;grid-template-columns:repeat(4,1fr);
     border:1px solid var(--line);border-radius:12px;
-    background:color-mix(in oklch,var(--paper) 96%,transparent);
+    background:var(--paper);
     box-shadow:0 4px 8px rgba(0,0,0,.12);overflow:hidden;
   }
+  main{padding-bottom:calc(72px + env(safe-area-inset-bottom, 0px));}
   .mobile-dock a{
     min-height:48px;display:flex;align-items:center;justify-content:center;
     color:var(--ink-soft);font-size:.875rem;font-weight:700;text-decoration:none;

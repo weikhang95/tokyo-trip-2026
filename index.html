@@ -269,6 +269,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   padding:var(--space-lg);margin-bottom:var(--space-md);
 }
 .card h3{font-family:var(--font-serif);font-size:var(--font-h3);font-weight:800;color:var(--ai);margin-bottom:var(--space-sm);display:flex;align-items:center;gap:var(--space-xs);}
+.card-lead{margin-bottom:var(--space-sm);}
 #sec-overview + .card{padding:0;border:0;background:transparent;}
 
 /* Legacy itinerary markup is normalized onto the spacing scale. */
@@ -471,13 +472,13 @@ ol[style*="margin-left:18px"]{
 .budget-title{font-family:var(--font-serif);font-size:var(--font-sub);font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
 .b-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dotted var(--line);font-size:var(--font-sub);font-weight:700;}
 .b-row:last-of-type{border-bottom:none;}
-.b-total{display:flex;justify-content:space-between;align-items:center;padding:12px 0 0;border-top:2px solid var(--line);margin-top:10px;font-weight:800;}
+.b-total{display:flex;justify-content:space-between;align-items:center;padding:var(--space-sm) 0 0;border-top:2px solid var(--line);margin-top:var(--space-xs);font-weight:800;}
 .b-total-val{font-family:var(--font-serif);font-size:var(--font-h3);color:var(--shu);}
 
 /* Footer */
 .footer{background:var(--footer-bg);border-radius:var(--r-lg);padding:var(--space-xl);margin-top:var(--space-2xl);position:relative;overflow:hidden;color:var(--footer-ink);}
 .footer-kanji{position:absolute;top:-10px;right:14px;font-family:var(--font-serif);font-size:6.25rem;font-weight:800;color:rgba(255,255,255,.05);line-height:1;pointer-events:none;}
-.footer-title{font-family:var(--font-serif);font-size:var(--font-h3);font-weight:800;color:var(--footer-ink);margin-bottom:14px;letter-spacing:.05em;display:flex;align-items:center;gap:10px;}
+.footer-title{font-family:var(--font-serif);font-size:var(--font-h3);font-weight:800;color:var(--footer-ink);margin-bottom:var(--space-sm);letter-spacing:.05em;display:flex;align-items:center;gap:var(--space-xs);}
 .footer p{font-size:var(--font-sub);color:var(--footer-ink);line-height:1.85;padding:5px 0 5px 18px;position:relative;font-weight:600;}
 .footer p::before{content:'';position:absolute;left:0;top:14px;width:6px;height:6px;border-radius:50%;background:var(--shu);}
 
@@ -519,10 +520,10 @@ ol[style*="margin-left:18px"]{
 
   .day-nav-bar{margin:0 calc(-1 * var(--space-sm)) var(--space-md);padding:var(--space-2xs) var(--space-sm) var(--space-sm);}
 
-  .hero{height:168px;border-radius:var(--r-md);box-shadow:none;}
-  .hero-overlay{padding:var(--space-md);}
-  .hero-kanji{top:12px;right:14px;font-size:1.875rem;letter-spacing:.1em;}
-  .hero-title{font-size:var(--font-h1);line-height:1.18;margin-bottom:var(--space-2xs);letter-spacing:0;text-wrap:balance;}
+  .hero{height:220px;border-radius:var(--r-lg);box-shadow:0 4px 20px rgba(0,0,0,.2);}
+  .hero-overlay{padding:var(--space-md) var(--space-lg);background:linear-gradient(to top, rgba(12,17,26,0.88) 0%, rgba(12,17,26,0.4) 65%, rgba(0,0,0,0.15) 100%);}
+  .hero-kanji{top:14px;right:16px;font-size:2rem;letter-spacing:.12em;}
+  .hero-title{font-size:1.5rem;line-height:1.25;margin-bottom:var(--space-2xs);letter-spacing:0;text-wrap:balance;}
   .hero-sub{font-size:.875rem;line-height:1.5;max-width:28rem;}
   .hero-rule{width:40px;height:3px;margin-bottom:var(--space-xs);}
 
@@ -607,10 +608,12 @@ ol[style*="margin-left:18px"]{
   .chev{width:18px;height:18px;}
   .day-body{border-top-width:1px;background:var(--paper);}
   .day-body.open{animation:none;}
-  .day-banner-wrap{display:block;position:relative;width:100%;aspect-ratio:16/9;max-height:180px;background:var(--paper-2);overflow:hidden;}
-  .bplan-gallery{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xs);margin-top:var(--space-sm);}
-  .bplan-img-card{height:88px;border-radius:6px;}
-  .bplan-img-lbl{font-size:.75rem;line-height:1.3;}
+  .day-banner-wrap{display:block;position:relative;width:100%;aspect-ratio:16/9;max-height:220px;background:var(--paper-2);overflow:hidden;border-radius:0;}
+  .day-banner{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
+  .bplan-gallery{display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:var(--space-xs);margin-top:var(--space-sm);}
+  .bplan-img-card{width:100%;height:auto;aspect-ratio:16/10;border-radius:var(--r-md);overflow:hidden;position:relative;box-shadow:0 2px 8px rgba(0,0,0,0.15);}
+  .bplan-img-card img{width:100%;height:100%;object-fit:cover;display:block;}
+  .bplan-img-lbl{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0) 100%);color:#fff;font-size:.75rem;padding:12px 8px 4px;font-weight:700;}
 
   .tl{padding:0;background:var(--paper);}
   .tl-head,.tl-item>div:last-child{grid-template-columns:5.75rem minmax(0,1fr);}
@@ -673,8 +676,11 @@ ol[style*="margin-left:18px"]{
   html[data-text-size="large"] .day-thumb{width:48px;height:48px;}
   html[data-text-size="large"] .day-hdr>.badge{grid-column:2;justify-self:start;margin-top:4px;}
   html[data-text-size="large"] .day-hdr>.chev{grid-column:3;grid-row:1 / span 2;}
-  html[data-text-size="large"] .day-info h3{-webkit-line-clamp:3;font-size:var(--font-h3);}
-  html[data-text-size="large"] .day-info p{display:block;margin-top:5px;line-height:1.45;}
+  html[data-text-size="large"] .day-info h3{-webkit-line-clamp:2;font-size:var(--font-h3);}
+  html[data-text-size="large"] .day-info p{display:none;}
+  html[data-text-size="large"] .hero-sub{font-size:var(--font-sub);}
+  html[data-text-size="large"] .glance-dnum::after{font-size:var(--font-badge);}
+  html[data-text-size="large"] .bplan-img-lbl{font-size:var(--font-badge);}
   html[data-text-size="large"] .tl{padding:0;}
   html[data-text-size="large"] .tl-head,
   html[data-text-size="large"] .tl-item>div:last-child{grid-template-columns:7rem minmax(0,1fr);}
@@ -995,7 +1001,7 @@ ol[style*="margin-left:18px"]{
       <div class="kv-label"><span class="zh on">取消政策</span><span class="en">Cancellation</span></div>
       <div class="kv-val" style="color:var(--shu);font-weight:800;">免费取消至 10月2日</div>
     </div>
-    <div class="note-box tip" style="margin-top:14px;">
+    <div class="note-box tip">
       <strong>🌟 选此房源关键优势：</strong>
       <span class="zh on">拥有两张独立单人床、27㎡超宽敞空间、内含独立洗衣机（可少带一半衣服）、自带电梯，且免费取消政策保障弹性。</span>
     </div>
@@ -1017,7 +1023,7 @@ ol[style*="margin-left:18px"]{
       <div class="kv-label"><span class="zh on">接驳车</span><span class="en">Shuttle</span></div>
       <div class="kv-val"><strong>免费接驳车</strong>：河口湖站 ⇄ 饭店 7分钟 (无需预约)</div>
     </div>
-    <div class="note-box kin" style="margin-top:14px;">
+    <div class="note-box kin">
       <strong>🗻 为什么保留东京公寓并过夜河口湖：</strong>
       <span class="zh on">10/6 晚上东京公寓继续保留，大行李箱安心存放在东京，仅带随身小背包前往河口湖！清晨 05:30 步行 10 分钟即达河口湖大桥观赏赤富士。</span>
     </div>
@@ -1032,7 +1038,7 @@ ol[style*="margin-left:18px"]{
 
   <div class="card">
     <h3><span class="zh on">4.1 交通卡：Welcome Suica Mobile</span><span class="en">4.1 Welcome Suica Mobile</span></h3>
-    <p style="margin-bottom:10px;">
+    <p class="card-lead">
       <span class="zh on">iPhone 用户可在出发前加入 Apple Wallet 开卡储值，无需实体卡押金，有效期 180 天。进出站直接感应刷卡。</span>
       <span class="en">iPhone users can add Welcome Suica directly to Apple Wallet before departure for seamless transit.</span>
     </p>

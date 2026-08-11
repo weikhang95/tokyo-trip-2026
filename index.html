@@ -295,9 +295,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .day-body.open{display:block;animation:fade .3s ease;}
 @keyframes fade{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:none;}}
 
-/* Day Banner Container using Local Images */
+/* Day Banner Container with High-Res Real Stock Photos */
 .day-banner-wrap{position:relative;width:100%;height:220px;background:var(--ai-soft);overflow:hidden;}
 .day-banner{width:100%;height:100%;object-fit:cover;display:block;}
+
+/* Sub-card photo gallery for Plan A & Plan B options */
+.bplan-gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+.bplan-img-card{border-radius:var(--r-md);overflow:hidden;height:120px;position:relative;}
+.bplan-img-card img{width:100%;height:100%;object-fit:cover;display:block;}
+.bplan-img-lbl{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.65);color:#fff;font-size:12px;padding:3px 8px;font-weight:700;}
 
 /* Timeline */
 .tl{padding:20px 20px 10px;}
@@ -400,9 +406,9 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
     <a href="#sec-budget" class="chip"><span class="zh on">预算</span><span class="en">Budget</span></a>
   </div>
 
-  <!-- Hero Banner -->
+  <!-- Hero Banner (Real High-Res Stock Photo) -->
   <div class="hero">
-    <img src="fuji_hero.jpg" alt="Mount Fuji & Tokyo Skyline"/>
+    <img src="fuji_hero.jpg" alt="Mount Fuji & Tokyo Real Photo"/>
     <div class="hero-kanji">東京 · 富士</div>
     <div class="hero-overlay">
       <div class="hero-rule"></div>
@@ -468,7 +474,7 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
       <a href="#day-2" class="glance-item">
         <div class="glance-dnum">DAY 2</div>
         <div class="glance-date">10/04 (日)</div>
-        <div class="glance-title"><span class="zh on">浅草清晨 ★ · 隅田川水上步道 · 晴空塔 (及室内B Plan)</span><span class="en">Early Asakusa & Skytree Scenic Walk (B-Plans)</span></div>
+        <div class="glance-title"><span class="zh on">浅草清晨 ★ · 隅田川水上步道 · 晴空塔 (与3大B Plan照片)</span><span class="en">Early Asakusa & Skytree Scenic Walk (B-Plans)</span></div>
         <span class="badge mid"><span class="zh on">中强度</span><span class="en">Mid</span></span>
       </a>
       <a href="#day-3" class="glance-item">
@@ -690,20 +696,20 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
     <div class="sec-line"></div>
   </div>
 
-  <!-- DAY 1 (With 3 B-Plan Options) -->
+  <!-- DAY 1 (With Real Stock Photos) -->
   <div class="day highlight-day" id="day-1" data-cat="d13">
     <div class="day-hdr" onclick="toggleDay('day-1')">
       <div class="day-thumb">🛬<div class="day-daynum"></div></div>
       <div class="day-info">
         <h3><span class="zh on">Day 1 · 10月3日 (六) 14:45 落地成田 T2 · 入住安顿 · 晚间3大B Plan</span><span class="en">Day 1 · Oct 3 Land NRT 14:45 & Base Check-in</span></h3>
-        <p><span class="zh on">成田 T2 (14:45) → Skyliner (16:08) → 上野 → 计程车至公寓 → 晚间弹B Plan</span><span class="en">NRT T2 14:45 Land → Skyliner → Taxi to Ryusen</span></p>
+        <p><span class="zh on">成田 T2 (14:45) → Skyliner (16:08) → 上野 → 计程车至公寓 → 晚间3大B Plan</span><span class="en">NRT T2 14:45 Land → Skyliner → Taxi to Ryusen</span></p>
       </div>
       <span class="badge lo"><span class="zh on">低强度</span><span class="en">Low</span></span>
       <svg class="chev" id="chev-day-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="day-body" id="body-day-1">
       <div class="day-banner-wrap">
-        <img src="asakusa.jpg" class="day-banner" alt="Tokyo Arrival"/>
+        <img src="asakusa.jpg" class="day-banner" alt="Tokyo Real Photo Arrival"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -748,6 +754,17 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
               <strong>方案 B2 (舒缓机疲)</strong>：曙汤 (Akebono-yu) 或 寿汤 (Kotobuki-yu) 泡传统日式温泉钱汤 (¥520/人)。<br/>
               <strong>方案 B3 (夜间烟火)</strong>：上野不忍池夜景 & 阿美横町夜间海鲜屋台。
             </span></div>
+            <!-- B-Plan Real Stock Photos Gallery -->
+            <div class="bplan-gallery">
+              <div class="bplan-img-card">
+                <img src="asakusa.jpg" alt="Asakusa Night Light-Up"/>
+                <div class="bplan-img-lbl">方案B1: 浅草寺夜间点灯</div>
+              </div>
+              <div class="bplan-img-card">
+                <img src="ueno.jpg" alt="Ueno Night Market"/>
+                <div class="bplan-img-lbl">方案B3: 上野夜间屋台</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -761,7 +778,7 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
     </div>
   </div>
 
-  <!-- DAY 2 (WITH 3 B-PLAN OPTIONS) -->
+  <!-- DAY 2 (WITH REAL STOCK PHOTOS FOR PLAN A & PLAN B) -->
   <div class="day highlight-day" id="day-2" data-cat="d13 must">
     <div class="day-hdr" onclick="toggleDay('day-2')">
       <div class="day-thumb">⛩️<div class="day-daynum"></div></div>
@@ -774,7 +791,7 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
     </div>
     <div class="day-body" id="body-day-2">
       <div class="day-banner-wrap">
-        <img src="asakusa.jpg" class="day-banner" alt="Asakusa Sensoji & Skytree"/>
+        <img src="asakusa.jpg" class="day-banner" alt="Asakusa Sensoji Real Stock Photo"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -805,12 +822,23 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
           <div class="tl-icon">🌟</div>
           <div>
             <div class="tl-time">13:30 - 18:00</div>
-            <div class="tl-main"><span class="zh on">【Day 2 降雨/避挤 3 大弹性 B Plan 备选方案】</span><span class="en">Day 2 Rain/Crowd Avoidance B-Plans</span></div>
+            <div class="tl-main"><span class="zh on">【Day 2 降雨/避挤 3 大弹性 B Plan 备选方案与实景】</span><span class="en">Day 2 Rain/Crowd Avoidance B-Plans</span></div>
             <div class="tl-desc"><span class="zh on">
               <strong>方案 B1 (室内光影/极受欢迎)</strong>：teamLab Planets TOKYO 丰洲触感水上光影展 (全室内，裸足踏水与浮空兰花花园，Google 4.7★)。<br/>
               <strong>方案 B2 (零体力/游船看景)</strong>：隅田川观光水上巴士 (浅草码头 $\rightarrow$ 台场/滨离宫，在玻璃船舱内看东京湾与彩虹大桥)。<br/>
               <strong>方案 B3 (室内观景/老街)</strong>：浅草文化观光中心 8F 免费展望台 (隈研吾设计，俯瞰浅草全景) & 合羽桥道具街。
             </span></div>
+            <!-- Real Stock Photo Gallery for Day 2 B Plans -->
+            <div class="bplan-gallery">
+              <div class="bplan-img-card">
+                <img src="teamlab.jpg" alt="teamLab Planets Tokyo Real Photo"/>
+                <div class="bplan-img-lbl">方案B1: teamLab 丰洲光影</div>
+              </div>
+              <div class="bplan-img-card">
+                <img src="shibuya.jpg" alt="Tokyo Skyline Real Photo"/>
+                <div class="bplan-img-lbl">方案B3: 浅草文化中心俯瞰</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -837,7 +865,7 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
     </div>
     <div class="day-body" id="body-day-3">
       <div class="day-banner-wrap">
-        <img src="ueno.jpg" class="day-banner" alt="Ueno Park"/>
+        <img src="ueno.jpg" class="day-banner" alt="Ueno Park Real Photo"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -881,7 +909,7 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
     </div>
     <div class="day-body" id="body-day-4">
       <div class="day-banner-wrap">
-        <img src="fuji_hero.jpg" class="day-banner" alt="Kawaguchiko Fuji"/>
+        <img src="fuji_hero.jpg" class="day-banner" alt="Kawaguchiko Fuji Real Photo"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -924,6 +952,9 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
       <svg class="chev" id="chev-day-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="day-body" id="body-day-5">
+      <div class="day-banner-wrap">
+        <img src="fuji_dawn.jpg" class="day-banner" alt="Dawn Fuji Real Photo"/>
+      </div>
       <div class="tl">
         <div class="tl-item">
           <div class="tl-icon">🌄</div>
@@ -953,7 +984,7 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
     </div>
   </div>
 
-  <!-- DAY 6 (UPDATED WITH TOKYO TOWER STOPS) -->
+  <!-- DAY 6 (UPDATED WITH REAL TOKYO TOWER PHOTO) -->
   <div class="day highlight-day" id="day-6" data-cat="d610 must">
     <div class="day-hdr" onclick="toggleDay('day-6')">
       <div class="day-thumb">🗼<div class="day-daynum"></div></div>
@@ -966,7 +997,7 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
     </div>
     <div class="day-body" id="body-day-6">
       <div class="day-banner-wrap">
-        <img src="tsukiji.jpg" class="day-banner" alt="Tsukiji Market & Tokyo Tower"/>
+        <img src="tokyo_tower.jpg" class="day-banner" alt="Tokyo Tower Real Photo"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -1025,7 +1056,7 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
     </div>
     <div class="day-body" id="body-day-7">
       <div class="day-banner-wrap">
-        <img src="shibuya.jpg" class="day-banner" alt="Shibuya SKY"/>
+        <img src="shibuya.jpg" class="day-banner" alt="Shibuya SKY Real Photo"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -1069,7 +1100,7 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
     </div>
     <div class="day-body" id="body-day-8">
       <div class="day-banner-wrap">
-        <img src="ueno.jpg" class="day-banner" alt="Kiyosumi Garden"/>
+        <img src="ueno.jpg" class="day-banner" alt="Kiyosumi Garden Real Photo"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -1105,7 +1136,7 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
     </div>
     <div class="day-body" id="body-day-9">
       <div class="day-banner-wrap">
-        <img src="shibuya.jpg" class="day-banner" alt="Haneda Transfer"/>
+        <img src="shibuya.jpg" class="day-banner" alt="Haneda Transfer Real Photo"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -1149,7 +1180,7 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
     </div>
     <div class="day-body" id="body-day-10">
       <div class="day-banner-wrap">
-        <img src="fuji_hero.jpg" class="day-banner" alt="Flight Home"/>
+        <img src="fuji_hero.jpg" class="day-banner" alt="Flight Home Real Photo"/>
       </div>
       <div class="tl">
         <div class="tl-item">

@@ -5,51 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>东京 · 河口湖 2026 · 旅行手册</title>
 <meta name="description" content="东京 · 河口湖行程 2026 — 2026年10月3日至12日，两个人的富士山之旅"/>
-<meta name="theme-color" id="meta-theme-color" content="#e6ded0"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700;800&family=Zen+Maru+Gothic:wght@500;700;900&family=Noto+Serif+SC:wght@600;700;900&display=swap" rel="stylesheet"/>
-<script>
-/* Set theme + text size before first paint, so there is no flash of the
-   wrong theme and the system dark-mode preference is respected on first visit. */
-(function(){
-  try{
-    var t = localStorage.getItem('tokyo_theme')
-         || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', t);
-    var z = localStorage.getItem('tokyo_text_size');
-    if (z) document.documentElement.setAttribute('data-text-size', z);
-    var m = document.getElementById('meta-theme-color');
-    if (m) m.setAttribute('content', t === 'dark' ? '#0c111a' : '#e6ded0');
-  }catch(e){}
-})();
-</script>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700;800&family=Zen+Maru+Gothic:wght@500;700;900&family=Noto+Serif+SC:wght@600;900&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 
-/* Always reserve the scrollbar gutter. Opening a day or filtering the list changes
-   the page height; without this, the scrollbar appears/disappears, the viewport
-   width jumps ~15px, and the centred .page — so the entire design — shifts
-   sideways. Reserving the gutter keeps every column locked in place. */
-html{scrollbar-gutter:stable;}
-
 /* Color System - Light Washi & Dark Sumi Night */
 :root{
-  /* Type stacks. Both Shippori Mincho (JP serif) and Zen Maru Gothic (JP rounded
-     gothic) have gaps in Simplified Chinese, so each needs a matching CJK fallback
-     of the SAME classification — a serif falling back to a serif, a sans to a sans.
-     Getting this wrong is what made single characters (e.g. the 口 in 河口湖)
-     render from a different font mid-word. */
-  --font-serif:'Shippori Mincho','Noto Serif SC','Songti SC',serif;
-  --font-sans:'Zen Maru Gothic','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans SC',sans-serif;
-
+  --bg-gradient: radial-gradient(circle at 20% 10%,rgba(255,255,255,.7),transparent 50%),radial-gradient(circle at 80% 90%,rgba(184,50,27,.05),transparent 45%);
   --bg-body:#e6ded0;
   --washi:#f4efe4;
   --paper:#faf6ec;
   --paper-2:#eee7d6;
   --ink:#1a1612;        /* Dark contrast for high legibility */
   --ink-soft:#484036;   /* Legible secondary text */
-  --ink-faint:#635a4c;  /* 4.6:1 on --bg-body (was #736a5c = 3.99:1) */
+  --ink-faint:#736a5c;
   --line:#cdbf9f;
   --line-soft:#ded4be;
   --ai:#122b49;         /* Deep Navy */
@@ -58,20 +29,11 @@ html{scrollbar-gutter:stable;}
   --shu:#b8321b;         /* Rich Vermilion Red */
   --shu-soft:#e3a498;
   --shu-bg:#f8e8e4;
-  --kin:#8a6114;         /* Gold — 4.6:1 on --kin-bg (was #996d18 = 3.96:1) */
+  --kin:#996d18;         /* High-contrast Gold */
   --kin-bg:#f8edd4;
   --matcha:#526127;      /* High-contrast Matcha */
   --matcha-bg:#eaf0d8;
   --sumi:#231f1a;
-
-  /* Ink to use ON a filled accent. Split out so dark mode can flip it: the dark
-     palette's --ai/--shu are light tints, where white text is unreadable. */
-  --on-ai:#ffffff;
-  --on-shu:#ffffff;
-  --footer-bg:var(--ai);
-  --footer-ink:#ffffff;
-  --footer-ink-soft:rgba(255,255,255,.88);
-
   --r-md:8px;
   --r-lg:12px;
   --focus-ring:0 0 0 3px rgba(18, 43, 73, 0.4);
@@ -88,6 +50,7 @@ html{scrollbar-gutter:stable;}
 }
 
 html[data-theme="dark"] {
+  --bg-gradient: radial-gradient(circle at 20% 10%,rgba(31,58,95,.25),transparent 50%),radial-gradient(circle at 80% 90%,rgba(200,68,44,.1),transparent 45%);
   --bg-body:#0c111a;
   --washi:#121824;
   --paper:#172235;
@@ -108,14 +71,6 @@ html[data-theme="dark"] {
   --matcha:#a2be52;
   --matcha-bg:#212e14;
   --sumi:#f0f4fd;
-
-  /* Dark --ai / --shu are light tints, so ink on top of them must go dark. */
-  --on-ai:#0c111a;
-  --on-shu:#2a0f0a;
-  --footer-bg:var(--ai-bg);
-  --footer-ink:var(--ink);
-  --footer-ink-soft:var(--ink-soft);
-
   --focus-ring:0 0 0 3px rgba(116, 168, 242, 0.5);
 }
 
@@ -131,46 +86,16 @@ html[data-text-size="large"] {
   --font-badge:15px;
 }
 
-/* Compact Mode — fits more of the day on one phone screen */
-html[data-text-size="small"] {
-  --font-base:16px;
-  --font-sub:14px;
-  --font-h3:18px;
-  --font-h2:21px;
-  --font-h1:25px;
-  --font-meta-val:16px;
-  --font-meta-lbl:12px;
-  --font-badge:12px;
-}
-/* Compact has to tighten the boxes too. Shrinking only the type leaves the same
-   padding everywhere, so the page ends up no denser — just smaller text in the
-   same amount of space, which is the worst of both. */
-html[data-text-size="small"] .card{padding:16px;margin-bottom:12px;}
-html[data-text-size="small"] .sec-head{margin:26px 4px 14px;}
-html[data-text-size="small"] .meta-cell{padding:11px 14px;}
-html[data-text-size="small"] .hero{height:230px;}
-html[data-text-size="small"] .day-hdr{padding:12px 14px;min-height:56px;gap:11px;}
-html[data-text-size="small"] .day-thumb{width:48px;height:48px;font-size:20px;}
-html[data-text-size="small"] .day-banner-wrap{height:170px;}
-html[data-text-size="small"] .tl{padding:15px 15px 6px;}
-html[data-text-size="small"] .tl-item{margin-bottom:16px;}
-html[data-text-size="small"] .check-item{padding:11px 14px;min-height:46px;}
-html[data-text-size="small"] .glance-item{padding:10px 13px;min-height:46px;}
-html[data-text-size="small"] .footer{padding:22px;}
-
 body{
-  font-family:var(--font-sans);
-  /* Flat colour on purpose. This used to carry two percentage-positioned radial
-     gradients; because percentages resolve against the element box, every time a
-     day accordion opened the page grew taller and the whole background visibly
-     slid. A flat ground cannot shift. */
+  font-family:'Zen Maru Gothic','Noto Serif SC',sans-serif;
   background:var(--bg-body);
+  background-image:var(--bg-gradient);
   color:var(--ink);
   font-size:var(--font-base);
   min-height:100vh;
   line-height:1.75;
   -webkit-font-smoothing:antialiased;
-  transition:background-color .3s, color .3s;
+  transition:background-color .3s, color .3s, font-size .2s;
 }
 
 .page{max-width:800px;margin:0 auto;padding:20px 16px 70px;counter-reset:trip-day;}
@@ -178,49 +103,46 @@ body{
 /* Topbar with Safe Area support */
 .topbar{
   position:sticky;top:0;z-index:100;
-  /* Derived from the page ground rather than hardcoded, so the sticky bar can
-     never sit as a slightly different shade than the page behind it. */
-  background:color-mix(in srgb, var(--bg-body) 93%, transparent);
+  background:rgba(244,239,228,0.95);
   backdrop-filter:blur(10px);
   border-bottom:1.5px solid var(--line);
   margin:-20px -16px 20px -16px;
   padding:calc(12px + env(safe-area-inset-top, 0px)) 20px 12px;
   transition:background .3s, border-color .3s;
 }
+html[data-theme="dark"] .topbar {
+  background:rgba(18,24,36,0.95);
+}
 
 .topbar-content{display:flex;align-items:center;justify-content:space-between;max-width:800px;margin:0 auto;}
-/* min-width:0 lets the brand shrink instead of forcing the title onto three
-   lines and making the sticky bar tall on a narrow phone. */
-.brand{display:flex;align-items:center;gap:12px;min-width:0;}
+.brand{display:flex;align-items:center;gap:12px;}
 .brand-mark{
   width:42px;height:42px;border-radius:50%;background:var(--shu);
-  display:flex;align-items:center;justify-content:center;color:var(--on-shu);
-  font-family:var(--font-serif);font-weight:800;font-size:22px;
+  display:flex;align-items:center;justify-content:center;color:#fff;
+  font-family:'Shippori Mincho',serif;font-weight:800;font-size:22px;
   flex-shrink:0;box-shadow:0 3px 10px rgba(184,50,27,.35);
 }
-.brand-txt{font-family:var(--font-serif);font-size:18px;font-weight:700;color:var(--ink);letter-spacing:.04em;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.brand-txt{font-family:'Shippori Mincho',serif;font-size:18px;font-weight:700;color:var(--ink);letter-spacing:.04em;}
 
-.controls{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.controls{display:flex;align-items:center;gap:8px;}
 
 /* Action Buttons (Large Touch Area for Mum) */
 .top-btn{
   min-width:44px;height:44px;padding:0 12px;border-radius:99px;
   border:1.5px solid var(--line);background:var(--paper);color:var(--ink);
   cursor:pointer;display:flex;align-items:center;justify-content:center;
-  font-size:15px;font-weight:700;
-  transition:background-color .2s ease-out, border-color .2s ease-out, color .2s ease-out;
+  font-size:15px;font-weight:700;transition:all .2s;
 }
 .top-btn:hover,.top-btn.active{border-color:var(--ai);background:var(--ai-bg);color:var(--ai);}
 
 .lang-bar{display:flex;gap:0;border:1.5px solid var(--line);border-radius:99px;overflow:hidden;background:var(--paper);}
 .lang-btn{
-  font-family:var(--font-serif);font-size:14px;padding:6px 16px;
+  font-family:'Shippori Mincho',serif;font-size:14px;padding:6px 16px;
   height:44px;border:none;background:transparent;color:var(--ink-soft);
-  cursor:pointer;font-weight:700;
-  transition:background-color .2s ease-out, color .2s ease-out;
+  cursor:pointer;transition:all .2s;font-weight:700;
 }
-.lang-btn.active{background:var(--ai);color:var(--on-ai);}
+.lang-btn.active{background:var(--ai);color:#fff;}
+html[data-theme="dark"] .lang-btn.active{color:#0c111a;}
 
 span.en,span.zh{display:none;}
 span.zh.on,span.en.on{display:inline;}
@@ -232,21 +154,17 @@ span.zh.on,span.en.on{display:inline;}
 }
 .nav-chips::-webkit-scrollbar{display:none;}
 .chip{
-  font-family:var(--font-serif);font-size:14px;padding:9px 18px;
+  font-family:'Shippori Mincho',serif;font-size:14px;padding:9px 18px;
   min-height:44px;display:inline-flex;align-items:center;font-weight:700;
   border-radius:99px;border:1.5px solid var(--line);background:var(--paper);
-  color:var(--ink);white-space:nowrap;cursor:pointer;
-  transition:background-color .2s ease-out, border-color .2s ease-out, color .2s ease-out;
+  color:var(--ink);white-space:nowrap;cursor:pointer;transition:all .2s;
   text-decoration:none;
 }
-/* --on-ai flips to dark ink in the dark theme, where --ai is a light blue.
-   Previously only .active had that override, so hovering a chip in dark mode
-   produced white-on-light-blue at 2.4:1. */
-.chip:hover,.chip.active{background:var(--ai);color:var(--on-ai);border-color:var(--ai);}
+.chip:hover,.chip.active{background:var(--ai);color:#fff;border-color:var(--ai);}
+html[data-theme="dark"] .chip.active{color:#0c111a;}
 
 /* Accessibility Focus Visible */
-button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visible,
-[role="button"]:focus-visible {
+button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visible {
   outline:none;
   box-shadow:var(--focus-ring);
 }
@@ -256,56 +174,32 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .hero img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block;}
 .hero-overlay{
   position:absolute;inset:0;
-  /* Weighted to the bottom where the title sits, and clearing to nothing by the
-     top so the photograph is actually visible. The previous near-opaque ramp was
-     tuned for a bright illustration and buried a real dawn photo. */
-  background:linear-gradient(to top,
-    rgba(10,20,36,.92) 0%,
-    rgba(10,20,36,.74) 26%,
-    rgba(10,20,36,.30) 55%,
-    rgba(10,20,36,0)   100%);
+  background:linear-gradient(to top,rgba(10,20,36,.94) 0%,rgba(10,20,36,.45) 50%,rgba(10,20,36,.15) 100%);
   display:flex;flex-direction:column;justify-content:flex-end;padding:26px 28px;
 }
 .hero-kanji{
-  position:absolute;top:20px;right:22px;font-family:var(--font-serif);
+  position:absolute;top:20px;right:22px;font-family:'Shippori Mincho',serif;
   font-size:46px;font-weight:800;color:rgba(255,255,255,.92);line-height:1.1;
   writing-mode:vertical-rl;letter-spacing:.14em;text-shadow:0 2px 14px rgba(0,0,0,.6);
 }
-/* Keep the title clear of the vertical 東京·富士 watermark in the top-right.
-   Without the reserved gutter the two collide once the title wraps. */
-.hero-title{font-family:var(--font-serif);font-size:var(--font-h1);font-weight:800;color:#fff;line-height:1.25;margin-bottom:8px;letter-spacing:.02em;
-  max-width:calc(100% - 56px);text-wrap:balance;}
-.hero-sub{font-size:var(--font-sub);color:rgba(255,255,255,.92);letter-spacing:.04em;font-weight:500;
-  max-width:calc(100% - 56px);}
+.hero-title{font-family:'Shippori Mincho',serif;font-size:var(--font-h1);font-weight:800;color:#fff;line-height:1.25;margin-bottom:8px;letter-spacing:.02em;}
+.hero-sub{font-size:var(--font-sub);color:rgba(255,255,255,.92);letter-spacing:.04em;font-weight:500;}
 .hero-rule{width:54px;height:4px;background:var(--shu);margin-bottom:14px;border-radius:2px;}
 
 /* Meta Strip */
-/* Grid, not wrapping flex. As a flex row the cells took uneven widths, the date
-   broke across two lines, and the 1px cell dividers came out ragged on the
-   wrapped row. A grid gives every cell the same width and a shared baseline at
-   any viewport, and the 1px gap lets the strip's own background show through as
-   the dividers so no cell needs a border of its own. */
 .meta-strip{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(158px,1fr));
-  background:var(--paper);
-  border:1.5px solid var(--line);
+  display:flex;flex-wrap:wrap;background:var(--paper);border:1.5px solid var(--line);
   border-top:none;border-radius:0 0 var(--r-lg) var(--r-lg);margin-bottom:28px;overflow:hidden;
 }
-/* Each cell draws its own right/bottom rule instead of the grid showing through a
-   gap. With five cells the last row is short, and a gap-based grid rendered that
-   leftover space as a stray coloured block. Cell-drawn rules leave it plain. */
-.meta-cell{padding:14px 18px;box-shadow:inset -1px -1px 0 var(--line-soft);}
-/* Five facts never divide evenly into the column count, so the budget — the one
-   that summarises the rest — takes the whole last row instead of leaving a gap. */
-.meta-cell:last-child{grid-column:1 / -1;}
+.meta-cell{flex:1;min-width:140px;padding:14px 18px;border-right:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);}
+.meta-cell:last-child{border-right:none;}
 .meta-label{font-size:var(--font-meta-lbl);color:var(--ink-faint);margin-bottom:3px;letter-spacing:.08em;font-weight:700;text-transform:uppercase;}
-.meta-val{font-family:var(--font-serif);font-size:var(--font-meta-val);font-weight:800;color:var(--ai);white-space:nowrap;}
+.meta-val{font-family:'Shippori Mincho',serif;font-size:var(--font-meta-val);font-weight:800;color:var(--ai);}
 .meta-sub{font-size:var(--font-sub);color:var(--ink-soft);margin-top:2px;}
 
 /* Section Heading */
 .sec-head{display:flex;align-items:center;gap:14px;margin:36px 4px 20px;scroll-margin-top:80px;}
-.sec-kanji{font-family:var(--font-serif);font-size:var(--font-h2);font-weight:800;color:var(--shu);letter-spacing:.05em;}
+.sec-kanji{font-family:'Shippori Mincho',serif;font-size:var(--font-h2);font-weight:800;color:var(--shu);letter-spacing:.05em;}
 .sec-en{font-size:var(--font-meta-lbl);color:var(--ink-faint);letter-spacing:.18em;font-weight:700;text-transform:uppercase;}
 .sec-line{flex:1;height:2px;background:var(--line);}
 
@@ -314,7 +208,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   background:var(--paper);border:1.5px solid var(--line);border-radius:var(--r-lg);
   padding:22px;margin-bottom:18px;box-shadow:0 3px 12px rgba(0,0,0,.04);
 }
-.card h3{font-family:var(--font-serif);font-size:var(--font-h3);font-weight:800;color:var(--ai);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.card h3{font-family:'Shippori Mincho',serif;font-size:var(--font-h3);font-weight:800;color:var(--ai);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
 
 /* Tables & KV Grids */
 .kv-grid{display:grid;grid-template-columns:auto 1fr;gap:10px 20px;font-size:var(--font-sub);}
@@ -323,7 +217,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 
 .info-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:var(--font-sub);}
 .info-table th,.info-table td{padding:12px 14px;border:1.5px solid var(--line-soft);text-align:left;}
-.info-table th{background:var(--paper-2);font-family:var(--font-serif);font-weight:800;color:var(--ai);}
+.info-table th{background:var(--paper-2);font-family:'Shippori Mincho',serif;font-weight:800;color:var(--ai);}
 .info-table td{background:var(--paper);color:var(--ink);}
 
 /* Notes */
@@ -332,15 +226,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   display:flex;gap:12px;align-items:flex-start;
 }
 .note-box.warn{background:var(--shu-bg);border:1.5px solid var(--shu-soft);color:var(--ink);}
-.note-box.warn strong{color:var(--shu);font-family:var(--font-serif);font-weight:800;}
+.note-box.warn strong{color:var(--shu);font-family:'Shippori Mincho',serif;font-weight:800;}
 .note-box.tip{background:var(--ai-bg);border:1.5px solid var(--line-soft);color:var(--ink);}
-.note-box.tip strong{color:var(--ai);font-family:var(--font-serif);font-weight:800;}
+.note-box.tip strong{color:var(--ai);font-family:'Shippori Mincho',serif;font-weight:800;}
 .note-box.kin{background:var(--kin-bg);border:1.5px solid var(--line-soft);color:var(--ink);}
-.note-box.kin strong{color:var(--kin);font-family:var(--font-serif);font-weight:800;}
+.note-box.kin strong{color:var(--kin);font-family:'Shippori Mincho',serif;font-weight:800;}
 
 /* Intensity Badges */
 .badge{
-  font-family:var(--font-serif);font-size:var(--font-badge);padding:4px 12px;
+  font-family:'Shippori Mincho',serif;font-size:var(--font-badge);padding:4px 12px;
   border-radius:99px;font-weight:800;white-space:nowrap;letter-spacing:.02em;
 }
 .badge.lo{background:var(--matcha-bg);color:var(--matcha);border:1.5px solid var(--line-soft);}
@@ -350,19 +244,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 /* Glance Overview Grid */
 .glance-list{display:flex;flex-direction:column;gap:10px;}
 .glance-item{
-  /* Four columns for four children — there was a fifth `auto` with nothing in it,
-     which added a phantom 12px gap and stopped the badges sitting flush right.
-     Widths are in em against this row's own font-size, so the day/date columns
-     stay aligned in large-text mode instead of overflowing fixed pixel tracks. */
-  display:grid;grid-template-columns:3.9em 6.1em 1fr auto;align-items:center;gap:12px;
-  font-size:var(--font-sub);
+  display:grid;grid-template-columns:54px 75px 1fr auto auto;align-items:center;gap:12px;
   background:var(--paper);border:1.5px solid var(--line);border-radius:var(--r-md);
-  padding:12px 16px;color:var(--ink);text-decoration:none;
-  transition:border-color .2s ease-out, box-shadow .2s ease-out;
+  padding:12px 16px;color:var(--ink);text-decoration:none;transition:all .2s;
   min-height:52px;
 }
 .glance-item:hover{border-color:var(--ai);box-shadow:0 4px 16px rgba(0,0,0,.08);}
-.glance-dnum{font-family:var(--font-serif);font-size:var(--font-sub);font-weight:800;color:var(--shu);}
+.glance-dnum{font-family:'Shippori Mincho',serif;font-size:var(--font-sub);font-weight:800;color:var(--shu);}
 .glance-date{font-size:var(--font-sub);color:var(--ink-soft);font-weight:700;}
 .glance-title{font-size:var(--font-sub);font-weight:700;color:var(--ink);}
 
@@ -378,10 +266,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   display:flex;align-items:center;gap:14px;padding:16px 18px;cursor:pointer;
   user-select:none;position:relative;min-height:64px;
 }
-/* A 5px coloured rail used to run down the left edge of every day header. It read
-   as decoration rather than information, so the "must-see day" signal now comes
-   from the card's own border instead — same meaning, no stripe. */
-.day.highlight-day{border-color:var(--shu);}
+.day-hdr::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--ai);}
+.day.highlight-day .day-hdr::before{background:var(--shu);}
 
 /* Offline-Safe Icon Badge Thumbnails */
 .day-thumb{
@@ -391,14 +277,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 }
 
 .day-daynum{
-  position:absolute;bottom:0;right:0;background:var(--shu);color:var(--on-shu);
-  font-family:var(--font-serif);font-size:0;font-weight:800;padding:2px 7px;
+  position:absolute;bottom:0;right:0;background:var(--shu);color:#fff;
+  font-family:'Shippori Mincho',serif;font-size:0;font-weight:800;padding:2px 7px;
   border-radius:var(--r-md) 0 0 0;
 }
 .day-daynum::before{content:counter(trip-day);font-size:13px;}
 .day-info{flex:1;min-width:0;}
 .day-info h3{
-  font-family:var(--font-serif);font-size:var(--font-h3);font-weight:800;margin-bottom:3px;
+  font-family:'Shippori Mincho',serif;font-size:var(--font-h3);font-weight:800;margin-bottom:3px;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.01em;color:var(--ink);
 }
 .day-info p{font-size:var(--font-sub);color:var(--ink-soft);font-weight:600;}
@@ -409,7 +295,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .day-body.open{display:block;animation:fade .3s ease;}
 @keyframes fade{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:none;}}
 
-/* Day Banner Container using Local Images with Fallbacks */
+/* Day Banner Container using Local Images */
 .day-banner-wrap{position:relative;width:100%;height:220px;background:var(--ai-soft);overflow:hidden;}
 .day-banner{width:100%;height:100%;object-fit:cover;display:block;}
 
@@ -423,66 +309,46 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   background:var(--paper-2);border:2px solid var(--line);display:flex;
   align-items:center;justify-content:center;font-size:15px;color:var(--ai);
 }
-.tl-time{font-family:var(--font-serif);font-size:var(--font-sub);font-weight:800;color:var(--shu);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+.tl-time{font-family:'Shippori Mincho',serif;font-size:var(--font-sub);font-weight:800;color:var(--shu);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
 .tl-main{font-size:var(--font-base);font-weight:800;margin-bottom:4px;line-height:1.5;color:var(--ink);text-wrap:balance;}
 .tl-desc{font-size:var(--font-sub);color:var(--ink-soft);line-height:1.75;text-wrap:pretty;font-weight:600;}
 
 .pill{display:inline-flex;align-items:center;gap:6px;font-size:var(--font-badge);padding:4px 12px;border-radius:99px;background:var(--ai-bg);border:1.5px solid var(--line-soft);color:var(--ai);margin-top:8px;font-weight:700;}
-.must-tag{display:inline-block;font-size:var(--font-badge);padding:4px 12px;border-radius:99px;background:var(--shu-bg);color:var(--shu);border:1.5px solid var(--shu-soft);margin-top:8px;font-weight:800;font-family:var(--font-serif);letter-spacing:.02em;}
+.must-tag{display:inline-block;font-size:var(--font-badge);padding:4px 12px;border-radius:99px;background:var(--shu-bg);color:var(--shu);border:1.5px solid var(--shu-soft);margin-top:8px;font-weight:800;font-family:'Shippori Mincho',serif;letter-spacing:.02em;}
 
 /* Checkable Lists (High Contrast & Big Target for Mum) */
 .check-list{display:flex;flex-direction:column;gap:10px;margin-top:12px;}
 .check-item{
   display:flex;align-items:flex-start;gap:14px;padding:14px 18px;background:var(--paper-2);
   border-radius:var(--r-md);border:1.5px solid var(--line-soft);font-size:var(--font-base);font-weight:700;
-  cursor:pointer;min-height:52px;line-height:1.6;
-  transition:background-color .15s ease-out, border-color .15s ease-out, opacity .15s ease-out;
+  cursor:pointer;transition:all .15s;min-height:52px;line-height:1.6;
 }
 .check-item input[type="checkbox"]{width:22px;height:22px;margin-top:3px;accent-color:var(--shu);cursor:pointer;flex-shrink:0;}
 .check-item.done{opacity:.55;text-decoration:line-through;}
 
 /* Budget Box */
 .budget-box{padding:18px;border-top:2px dashed var(--line);background:var(--paper-2);}
-.budget-title{font-family:var(--font-serif);font-size:var(--font-sub);font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.budget-title{font-family:'Shippori Mincho',serif;font-size:var(--font-sub);font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
 .b-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dotted var(--line);font-size:var(--font-sub);font-weight:700;}
 .b-row:last-of-type{border-bottom:none;}
 .b-total{display:flex;justify-content:space-between;align-items:center;padding:12px 0 0;border-top:2px solid var(--line);margin-top:10px;font-weight:800;}
-.b-total-val{font-family:var(--font-serif);font-size:var(--font-h3);color:var(--shu);}
+.b-total-val{font-family:'Shippori Mincho',serif;font-size:var(--font-h3);color:var(--shu);}
 
 /* Footer */
-/* In dark mode --ai is a light blue, so the old "navy slab with white text"
-   footer inverted into near-white on light blue (2.2:1, effectively unreadable).
-   --footer-* resolve to a dark surface with light ink in the dark theme. */
-.footer{background:var(--footer-bg);border-radius:var(--r-lg);padding:28px 28px;margin-top:32px;position:relative;overflow:hidden;color:var(--footer-ink);}
-.footer-kanji{position:absolute;top:-10px;right:14px;font-family:var(--font-serif);font-size:100px;font-weight:800;color:color-mix(in srgb, var(--footer-ink) 7%, transparent);line-height:1;pointer-events:none;}
-.footer-title{font-family:var(--font-serif);font-size:var(--font-h3);font-weight:800;color:var(--footer-ink);margin-bottom:14px;letter-spacing:.05em;display:flex;align-items:center;gap:10px;}
-.footer p{font-size:var(--font-sub);color:var(--footer-ink-soft);line-height:1.85;padding:5px 0 5px 18px;position:relative;font-weight:600;}
+.footer{background:var(--ai);border-radius:var(--r-lg);padding:28px 28px;margin-top:32px;position:relative;overflow:hidden;color:#fff;}
+html[data-theme="dark"] .footer{color:#f0f4fd;}
+.footer-kanji{position:absolute;top:-10px;right:14px;font-family:'Shippori Mincho',serif;font-size:100px;font-weight:800;color:rgba(255,255,255,.05);line-height:1;pointer-events:none;}
+.footer-title{font-family:'Shippori Mincho',serif;font-size:var(--font-h3);font-weight:800;color:#fff;margin-bottom:14px;letter-spacing:.05em;display:flex;align-items:center;gap:10px;}
+.footer p{font-size:var(--font-sub);color:rgba(255,255,255,.88);line-height:1.85;padding:5px 0 5px 18px;position:relative;font-weight:600;}
 .footer p::before{content:'';position:absolute;left:0;top:14px;width:6px;height:6px;border-radius:50%;background:var(--shu);}
 
-.footer .credit{font-size:var(--font-meta-lbl);opacity:.75;padding-top:12px;}
-.footer .credit::before{display:none;}
-.footer .credit a{color:var(--footer-ink);text-underline-offset:3px;}
-
 .endmark{text-align:center;margin-top:34px;}
-.endmark span{font-family:var(--font-serif);font-size:16px;color:var(--ink-faint);letter-spacing:.3em;font-weight:700;}
+.endmark span{font-family:'Shippori Mincho',serif;font-size:16px;color:var(--ink-faint);letter-spacing:.3em;font-weight:700;}
 
 /* Reduced Motion Accessibility */
 @media (prefers-reduced-motion: reduce) {
   *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;}
 }
-
-/* Phone tuning. The hero watermark is decorative, so it gives up room first. */
-@media (max-width:520px){
-  .hero-kanji{font-size:32px;letter-spacing:.1em;top:16px;right:16px;color:rgba(255,255,255,.72);}
-  .hero-overlay{padding:20px 20px;}
-  .page{padding:20px 14px 60px;}
-  .topbar{margin:-20px -14px 20px -14px;padding-left:16px;padding-right:16px;}
-  /* The three controls need the width more than the wordmark does, and the same
-     title is spelled out in the hero directly below. Truncating it to "东…"
-     helped nobody, so the 旅 mark carries the brand on small screens. */
-  .brand-txt{display:none;}
-}
-html[data-text-size="small"] .hero-kanji{font-size:30px;}
 
 /* Print & PDF Media Styles */
 @media print {
@@ -509,8 +375,8 @@ html[data-text-size="small"] .hero-kanji{font-size:30px;}
         </div>
       </div>
       <div class="controls">
-        <!-- Text size: 小字 (compact, fits more on a phone) / 标准 / 大字 -->
-        <button class="top-btn" id="text-toggle" onclick="toggleTextSize()" title="切换字号：小字 · 标准 · 大字">Aa 标准</button>
+        <!-- Large Text Mode Toggle (For Mum) -->
+        <button class="top-btn" id="text-toggle" onclick="toggleTextSize()" title="放大字号 (Mum's Large Text Mode)">Aa 大字</button>
         <!-- Dark Mode Toggle -->
         <button class="top-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme">☀️</button>
         <!-- Language Switcher -->
@@ -536,7 +402,7 @@ html[data-text-size="small"] .hero-kanji{font-size:30px;}
 
   <!-- Hero Banner -->
   <div class="hero">
-    <img src="https://images.unsplash.com/photo-1765347810364-e591815a9382?auto=format&amp;fit=crop&amp;w=1600&amp;q=80" alt="日出时分的富士山，山顶染上红光，湖面倒映着山影" fetchpriority="high" decoding="async"/>
+    <img src="fuji_hero.jpg" alt="Mount Fuji & Tokyo Skyline"/>
     <div class="hero-kanji">東京 · 富士</div>
     <div class="hero-overlay">
       <div class="hero-rule"></div>
@@ -596,7 +462,7 @@ html[data-text-size="small"] .hero-kanji{font-size:30px;}
       <a href="#day-1" class="glance-item">
         <div class="glance-dnum">DAY 1</div>
         <div class="glance-date">10/03 (六)</div>
-        <div class="glance-title"><span class="zh on">抵达东京 · 入住安顿</span><span class="en">Arrival in Tokyo & Check-in</span></div>
+        <div class="glance-title"><span class="zh on">抵达东京 14:45 · 入住安顿</span><span class="en">NRT 14:45 Land & Check-in</span></div>
         <span class="badge lo"><span class="zh on">低强度</span><span class="en">Low</span></span>
       </a>
       <a href="#day-2" class="glance-item">
@@ -650,7 +516,7 @@ html[data-text-size="small"] .hero-kanji{font-size:30px;}
       <a href="#day-10" class="glance-item">
         <div class="glance-dnum">DAY 10</div>
         <div class="glance-date">10/12 (一)</div>
-        <div class="glance-title"><span class="zh on">02:20 羽田起飞 → 香港 → 顺利返抵槟城</span><span class="en">02:20 Flight Home to Penang</span></div>
+        <div class="glance-title"><span class="zh on">02:20 羽田起飞 → 15:40 返抵槟城</span><span class="en">02:20 HND Flight → 15:40 PEN Land</span></div>
         <span class="badge lo"><span class="zh on">返程</span><span class="en">Return</span></span>
       </a>
     </div>
@@ -671,37 +537,45 @@ html[data-text-size="small"] .hero-kanji{font-size:30px;}
 
   <div class="card">
     <h3>
-      <span class="zh on">HK Express 订位代号：ICDEFN (总价 RM 5,208 / 2人)</span>
-      <span class="en">HK Express Booking: ICDEFN (RM 5,208 total)</span>
+      <span class="zh on">HK Express 香港快运 (订位代号：ICDEFN | 票种：Essential)</span>
+      <span class="en">HK Express Booking: ICDEFN (Essential)</span>
     </h3>
     <table class="info-table">
       <thead>
         <tr>
           <th><span class="zh on">行程</span><span class="en">Leg</span></th>
-          <th><span class="zh on">日期</span><span class="en">Date</span></th>
-          <th><span class="zh on">航线</span><span class="en">Route</span></th>
-          <th><span class="zh on">时间与备注</span><span class="en">Notes</span></th>
+          <th><span class="zh on">航班号</span><span class="en">Flight</span></th>
+          <th><span class="zh on">起飞与抵达</span><span class="en">Departure & Arrival</span></th>
+          <th><span class="zh on">舱等与备注</span><span class="en">Fare Class & Notes</span></th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td><strong><span class="zh on">去程</span><span class="en">Outbound</span></strong></td>
-          <td>10/03 (六)</td>
-          <td>槟城 (PEN) 01:00 → 香港 (HKG) → 成田 (NRT)</td>
-          <td>成田进。落地后办理入境与取行李 (预留 60 分钟)</td>
+          <td>UO769 | UO848</td>
+          <td>
+            <strong>03 Oct (六) 01:00</strong> 槟城 (PEN)<br/>
+            $\rightarrow$ 香港 (HKG) 转机<br/>
+            $\rightarrow$ <strong>03 Oct (六) 14:45 抵达 成田 (NRT Terminal 2)</strong>
+          </td>
+          <td>舱等: Z | U<br/>成田 T2 落地出关约 45-60 分钟</td>
         </tr>
         <tr>
           <td><strong><span class="zh on">回程</span><span class="en">Inbound</span></strong></td>
-          <td>10/12 (一)</td>
-          <td>羽田 (HND) 02:20 → 香港 (HKG) → 槟城 (PEN)</td>
-          <td>羽田出。10/11 21:45 从浅草前往羽田机场</td>
+          <td>UO629 | UO746</td>
+          <td>
+            <strong>12 Oct (一) 02:20</strong> 羽田 (HND Terminal 3)<br/>
+            $\rightarrow$ 香港 (HKG) 转机<br/>
+            $\rightarrow$ <strong>12 Oct (一) 15:40 返抵 槟城 (PEN)</strong>
+          </td>
+          <td>舱等: W | Z<br/>10/11 21:45 从浅草乘都营浅草线直达羽田 T3</td>
         </tr>
       </tbody>
     </table>
     <div class="note-box tip">
-      <strong>💡 机场交通提示：</strong>
-      <span class="zh on">去程由成田 (NRT) 入境，回程由羽田 (HND) 离境。两座机场相距甚远，交通路线需分开安排。</span>
-      <span class="en">Open-jaw ticket: Arrive at Narita (NRT) and depart from Haneda (HND). Transfers must be planned separately.</span>
+      <strong>💡 航班与交通精准说明：</strong>
+      <span class="zh on">去程 14:45 落地成田 T2，搭乘 16:08/16:28 的 Keisei Skyliner (41分钟) 直达京成上野，再换乘 10 分钟计程车 (~¥1,500) 直达公寓，第一天轻松省力！</span>
+      <span class="en">Land at NRT T2 at 14:45. Take 16:08/16:28 Skyliner to Keisei-Ueno (41 mins), then a 10-min taxi to Ryusen Airbnb.</span>
     </div>
   </div>
 
@@ -816,61 +690,77 @@ html[data-text-size="small"] .hero-kanji{font-size:30px;}
     <div class="sec-line"></div>
   </div>
 
-  <!-- DAY 1 -->
-  <div class="day" id="day-1" data-cat="d13">
+  <!-- DAY 1 (Detailed Checked Version) -->
+  <div class="day highlight-day" id="day-1" data-cat="d13">
     <div class="day-hdr" onclick="toggleDay('day-1')">
       <div class="day-thumb">🛬<div class="day-daynum"></div></div>
       <div class="day-info">
-        <h3><span class="zh on">Day 1 · 10月3日 (六) 抵达东京 · 安顿</span><span class="en">Day 1 · Oct 3 Arrival & Settling In</span></h3>
-        <p><span class="zh on">成田机场 → 京成上野 → 打车至竜泉公寓</span><span class="en">NRT Airport to Ryusen Base</span></p>
+        <h3><span class="zh on">Day 1 · 10月3日 (六) 14:45 落地成田 T2 · 入住安顿</span><span class="en">Day 1 · Oct 3 Land NRT 14:45 & Base Check-in</span></h3>
+        <p><span class="zh on">成田 T2 (14:45) → Skyliner (16:08) → 上野 → 计程车至公寓 → 采买与晚餐</span><span class="en">NRT T2 14:45 Land → Skyliner → Taxi to Ryusen</span></p>
       </div>
       <span class="badge lo"><span class="zh on">低强度</span><span class="en">Low</span></span>
       <svg class="chev" id="chev-day-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="day-body" id="body-day-1">
       <div class="day-banner-wrap">
-        <img src="https://images.unsplash.com/photo-1706264138264-2d704f469fdc?auto=format&amp;fit=crop&amp;w=1200&amp;q=75" class="day-banner" alt="机窗外的机翼与日落天际线，红眼航班抵达前" loading="lazy" decoding="async"/>
+        <img src="asakusa.jpg" class="day-banner" alt="Tokyo Arrival"/>
       </div>
       <div class="tl">
         <div class="tl-item">
-          <div class="tl-icon">✈️</div>
+          <div class="tl-icon">🛬</div>
           <div>
-            <div class="tl-time">Landing</div>
-            <div class="tl-main"><span class="zh on">落地成田机场 · 办理入境与取行李</span><span class="en">Land at NRT Airport & Clear Customs</span></div>
-            <div class="tl-desc"><span class="zh on">预留 45-60 分钟出关。提取行李并开启 Mobile Suica。</span></div>
+            <div class="tl-time">14:45 - 15:45</div>
+            <div class="tl-main"><span class="zh on">14:45 落地成田机场 T2 (UO848) · 办理入境与提取行李</span><span class="en">14:45 Touchdown NRT T2 & Customs</span></div>
+            <div class="tl-desc"><span class="zh on">下机后预留 45-60 分钟完成海关入境与行李提取，并在地下 1 楼 (B1) 取换 Skyliner 实体车票。</span></div>
           </div>
         </div>
         <div class="tl-item">
           <div class="tl-icon">🚆</div>
           <div>
-            <div class="tl-time">Transit</div>
-            <div class="tl-main"><span class="zh on">搭乘 Skyliner 特快：成田 → 京成上野</span><span class="en">Skyliner Express: NRT to Keisei-Ueno</span></div>
-            <div class="tl-desc"><span class="zh on">车程约 41 分钟 (¥2,570/人)。抵达上野后，建议直接搭计程车至公寓 (约 ¥1,500，10分钟)，第一天省力不折腾。</span><span class="pill">Skyliner 特快</span></div>
+            <div class="tl-time">16:08 - 16:50</div>
+            <div class="tl-main"><span class="zh on">搭乘 Keisei Skyliner 特快：成田 T2 $\rightarrow$ 京成上野</span><span class="en">Skyliner Express: NRT T2 to Keisei-Ueno</span></div>
+            <div class="tl-desc"><span class="zh on">直达特快只需 41 分钟 (¥2,580/人，提前网订 discounted ¥2,310)。每 20 分钟一班。</span><span class="pill">Skyliner 直达 41m</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🚕</div>
+          <div>
+            <div class="tl-time">17:00 - 17:15</div>
+            <div class="tl-main"><span class="zh on">京成上野站搭乘计程车 $\rightarrow$ 竜泉公寓 (推荐带长辈)</span><span class="en">Taxi Keisei-Ueno to Ryusen Airbnb</span></div>
+            <div class="tl-desc"><span class="zh on">车程约 2.3 km (8–10 分钟，车费约 ¥1,300 – ¥1,600)。避免下飞机拖两件大行李在地盘换乘地铁，省时省力。</span><span class="must-tag">★ 舒适推荐</span></div>
           </div>
         </div>
         <div class="tl-item">
           <div class="tl-icon">🏠</div>
           <div>
-            <div class="tl-time">17:00</div>
-            <div class="tl-main"><span class="zh on">入住 Yoin TOKYO in Asakusa 公寓</span><span class="en">Check-in at Yoin TOKYO Asakusa</span></div>
-            <div class="tl-desc"><span class="zh on">拿取智能锁密码入住，熟悉设备，附近超市补给大瓶矿泉水与水果早餐。</span><span class="pill">台东区竜泉</span></div>
+            <div class="tl-time">17:30</div>
+            <div class="tl-main"><span class="zh on">入住 Yoin TOKYO in Asakusa 32号房 (电子锁自助手续)</span><span class="en">Check-in Yoin TOKYO Asakusa</span></div>
+            <div class="tl-desc"><span class="zh on">输入智能门锁密码入住，放好大行李，熟悉两张单人床与电梯环境。</span><span class="pill">台东区竜泉3丁目</span></div>
           </div>
         </div>
         <div class="tl-item">
-          <div class="tl-icon">🍲</div>
+          <div class="tl-icon">🛒</div>
           <div>
-            <div class="tl-time">19:00</div>
-            <div class="tl-main"><span class="zh on">公寓附近简单晚餐 · 早休倒时差</span><span class="en">Dinner Near Base & Early Rest</span></div>
-            <div class="tl-desc"><span class="zh on">入谷或三ノ轮附近简单吃拉面或便当，21:00 前早睡恢复体力。</span></div>
+            <div class="tl-time">18:00 - 19:00</div>
+            <div class="tl-main"><span class="zh on">附近超市采买补给：My Basket 竜泉3丁目店</span><span class="en">Grocery Shopping at My Basket</span></div>
+            <div class="tl-desc"><span class="zh on">步行 3 分钟 (220m，营业至 23:00)。采买 2L 大瓶矿泉水、牛奶、水果与明日早餐小吃。或走 6 分钟至 Wise Mart 三ノ轮店 (营业至 21:00)。</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🍢</div>
+          <div>
+            <div class="tl-time">19:30 - 21:00</div>
+            <div class="tl-main"><span class="zh on">附近惬意晚餐：鳥貴族 三ノ輪店 (Google 4.1★)</span><span class="en">Dinner at Torikizoku Minowa (4.1★)</span></div>
+            <div class="tl-desc"><span class="zh on">步行 6 分钟即达，营业至 23:00。全菜单统一价 ¥370/盘，有中英文平板点餐，非常适合第一天放松吃串烧。或选「ラーメン長沢」(Google 4.2★，营业至 21:30)。</span></div>
           </div>
         </div>
       </div>
       <div class="budget-box">
-        <div class="budget-title">Day 1 预估花费</div>
-        <div class="b-row"><span>Skyliner 特快 (2人)</span><span>¥5,140</span></div>
-        <div class="b-row"><span>上野至公寓计程车</span><span>¥1,500</span></div>
-        <div class="b-row"><span>超市补给与晚餐</span><span>¥3,500</span></div>
-        <div class="b-total"><span>单日小计</span><span class="b-total-val">¥10,140</span></div>
+        <div class="budget-title">Day 1 预估花费 (2人)</div>
+        <div class="b-row"><span>Keisei Skyliner 优惠特快票 (2人)</span><span>¥4,620</span></div>
+        <div class="b-row"><span>京成上野至公寓计程车</span><span>¥1,500</span></div>
+        <div class="b-row"><span>超市补给与串烧晚餐</span><span>¥4,000</span></div>
+        <div class="b-total"><span>单日小计</span><span class="b-total-val">¥10,120</span></div>
       </div>
     </div>
   </div>
@@ -888,7 +778,7 @@ html[data-text-size="small"] .hero-kanji{font-size:30px;}
     </div>
     <div class="day-body" id="body-day-2">
       <div class="day-banner-wrap">
-        <img src="https://images.unsplash.com/photo-1543402701-cfd2d56f773b?auto=format&amp;fit=crop&amp;w=1200&amp;q=75" class="day-banner" alt="浅草寺五重塔在清晨薄雾中的剪影" loading="lazy" decoding="async"/>
+        <img src="asakusa.jpg" class="day-banner" alt="Asakusa Sensoji"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -939,7 +829,7 @@ html[data-text-size="small"] .hero-kanji{font-size:30px;}
     </div>
     <div class="day-body" id="body-day-3">
       <div class="day-banner-wrap">
-        <img src="https://images.unsplash.com/photo-1623733769741-7a1466644e69?auto=format&amp;fit=crop&amp;w=1200&amp;q=75" class="day-banner" alt="谷中银座老街，两侧店铺招牌与骑车的居民" loading="lazy" decoding="async"/>
+        <img src="ueno.jpg" class="day-banner" alt="Ueno Park"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -983,7 +873,7 @@ html[data-text-size="small"] .hero-kanji{font-size:30px;}
     </div>
     <div class="day-body" id="body-day-4">
       <div class="day-banner-wrap">
-        <img src="https://images.unsplash.com/photo-1752395480128-8c15c9364a03?auto=format&amp;fit=crop&amp;w=1200&amp;q=75" class="day-banner" alt="河口湖平静的湖面完整倒映出富士山" loading="lazy" decoding="async"/>
+        <img src="fuji_hero.jpg" class="day-banner" alt="Kawaguchiko Fuji"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -1026,9 +916,6 @@ html[data-text-size="small"] .hero-kanji{font-size:30px;}
       <svg class="chev" id="chev-day-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="day-body" id="body-day-5">
-      <div class="day-banner-wrap">
-        <img src="https://images.unsplash.com/photo-1765347810364-e591815a9382?auto=format&amp;fit=crop&amp;w=1200&amp;q=75" class="day-banner" alt="日出瞬间的红富士，山顶被晨光染红" loading="lazy" decoding="async"/>
-      </div>
       <div class="tl">
         <div class="tl-item">
           <div class="tl-icon">🌄</div>
@@ -1071,7 +958,7 @@ html[data-text-size="small"] .hero-kanji{font-size:30px;}
     </div>
     <div class="day-body" id="body-day-6">
       <div class="day-banner-wrap">
-        <img src="https://images.unsplash.com/photo-1758384075930-6e3835d22b1d?auto=format&amp;fit=crop&amp;w=1200&amp;q=75" class="day-banner" alt="一盘现切生鱼片，筑地场外市场的早午餐" loading="lazy" decoding="async"/>
+        <img src="tsukiji.jpg" class="day-banner" alt="Tsukiji Market"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -1115,7 +1002,7 @@ html[data-text-size="small"] .hero-kanji{font-size:30px;}
     </div>
     <div class="day-body" id="body-day-7">
       <div class="day-banner-wrap">
-        <img src="https://images.unsplash.com/photo-1759491125973-6c46d3f86c13?auto=format&amp;fit=crop&amp;w=1200&amp;q=75" class="day-banner" alt="从高处俯瞰涩谷十字路口的人潮" loading="lazy" decoding="async"/>
+        <img src="shibuya.jpg" class="day-banner" alt="Shibuya SKY"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -1159,7 +1046,7 @@ html[data-text-size="small"] .hero-kanji{font-size:30px;}
     </div>
     <div class="day-body" id="body-day-8">
       <div class="day-banner-wrap">
-        <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&amp;fit=crop&amp;w=1200&amp;q=75" class="day-banner" alt="手冲咖啡正在滴滤，清澄白河的咖啡一条街" loading="lazy" decoding="async"/>
+        <img src="ueno.jpg" class="day-banner" alt="Kiyosumi Garden"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -1195,7 +1082,7 @@ html[data-text-size="small"] .hero-kanji{font-size:30px;}
     </div>
     <div class="day-body" id="body-day-9">
       <div class="day-banner-wrap">
-        <img src="https://images.unsplash.com/photo-1512699587109-3eb606946b8c?auto=format&amp;fit=crop&amp;w=1200&amp;q=75" class="day-banner" alt="入夜后的东京街头与高架下的灯光" loading="lazy" decoding="async"/>
+        <img src="shibuya.jpg" class="day-banner" alt="Haneda Transfer"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -1231,23 +1118,23 @@ html[data-text-size="small"] .hero-kanji{font-size:30px;}
     <div class="day-hdr" onclick="toggleDay('day-10')">
       <div class="day-thumb">✈️<div class="day-daynum"></div></div>
       <div class="day-info">
-        <h3><span class="zh on">Day 10 · 10月12日 (一) 02:20 起飞返抵家园</span><span class="en">Day 10 · Oct 12 Flight Home</span></h3>
-        <p><span class="zh on">羽田 (HND) 02:20 → 香港 (HKG) → 槟城 (PEN)</span><span class="en">Haneda to Penang via Hong Kong</span></p>
+        <h3><span class="zh on">Day 10 · 10月12日 (一) 02:20 起飞 → 15:40 抵槟</span><span class="en">Day 10 · Oct 12 02:20 Flight → 15:40 PEN</span></h3>
+        <p><span class="zh on">羽田 (HND T3) 02:20 起飞 → 香港 (HKG) → 15:40 返抵槟城 (PEN)</span><span class="en">Haneda to Penang via Hong Kong</span></p>
       </div>
       <span class="badge lo"><span class="zh on">返程</span><span class="en">Return</span></span>
       <svg class="chev" id="chev-day-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="day-body" id="body-day-10">
       <div class="day-banner-wrap">
-        <img src="https://images.unsplash.com/photo-1740982355439-659cf202f8d7?auto=format&amp;fit=crop&amp;w=1200&amp;q=75" class="day-banner" alt="东京晴空塔在阴天中的塔身，向东京道别" loading="lazy" decoding="async"/>
+        <img src="fuji_hero.jpg" class="day-banner" alt="Flight Home"/>
       </div>
       <div class="tl">
         <div class="tl-item">
           <div class="tl-icon">✈️</div>
           <div>
-            <div class="tl-time">02:20</div>
-            <div class="tl-main"><span class="zh on">HK Express 02:20 羽田起飞</span><span class="en">02:20 Flight Departs HND</span></div>
-            <div class="tl-desc"><span class="zh on">顺利搭机回国，10/13 - 10/14 充裕缓冲休息，10/15 开工。</span></div>
+            <div class="tl-time">02:20 - 15:40</div>
+            <div class="tl-main"><span class="zh on">HK Express UO629 02:20 羽田 T3 起飞 $\rightarrow$ 15:40 抵槟城</span><span class="en">02:20 Flight HND T3 → 15:40 PEN Land</span></div>
+            <div class="tl-desc"><span class="zh on">顺利搭机返抵槟城 (PEN)，10/13 - 10/14 充裕缓冲休息，10/15 正式开工。</span></div>
           </div>
         </div>
       </div>
@@ -1336,7 +1223,7 @@ html[data-text-size="small"] .hero-kanji{font-size:30px;}
 
   <div class="card">
     <h3><span class="zh on">8.1 固定支出 (已确定 / 预估)</span><span class="en">Fixed Expenses</span></h3>
-    <div class="b-row"><span>HK Express 槟城往返机票 (2人)</span><span>RM 5,208</span></div>
+    <div class="b-row"><span>HK Express 槟城往返机票 (Essential 2人)</span><span>RM 5,208</span></div>
     <div class="b-row"><span>东京 Airbnb 9 晚住宿 (Room 32)</span><span>RM 3,734</span></div>
     <div class="b-row"><span>河口湖東横INN 1晚 + 往返巴士 (2人)</span><span>约 RM 750</span></div>
     <div class="b-total"><span>固定支出小计</span><span class="b-total-val">RM 9,692</span></div>
@@ -1344,18 +1231,18 @@ html[data-text-size="small"] .hero-kanji{font-size:30px;}
 
   <div class="card">
     <h3><span class="zh on">8.2 在地花费预估 (2人)</span><span class="en">Local Expenses Estimate</span></h3>
-    <div class="b-row"><span>Skyliner 机场特快 (2人)</span><span>¥5,140</span></div>
+    <div class="b-row"><span>Skyliner 机场特快 (2人)</span><span>¥4,620</span></div>
     <div class="b-row"><span>东京地铁与交通 (Suica 9天)</span><span>¥14,000</span></div>
     <div class="b-row"><span>涩谷SKY 门票 (2人)</span><span>¥5,000</span></div>
     <div class="b-row"><span>每日餐饮 (¥8,000 × 8 天)</span><span>¥128,000</span></div>
     <div class="b-row"><span>门票与杂费</span><span>¥15,000</span></div>
-    <div class="b-total"><span>在地花费合计</span><span class="b-total-val">¥167,140 (约 RM 4,350)</span></div>
+    <div class="b-total"><span>在地花费合计</span><span class="b-total-val">¥166,620 (约 RM 4,340)</span></div>
   </div>
 
   <div class="card" style="border:2px solid var(--shu);">
     <div class="b-total" style="border:none;padding:0;">
-      <span style="font-family:var(--font-serif);font-size:18px;color:var(--ink);"><strong>预估总额 (2人总计)</strong></span>
-      <span class="b-total-val" style="font-size:22px;">RM 14,042 (约 RM 7,021 / 人)</span>
+      <span style="font-family:'Shippori Mincho',serif;font-size:18px;color:var(--ink);"><strong>预估总额 (2人总计)</strong></span>
+      <span class="b-total-val" style="font-size:22px;">RM 14,032 (约 RM 7,016 / 人)</span>
     </div>
   </div>
 
@@ -1404,15 +1291,12 @@ html[data-text-size="small"] .hero-kanji{font-size:30px;}
   <div class="footer">
     <div class="footer-kanji">旅</div>
     <div class="footer-title">
-      <div class="brand-mark">旅</div>
+      <div class="brand-mark" style="background:#fff;color:var(--shu);">旅</div>
       <span class="zh on">东京 · 河口湖 2026 · 旅行手册</span>
       <span class="en">Tokyo & Kawaguchiko 2026</span>
     </div>
     <p><span class="zh on">浅草清晨 7 点与 10 点是两个世界，利用驻地优势早起享受宁静。</span><span class="en">Enjoy early morning Asakusa before crowds arrive.</span></p>
     <p><span class="zh on">河口湖赤富士尽在 10/7 05:45 日出数分钟，祝旅行一切顺利！</span><span class="en">May you catch the breathtaking dawn Red Fuji!</span></p>
-    <p class="credit">
-      <span class="zh on">照片：</span><span class="en">Photography: </span><a href="https://unsplash.com" rel="noopener">Unsplash</a>
-    </p>
   </div>
 
   <div class="endmark">
@@ -1422,62 +1306,54 @@ html[data-text-size="small"] .hero-kanji{font-size:30px;}
 </div>
 
 <script>
-// Text size: three steps, cycling 小字 -> 标准 -> 大字 -> 小字.
-// The button shows the size that is currently applied, not the one it will move to.
-const TEXT_SIZES = ['small', 'normal', 'large'];
-const TEXT_LABELS = {small:'Aa 小字', normal:'Aa 标准', large:'Aa 大字'};
-const TEXT_NAMES  = {small:'小字（紧凑）', normal:'标准', large:'大字'};
-
-function applyTextSize(size) {
-  if (TEXT_SIZES.indexOf(size) === -1) size = 'normal';
-  document.documentElement.setAttribute('data-text-size', size);
-  const btn = document.getElementById('text-toggle');
-  if (btn) {
-    btn.textContent = TEXT_LABELS[size];
-    btn.classList.toggle('active', size !== 'normal');
-    btn.setAttribute('aria-label', '当前字号：' + TEXT_NAMES[size] + '，点击切换');
-  }
-  try { localStorage.setItem('tokyo_text_size', size); } catch (e) {}
-}
-
+// Large Text Mode Toggle (For Mum)
 function toggleTextSize() {
-  const current = document.documentElement.getAttribute('data-text-size') || 'normal';
-  const i = TEXT_SIZES.indexOf(current);
-  applyTextSize(TEXT_SIZES[(i + 1) % TEXT_SIZES.length]);
+  const html = document.documentElement;
+  const btn = document.getElementById('text-toggle');
+  const current = html.getAttribute('data-text-size');
+  const next = current === 'large' ? 'normal' : 'large';
+  
+  html.setAttribute('data-text-size', next);
+  if (next === 'large') {
+    btn.classList.add('active');
+    btn.textContent = 'Aa 恢复正常';
+  } else {
+    btn.classList.remove('active');
+    btn.textContent = 'Aa 大字';
+  }
+  localStorage.setItem('tokyo_text_size', next);
 }
 
 function loadTextSize() {
-  let saved = 'normal';
-  try { saved = localStorage.getItem('tokyo_text_size') || 'normal'; } catch (e) {}
-  applyTextSize(saved);
+  const saved = localStorage.getItem('tokyo_text_size');
+  if (saved) {
+    document.documentElement.setAttribute('data-text-size', saved);
+    const btn = document.getElementById('text-toggle');
+    if (saved === 'large' && btn) {
+      btn.classList.add('active');
+      btn.textContent = 'Aa 恢复正常';
+    }
+  }
 }
 
 // Theme Switcher (Light Washi vs Dark Sumi Night)
-function applyTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
-  const btn = document.getElementById('theme-toggle');
-  if (btn) {
-    btn.textContent = theme === 'dark' ? '🌙' : '☀️';
-    btn.setAttribute('aria-label', theme === 'dark' ? '切换到浅色模式' : '切换到深色模式');
-  }
-  // Keep the phone's browser chrome the same colour as the page.
-  const meta = document.getElementById('meta-theme-color');
-  if (meta) meta.setAttribute('content', theme === 'dark' ? '#0c111a' : '#e6ded0');
-}
-
 function toggleTheme() {
-  const current = document.documentElement.getAttribute('data-theme');
+  const html = document.documentElement;
+  const btn = document.getElementById('theme-toggle');
+  const current = html.getAttribute('data-theme');
   const next = current === 'dark' ? 'light' : 'dark';
-  applyTheme(next);
-  try { localStorage.setItem('tokyo_theme', next); } catch (e) {}
+  
+  html.setAttribute('data-theme', next);
+  btn.textContent = next === 'dark' ? '🌙' : '☀️';
+  localStorage.setItem('tokyo_theme', next);
 }
 
-// The inline script in <head> has already set the theme before first paint,
-// including falling back to the system preference. Read it back from the
-// element rather than from storage, so the button icon matches what is on
-// screen even when the theme came from the system rather than a saved choice.
 function loadTheme() {
-  applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+  const saved = localStorage.getItem('tokyo_theme');
+  if (saved) {
+    document.documentElement.setAttribute('data-theme', saved);
+    document.getElementById('theme-toggle').textContent = saved === 'dark' ? '🌙' : '☀️';
+  }
 }
 
 // Language Switcher
@@ -1496,8 +1372,7 @@ function setLang(lang) {
     enEls.forEach(el => el.classList.remove('on'));
     zhEls.forEach(el => el.classList.add('on'));
     btnEn.classList.remove('active');
-    btnZh.classList.add('active');   // was `btnZh.classList.active;` — a no-op, so
-                                     // switching back to 中文 never re-lit the button
+    btnZh.classList.add('active');
   }
   localStorage.setItem('tokyo_lang', lang);
 }
@@ -1525,36 +1400,13 @@ function toggleDay(dayId) {
   const chev = document.getElementById('chev-' + dayId);
   if (!body) return;
 
-  const open = !body.classList.contains('open');
-  body.classList.toggle('open', open);
-  if (chev) chev.classList.toggle('open', open);
-
-  const day = body.closest('.day');
-  const hdr = day && day.querySelector('.day-hdr');
-  if (hdr) hdr.setAttribute('aria-expanded', open ? 'true' : 'false');
-}
-
-// The day headers are plain <div onclick> elements, which cannot be reached or
-// operated by keyboard and announce nothing to a screen reader. Promote them to
-// real buttons at runtime so no markup has to be repeated across all ten days.
-function enhanceDayHeaders() {
-  document.querySelectorAll('.day-hdr').forEach(hdr => {
-    const day = hdr.closest('.day');
-    const body = day && day.querySelector('.day-body');
-    if (!body) return;
-
-    hdr.setAttribute('role', 'button');
-    hdr.setAttribute('tabindex', '0');
-    if (body.id) hdr.setAttribute('aria-controls', body.id);
-    hdr.setAttribute('aria-expanded', body.classList.contains('open') ? 'true' : 'false');
-
-    hdr.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
-        e.preventDefault();   // stop Space from scrolling the page
-        hdr.click();
-      }
-    });
-  });
+  if (body.classList.contains('open')) {
+    body.classList.remove('open');
+    if (chev) chev.classList.remove('open');
+  } else {
+    body.classList.add('open');
+    if (chev) chev.classList.add('open');
+  }
 }
 
 // Checkbox LocalStorage Persistence
@@ -1584,19 +1436,16 @@ function loadChecklist() {
   });
 }
 
-// Auto open Day 2 and Day 5 on load for preview & load preferences
+// Auto open Day 1 and Day 2 on load for preview & load preferences
 window.addEventListener('DOMContentLoaded', () => {
   loadTheme();
   loadTextSize();
   loadChecklist();
-  enhanceDayHeaders();
-
-  let savedLang = null;
-  try { savedLang = localStorage.getItem('tokyo_lang'); } catch (e) {}
+  const savedLang = localStorage.getItem('tokyo_lang');
   if (savedLang) setLang(savedLang);
-
+  
+  toggleDay('day-1');
   toggleDay('day-2');
-  toggleDay('day-5');
 });
 </script>
 </body>

@@ -254,6 +254,51 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .note-box.kin{background:var(--kin-bg);border:1.5px solid var(--line-soft);color:var(--ink);}
 .note-box.kin strong{color:var(--kin);font-family:var(--font-serif);font-weight:800;}
 
+/* Interactive 10-Day Quick Navigation Bar (Day Buttons) */
+.day-nav-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 8px 4px 14px;
+  margin-bottom: 20px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+.day-nav-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: var(--r-md);
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+  cursor: pointer;
+  transition: all .2s ease;
+  font-family: var(--font-serif);
+  font-weight: 800;
+  font-size: 0.875rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+.day-nav-btn .day-sub {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  color: var(--ink-soft);
+  font-weight: 600;
+  margin-top: 2px;
+}
+.day-nav-btn:hover, .day-nav-btn.active {
+  background: var(--shu);
+  color: #fff;
+  border-color: var(--shu);
+  box-shadow: 0 4px 12px rgba(204,41,54,0.3);
+}
+.day-nav-btn:hover .day-sub, .day-nav-btn.active .day-sub {
+  color: rgba(255,255,255,0.92);
+}
+
 /* Intensity Badges */
 .badge{
   font-family:var(--font-serif);font-size:var(--font-badge);padding:4px 12px;
@@ -923,6 +968,54 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
     <div class="sec-kanji">日 程</div>
     <div class="sec-en">DAILY ITINERARY (DAYS 1 - 10)</div>
     <div class="sec-line"></div>
+  </div>
+
+  <!-- INTERACTIVE 10-DAY QUICK NAVIGATION BUTTONS (DAY BUTTONS) -->
+  <div class="day-nav-bar">
+    <button class="day-nav-btn active" onclick="jumpToDay('all', this)">
+      <span>全部 10 天</span>
+      <span class="day-sub">显示全貌</span>
+    </button>
+    <button class="day-nav-btn" onclick="jumpToDay('day-1', this)">
+      <span>Day 1</span>
+      <span class="day-sub">10/3 抵东京</span>
+    </button>
+    <button class="day-nav-btn" onclick="jumpToDay('day-2', this)">
+      <span>Day 2</span>
+      <span class="day-sub">10/4 浅草晴空塔</span>
+    </button>
+    <button class="day-nav-btn" onclick="jumpToDay('day-3', this)">
+      <span>Day 3</span>
+      <span class="day-sub">10/5 上野谷中</span>
+    </button>
+    <button class="day-nav-btn" onclick="jumpToDay('day-4', this)">
+      <span>Day 4</span>
+      <span class="day-sub">10/6 富士山落日</span>
+    </button>
+    <button class="day-nav-btn" onclick="jumpToDay('day-5', this)">
+      <span>Day 5</span>
+      <span class="day-sub">10/7 赤富士</span>
+    </button>
+    <button class="day-nav-btn" onclick="jumpToDay('day-6', this)">
+      <span>Day 6</span>
+      <span class="day-sub">10/8 筑地铁塔</span>
+    </button>
+    <button class="day-nav-btn" onclick="jumpToDay('day-7', this)">
+      <span>Day 7</span>
+      <span class="day-sub">10/9 涩谷SKY</span>
+    </button>
+    <button class="day-nav-btn" onclick="jumpToDay('day-8', this)">
+      <span>Day 8</span>
+      <span class="day-sub">10/10 清澄白河</span>
+    </button>
+    <button class="day-nav-btn" onclick="jumpToDay('day-9', this)">
+      <span>Day 9</span>
+      <span class="day-sub">10/11 羽田离境</span>
+    </button>
+    <button class="day-nav-btn" onclick="jumpToDay('day-10', this)">
+      <span>Day 10</span>
+      <span class="day-sub">10/12 抵槟城</span>
+    </button>
   </div>
 
   <!-- DAY 1 (With 3 B-Plan Options, Numbered Lists & Plan B Table) -->
@@ -2037,6 +2130,27 @@ function filterCategory(cat, btnEl) {
       day.classList.add('hidden-day');
     }
   });
+}
+
+// Interactive Day Quick-Jump Function (Day Buttons)
+function jumpToDay(dayId, btn) {
+  document.querySelectorAll('.day-nav-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  if (dayId === 'all') {
+    document.querySelectorAll('.day').forEach(d => d.style.display = 'block');
+    document.getElementById('sec-days').scrollIntoView({ behavior: 'smooth' });
+  } else {
+    document.querySelectorAll('.day').forEach(d => d.style.display = 'block');
+    const targetDay = document.getElementById(dayId);
+    if (targetDay) {
+      const body = targetDay.querySelector('.day-body');
+      if (body && !body.classList.contains('open')) {
+        toggleDay(dayId);
+      }
+      targetDay.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 }
 
 // Day Accordion Toggle

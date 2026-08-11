@@ -327,19 +327,39 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .bplan-img-card img{width:100%;height:100%;object-fit:cover;display:block;}
 .bplan-img-lbl{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.65);color:#fff;font-size:.75rem;padding:3px 8px;font-weight:700;}
 
-/* Timeline */
-.tl{padding:20px 20px 10px;}
-.tl-item{display:flex;gap:0;margin-bottom:22px;position:relative;padding-left:48px;}
-.tl-item::before{content:'';position:absolute;left:14px;top:32px;bottom:-22px;width:2px;background:var(--line);}
-.tl-item:last-child::before{display:none;}
-.tl-icon{
-  position:absolute;left:0;top:2px;width:30px;height:30px;border-radius:50%;
-  background:var(--paper-2);border:2px solid var(--line);display:flex;
-  align-items:center;justify-content:center;font-size:.9375rem;color:var(--ai);
+/* Responsive schedule table */
+.tl{padding:0;background:var(--paper);}
+.tl-head{
+  display:grid;grid-template-columns:7.5rem minmax(0,1fr);
+  background:var(--paper-2);border-bottom:1px solid var(--line);
+  color:var(--ink-soft);font-size:var(--font-meta-lbl);font-weight:800;
 }
-.tl-time{font-family:var(--font-serif);font-size:var(--font-sub);font-weight:800;color:var(--shu);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
-.tl-main{font-size:var(--font-base);font-weight:800;margin-bottom:4px;line-height:1.5;color:var(--ink);text-wrap:balance;}
-.tl-desc{font-size:var(--font-sub);color:var(--ink-soft);line-height:1.75;text-wrap:pretty;font-weight:600;}
+.tl-head>span{padding:.65rem 1rem;}
+.tl-head>span:first-child{border-right:1px solid var(--line);}
+.tl-item{display:block;margin:0;padding:0;border-bottom:1px solid var(--line-soft);}
+.tl-item:last-child{border-bottom:0;}
+.tl-item::before{display:none;}
+.tl-item>div:last-child{
+  display:grid;grid-template-columns:7.5rem minmax(0,1fr);
+  min-width:0;
+}
+.tl-icon{display:none;}
+.tl-time{
+  grid-column:1;grid-row:1 / span 2;
+  padding:1rem;border-right:1px solid var(--line-soft);
+  font-family:var(--font-serif);font-size:var(--font-sub);font-weight:800;
+  color:var(--ai);letter-spacing:.02em;font-variant-numeric:tabular-nums;
+}
+.tl-main{
+  grid-column:2;grid-row:1;padding:.9rem 1rem .25rem;
+  min-width:0;font-size:var(--font-base);font-weight:800;
+  line-height:1.45;color:var(--ink);text-wrap:pretty;overflow-wrap:anywhere;
+}
+.tl-desc{
+  grid-column:2;grid-row:2;padding:0 1rem 1rem;
+  min-width:0;font-size:var(--font-sub);color:var(--ink-soft);
+  line-height:1.65;text-wrap:pretty;font-weight:500;overflow-wrap:anywhere;
+}
 
 .pill{display:inline-flex;align-items:center;gap:6px;font-size:var(--font-badge);padding:4px 12px;border-radius:99px;background:var(--ai-bg);border:1.5px solid var(--line-soft);color:var(--ai);margin-top:8px;font-weight:700;}
 .must-tag{display:inline-block;font-size:var(--font-badge);padding:4px 12px;border-radius:99px;background:var(--shu-bg);color:var(--shu);border:1.5px solid var(--shu-soft);margin-top:8px;font-weight:800;font-family:var(--font-serif);letter-spacing:.02em;}
@@ -499,13 +519,12 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
   .bplan-img-card{height:88px;border-radius:6px;}
   .bplan-img-lbl{font-size:.75rem;line-height:1.3;}
 
-  .tl{padding:13px 11px 4px;background:var(--paper);}
-  .tl-item{margin-bottom:15px;padding-left:37px;}
-  .tl-item::before{left:12px;top:27px;bottom:-15px;width:1px;}
-  .tl-icon{left:0;top:1px;width:26px;height:26px;border-width:1px;font-size:.8125rem;}
-  .tl-time{margin-bottom:2px;color:var(--ai);font-size:.875rem;letter-spacing:.02em;}
-  .tl-main{margin-bottom:3px;line-height:1.4;}
-  .tl-desc{line-height:1.55;font-weight:500;}
+  .tl{padding:0;background:var(--paper);}
+  .tl-head,.tl-item>div:last-child{grid-template-columns:5.75rem minmax(0,1fr);}
+  .tl-head>span{padding:.55rem .65rem;}
+  .tl-time{padding:.75rem .65rem;font-size:.875rem;line-height:1.4;}
+  .tl-main{padding:.7rem .75rem .2rem;line-height:1.4;}
+  .tl-desc{padding:0 .75rem .75rem;line-height:1.55;}
   .pill,.must-tag{padding:3px 8px;margin-top:5px;}
   .must-tag{background:var(--ai-bg);border-color:var(--line-soft);color:var(--ai);}
 
@@ -559,7 +578,9 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
   html[data-text-size="large"] .day-hdr>.chev{grid-column:3;grid-row:1 / span 2;}
   html[data-text-size="large"] .day-info h3{-webkit-line-clamp:3;font-size:var(--font-h3);}
   html[data-text-size="large"] .day-info p{display:block;margin-top:5px;line-height:1.45;}
-  html[data-text-size="large"] .tl{padding:18px 16px 7px;}
+  html[data-text-size="large"] .tl{padding:0;}
+  html[data-text-size="large"] .tl-head,
+  html[data-text-size="large"] .tl-item>div:last-child{grid-template-columns:7rem minmax(0,1fr);}
   html[data-text-size="large"] .glance-item{min-height:64px;padding:11px;}
   html[data-text-size="large"] .check-item{min-height:52px;padding:13px;}
 }
@@ -1309,46 +1330,92 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
     </div>
   </div>
 
-  <!-- DAY 7 -->
+  <!-- DAY 7 (WITH GOOGLE MAPS LINKS & B-PLANS) -->
   <div class="day highlight-day" id="day-7" data-cat="d610 must">
     <div class="day-hdr" onclick="toggleDay('day-7')">
       <div class="day-thumb">🏙️<div class="day-daynum"></div></div>
       <div class="day-info">
-        <h3><span class="zh on">Day 7 · 10月9日 (五) 明治神宫 · 涩谷 · 涩谷SKY ★</span><span class="en">Day 7 · Oct 9 Shibuya & Shibuya SKY</span></h3>
-        <p><span class="zh on">明治神宫林荫 → 竹下通 → 涩谷十字路口 → 16:20 涩谷SKY</span><span class="en">Meiji Shrine, Harajuku & Sunset SKY</span></p>
+        <h3><span class="zh on">Day 7 · 10月9日 (五) 明治神宫 · 原宿 · 涩谷 · 涩谷SKY ★</span><span class="en">Day 7 · Oct 9 Shibuya & Shibuya SKY</span></h3>
+        <p><span class="zh on">明治神宫森林 → 原宿竹下通 → 涩谷十字路口 → 16:20 涩谷SKY 看夕阳夜景 🌇</span><span class="en">Meiji Shrine, Harajuku & Sunset SKY</span></p>
       </div>
       <span class="badge hi"><span class="zh on">高强度</span><span class="en">High</span></span>
       <svg class="chev" id="chev-day-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="day-body" id="body-day-7">
       <div class="day-banner-wrap">
-        <img src="shibuya.jpg" class="day-banner" alt="Shibuya SKY Real Photo"/>
+        <img src="shibuya.jpg" class="day-banner" alt="Shibuya SKY Real Stock Photo"/>
       </div>
       <div class="tl">
         <div class="tl-item">
           <div class="tl-icon">🌲</div>
           <div>
             <div class="tl-time">09:30 - 11:30</div>
-            <div class="tl-main"><span class="zh on">明治神宫森林参道散步</span><span class="en">Meiji Jingu Shrine Walk</span></div>
-            <div class="tl-desc"><span class="zh on">从浅草走至银座线起点站乘车去表参道。感受巨大鸟居与高耸森林。</span><span class="pill">银座线起点</span></div>
+            <div class="tl-main"><span class="zh on">银座线起点站直达 · <a href="https://maps.google.com/?q=Meiji+Jingu" target="_blank" style="color:var(--ai);text-decoration:underline;">明治神宫</a> 森林参道散步 ★</span><span class="en">Meiji Jingu Shrine Walk</span></div>
+            <div class="tl-desc"><span class="zh on">从浅草站搭乘<a href="https://maps.google.com/?q=Asakusa+Station" target="_blank" style="color:var(--shu);font-weight:700;">银座线(起点站100%有座)</a>直达表参道。感受巨型木造大鸟居与70公顷森林参道。(排周五避开连休人潮)。</span><span class="pill">银座线起点必有座</span></div>
           </div>
         </div>
         <div class="tl-item">
-          <div class="tl-icon">🏙️</div>
+          <div class="tl-icon">🍜</div>
           <div>
-            <div class="tl-time">12:00 - 15:30</div>
-            <div class="tl-main"><span class="zh on">原宿竹下通 → 表参道 → 涩谷十字路口</span><span class="en">Harajuku & Shibuya Scramble</span></div>
-            <div class="tl-desc"><span class="zh on">吃原宿可丽饼，散步至涩谷十字路口俯瞰繁华人潮。</span></div>
+            <div class="tl-time">11:45 - 14:30</div>
+            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Takeshita+Street" target="_blank" style="color:var(--ai);text-decoration:underline;">原宿竹下通</a> · <a href="https://maps.google.com/?q=Omotesando+Hills" target="_blank" style="color:var(--ai);text-decoration:underline;">表参道</a> · 午餐<a href="https://maps.google.com/?q=AFURI+Harajuku" target="_blank" style="color:var(--ai);text-decoration:underline;">AFURI 柚子盐拉面</a></span><span class="en">Harajuku & Omotesando Lunch</span></div>
+            <div class="tl-desc"><span class="zh on">品尝<a href="https://maps.google.com/?q=AFURI+Harajuku" target="_blank" style="color:var(--shu);font-weight:700;">AFURI 柚子盐拉面 (Google 4.3★)</a> 或 <a href="https://maps.google.com/?q=Gyukatsu+Motomura+Harajuku" target="_blank" style="color:var(--shu);font-weight:700;">牛胜炸牛排 (Google 4.6★)</a>，吃 <a href="https://maps.google.com/?q=Marion+Crepes+Harajuku" target="_blank" style="color:var(--shu);font-weight:700;">Marion 甜品可丽饼 (Google 4.2★)</a>。</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🐕</div>
+          <div>
+            <div class="tl-time">14:45 - 16:15</div>
+            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Shibuya+Scramble+Crossing" target="_blank" style="color:var(--ai);text-decoration:underline;">涩谷十字路口</a> & <a href="https://maps.google.com/?q=Hachiko+Statue" target="_blank" style="color:var(--ai);text-decoration:underline;">忠犬八公像</a> · <a href="https://maps.google.com/?q=Shibuya+Parco" target="_blank" style="color:var(--ai);text-decoration:underline;">PARCO</a></span><span class="en">Shibuya Scramble & Hachiko</span></div>
+            <div class="tl-desc"><span class="zh on">散步 15 分钟/乘车 1 站至涩谷。拍摄世界最繁忙十字路口与忠犬八公像，逛 <a href="https://maps.google.com/?q=Shibuya+Parco" target="_blank" style="color:var(--shu);font-weight:700;">Shibuya PARCO (Google 4.5★)</a> 任天堂旗舰店。</span></div>
           </div>
         </div>
         <div class="tl-item">
           <div class="tl-icon">🌅</div>
           <div>
             <div class="tl-time">16:20 - 18:30</div>
-            <div class="tl-main"><span class="zh on">涩谷SKY 展望台 ★ (日落黄昏 17:15)</span><span class="en">Shibuya SKY Sunset Deck</span></div>
-            <div class="tl-desc"><span class="zh on">229 米高空露天展望台，360 度俯瞰东京与夕阳！(⚠️ 9/24 23:00 准时抢 16:20 入场票)。</span><span class="must-tag">★ 必抢门票</span></div>
+            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Shibuya+SKY" target="_blank" style="color:var(--ai);text-decoration:underline;">涩谷SKY 展望台 ★ (日落黄昏 17:15)</a></span><span class="en">Shibuya SKY Sunset Deck</span></div>
+            <div class="tl-desc"><span class="zh on">229 米高空露天展望台，360 度俯瞰东京日景、富士山夕阳与夜景！(⏰ <strong>9/24 23:00 MYR 准时抢 16:20 门票</strong>)。</span><span class="must-tag">★ 9/24 23:00 必抢门票</span></div>
           </div>
         </div>
+        <div class="tl-item">
+          <div class="tl-icon">🍣</div>
+          <div>
+            <div class="tl-time">18:45 - 20:30</div>
+            <div class="tl-main"><span class="zh on">晚餐<a href="https://maps.google.com/?q=Umegaoka+Sushi+No+Midori+Shibuya" target="_blank" style="color:var(--ai);text-decoration:underline;">美登利寿司 (Google 4.4★)</a> $\rightarrow$ 银座线起点站返程</span><span class="en">Midori Sushi & Return Base</span></div>
+            <div class="tl-desc"><span class="zh on">享用高性价比美登利寿司，在涩谷站搭乘<a href="https://maps.google.com/?q=Shibuya+Station" target="_blank" style="color:var(--shu);font-weight:700;">银座线(涩谷为起点站，100%保证有座)</a>直达浅草(33m)或换乘回公寓。</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🌟</div>
+          <div>
+            <div class="tl-time">20:30 - 21:30</div>
+            <div class="tl-main"><span class="zh on">【Day 7 弹性 3 大 B Plan 备选方案】</span><span class="en">Day 7 3 B-Plan Options</span></div>
+            <div class="tl-desc"><span class="zh on">
+              <strong>方案 B1 (雨天/大风/封顶)</strong>：<a href="https://maps.google.com/?q=Shibuya+Hikarie" target="_blank">Shibuya Hikarie 11F Sky Lobby (Google 4.3★)</a> (免费室内全景落地窗俯瞰涩谷夜景)。<br/>
+              <strong>方案 B2 (雨天/商场)</strong>：<a href="https://maps.google.com/?q=Shibuya+Stream" target="_blank">SHIBUYA STREAM (Google 4.3★)</a> (室内运河风情商场与餐饮)。<br/>
+              <strong>方案 B3 (清静庭园)</strong>：<a href="https://maps.google.com/?q=Meiji+Jingu+Inner+Garden" target="_blank">明治神宫御苑 (Google 4.4★)</a> (清静菖蒲庭园与清正井，入园 ¥500)。
+            </span></div>
+            <div class="bplan-gallery">
+              <div class="bplan-img-card">
+                <img src="shibuya.jpg" alt="Shibuya SKY Real Photo"/>
+                <div class="bplan-img-lbl">核心体验: 涩谷SKY 360°露天高空夕阳</div>
+              </div>
+              <div class="bplan-img-card">
+                <img src="ueno.jpg" alt="Meiji Shrine Forest Real Photo"/>
+                <div class="bplan-img-lbl">明治神宫: 70公顷高耸森林参道</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="budget-box">
+        <div class="budget-title">Day 7 预估花费 (2人)</div>
+        <div class="b-row"><span>银座线地铁车资 (2人)</span><span>¥1,400</span></div>
+        <div class="b-row"><span>涩谷SKY 展望台门票 (2人)</span><span>¥5,000</span></div>
+        <div class="b-row"><span>AFURI 拉面午餐与可丽饼 (2人)</span><span>¥3,200</span></div>
+        <div class="b-row"><span>美登利寿司晚餐 (2人)</span><span>¥6,000</span></div>
+        <div class="b-total"><span>单日小计</span><span class="b-total-val">¥15,600</span></div>
       </div>
     </div>
   </div>
@@ -1809,6 +1876,18 @@ window.addEventListener('DOMContentLoaded', () => {
   loadTheme();
   loadTextSize();
   loadChecklist();
+
+  document.querySelectorAll('.tl').forEach(schedule => {
+    if (schedule.querySelector('.tl-head')) return;
+    const header = document.createElement('div');
+    header.className = 'tl-head';
+    header.innerHTML = `
+      <span><span class="zh on">时间</span><span class="en">Time</span></span>
+      <span><span class="zh on">行程与说明</span><span class="en">Plan & details</span></span>
+    `;
+    schedule.prepend(header);
+  });
+
   const savedLang = localStorage.getItem('tokyo_lang');
   if (savedLang) setLang(savedLang);
 

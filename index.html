@@ -269,6 +269,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   padding:var(--space-lg);margin-bottom:var(--space-md);
 }
 .card h3{font-family:var(--font-serif);font-size:var(--font-h3);font-weight:800;color:var(--ai);margin-bottom:var(--space-sm);display:flex;align-items:center;gap:var(--space-xs);}
+#sec-overview + .card{padding:0;border:0;background:transparent;}
+
+/* Legacy itinerary markup is normalized onto the spacing scale. */
+ol[style*="margin-left:18px"]{
+  margin-inline-start:var(--space-lg) !important;
+  margin-top:var(--space-xs) !important;
+}
+.info-table[style*="margin-top"]{margin-top:var(--space-sm) !important;}
+.bplan-gallery[style*="margin-top"]{margin-top:var(--space-sm) !important;}
 
 /* Tables & KV Grids */
 .kv-grid{display:grid;grid-template-columns:auto 1fr;gap:var(--space-xs) var(--space-lg);font-size:var(--font-sub);}
@@ -535,7 +544,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 
   .card{padding:var(--space-md);margin-bottom:var(--space-sm);border-width:1px;border-radius:var(--r-md);box-shadow:none;}
   .card h3{margin-bottom:var(--space-xs);line-height:1.35;display:block;}
-  #sec-overview + .card{padding:0;border:0;background:transparent;}
   #sec-overview + .card>h3{display:none;}
   .kv-grid{grid-template-columns:minmax(72px,auto) 1fr;gap:var(--space-xs) var(--space-sm);}
   .kv-val{min-width:0;overflow-wrap:anywhere;}
@@ -1548,9 +1556,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>百年古迹 (30分钟)</strong>：平地散步 3m 至丸之内广场，欣赏 100 年历史的辰野金吾红砖大楼建筑。</li>
                 <li><strong>高空坐看列车 (60分钟)</strong>：登上 <a href="https://maps.google.com/?q=KITTE+Marunouchi" target="_blank" style="color:var(--shu);font-weight:700;">KITTE 5F 屋顶花园 (Google 4.4★)</a>，坐在舒适椅子上，俯瞰整座东京车站与穿梭的新干线列车！</li>
-                <li><strong>平滑回程 (12分钟)</strong>：17:30 从丸之内搭 <a href="https://maps.google.com/?q=Luxury+Stay+Hotel+Asakusa+Ryusen" target="_blank" style="color:var(--shu);font-weight:700;">计程车 12m (~¥1,600)</a> 平稳直达公寓大门！</li>
+                <li><strong>双重回程选择 (17:30)</strong>：
+                  <ul>
+                    <li><strong>方案 A (Uber/计程车 12m)</strong>：丸之内大楼搭<a href="https://maps.google.com/?q=Luxury+Stay+Hotel+Asakusa+Ryusen" target="_blank" style="color:var(--shu);font-weight:700;">计程车 12m (~¥1,600)</a> 平稳直达公寓大门！可在 Uber/GO App 绑定 Wise 卡实现无感自动支付。</li>
+                    <li><strong>方案 B (纯地铁 25m)</strong>：东京站搭丸之内线 3m 至银座站 ➔ 站内换乘日比谷线 18m 至三ノ轮站(¥210/人)。省钱顺畅！</li>
+                  </ul>
+                </li>
               </ol>
-              <span class="must-tag">★ 零体力看红砖全景 必去</span>
+              <span class="must-tag">★ 可选计程车(可绑定Wise卡) 或纯地铁</span>
             </div>
           </div>
         </div>

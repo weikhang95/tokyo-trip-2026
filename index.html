@@ -1,1064 +1,1431 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="light" data-text-size="normal">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="东京 · 河口湖行程 2026 — 2026年10月3日至12日，两个人的富士山之旅">
-<meta name="theme-color" content="#0E1420">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>东京 · 河口湖 2026 · 旅行手册</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🗻%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;900&display=swap" rel="stylesheet">
+<meta name="description" content="东京 · 河口湖行程 2026 — 2026年10月3日至12日，两个人的富士山之旅"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700;800&family=Zen+Maru+Gothic:wght@500;700;900&family=Noto+Serif+SC:wght@600;900&display=swap" rel="stylesheet"/>
 <style>
-/* ============ 设计变量 ============ */
+*{box-sizing:border-box;margin:0;padding:0;}
+
+/* Color System - Light Washi & Dark Sumi Night */
 :root{
-  --bg:#F3F5F9; --surface:#FFFFFF; --surface2:#E9EDF4; --line:#D9DFEA;
-  --ink:#161D2E; --ink2:#3E4A61; --muted:#57647E;
-  --indigo:#274B7E; --indigo-deep:#1C3A64; --indigo-bg:#E4EBF5;
-  --verm:#B4392B; --verm-bg:#F9E7E3;
-  --lo-ink:#156049; --lo-bg:#DCF0E7;
-  --mid-ink:#7D5400; --mid-bg:#F7ECD2;
-  --hi-ink:#AD3527; --hi-bg:#F9E3DF;
-  --shadow:0 1px 2px rgba(22,29,46,.05),0 6px 20px rgba(22,29,46,.06);
-  --radius:14px;
-  interpolate-size:allow-keywords;
+  --bg-gradient: radial-gradient(circle at 20% 10%,rgba(255,255,255,.7),transparent 50%),radial-gradient(circle at 80% 90%,rgba(184,50,27,.05),transparent 45%);
+  --bg-body:#e6ded0;
+  --washi:#f4efe4;
+  --paper:#faf6ec;
+  --paper-2:#eee7d6;
+  --ink:#1a1612;        /* Dark contrast for high legibility */
+  --ink-soft:#484036;   /* Legible secondary text */
+  --ink-faint:#736a5c;
+  --line:#cdbf9f;
+  --line-soft:#ded4be;
+  --ai:#122b49;         /* Deep Navy */
+  --ai-soft:#e2e9f3;
+  --ai-bg:#e4ebf5;
+  --shu:#b8321b;         /* Rich Vermilion Red */
+  --shu-soft:#e3a498;
+  --shu-bg:#f8e8e4;
+  --kin:#996d18;         /* High-contrast Gold */
+  --kin-bg:#f8edd4;
+  --matcha:#526127;      /* High-contrast Matcha */
+  --matcha-bg:#eaf0d8;
+  --sumi:#231f1a;
+  --r-md:8px;
+  --r-lg:12px;
+  --focus-ring:0 0 0 3px rgba(18, 43, 73, 0.4);
+  
+  /* Font Sizes - Standard Elderly Friendly Base */
+  --font-base:18px;
+  --font-sub:15px;
+  --font-h3:20px;
+  --font-h2:24px;
+  --font-h1:30px;
+  --font-meta-val:18px;
+  --font-meta-lbl:13px;
+  --font-badge:13px;
 }
-html[data-theme="dark"]{
-  --bg:#0E1420; --surface:#161E2E; --surface2:#1F2A3E; --line:#2A3650;
-  --ink:#E8EBF2; --ink2:#C2CBDA; --muted:#93A0B8;
-  --indigo:#8FB4E4; --indigo-deep:#A9C6EC; --indigo-bg:#1C2A42;
-  --verm:#E8836C; --verm-bg:#3A211D;
-  --lo-ink:#7FD4B4; --lo-bg:#15302A;
-  --mid-ink:#E9C27A; --mid-bg:#332A15;
-  --hi-ink:#F0937F; --hi-bg:#38201C;
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);
+
+html[data-theme="dark"] {
+  --bg-gradient: radial-gradient(circle at 20% 10%,rgba(31,58,95,.25),transparent 50%),radial-gradient(circle at 80% 90%,rgba(200,68,44,.1),transparent 45%);
+  --bg-body:#0c111a;
+  --washi:#121824;
+  --paper:#172235;
+  --paper-2:#1e2d46;
+  --ink:#f0f4fd;         /* High contrast white */
+  --ink-soft:#b4c6e4;    /* Clear readable secondary */
+  --ink-faint:#7d93b8;
+  --line:#2a3d5e;
+  --line-soft:#202e47;
+  --ai:#74a8f2;
+  --ai-soft:#1b2a42;
+  --ai-bg:#16253c;
+  --shu:#ff7660;
+  --shu-soft:#6e281d;
+  --shu-bg:#3b1a15;
+  --kin:#f2c363;
+  --kin-bg:#332812;
+  --matcha:#a2be52;
+  --matcha-bg:#212e14;
+  --sumi:#f0f4fd;
+  --focus-ring:0 0 0 3px rgba(116, 168, 242, 0.5);
 }
-/* ============ 基础 ============ */
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+
+/* Large Text Mode (For Mum / Clearer Reading) */
+html[data-text-size="large"] {
+  --font-base:21px;
+  --font-sub:18px;
+  --font-h3:24px;
+  --font-h2:28px;
+  --font-h1:36px;
+  --font-meta-val:22px;
+  --font-meta-lbl:15px;
+  --font-badge:15px;
+}
+
 body{
-  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;
-  font-size:17px;line-height:1.8;color:var(--ink);background:var(--bg);
+  font-family:'Zen Maru Gothic','Noto Serif SC',sans-serif;
+  background:var(--bg-body);
+  background-image:var(--bg-gradient);
+  color:var(--ink);
+  font-size:var(--font-base);
+  min-height:100vh;
+  line-height:1.75;
   -webkit-font-smoothing:antialiased;
+  transition:background-color .3s, color .3s, font-size .2s;
 }
-h1,h2,h3{font-family:"Noto Serif SC","Songti SC",serif;line-height:1.35;text-wrap:balance}
-p{text-wrap:pretty}
-a{color:var(--indigo);text-decoration:none}
-section{scroll-margin-top:108px}
-main{max-width:720px;margin:0 auto;padding:0 16px 80px}
-::selection{background:var(--indigo);color:#fff}
 
-/* ============ 顶栏 ============ */
+.page{max-width:800px;margin:0 auto;padding:20px 16px 70px;counter-reset:trip-day;}
+
+/* Topbar with Safe Area support */
 .topbar{
-  position:sticky;top:0;z-index:50;background:var(--bg);
-  border-bottom:1px solid var(--line);
-  padding-top:env(safe-area-inset-top);
+  position:sticky;top:0;z-index:100;
+  background:rgba(244,239,228,0.95);
+  backdrop-filter:blur(10px);
+  border-bottom:1.5px solid var(--line);
+  margin:-20px -16px 20px -16px;
+  padding:calc(12px + env(safe-area-inset-top, 0px)) 20px 12px;
+  transition:background .3s, border-color .3s;
 }
-.topbar-row{
-  max-width:720px;margin:0 auto;display:flex;align-items:center;gap:8px;
-  padding:10px 16px 6px;
+html[data-theme="dark"] .topbar {
+  background:rgba(18,24,36,0.95);
 }
-.topbar-title{font-family:"Noto Serif SC",serif;font-weight:900;font-size:1.05rem;flex:1;color:var(--ink)}
-.theme-btn{
-  border:1px solid var(--line);background:var(--surface);color:var(--ink);
-  border-radius:99px;width:40px;height:40px;font-size:1.1rem;cursor:pointer;
-  display:grid;place-items:center;flex-shrink:0;
+
+.topbar-content{display:flex;align-items:center;justify-content:space-between;max-width:800px;margin:0 auto;}
+.brand{display:flex;align-items:center;gap:12px;}
+.brand-mark{
+  width:42px;height:42px;border-radius:50%;background:var(--shu);
+  display:flex;align-items:center;justify-content:center;color:#fff;
+  font-family:'Shippori Mincho',serif;font-weight:800;font-size:22px;
+  flex-shrink:0;box-shadow:0 3px 10px rgba(184,50,27,.35);
 }
-.chips{
-  max-width:720px;margin:0 auto;display:flex;gap:8px;overflow-x:auto;
-  padding:4px 16px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+.brand-txt{font-family:'Shippori Mincho',serif;font-size:18px;font-weight:700;color:var(--ink);letter-spacing:.04em;}
+
+.controls{display:flex;align-items:center;gap:8px;}
+
+/* Action Buttons (Large Touch Area for Mum) */
+.top-btn{
+  min-width:44px;height:44px;padding:0 12px;border-radius:99px;
+  border:1.5px solid var(--line);background:var(--paper);color:var(--ink);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:700;transition:all .2s;
 }
-.chips::-webkit-scrollbar{display:none}
+.top-btn:hover,.top-btn.active{border-color:var(--ai);background:var(--ai-bg);color:var(--ai);}
+
+.lang-bar{display:flex;gap:0;border:1.5px solid var(--line);border-radius:99px;overflow:hidden;background:var(--paper);}
+.lang-btn{
+  font-family:'Shippori Mincho',serif;font-size:14px;padding:6px 16px;
+  height:44px;border:none;background:transparent;color:var(--ink-soft);
+  cursor:pointer;transition:all .2s;font-weight:700;
+}
+.lang-btn.active{background:var(--ai);color:#fff;}
+html[data-theme="dark"] .lang-btn.active{color:#0c111a;}
+
+span.en,span.zh{display:none;}
+span.zh.on,span.en.on{display:inline;}
+
+/* Navigation Chips */
+.nav-chips{
+  display:flex;gap:10px;overflow-x:auto;padding-bottom:10px;margin-bottom:20px;
+  scrollbar-width:none;
+}
+.nav-chips::-webkit-scrollbar{display:none;}
 .chip{
-  flex-shrink:0;padding:5px 14px;border-radius:99px;font-size:.88rem;
-  background:var(--surface);border:1px solid var(--line);color:var(--ink2);
-  white-space:nowrap;
+  font-family:'Shippori Mincho',serif;font-size:14px;padding:9px 18px;
+  min-height:44px;display:inline-flex;align-items:center;font-weight:700;
+  border-radius:99px;border:1.5px solid var(--line);background:var(--paper);
+  color:var(--ink);white-space:nowrap;cursor:pointer;transition:all .2s;
+  text-decoration:none;
 }
-.chip.active{background:var(--indigo);border-color:var(--indigo);color:#fff}
-html[data-theme="dark"] .chip.active{color:#0E1420}
+.chip:hover,.chip.active{background:var(--ai);color:#fff;border-color:var(--ai);}
+html[data-theme="dark"] .chip.active{color:#0c111a;}
 
-/* ============ 英雄区 ============ */
-.hero{padding:28px 0 8px;text-align:center}
-.hero svg{width:100%;max-width:480px;height:auto;border-radius:var(--radius);display:block;margin:0 auto}
-.hero h1{font-size:clamp(1.9rem,7vw,2.6rem);font-weight:900;margin:20px 0 4px;letter-spacing:.02em}
-.hero .dates{color:var(--ink2);font-size:1.02rem}
-.hero .sub{color:var(--muted);font-size:.92rem;margin-top:2px}
-.status-pill{
-  display:inline-block;margin-top:16px;padding:8px 20px;border-radius:99px;
-  background:var(--indigo);color:#fff;font-size:.95rem;font-weight:600;
+/* Accessibility Focus Visible */
+button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visible {
+  outline:none;
+  box-shadow:var(--focus-ring);
 }
-html[data-theme="dark"] .status-pill{color:#0E1420}
-.status-pill.on-trip{background:var(--verm);color:#fff}
 
-/* ============ 区块标题 ============ */
-.sec-head{display:flex;align-items:baseline;gap:12px;margin:56px 0 18px}
-.sec-head h2{font-size:1.45rem;font-weight:900}
-.sec-head .rule{flex:1;height:1px;background:var(--line)}
+/* Hero */
+.hero{border-radius:var(--r-lg);overflow:hidden;position:relative;height:310px;margin-bottom:0;box-shadow:0 8px 30px rgba(0,0,0,.25);}
+.hero img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block;}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,20,36,.94) 0%,rgba(10,20,36,.45) 50%,rgba(10,20,36,.15) 100%);
+  display:flex;flex-direction:column;justify-content:flex-end;padding:26px 28px;
+}
+.hero-kanji{
+  position:absolute;top:20px;right:22px;font-family:'Shippori Mincho',serif;
+  font-size:46px;font-weight:800;color:rgba(255,255,255,.92);line-height:1.1;
+  writing-mode:vertical-rl;letter-spacing:.14em;text-shadow:0 2px 14px rgba(0,0,0,.6);
+}
+.hero-title{font-family:'Shippori Mincho',serif;font-size:var(--font-h1);font-weight:800;color:#fff;line-height:1.25;margin-bottom:8px;letter-spacing:.02em;}
+.hero-sub{font-size:var(--font-sub);color:rgba(255,255,255,.92);letter-spacing:.04em;font-weight:500;}
+.hero-rule{width:54px;height:4px;background:var(--shu);margin-bottom:14px;border-radius:2px;}
 
-/* ============ 卡片与信息行 ============ */
+/* Meta Strip */
+.meta-strip{
+  display:flex;flex-wrap:wrap;background:var(--paper);border:1.5px solid var(--line);
+  border-top:none;border-radius:0 0 var(--r-lg) var(--r-lg);margin-bottom:28px;overflow:hidden;
+}
+.meta-cell{flex:1;min-width:140px;padding:14px 18px;border-right:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);}
+.meta-cell:last-child{border-right:none;}
+.meta-label{font-size:var(--font-meta-lbl);color:var(--ink-faint);margin-bottom:3px;letter-spacing:.08em;font-weight:700;text-transform:uppercase;}
+.meta-val{font-family:'Shippori Mincho',serif;font-size:var(--font-meta-val);font-weight:800;color:var(--ai);}
+.meta-sub{font-size:var(--font-sub);color:var(--ink-soft);margin-top:2px;}
+
+/* Section Heading */
+.sec-head{display:flex;align-items:center;gap:14px;margin:36px 4px 20px;scroll-margin-top:80px;}
+.sec-kanji{font-family:'Shippori Mincho',serif;font-size:var(--font-h2);font-weight:800;color:var(--shu);letter-spacing:.05em;}
+.sec-en{font-size:var(--font-meta-lbl);color:var(--ink-faint);letter-spacing:.18em;font-weight:700;text-transform:uppercase;}
+.sec-line{flex:1;height:2px;background:var(--line);}
+
+/* Cards */
 .card{
-  background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);
-  padding:20px;margin-bottom:14px;
+  background:var(--paper);border:1.5px solid var(--line);border-radius:var(--r-lg);
+  padding:22px;margin-bottom:18px;box-shadow:0 3px 12px rgba(0,0,0,.04);
 }
-.card h3{font-size:1.12rem;font-weight:700;margin-bottom:10px}
-.kv{display:grid;grid-template-columns:7.5em 1fr;gap:4px 14px;font-size:.96rem}
-.kv dt{color:var(--muted)}
-.kv dd{color:var(--ink)}
-.kv dd strong{font-weight:700}
+.card h3{font-family:'Shippori Mincho',serif;font-size:var(--font-h3);font-weight:800;color:var(--ai);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
 
-/* ============ 提示框 ============ */
-.note{
-  border-radius:12px;padding:14px 16px;margin:14px 0;font-size:.95rem;
-  display:flex;gap:10px;align-items:flex-start;
+/* Tables & KV Grids */
+.kv-grid{display:grid;grid-template-columns:auto 1fr;gap:10px 20px;font-size:var(--font-sub);}
+.kv-label{color:var(--ink-soft);font-weight:700;}
+.kv-val{color:var(--ink);font-weight:700;}
+
+.info-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:var(--font-sub);}
+.info-table th,.info-table td{padding:12px 14px;border:1.5px solid var(--line-soft);text-align:left;}
+.info-table th{background:var(--paper-2);font-family:'Shippori Mincho',serif;font-weight:800;color:var(--ai);}
+.info-table td{background:var(--paper);color:var(--ink);}
+
+/* Notes */
+.note-box{
+  border-radius:var(--r-md);padding:14px 18px;margin:14px 0;font-size:var(--font-sub);line-height:1.7;
+  display:flex;gap:12px;align-items:flex-start;
 }
-.note .ico{flex-shrink:0;font-size:1.05rem;line-height:1.7}
-.note.warn{background:var(--verm-bg);color:var(--ink)}
-.note.warn strong{color:var(--verm)}
-.note.tip{background:var(--indigo-bg);color:var(--ink)}
-.note.tip strong{color:var(--indigo-deep)}
+.note-box.warn{background:var(--shu-bg);border:1.5px solid var(--shu-soft);color:var(--ink);}
+.note-box.warn strong{color:var(--shu);font-family:'Shippori Mincho',serif;font-weight:800;}
+.note-box.tip{background:var(--ai-bg);border:1.5px solid var(--line-soft);color:var(--ink);}
+.note-box.tip strong{color:var(--ai);font-family:'Shippori Mincho',serif;font-weight:800;}
+.note-box.kin{background:var(--kin-bg);border:1.5px solid var(--line-soft);color:var(--ink);}
+.note-box.kin strong{color:var(--kin);font-family:'Shippori Mincho',serif;font-weight:800;}
 
-/* ============ 强度徽章 ============ */
+/* Intensity Badges */
 .badge{
-  display:inline-block;padding:1px 10px;border-radius:99px;
-  font-size:.8rem;font-weight:700;white-space:nowrap;
+  font-family:'Shippori Mincho',serif;font-size:var(--font-badge);padding:4px 12px;
+  border-radius:99px;font-weight:800;white-space:nowrap;letter-spacing:.02em;
 }
-.badge.lo{background:var(--lo-bg);color:var(--lo-ink)}
-.badge.mid{background:var(--mid-bg);color:var(--mid-ink)}
-.badge.hi{background:var(--hi-bg);color:var(--hi-ink)}
+.badge.lo{background:var(--matcha-bg);color:var(--matcha);border:1.5px solid var(--line-soft);}
+.badge.mid{background:var(--kin-bg);color:var(--kin);border:1.5px solid var(--line-soft);}
+.badge.hi{background:var(--shu-bg);color:var(--shu);border:1.5px solid var(--shu-soft);}
 
-/* ============ 十天速览 ============ */
-.glance{display:flex;flex-direction:column;gap:8px}
-.glance a{
-  display:grid;grid-template-columns:44px 5.4em 1fr auto;align-items:center;gap:10px;
-  background:var(--surface);border-radius:12px;padding:10px 14px;
-  box-shadow:var(--shadow);color:var(--ink);font-size:.95rem;
+/* Glance Overview Grid */
+.glance-list{display:flex;flex-direction:column;gap:10px;}
+.glance-item{
+  display:grid;grid-template-columns:54px 75px 1fr auto auto;align-items:center;gap:12px;
+  background:var(--paper);border:1.5px solid var(--line);border-radius:var(--r-md);
+  padding:12px 16px;color:var(--ink);text-decoration:none;transition:all .2s;
+  min-height:52px;
 }
-.glance .dnum{
-  font-family:"Noto Serif SC",serif;font-weight:900;font-size:1.05rem;
-  color:var(--indigo);text-align:center;
-}
-.glance .gdate{color:var(--muted);font-variant-numeric:tabular-nums}
-.glance a.today-row{outline:2px solid var(--verm);outline-offset:-2px}
+.glance-item:hover{border-color:var(--ai);box-shadow:0 4px 16px rgba(0,0,0,.08);}
+.glance-dnum{font-family:'Shippori Mincho',serif;font-size:var(--font-sub);font-weight:800;color:var(--shu);}
+.glance-date{font-size:var(--font-sub);color:var(--ink-soft);font-weight:700;}
+.glance-title{font-size:var(--font-sub);font-weight:700;color:var(--ink);}
 
-/* ============ 每日卡片 ============ */
+/* Day Cards Accordion */
 .day{
-  background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);
-  margin-bottom:14px;overflow:hidden;
+  background:var(--paper);border:1.5px solid var(--line);border-radius:var(--r-lg);
+  margin-bottom:16px;overflow:hidden;transition:box-shadow .2s,transform .2s, opacity .2s;
+  counter-increment:trip-day;scroll-margin-top:80px;
 }
-.day summary{
-  list-style:none;cursor:pointer;padding:16px 18px;
-  display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;
-  -webkit-tap-highlight-color:transparent;
+.day.hidden-day{display:none;}
+.day:hover{box-shadow:0 8px 24px rgba(0,0,0,.08);}
+.day-hdr{
+  display:flex;align-items:center;gap:14px;padding:16px 18px;cursor:pointer;
+  user-select:none;position:relative;min-height:64px;
 }
-.day summary::-webkit-details-marker{display:none}
-.day .dnum{
-  font-family:"Noto Serif SC",serif;font-weight:900;text-align:center;
-  color:var(--indigo);line-height:1.2;
-}
-.day .dnum b{display:block;font-size:1.3rem}
-.day .dnum span{font-size:.72rem;color:var(--muted);font-weight:400}
-.day .dtitle{font-weight:700;font-size:1.05rem;line-height:1.4}
-.day .dmeta{color:var(--muted);font-size:.85rem;font-variant-numeric:tabular-nums}
-.day .dright{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
-.day .arrow{color:var(--muted);font-size:.8rem;transition:transform .25s ease}
-.day[open] .arrow{transform:rotate(180deg)}
-.day-body{padding:2px 18px 18px}
-.day.today{outline:2.5px solid var(--verm);outline-offset:-2.5px}
-.day.today summary::after{content:"今天";position:absolute}
-.today-tag{
-  background:var(--verm);color:#fff;font-size:.75rem;font-weight:700;
-  padding:1px 9px;border-radius:99px;
+.day-hdr::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--ai);}
+.day.highlight-day .day-hdr::before{background:var(--shu);}
+
+/* Offline-Safe Icon Badge Thumbnails */
+.day-thumb{
+  flex-shrink:0;width:58px;height:58px;border-radius:var(--r-md);overflow:hidden;
+  position:relative;box-shadow:0 2px 8px rgba(0,0,0,.18);background:var(--ai);
+  display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;
 }
 
-/* 照片 */
-.day-photos{display:grid;gap:8px;margin:6px 0 14px}
-.day-photos.pair{grid-template-columns:1fr 1fr}
-.day-photos img{
-  width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px;display:block;
-  background:var(--surface2);
+.day-daynum{
+  position:absolute;bottom:0;right:0;background:var(--shu);color:#fff;
+  font-family:'Shippori Mincho',serif;font-size:0;font-weight:800;padding:2px 7px;
+  border-radius:var(--r-md) 0 0 0;
 }
-.day-photos.pair img{aspect-ratio:4/3}
-
-/* 时间轴 */
-.tl{display:flex;flex-direction:column}
-.tl-row{
-  display:grid;grid-template-columns:4.6em 1fr;gap:12px;
-  padding:8px 0;border-top:1px solid var(--line);font-size:.96rem;
+.day-daynum::before{content:counter(trip-day);font-size:13px;}
+.day-info{flex:1;min-width:0;}
+.day-info h3{
+  font-family:'Shippori Mincho',serif;font-size:var(--font-h3);font-weight:800;margin-bottom:3px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.01em;color:var(--ink);
 }
-.tl-row:first-child{border-top:none}
-.tl-time{
-  color:var(--indigo);font-weight:700;font-variant-numeric:tabular-nums;
-  font-size:.92rem;padding-top:1px;
+.day-info p{font-size:var(--font-sub);color:var(--ink-soft);font-weight:600;}
+.chev{width:20px;height:20px;color:var(--ink-soft);transition:transform .25s;flex-shrink:0;}
+.chev.open{transform:rotate(180deg);}
+
+.day-body{display:none;border-top:1.5px solid var(--line-soft);}
+.day-body.open{display:block;animation:fade .3s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:none;}}
+
+/* Day Banner Container using Local Images with Fallbacks */
+.day-banner-wrap{position:relative;width:100%;height:220px;background:var(--ai-soft);overflow:hidden;}
+.day-banner{width:100%;height:100%;object-fit:cover;display:block;}
+
+/* Timeline */
+.tl{padding:20px 20px 10px;}
+.tl-item{display:flex;gap:0;margin-bottom:22px;position:relative;padding-left:48px;}
+.tl-item::before{content:'';position:absolute;left:14px;top:32px;bottom:-22px;width:2px;background:var(--line);}
+.tl-item:last-child::before{display:none;}
+.tl-icon{
+  position:absolute;left:0;top:2px;width:30px;height:30px;border-radius:50%;
+  background:var(--paper-2);border:2px solid var(--line);display:flex;
+  align-items:center;justify-content:center;font-size:15px;color:var(--ai);
 }
-.tl-act{color:var(--ink)}
-.tl-act strong{font-weight:700}
-.tl-row.star{background:var(--indigo-bg);border-radius:10px;padding:8px 10px;border-top:none;margin:2px -10px}
-.tl-row.star .tl-time{color:var(--indigo-deep)}
+.tl-time{font-family:'Shippori Mincho',serif;font-size:var(--font-sub);font-weight:800;color:var(--shu);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+.tl-main{font-size:var(--font-base);font-weight:800;margin-bottom:4px;line-height:1.5;color:var(--ink);text-wrap:balance;}
+.tl-desc{font-size:var(--font-sub);color:var(--ink-soft);line-height:1.75;text-wrap:pretty;font-weight:600;}
 
-/* ============ 路线步骤 ============ */
-.route{background:var(--surface2);border-radius:12px;padding:14px 16px;margin:10px 0;font-size:.93rem}
-.route .rt{font-weight:700;margin-bottom:6px}
-.route ol{list-style:none}
-.route li{padding:3px 0 3px 18px;position:relative}
-.route li::before{content:"↓";position:absolute;left:2px;color:var(--muted)}
-.route li:first-child::before{content:"●";font-size:.6rem;top:9px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:var(--font-badge);padding:4px 12px;border-radius:99px;background:var(--ai-bg);border:1.5px solid var(--line-soft);color:var(--ai);margin-top:8px;font-weight:700;}
+.must-tag{display:inline-block;font-size:var(--font-badge);padding:4px 12px;border-radius:99px;background:var(--shu-bg);color:var(--shu);border:1.5px solid var(--shu-soft);margin-top:8px;font-weight:800;font-family:'Shippori Mincho',serif;letter-spacing:.02em;}
 
-/* ============ 勾选清单 ============ */
-.check-list{display:flex;flex-direction:column;gap:8px}
+/* Checkable Lists (High Contrast & Big Target for Mum) */
+.check-list{display:flex;flex-direction:column;gap:10px;margin-top:12px;}
 .check-item{
-  display:flex;gap:12px;align-items:flex-start;background:var(--surface);
-  border-radius:12px;padding:12px 14px;box-shadow:var(--shadow);cursor:pointer;
-  font-size:.95rem;
+  display:flex;align-items:flex-start;gap:14px;padding:14px 18px;background:var(--paper-2);
+  border-radius:var(--r-md);border:1.5px solid var(--line-soft);font-size:var(--font-base);font-weight:700;
+  cursor:pointer;transition:all .15s;min-height:52px;line-height:1.6;
 }
-.check-item input{
-  appearance:none;flex-shrink:0;width:24px;height:24px;margin-top:4px;
-  border:2px solid var(--muted);border-radius:7px;cursor:pointer;
-  display:grid;place-items:center;background:var(--surface);
-}
-.check-item input:checked{background:var(--indigo);border-color:var(--indigo)}
-.check-item input:checked::after{content:"✓";color:#fff;font-size:.95rem;font-weight:900}
-html[data-theme="dark"] .check-item input:checked::after{color:#0E1420}
-.check-item input:focus-visible{outline:2px solid var(--verm);outline-offset:2px}
-.check-item .when{color:var(--verm);font-weight:700;font-size:.85rem;display:block}
-.check-item.done .what{color:var(--muted);text-decoration:line-through}
-.check-progress{font-size:.9rem;color:var(--muted);margin:6px 0 12px}
+.check-item input[type="checkbox"]{width:22px;height:22px;margin-top:3px;accent-color:var(--shu);cursor:pointer;flex-shrink:0;}
+.check-item.done{opacity:.55;text-decoration:line-through;}
 
-/* ============ 表格 ============ */
-.tbl-wrap{overflow-x:auto;border-radius:12px;box-shadow:var(--shadow);margin:10px 0}
-table{width:100%;border-collapse:collapse;background:var(--surface);font-size:.93rem;min-width:300px}
-th{
-  text-align:left;font-weight:700;color:var(--muted);font-size:.85rem;
-  padding:10px 14px;border-bottom:1px solid var(--line);white-space:nowrap;
-}
-td{padding:9px 14px;border-bottom:1px solid var(--line);color:var(--ink)}
-tr:last-child td{border-bottom:none}
-td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
-tr.total td{font-weight:900;color:var(--indigo-deep);background:var(--indigo-bg)}
+/* Budget Box */
+.budget-box{padding:18px;border-top:2px dashed var(--line);background:var(--paper-2);}
+.budget-title{font-family:'Shippori Mincho',serif;font-size:var(--font-sub);font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.b-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dotted var(--line);font-size:var(--font-sub);font-weight:700;}
+.b-row:last-of-type{border-bottom:none;}
+.b-total{display:flex;justify-content:space-between;align-items:center;padding:12px 0 0;border-top:2px solid var(--line);margin-top:10px;font-weight:800;}
+.b-total-val{font-family:'Shippori Mincho',serif;font-size:var(--font-h3);color:var(--shu);}
 
-/* ============ 列表 ============ */
-.plain-list{list-style:none;font-size:.96rem}
-.plain-list li{padding:5px 0 5px 26px;position:relative}
-.plain-list li::before{content:"·";position:absolute;left:8px;color:var(--indigo);font-weight:900}
-.pros li::before{content:"○";font-size:.7rem;top:10px;color:var(--lo-ink)}
-.cons li::before{content:"△";font-size:.7rem;top:10px;color:var(--mid-ink)}
-.dropped li::before{content:"✕";font-size:.75rem;top:9px;color:var(--muted)}
-.dropped li{color:var(--muted)}
-.dropped li strong{color:var(--ink2)}
+/* Footer */
+.footer{background:var(--ai);border-radius:var(--r-lg);padding:28px 28px;margin-top:32px;position:relative;overflow:hidden;color:#fff;}
+html[data-theme="dark"] .footer{color:#f0f4fd;}
+.footer-kanji{position:absolute;top:-10px;right:14px;font-family:'Shippori Mincho',serif;font-size:100px;font-weight:800;color:rgba(255,255,255,.05);line-height:1;pointer-events:none;}
+.footer-title{font-family:'Shippori Mincho',serif;font-size:var(--font-h3);font-weight:800;color:#fff;margin-bottom:14px;letter-spacing:.05em;display:flex;align-items:center;gap:10px;}
+.footer p{font-size:var(--font-sub);color:rgba(255,255,255,.88);line-height:1.85;padding:5px 0 5px 18px;position:relative;font-weight:600;}
+.footer p::before{content:'';position:absolute;left:0;top:14px;width:6px;height:6px;border-radius:50%;background:var(--shu);}
 
-/* ============ 关键提醒 ============ */
-.critical{
-  background:var(--verm-bg);border-radius:var(--radius);padding:20px;margin-bottom:14px;
-}
-.critical h3{color:var(--verm);font-size:1.1rem;margin-bottom:10px}
-.critical ol{padding-left:1.4em;font-size:.97rem}
-.critical li{padding:4px 0}
-.critical li strong{color:var(--verm)}
+.endmark{text-align:center;margin-top:34px;}
+.endmark span{font-family:'Shippori Mincho',serif;font-size:16px;color:var(--ink-faint);letter-spacing:.3em;font-weight:700;}
 
-/* ============ 返回顶部 ============ */
-.to-top{
-  position:fixed;right:16px;bottom:20px;z-index:40;width:46px;height:46px;
-  border-radius:99px;border:1px solid var(--line);background:var(--surface);
-  color:var(--ink);font-size:1.1rem;cursor:pointer;box-shadow:var(--shadow);
-  opacity:0;pointer-events:none;transition:opacity .3s ease;
-}
-.to-top.show{opacity:1;pointer-events:auto}
-
-footer{
-  text-align:center;color:var(--muted);font-size:.85rem;
-  padding:40px 16px 30px;border-top:1px solid var(--line);margin-top:60px;
+/* Reduced Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;}
 }
 
-/* ============ 动画 ============ */
-details::details-content{
-  transition:height .3s ease,content-visibility .3s ease allow-discrete;
-  height:0;overflow:clip;
-}
-details[open]::details-content{height:auto}
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  *,*::before,*::after{transition:none!important;animation:none!important}
-}
-@media (min-width:520px){
-  .kv{grid-template-columns:9em 1fr}
-  .day summary{padding:18px 22px}
-  .day-body{padding:2px 22px 20px}
+/* Print & PDF Media Styles */
+@media print {
+  body{background:#fff !important;color:#000 !important;font-size:14pt !important;}
+  .topbar, .nav-chips, .controls {display:none !important;}
+  .day-body{display:block !important;}
+  .chev{display:none !important;}
+  .card, .day{border:1px solid #999 !important;box-shadow:none !important;}
+  .hero{height:180px !important;}
 }
 </style>
 </head>
 <body>
+<div class="page">
 
-<header class="topbar">
-  <div class="topbar-row">
-    <div class="topbar-title">东京 · 河口湖 2026</div>
-    <button class="theme-btn" id="themeBtn" aria-label="切换深浅色模式">🌙</button>
+  <!-- Top Bar -->
+  <div class="topbar">
+    <div class="topbar-content">
+      <div class="brand">
+        <div class="brand-mark">旅</div>
+        <div class="brand-txt">
+          <span class="zh on">东京 · 河口湖 2026</span>
+          <span class="en">Tokyo Trip 2026</span>
+        </div>
+      </div>
+      <div class="controls">
+        <!-- Large Text Mode Toggle (For Mum) -->
+        <button class="top-btn" id="text-toggle" onclick="toggleTextSize()" title="放大字号 (Mum's Large Text Mode)">Aa 大字</button>
+        <!-- Dark Mode Toggle -->
+        <button class="top-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme">☀️</button>
+        <!-- Language Switcher -->
+        <div class="lang-bar">
+          <button class="lang-btn active" id="btn-zh" onclick="setLang('zh')">中文</button>
+          <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <nav class="chips" aria-label="章节导航">
-    <a class="chip" href="#overview">总览</a>
-    <a class="chip" href="#flights">航班</a>
-    <a class="chip" href="#stay">住宿</a>
-    <a class="chip" href="#transport">交通</a>
-    <a class="chip" href="#days">每日行程</a>
-    <a class="chip" href="#kawaguchiko">河口湖</a>
-    <a class="chip" href="#booking">订票清单</a>
-    <a class="chip" href="#budget">预算</a>
-    <a class="chip" href="#tips">备忘</a>
-    <a class="chip" href="#alerts">关键提醒</a>
-  </nav>
-</header>
 
-<main>
+  <!-- Interactive Nav Chips & Category Filters -->
+  <div class="nav-chips">
+    <button class="chip active" onclick="filterCategory('all', this)"><span class="zh on">全部行程 (10天)</span><span class="en">All Days (10D)</span></button>
+    <button class="chip" onclick="filterCategory('d13', this)"><span class="zh on">Day 1-3 东京</span><span class="en">Day 1-3 Tokyo</span></button>
+    <button class="chip" onclick="filterCategory('fuji', this)"><span class="zh on">Day 4-5 河口湖</span><span class="en">Day 4-5 Fuji</span></button>
+    <button class="chip" onclick="filterCategory('d610', this)"><span class="zh on">Day 6-10 核心</span><span class="en">Day 6-10 Main</span></button>
+    <button class="chip" onclick="filterCategory('must', this)"><span class="zh on">★ 必看核心</span><span class="en">★ Highlights</span></button>
+    <a href="#sec-hotels" class="chip"><span class="zh on">住宿</span><span class="en">Stays</span></a>
+    <a href="#sec-booking" class="chip"><span class="zh on">订票</span><span class="en">Booking</span></a>
+    <a href="#sec-budget" class="chip"><span class="zh on">预算</span><span class="en">Budget</span></a>
+  </div>
 
-<!-- ============ 英雄区 ============ -->
-<div class="hero">
-  <svg viewBox="0 0 480 270" role="img" aria-label="凌晨的富士山：深蓝夜空渐变为朱红曙光">
-    <defs>
-      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#121A32"/>
-        <stop offset=".45" stop-color="#3A2E56"/>
-        <stop offset=".75" stop-color="#8E4040"/>
-        <stop offset="1" stop-color="#D98A55"/>
-      </linearGradient>
-      <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#B06048"/>
-        <stop offset="1" stop-color="#1A2238"/>
-      </linearGradient>
-    </defs>
-    <rect width="480" height="200" fill="url(#sky)"/>
-    <circle cx="240" cy="196" r="26" fill="#E8674B" opacity=".9"/>
-    <circle cx="240" cy="196" r="44" fill="#E8674B" opacity=".18"/>
-    <!-- 远山 -->
-    <path d="M0 178 L70 150 L130 176 L200 148 L260 178 L340 152 L410 178 L480 160 L480 200 L0 200 Z" fill="#25304C" opacity=".8"/>
-    <!-- 富士山 -->
-    <path d="M90 200 L214 78 Q240 60 266 78 L390 200 Z" fill="#1A2238"/>
-    <path d="M196 96 L214 78 Q240 60 266 78 L284 96 L272 92 L260 102 L248 90 L240 100 L228 90 L216 102 L206 92 Z" fill="#EFF2F8"/>
-    <!-- 湖面 -->
-    <rect y="200" width="480" height="70" fill="url(#lake)"/>
-    <ellipse cx="240" cy="212" rx="60" ry="4" fill="#E8674B" opacity=".35"/>
-    <ellipse cx="240" cy="224" rx="90" ry="3" fill="#E8674B" opacity=".18"/>
-    <!-- 飞鸟 -->
-    <path d="M120 96 q6 -6 12 0 M132 96 q6 -6 12 0" stroke="#EFF2F8" stroke-width="1.6" fill="none" opacity=".7"/>
-    <path d="M350 120 q5 -5 10 0 M360 120 q5 -5 10 0" stroke="#EFF2F8" stroke-width="1.4" fill="none" opacity=".55"/>
-  </svg>
-  <h1>东京 · 河口湖</h1>
-  <p class="dates">2026年10月3日（六）— 10月12日（一）</p>
-  <p class="sub">两个人 · 从槟城出发 · 去看清晨的富士山</p>
-  <div class="status-pill" id="statusPill">正在计算日期…</div>
+  <!-- Hero Banner -->
+  <div class="hero">
+    <img src="fuji_hero.jpg" alt="Mount Fuji & Tokyo Skyline"/>
+    <div class="hero-kanji">東京 · 富士</div>
+    <div class="hero-overlay">
+      <div class="hero-rule"></div>
+      <div class="hero-title">
+        <span class="zh on">东京 · 河口湖 2026 · 旅行手册</span>
+        <span class="en">Tokyo & Kawaguchiko 2026 Handbook</span>
+      </div>
+      <div class="hero-sub">
+        <span class="zh on">2026年10月3日 – 10月12日 · 2人 · 槟城出发 · 富士山之旅</span>
+        <span class="en">Oct 3 – Oct 12, 2026 · 2 Travelers · From Penang</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Meta Strip -->
+  <div class="meta-strip">
+    <div class="meta-cell">
+      <div class="meta-label"><span class="zh on">旅行日期</span><span class="en">DATES</span></div>
+      <div class="meta-val">10/03 – 10/12</div>
+      <div class="meta-sub"><span class="zh on">10天9夜</span><span class="en">10 Days 9 Nights</span></div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label"><span class="zh on">同行人数</span><span class="en">TRAVELERS</span></div>
+      <div class="meta-val"><span class="zh on">2 人</span><span class="en">2 Persons</span></div>
+      <div class="meta-sub"><span class="zh on">槟城 PEN 出发</span><span class="en">From Penang</span></div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label"><span class="zh on">东京基地</span><span class="en">TOKYO BASE</span></div>
+      <div class="meta-val"><span class="zh on">台东区竜泉</span><span class="en">Ryusen, Taito</span></div>
+      <div class="meta-sub">Airbnb 32号房 (9晚)</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label"><span class="zh on">河口湖外宿</span><span class="en">SIDE TRIP</span></div>
+      <div class="meta-val"><span class="zh on">富士河口湖</span><span class="en">Kawaguchiko</span></div>
+      <div class="meta-sub"><span class="zh on">東横INN 1晚 (10/6-7)</span><span class="en">Toyoko Inn (1 Night)</span></div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label"><span class="zh on">预估总额</span><span class="en">EST. BUDGET</span></div>
+      <div class="meta-val">RM 14,100</div>
+      <div class="meta-sub"><span class="zh on">约 RM 7,050 / 人</span><span class="en">~RM 7,050 / pax</span></div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: OVERVIEW -->
+  <div class="sec-head" id="sec-overview">
+    <div class="sec-kanji">概 要</div>
+    <div class="sec-en">TRIP OVERVIEW</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="card">
+    <h3>
+      <span class="zh on">十天行程速览</span>
+      <span class="en">10-Day Quick Glance</span>
+    </h3>
+    <div class="glance-list">
+      <a href="#day-1" class="glance-item">
+        <div class="glance-dnum">DAY 1</div>
+        <div class="glance-date">10/03 (六)</div>
+        <div class="glance-title"><span class="zh on">抵达东京 · 入住安顿</span><span class="en">Arrival in Tokyo & Check-in</span></div>
+        <span class="badge lo"><span class="zh on">低强度</span><span class="en">Low</span></span>
+      </a>
+      <a href="#day-2" class="glance-item">
+        <div class="glance-dnum">DAY 2</div>
+        <div class="glance-date">10/04 (日)</div>
+        <div class="glance-title"><span class="zh on">浅草清晨 ★ · 晴空塔</span><span class="en">Early Asakusa & Skytree</span></div>
+        <span class="badge mid"><span class="zh on">中强度</span><span class="en">Mid</span></span>
+      </a>
+      <a href="#day-3" class="glance-item">
+        <div class="glance-dnum">DAY 3</div>
+        <div class="glance-date">10/05 (一)</div>
+        <div class="glance-title"><span class="zh on">上野公园 · 阿美横町 · 谷根千</span><span class="en">Ueno, Ameyoko & Yanesen</span></div>
+        <span class="badge mid"><span class="zh on">中强度</span><span class="en">Mid</span></span>
+      </a>
+      <a href="#day-4" class="glance-item">
+        <div class="glance-dnum">DAY 4</div>
+        <div class="glance-date">10/06 (二)</div>
+        <div class="glance-title"><span class="zh on">出发河口湖 · 忍野八海 · 大石公园夕阳</span><span class="en">To Kawaguchiko & Sunset</span></div>
+        <span class="badge mid"><span class="zh on">中强度</span><span class="en">Mid</span></span>
+      </a>
+      <a href="#day-5" class="glance-item">
+        <div class="glance-dnum">DAY 5</div>
+        <div class="glance-date">10/07 (三)</div>
+        <div class="glance-title"><span class="zh on">河口湖清晨富士山 ★★ → 返回东京</span><span class="en">Dawn Fuji & Return to Tokyo</span></div>
+        <span class="badge mid"><span class="zh on">中强度</span><span class="en">Mid</span></span>
+      </a>
+      <a href="#day-6" class="glance-item">
+        <div class="glance-dnum">DAY 6</div>
+        <div class="glance-date">10/08 (四)</div>
+        <div class="glance-title"><span class="zh on">筑地场外市场 · 银座中央通 · 日比谷</span><span class="en">Tsukiji, Ginza & Hibiya</span></div>
+        <span class="badge mid"><span class="zh on">中强度</span><span class="en">Mid</span></span>
+      </a>
+      <a href="#day-7" class="glance-item">
+        <div class="glance-dnum">DAY 7</div>
+        <div class="glance-date">10/09 (五)</div>
+        <div class="glance-title"><span class="zh on">明治神宫 · 原宿 · 涩谷 · 涩谷SKY ★</span><span class="en">Meiji Shrine, Shibuya & SKY</span></div>
+        <span class="badge hi"><span class="zh on">高强度</span><span class="en">High</span></span>
+      </a>
+      <a href="#day-8" class="glance-item">
+        <div class="glance-dnum">DAY 8</div>
+        <div class="glance-date">10/10 (六)</div>
+        <div class="glance-title"><span class="zh on">清澄白河咖啡老街 · 门前仲町 (三连休低调日)</span><span class="en">Kiyosumi Shirakawa (Quiet Day)</span></div>
+        <span class="badge lo"><span class="zh on">低强度</span><span class="en">Low</span></span>
+      </a>
+      <a href="#day-9" class="glance-item">
+        <div class="glance-dnum">DAY 9</div>
+        <div class="glance-date">10/11 (日)</div>
+        <div class="glance-title"><span class="zh on">全天休息采买 → 深夜前往羽田机场 ★</span><span class="en">Rest, Pack & Night Airport Transfer</span></div>
+        <span class="badge lo"><span class="zh on">低强度</span><span class="en">Low</span></span>
+      </a>
+      <a href="#day-10" class="glance-item">
+        <div class="glance-dnum">DAY 10</div>
+        <div class="glance-date">10/12 (一)</div>
+        <div class="glance-title"><span class="zh on">02:20 羽田起飞 → 香港 → 顺利返抵槟城</span><span class="en">02:20 Flight Home to Penang</span></div>
+        <span class="badge lo"><span class="zh on">返程</span><span class="en">Return</span></span>
+      </a>
+    </div>
+
+    <div class="note-box warn" style="margin-top:16px;">
+      <strong>⚠️ 日本体育之日三连休提醒 (10/10 - 10/12)：</strong>
+      <span class="zh on">10/10（六）至 10/12（一）是日本三连休连假。人潮拥挤景点集中在 10/5、10/8、10/9 平日完成。河口湖也排在连休前平日，避开挤爆人潮。</span>
+      <span class="en">Oct 10-12 is a Japanese 3-day holiday weekend. Major crowded sights are scheduled on weekdays (Oct 5, 8, 9) and Kawaguchiko is kept on weekday to avoid traffic.</span>
+    </div>
+  </div>
+
+  <!-- SECTION 2: FLIGHTS -->
+  <div class="sec-head" id="sec-flights">
+    <div class="sec-kanji">航 班</div>
+    <div class="sec-en">FLIGHT DETAILS</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="card">
+    <h3>
+      <span class="zh on">HK Express 订位代号：ICDEFN (总价 RM 5,208 / 2人)</span>
+      <span class="en">HK Express Booking: ICDEFN (RM 5,208 total)</span>
+    </h3>
+    <table class="info-table">
+      <thead>
+        <tr>
+          <th><span class="zh on">行程</span><span class="en">Leg</span></th>
+          <th><span class="zh on">日期</span><span class="en">Date</span></th>
+          <th><span class="zh on">航线</span><span class="en">Route</span></th>
+          <th><span class="zh on">时间与备注</span><span class="en">Notes</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong><span class="zh on">去程</span><span class="en">Outbound</span></strong></td>
+          <td>10/03 (六)</td>
+          <td>槟城 (PEN) 01:00 → 香港 (HKG) → 成田 (NRT)</td>
+          <td>成田进。落地后办理入境与取行李 (预留 60 分钟)</td>
+        </tr>
+        <tr>
+          <td><strong><span class="zh on">回程</span><span class="en">Inbound</span></strong></td>
+          <td>10/12 (一)</td>
+          <td>羽田 (HND) 02:20 → 香港 (HKG) → 槟城 (PEN)</td>
+          <td>羽田出。10/11 21:45 从浅草前往羽田机场</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note-box tip">
+      <strong>💡 机场交通提示：</strong>
+      <span class="zh on">去程由成田 (NRT) 入境，回程由羽田 (HND) 离境。两座机场相距甚远，交通路线需分开安排。</span>
+      <span class="en">Open-jaw ticket: Arrive at Narita (NRT) and depart from Haneda (HND). Transfers must be planned separately.</span>
+    </div>
+  </div>
+
+  <!-- SECTION 3: ACCOMMODATION -->
+  <div class="sec-head" id="sec-hotels">
+    <div class="sec-kanji">宿 舍</div>
+    <div class="sec-en">ACCOMMODATION</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <!-- 3.1 Tokyo Base -->
+  <div class="card">
+    <h3>
+      <span class="zh on">3.1 东京基地：Yoin TOKYO in Asakusa (32号房)</span>
+      <span class="en">3.1 Tokyo Base: Yoin TOKYO in Asakusa (Room 32)</span>
+    </h3>
+    <div class="kv-grid">
+      <div class="kv-label"><span class="zh on">预订平台</span><span class="en">Platform</span></div>
+      <div class="kv-val">Airbnb (Superhost, 评分 5.0)</div>
+      <div class="kv-label"><span class="zh on">房型与面积</span><span class="en">Room Size</span></div>
+      <div class="kv-val">32号房 · 27㎡ · 2 Single Beds (两张独立单人床)</div>
+      <div class="kv-label"><span class="zh on">详细地址</span><span class="en">Address</span></div>
+      <div class="kv-val">台东区竜泉 (LUXURY STAY HOTEL Asakusa Ryusen)</div>
+      <div class="kv-label"><span class="zh on">预订日期</span><span class="en">Dates</span></div>
+      <div class="kv-val">10月3日 – 10月12日 (共 9 晚)</div>
+      <div class="kv-label"><span class="zh on">总费用</span><span class="en">Total Price</span></div>
+      <div class="kv-val"><strong>RM 3,734</strong> (约 RM 415 / 晚)</div>
+      <div class="kv-label"><span class="zh on">取消政策</span><span class="en">Cancellation</span></div>
+      <div class="kv-val" style="color:var(--shu);font-weight:800;">免费取消至 10月2日</div>
+    </div>
+    <div class="note-box tip" style="margin-top:14px;">
+      <strong>🌟 选此房源关键优势：</strong>
+      <span class="zh on">拥有两张独立单人床、27㎡超宽敞空间、内含独立洗衣机（可少带一半衣服）、自带电梯，且免费取消政策保障弹性。</span>
+    </div>
+  </div>
+
+  <!-- 3.2 Kawaguchiko Hotel -->
+  <div class="card">
+    <h3>
+      <span class="zh on">3.2 河口湖：東横INN 富士河口湖大橋 (1晚)</span>
+      <span class="en">3.2 Kawaguchiko: Toyoko Inn Fuji Kawaguchiko Ohashi</span>
+    </h3>
+    <div class="kv-grid">
+      <div class="kv-label"><span class="zh on">入住日期</span><span class="en">Dates</span></div>
+      <div class="kv-val">10月6日 – 10月7日 (1 晚)</div>
+      <div class="kv-label"><span class="zh on">地址位置</span><span class="en">Address</span></div>
+      <div class="kv-val">山梨県南都留郡富士河口湖町船津 294-1</div>
+      <div class="kv-label"><span class="zh on">预估价格</span><span class="en">Price</span></div>
+      <div class="kv-val">约 ¥12,300 – 18,900 / 2人 (含自助早餐)</div>
+      <div class="kv-label"><span class="zh on">接驳车</span><span class="en">Shuttle</span></div>
+      <div class="kv-val"><strong>免费接驳车</strong>：河口湖站 ⇄ 饭店 7分钟 (无需预约)</div>
+    </div>
+    <div class="note-box kin" style="margin-top:14px;">
+      <strong>🗻 为什么保留东京公寓并过夜河口湖：</strong>
+      <span class="zh on">10/6 晚上东京公寓继续保留，大行李箱安心存放在东京，仅带随身小背包前往河口湖！清晨 05:30 步行 10 分钟即达河口湖大桥观赏赤富士。</span>
+    </div>
+  </div>
+
+  <!-- SECTION 4: TRANSIT -->
+  <div class="sec-head" id="sec-transit">
+    <div class="sec-kanji">交 通</div>
+    <div class="sec-en">TRANSIT & ROUTING</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="card">
+    <h3><span class="zh on">4.1 交通卡：Welcome Suica Mobile</span><span class="en">4.1 Welcome Suica Mobile</span></h3>
+    <p style="margin-bottom:10px;">
+      <span class="zh on">iPhone 用户可在出发前加入 Apple Wallet 开卡储值，无需实体卡押金，有效期 180 天。进出站直接感应刷卡。</span>
+      <span class="en">iPhone users can add Welcome Suica directly to Apple Wallet before departure for seamless transit.</span>
+    </p>
+    <div class="note-box warn">
+      <strong>⚠️ 专属票券注意：</strong>
+      <span class="zh on">Skyliner 机场特快与河口湖高速巴士需单独购票，Suica 卡无法直接刷卡乘车。</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="zh on">4.2 驻地交通特性：台东区竜泉</span><span class="en">4.2 Transit from Ryusen Base</span></h3>
+    <table class="info-table">
+      <thead>
+        <tr>
+          <th><span class="zh on">车站</span><span class="en">Station</span></th>
+          <th><span class="zh on">步行距离</span><span class="en">Walk</span></th>
+          <th><span class="zh on">直达热门目的地</span><span class="en">Direct Destination</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>三ノ轮站 (Minowa)</strong></td>
+          <td>6 分钟</td>
+          <td>日比谷线直达：上野 (4m)、秋叶原 (8m)、筑地 (18m)、银座 (20m)、六本木 (28m)</td>
+        </tr>
+        <tr>
+          <td><strong>入谷站 (Iriya)</strong></td>
+          <td>10 分钟</td>
+          <td>日比谷线 (⚠️ 无下行手扶梯，拖大行李建议走三ノ轮站)</td>
+        </tr>
+        <tr>
+          <td><strong>浅草站 (Asakusa)</strong></td>
+          <td>16 分钟</td>
+          <td>银座线 (起点站必有座去涩谷) · 都营浅草线 (直达羽田机场)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 5: DAILY ITINERARY -->
+  <div class="sec-head" id="sec-days">
+    <div class="sec-kanji">日 程</div>
+    <div class="sec-en">DAILY ITINERARY (DAYS 1 - 10)</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <!-- DAY 1 -->
+  <div class="day" id="day-1" data-cat="d13">
+    <div class="day-hdr" onclick="toggleDay('day-1')">
+      <div class="day-thumb">🛬<div class="day-daynum"></div></div>
+      <div class="day-info">
+        <h3><span class="zh on">Day 1 · 10月3日 (六) 抵达东京 · 安顿</span><span class="en">Day 1 · Oct 3 Arrival & Settling In</span></h3>
+        <p><span class="zh on">成田机场 → 京成上野 → 打车至竜泉公寓</span><span class="en">NRT Airport to Ryusen Base</span></p>
+      </div>
+      <span class="badge lo"><span class="zh on">低强度</span><span class="en">Low</span></span>
+      <svg class="chev" id="chev-day-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="day-body" id="body-day-1">
+      <div class="day-banner-wrap">
+        <img src="asakusa.jpg" class="day-banner" alt="Tokyo Arrival"/>
+      </div>
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-icon">✈️</div>
+          <div>
+            <div class="tl-time">Landing</div>
+            <div class="tl-main"><span class="zh on">落地成田机场 · 办理入境与取行李</span><span class="en">Land at NRT Airport & Clear Customs</span></div>
+            <div class="tl-desc"><span class="zh on">预留 45-60 分钟出关。提取行李并开启 Mobile Suica。</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🚆</div>
+          <div>
+            <div class="tl-time">Transit</div>
+            <div class="tl-main"><span class="zh on">搭乘 Skyliner 特快：成田 → 京成上野</span><span class="en">Skyliner Express: NRT to Keisei-Ueno</span></div>
+            <div class="tl-desc"><span class="zh on">车程约 41 分钟 (¥2,570/人)。抵达上野后，建议直接搭计程车至公寓 (约 ¥1,500，10分钟)，第一天省力不折腾。</span><span class="pill">Skyliner 特快</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🏠</div>
+          <div>
+            <div class="tl-time">17:00</div>
+            <div class="tl-main"><span class="zh on">入住 Yoin TOKYO in Asakusa 公寓</span><span class="en">Check-in at Yoin TOKYO Asakusa</span></div>
+            <div class="tl-desc"><span class="zh on">拿取智能锁密码入住，熟悉设备，附近超市补给大瓶矿泉水与水果早餐。</span><span class="pill">台东区竜泉</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🍲</div>
+          <div>
+            <div class="tl-time">19:00</div>
+            <div class="tl-main"><span class="zh on">公寓附近简单晚餐 · 早休倒时差</span><span class="en">Dinner Near Base & Early Rest</span></div>
+            <div class="tl-desc"><span class="zh on">入谷或三ノ轮附近简单吃拉面或便当，21:00 前早睡恢复体力。</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="budget-box">
+        <div class="budget-title">Day 1 预估花费</div>
+        <div class="b-row"><span>Skyliner 特快 (2人)</span><span>¥5,140</span></div>
+        <div class="b-row"><span>上野至公寓计程车</span><span>¥1,500</span></div>
+        <div class="b-row"><span>超市补给与晚餐</span><span>¥3,500</span></div>
+        <div class="b-total"><span>单日小计</span><span class="b-total-val">¥10,140</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day highlight-day" id="day-2" data-cat="d13 must">
+    <div class="day-hdr" onclick="toggleDay('day-2')">
+      <div class="day-thumb">⛩️<div class="day-daynum"></div></div>
+      <div class="day-info">
+        <h3><span class="zh on">Day 2 · 10月4日 (日) 浅草清晨 ★ · 晴空塔</span><span class="en">Day 2 · Oct 4 Early Asakusa & Skytree</span></h3>
+        <p><span class="zh on">浅草寺无人清晨 → 仲见世街 → 隅田公园 → 晴空塔</span><span class="en">Sensoji Temple & Tokyo Skytree</span></p>
+      </div>
+      <span class="badge mid"><span class="zh on">中强度</span><span class="en">Mid</span></span>
+      <svg class="chev" id="chev-day-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="day-body" id="body-day-2">
+      <div class="day-banner-wrap">
+        <img src="asakusa.jpg" class="day-banner" alt="Asakusa Sensoji"/>
+      </div>
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-icon">⛩️</div>
+          <div>
+            <div class="tl-time">06:30 - 08:30</div>
+            <div class="tl-main"><span class="zh on">浅草寺清晨漫步 ★ (住竜泉最大红利)</span><span class="en">Early Morning Sensoji Temple</span></div>
+            <div class="tl-desc"><span class="zh on">从公寓步行 16 分钟直达。7点前雷门、本堂、五重塔几乎完全没人，光线极佳，拍照绝美。</span><span class="must-tag">★ 住处红利 必去</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🍡</div>
+          <div>
+            <div class="tl-time">10:00 - 12:00</div>
+            <div class="tl-main"><span class="zh on">仲见世商店街开店 · 午餐天妇罗</span><span class="en">Nakamise Shopping & Lunch</span></div>
+            <div class="tl-desc"><span class="zh on">逛人形烧、仙贝小吃。午餐品尝「大黑家天妇罗盖饭」或巷内老字号荞麦面。</span><span class="pill">仲见世通</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🗼</div>
+          <div>
+            <div class="tl-time">14:00 - 18:00</div>
+            <div class="tl-main"><span class="zh on">隅田公园河畔散步 → 东京晴空塔 Solamachi</span><span class="en">Sumida Park & Skytree Solamachi</span></div>
+            <div class="tl-desc"><span class="zh on">沿河看晴空塔宏伟全景，随后步至 Solamachi 商场逛街买手信，享用晚餐。</span><span class="pill">晴空塔</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="budget-box">
+        <div class="budget-title">Day 2 预估花费</div>
+        <div class="b-row"><span>全程步行/短途地铁</span><span>¥400</span></div>
+        <div class="b-row"><span>大黑家天妇罗午餐 (2人)</span><span>¥4,500</span></div>
+        <div class="b-row"><span>晴空塔商场晚餐与小吃</span><span>¥5,000</span></div>
+        <div class="b-total"><span>单日小计</span><span class="b-total-val">¥9,900</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="day" id="day-3" data-cat="d13">
+    <div class="day-hdr" onclick="toggleDay('day-3')">
+      <div class="day-thumb">🌳<div class="day-daynum"></div></div>
+      <div class="day-info">
+        <h3><span class="zh on">Day 3 · 10月5日 (一) 上野 · 阿美横町 · 谷根千</span><span class="en">Day 3 · Oct 5 Ueno & Yanesen</span></h3>
+        <p><span class="zh on">上野公园 → 阿美横町小吃 → 谷中银座老街</span><span class="en">Ueno Park, Ameyoko & Yanaka</span></p>
+      </div>
+      <span class="badge mid"><span class="zh on">中强度</span><span class="en">Mid</span></span>
+      <svg class="chev" id="chev-day-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="day-body" id="body-day-3">
+      <div class="day-banner-wrap">
+        <img src="ueno.jpg" class="day-banner" alt="Ueno Park"/>
+      </div>
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-icon">🌳</div>
+          <div>
+            <div class="tl-time">09:30 - 12:00</div>
+            <div class="tl-main"><span class="zh on">日比谷线 4 分钟至上野 · 上野公园与不忍池</span><span class="en">Ueno Park & Shinobazu Pond</span></div>
+            <div class="tl-desc"><span class="zh on">漫步上野公园、东照宫、不忍池弁天堂。(⚠️ 星期一为日本博物馆休馆日，排全户外行程)。</span><span class="pill">日比谷线 4m</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🍢</div>
+          <div>
+            <div class="tl-time">12:30 - 14:30</div>
+            <div class="tl-main"><span class="zh on">阿美横町 (Ameyoko) 街头小吃与药妆采买</span><span class="en">Ameyoko Market Street Food</span></div>
+            <div class="tl-desc"><span class="zh on">品尝水果串、海鲜小吃、松本清与 OS Drug 药妆补货。</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🐈</div>
+          <div>
+            <div class="tl-time">15:00 - 18:00</div>
+            <div class="tl-main"><span class="zh on">谷中银座 (Yanaka Ginza) 老街下町风情</span><span class="en">Yanaka Ginza Historic Street</span></div>
+            <div class="tl-desc"><span class="zh on">山手线一站至日暮里。逛老街、夕阳阶梯 (夕焼けだんだん) 喝咖啡看猫咪。</span><span class="pill">谷根千</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 4 -->
+  <div class="day highlight-day" id="day-4" data-cat="fuji">
+    <div class="day-hdr" onclick="toggleDay('day-4')">
+      <div class="day-thumb">🗻<div class="day-daynum"></div></div>
+      <div class="day-info">
+        <h3><span class="zh on">Day 4 · 10月6日 (二) 出发河口湖 · 忍野八海</span><span class="en">Day 4 · Oct 6 Kawaguchiko Side Trip</span></h3>
+        <p><span class="zh on">大行李留在东京 → 高速巴士 → 忍野八海 → 大石公园夕阳</span><span class="en">Express Bus & Oishi Park Sunset</span></p>
+      </div>
+      <span class="badge mid"><span class="zh on">中强度</span><span class="en">Mid</span></span>
+      <svg class="chev" id="chev-day-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="day-body" id="body-day-4">
+      <div class="day-banner-wrap">
+        <img src="fuji_hero.jpg" class="day-banner" alt="Kawaguchiko Fuji"/>
+      </div>
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-icon">🚌</div>
+          <div>
+            <div class="tl-time">08:00 - 10:00</div>
+            <div class="tl-main"><span class="zh on">东京站八重洲南口搭乘高速巴士至河口湖</span><span class="en">Highway Bus to Kawaguchiko</span></div>
+            <div class="tl-desc"><span class="zh on">大行李留在东京公寓，只带随身小背包轻装出发！车程约 2 小时 (¥2,300/人)。</span><span class="must-tag">轻装出游</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🍜</div>
+          <div>
+            <div class="tl-time">11:30 - 15:30</div>
+            <div class="tl-main"><span class="zh on">饭店寄包 · 馓子面 (ほうとう) · 忍野八海</span><span class="en">Houtou Noodles & Oshino Hakkai</span></div>
+            <div class="tl-desc"><span class="zh on">乘饭店免费接驳车至東横INN寄包，享用山梨名物味噌宽面，搭乘接驳车至忍野八海。</span><span class="pill">忍野八海</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🌅</div>
+          <div>
+            <div class="tl-time">16:00 - 18:00</div>
+            <div class="tl-main"><span class="zh on">大石公园赏富士山夕阳 · 饭店大浴场</span><span class="en">Oishi Park Fuji Sunset</span></div>
+            <div class="tl-desc"><span class="zh on">搭红线周游巴士至大石公园看富士山落日，回饭店 Check-in 泡大浴场。</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 5 -->
+  <div class="day highlight-day" id="day-5" data-cat="fuji must">
+    <div class="day-hdr" onclick="toggleDay('day-5')">
+      <div class="day-thumb">🌅<div class="day-daynum"></div></div>
+      <div class="day-info">
+        <h3><span class="zh on">Day 5 · 10月7日 (三) 河口湖清晨富士山 ★★ → 回东京</span><span class="en">Day 5 · Oct 7 Dawn Fuji & Return</span></h3>
+        <p><span class="zh on">05:30 步至河口湖大桥看赤富士 → 14:00 巴士返东京</span><span class="en">Kawaguchiko Bridge Dawn to Tokyo</span></p>
+      </div>
+      <span class="badge mid"><span class="zh on">中强度</span><span class="en">Mid</span></span>
+      <svg class="chev" id="chev-day-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="day-body" id="body-day-5">
+      <div class="day-banner-wrap">
+        <img src="fuji_hero.jpg" class="day-banner" alt="Dawn Fuji"/>
+      </div>
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-icon">🌄</div>
+          <div>
+            <div class="tl-time">05:15 - 07:00</div>
+            <div class="tl-main"><span class="zh on">步行至河口湖大桥观赏清晨赤富士 ★★</span><span class="en">Dawn "Red Fuji" at Kawaguchiko Bridge</span></div>
+            <div class="tl-desc"><span class="zh on">从东横INN步行 10-12 分钟即达！日出时刻 (约05:45) 阳光洒在富士山峰呈现粉红色赤富士，绝不可错过！(⚠️ 清晨约 10-12°C 保暖外套必带)。</span><span class="must-tag">★★ 核心体验 必早起</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🍱</div>
+          <div>
+            <div class="tl-time">07:30 - 10:00</div>
+            <div class="tl-main"><span class="zh on">饭店自助早餐 · 10:00 前办理退房</span><span class="en">Hotel Breakfast & Check-out</span></div>
+            <div class="tl-desc"><span class="zh on">享用免费和洋自助早餐，行李寄放柜台，湖畔轻松散步。</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🚌</div>
+          <div>
+            <div class="tl-time">14:00 - 17:00</div>
+            <div class="tl-main"><span class="zh on">搭乘高速巴士返回东京站 · 重返基地</span><span class="en">Highway Bus Return to Tokyo</span></div>
+            <div class="tl-desc"><span class="zh on">返回东京站，日比谷线回竜泉公寓。晚上附近吃拉面早休。</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 6 -->
+  <div class="day" id="day-6" data-cat="d610">
+    <div class="day-hdr" onclick="toggleDay('day-6')">
+      <div class="day-thumb">🐟<div class="day-daynum"></div></div>
+      <div class="day-info">
+        <h3><span class="zh on">Day 6 · 10月8日 (四) 筑地 · 银座 · 日比谷</span><span class="en">Day 6 · Oct 8 Tsukiji, Ginza & Hibiya</span></h3>
+        <p><span class="zh on">日比谷线直达无缝衔接 · 海鲜早午餐 · 百货散步</span><span class="en">Tsukiji Seafood & Ginza Shopping</span></p>
+      </div>
+      <span class="badge mid"><span class="zh on">中强度</span><span class="en">Mid</span></span>
+      <svg class="chev" id="chev-day-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="day-body" id="body-day-6">
+      <div class="day-banner-wrap">
+        <img src="tsukiji.jpg" class="day-banner" alt="Tsukiji Market"/>
+      </div>
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-icon">🐟</div>
+          <div>
+            <div class="tl-time">09:30 - 11:30</div>
+            <div class="tl-main"><span class="zh on">日比谷线 18 分钟至筑地场外市场</span><span class="en">Tsukiji Outer Market Brunch</span></div>
+            <div class="tl-desc"><span class="zh on">品尝新鲜海鲜丼、玉子烧、烤生蚝。(排周四避开周三与周日休店)。</span><span class="pill">日比谷线直达</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🛍️</div>
+          <div>
+            <div class="tl-time">12:00 - 15:30</div>
+            <div class="tl-main"><span class="zh on">银座中央通散步 · GINZA SIX · 伊东屋</span><span class="en">Ginza Central Avenue & GINZA SIX</span></div>
+            <div class="tl-desc"><span class="zh on">逛顶级百货 Ginza Six、文具殿堂伊东屋 (Itoya)。</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🍶</div>
+          <div>
+            <div class="tl-time">16:00 - 19:00</div>
+            <div class="tl-main"><span class="zh on">日比谷公园休憩 · 有乐町高架下居酒屋</span><span class="en">Hibiya Park & Yurakucho Izakaya</span></div>
+            <div class="tl-desc"><span class="zh on">皇居外苑二重桥拍照，晚上体验高架桥下烟火气居酒屋。</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 7 -->
+  <div class="day highlight-day" id="day-7" data-cat="d610 must">
+    <div class="day-hdr" onclick="toggleDay('day-7')">
+      <div class="day-thumb">🏙️<div class="day-daynum"></div></div>
+      <div class="day-info">
+        <h3><span class="zh on">Day 7 · 10月9日 (五) 明治神宫 · 涩谷 · 涩谷SKY ★</span><span class="en">Day 7 · Oct 9 Shibuya & Shibuya SKY</span></h3>
+        <p><span class="zh on">明治神宫林荫 → 竹下通 → 涩谷十字路口 → 16:20 涩谷SKY</span><span class="en">Meiji Shrine, Harajuku & Sunset SKY</span></p>
+      </div>
+      <span class="badge hi"><span class="zh on">高强度</span><span class="en">High</span></span>
+      <svg class="chev" id="chev-day-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="day-body" id="body-day-7">
+      <div class="day-banner-wrap">
+        <img src="shibuya.jpg" class="day-banner" alt="Shibuya SKY"/>
+      </div>
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-icon">🌲</div>
+          <div>
+            <div class="tl-time">09:30 - 11:30</div>
+            <div class="tl-main"><span class="zh on">明治神宫森林参道散步</span><span class="en">Meiji Jingu Shrine Walk</span></div>
+            <div class="tl-desc"><span class="zh on">从浅草走至银座线起点站乘车去表参道。感受巨大鸟居与高耸森林。</span><span class="pill">银座线起点</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🏙️</div>
+          <div>
+            <div class="tl-time">12:00 - 15:30</div>
+            <div class="tl-main"><span class="zh on">原宿竹下通 → 表参道 → 涩谷十字路口</span><span class="en">Harajuku & Shibuya Scramble</span></div>
+            <div class="tl-desc"><span class="zh on">吃原宿可丽饼，散步至涩谷十字路口俯瞰繁华人潮。</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🌅</div>
+          <div>
+            <div class="tl-time">16:20 - 18:30</div>
+            <div class="tl-main"><span class="zh on">涩谷SKY 展望台 ★ (日落黄昏 17:15)</span><span class="en">Shibuya SKY Sunset Deck</span></div>
+            <div class="tl-desc"><span class="zh on">229 米高空露天展望台，360 度俯瞰东京与夕阳！(⚠️ 9/24 23:00 准时抢 16:20 入场票)。</span><span class="must-tag">★ 必抢门票</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 8 -->
+  <div class="day" id="day-8" data-cat="d610">
+    <div class="day-hdr" onclick="toggleDay('day-8')">
+      <div class="day-thumb">☕<div class="day-daynum"></div></div>
+      <div class="day-info">
+        <h3><span class="zh on">Day 8 · 10月10日 (六) 清澄白河 · 门前仲町</span><span class="en">Day 8 · Oct 10 Kiyosumi Shirakawa</span></h3>
+        <p><span class="zh on">三连休第一天 · 避开爆满景点 · 咖啡街与庭园低调日</span><span class="en">Coffee Street & Quiet Garden</span></p>
+      </div>
+      <span class="badge lo"><span class="zh on">低强度</span><span class="en">Low</span></span>
+      <svg class="chev" id="chev-day-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="day-body" id="body-day-8">
+      <div class="day-banner-wrap">
+        <img src="ueno.jpg" class="day-banner" alt="Kiyosumi Garden"/>
+      </div>
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-icon">☕</div>
+          <div>
+            <div class="tl-time">10:00 - 12:30</div>
+            <div class="tl-main"><span class="zh on">清澄白河精品咖啡一条街 · 清澄庭园</span><span class="en">Kiyosumi Coffee & Garden</span></div>
+            <div class="tl-desc"><span class="zh on">造访 Blue Bottle 日本一号店与独立手冲店，清澄庭园回游式水石散步。</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🍚</div>
+          <div>
+            <div class="tl-time">13:00 - 16:30</div>
+            <div class="tl-main"><span class="zh on">门前仲町深川饭 · 月岛文字烧</span><span class="en">Fukagawa Rice & Monjayaki</span></div>
+            <div class="tl-desc"><span class="zh on">品尝东京名物深川蛤蜊饭，或月岛文字烧老街散步。</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 9 -->
+  <div class="day highlight-day" id="day-9" data-cat="d610 must">
+    <div class="day-hdr" onclick="toggleDay('day-9')">
+      <div class="day-thumb">🛫<div class="day-daynum"></div></div>
+      <div class="day-info">
+        <h3><span class="zh on">Day 9 · 10月11日 (日) 全天休息采买 → 赴羽田 ★</span><span class="en">Day 9 · Oct 11 Rest & Airport Transfer</span></h3>
+        <p><span class="zh on">公寓保留至离境 · 18:00 洗澡小睡打包 → 21:45 赴羽田</span><span class="en">Rest at Base & Haneda Transfer</span></p>
+      </div>
+      <span class="badge lo"><span class="zh on">低强度</span><span class="en">Low</span></span>
+      <svg class="chev" id="chev-day-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="day-body" id="body-day-9">
+      <div class="day-banner-wrap">
+        <img src="shibuya.jpg" class="day-banner" alt="Haneda Transfer"/>
+      </div>
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-icon">🛍️</div>
+          <div>
+            <div class="tl-time">10:00 - 17:00</div>
+            <div class="tl-main"><span class="zh on">睡到自然醒 · 附近药妆与伴手礼最后采买</span><span class="en">Late Wakeup & Final Souvenir Shopping</span></div>
+            <div class="tl-desc"><span class="zh on">轻松漫步，补齐所有要买的伴手礼与零食。</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🛁</div>
+          <div>
+            <div class="tl-time">18:00 - 21:30</div>
+            <div class="tl-main"><span class="zh on">返回公寓洗澡 · 小睡 · 整理大行李 ★</span><span class="en">Rest, Shower & Pack at Base</span></div>
+            <div class="tl-desc"><span class="zh on">这是刻意保留第 9 晚公寓的最佳用途！上飞机前彻底洗澡躺平休息 2 小时，整理完行李再惬意出发。</span><span class="must-tag">★ 舒压神功</span></div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-icon">🚇</div>
+          <div>
+            <div class="tl-time">21:45 - 23:00</div>
+            <div class="tl-main"><span class="zh on">都营浅草线直达羽田机场 T3 航厦</span><span class="en">Direct Transit to Haneda T3</span></div>
+            <div class="tl-desc"><span class="zh on">从浅草站搭乘都营浅草线直达羽田 T3，23:00 抵达准备办理出境。</span><span class="pill">浅草线直达</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 10 -->
+  <div class="day" id="day-10" data-cat="d610">
+    <div class="day-hdr" onclick="toggleDay('day-10')">
+      <div class="day-thumb">✈️<div class="day-daynum"></div></div>
+      <div class="day-info">
+        <h3><span class="zh on">Day 10 · 10月12日 (一) 02:20 起飞返抵家园</span><span class="en">Day 10 · Oct 12 Flight Home</span></h3>
+        <p><span class="zh on">羽田 (HND) 02:20 → 香港 (HKG) → 槟城 (PEN)</span><span class="en">Haneda to Penang via Hong Kong</span></p>
+      </div>
+      <span class="badge lo"><span class="zh on">返程</span><span class="en">Return</span></span>
+      <svg class="chev" id="chev-day-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="day-body" id="body-day-10">
+      <div class="day-banner-wrap">
+        <img src="fuji_hero.jpg" class="day-banner" alt="Flight Home"/>
+      </div>
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-icon">✈️</div>
+          <div>
+            <div class="tl-time">02:20</div>
+            <div class="tl-main"><span class="zh on">HK Express 02:20 羽田起飞</span><span class="en">02:20 Flight Departs HND</span></div>
+            <div class="tl-desc"><span class="zh on">顺利搭机回国，10/13 - 10/14 充裕缓冲休息，10/15 开工。</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: KAWAGUCHIKO FOCUS -->
+  <div class="sec-head" id="sec-fuji">
+    <div class="sec-kanji">河口湖 2D1N</div>
+    <div class="sec-en">KAWAGUCHIKO SPECIAL GUIDE</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="card">
+    <h3><span class="zh on">6.1 为什么选择过夜而非当日往返</span><span class="en">Why Overnight Stay Matters</span></h3>
+    <table class="info-table">
+      <thead>
+        <tr>
+          <th><span class="zh on">对比项目</span><span class="en">Item</span></th>
+          <th><span class="zh on">当日往返</span><span class="en">Day Trip</span></th>
+          <th><strong><span class="zh on">过夜 1 晚 (推荐)</span><span class="en">Overnight Stay</span></strong></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>清晨富士山</strong></td>
+          <td>❌ 9:30 抵达时常已被云遮挡</td>
+          <td>✅ <strong>05:30 独享无云赤富士</strong></td>
+        </tr>
+        <tr>
+          <td><strong>体力负担</strong></td>
+          <td>高 (单日来回 4-5 小时车程)</td>
+          <td>低 (轻松拆解为两天)</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note-box tip">
+      <strong>💡 气候提示：</strong>
+      <span class="zh on">10月是全年空气最干燥、富士山能见度极高月份。10/7 05:30 在河口湖大桥迎日出是整趟核心体验。</span>
+    </div>
+  </div>
+
+  <!-- SECTION 7: BOOKING TIMELINE -->
+  <div class="sec-head" id="sec-booking">
+    <div class="sec-kanji">订 票</div>
+    <div class="sec-en">BOOKING SCHEDULE</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="card">
+    <h3><span class="zh on">预订事项与关键时间节点 (勾选自动保存)</span><span class="en">Booking Timeline & Action Checklist</span></h3>
+    <div class="check-list">
+      <label class="check-item">
+        <input type="checkbox" id="chk-1" onchange="saveCheck('chk-1')"/>
+        <span><strong>【进行中】</strong> 预订 Yoin TOKYO 32号房 (Airbnb 免费取消至 10/2)</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" id="chk-2" onchange="saveCheck('chk-2')"/>
+        <span><strong>【进行中】</strong> 预订東横INN 富士河口湖大桥 (10/6-7 旺季尽早)</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" id="chk-3" onchange="saveCheck('chk-3')"/>
+        <span><strong>【8月内】</strong> iPhone 开通 Welcome Suica Mobile 并预充值</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" id="chk-4" onchange="saveCheck('chk-4')"/>
+        <span><strong>【8月内】</strong> 预订东京站 ⇄ 河口湖高速巴士往返车票 (highwaybus.com)</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" id="chk-5" onchange="saveCheck('chk-5')"/>
+        <span>⏰ <strong>【9月24日 23:00 MYR】</strong> 抢涩谷SKY 10/9 16:20 门票 (建议用 Klook)</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" id="chk-6" onchange="saveCheck('chk-6')"/>
+        <span><strong>【出发前1周】</strong> 确认 10/11 深夜都营浅草线至羽田末班车时间</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- SECTION 8: BUDGET -->
+  <div class="sec-head" id="sec-budget">
+    <div class="sec-kanji">预 算</div>
+    <div class="sec-en">BUDGET SUMMARY</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="card">
+    <h3><span class="zh on">8.1 固定支出 (已确定 / 预估)</span><span class="en">Fixed Expenses</span></h3>
+    <div class="b-row"><span>HK Express 槟城往返机票 (2人)</span><span>RM 5,208</span></div>
+    <div class="b-row"><span>东京 Airbnb 9 晚住宿 (Room 32)</span><span>RM 3,734</span></div>
+    <div class="b-row"><span>河口湖東横INN 1晚 + 往返巴士 (2人)</span><span>约 RM 750</span></div>
+    <div class="b-total"><span>固定支出小计</span><span class="b-total-val">RM 9,692</span></div>
+  </div>
+
+  <div class="card">
+    <h3><span class="zh on">8.2 在地花费预估 (2人)</span><span class="en">Local Expenses Estimate</span></h3>
+    <div class="b-row"><span>Skyliner 机场特快 (2人)</span><span>¥5,140</span></div>
+    <div class="b-row"><span>东京地铁与交通 (Suica 9天)</span><span>¥14,000</span></div>
+    <div class="b-row"><span>涩谷SKY 门票 (2人)</span><span>¥5,000</span></div>
+    <div class="b-row"><span>每日餐饮 (¥8,000 × 8 天)</span><span>¥128,000</span></div>
+    <div class="b-row"><span>门票与杂费</span><span>¥15,000</span></div>
+    <div class="b-total"><span>在地花费合计</span><span class="b-total-val">¥167,140 (约 RM 4,350)</span></div>
+  </div>
+
+  <div class="card" style="border:2px solid var(--shu);">
+    <div class="b-total" style="border:none;padding:0;">
+      <span style="font-family:'Shippori Mincho',serif;font-size:18px;color:var(--ink);"><strong>预估总额 (2人总计)</strong></span>
+      <span class="b-total-val" style="font-size:22px;">RM 14,042 (约 RM 7,021 / 人)</span>
+    </div>
+  </div>
+
+  <!-- SECTION 9 & 10: TIPS & CRITICAL REMINDERS -->
+  <div class="sec-head" id="sec-tips">
+    <div class="sec-kanji">提 醒</div>
+    <div class="sec-en">TIPS & CRITICAL REMINDERS</div>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="card">
+    <h3><span class="zh on">🔴 绝对不能忘记的 4 大关键</span><span class="en">4 Must-Not-Forget Rules</span></h3>
+    <div class="check-list">
+      <label class="check-item">
+        <input type="checkbox" id="rule-1" onchange="saveCheck('rule-1')"/>
+        <span>1. <strong>9月24日 23:00 (马来西亚时间)</strong> 手机闹钟抢涩谷SKY 门票</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" id="rule-2" onchange="saveCheck('rule-2')"/>
+        <span>2. <strong>出发前一周</strong> 确认 10/11 都营浅草线至羽田末班车时刻 (约 23:00)</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" id="rule-3" onchange="saveCheck('rule-3')"/>
+        <span>3. <strong>10月11日 18:00</strong> 一定要回公寓洗澡休息小睡 2 小时再赴机场</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" id="rule-4" onchange="saveCheck('rule-4')"/>
+        <span>4. <strong>河口湖 10月7日 05:15</strong> 闹钟起床，看 05:45 赤富士日出</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="zh on">💡 实用备忘手册</span><span class="en">Practical Travel Notes</span></h3>
+    <div class="note-box tip">
+      <strong>🧥 气温与穿着：</strong>
+      <span class="zh on">东京日间 20-24°C、早晚 15-18°C。河口湖清晨仅 10-12°C 且湖风大，厚外套必带！</span>
+    </div>
+    <div class="note-box kin">
+      <strong>👴 长辈随行提示：</strong>
+      <span class="zh on">入谷站无下行手扶梯，拖大行李一律走三ノ轮站；便利店厕所及时使用；每天安排公园或咖啡馆歇脚。</span>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-kanji">旅</div>
+    <div class="footer-title">
+      <div class="brand-mark" style="background:#fff;color:var(--shu);">旅</div>
+      <span class="zh on">东京 · 河口湖 2026 · 旅行手册</span>
+      <span class="en">Tokyo & Kawaguchiko 2026</span>
+    </div>
+    <p><span class="zh on">浅草清晨 7 点与 10 点是两个世界，利用驻地优势早起享受宁静。</span><span class="en">Enjoy early morning Asakusa before crowds arrive.</span></p>
+    <p><span class="zh on">河口湖赤富士尽在 10/7 05:45 日出数分钟，祝旅行一切顺利！</span><span class="en">May you catch the breathtaking dawn Red Fuji!</span></p>
+  </div>
+
+  <div class="endmark">
+    <span>— 終 —</span>
+  </div>
+
 </div>
 
-<!-- ============ 1 行程总览 ============ -->
-<section id="overview">
-  <div class="sec-head"><h2>行程总览</h2><div class="rule"></div></div>
-
-  <div class="card">
-    <dl class="kv">
-      <dt>日期</dt><dd>2026年10月3日 – 10月12日</dd>
-      <dt>人数</dt><dd>2人</dd>
-      <dt>出发地</dt><dd>槟城（PEN）</dd>
-      <dt>东京基地</dt><dd>竜泉 · 台东区（9晚）</dd>
-      <dt>外宿</dt><dd>河口湖 1晚（10/6–7）</dd>
-      <dt>回国后</dt><dd>10月15日（四）开工</dd>
-    </dl>
-  </div>
-
-  <h3 style="margin:22px 0 10px;font-size:1.1rem">十天速览 <span style="font-weight:400;color:var(--muted);font-size:.85rem">（点一天可跳到详细行程）</span></h3>
-  <div class="glance" id="glance"></div>
-
-  <div class="note warn"><span class="ico">⚠️</span><div>
-    <strong>10月12日（一）是日本「体育之日」，10/10–10/12 是三连休。</strong><br>
-    这两天热门景点会明显更挤，所以已排低调行程；热门景点集中在 10/5、10/8、10/9 三个平日完成。河口湖排在连休前的平日，饭店好订、路上不塞。10/11（日）晚上去羽田不受影响。
-  </div></div>
-</section>
-
-<!-- ============ 2 航班 ============ -->
-<section id="flights">
-  <div class="sec-head"><h2>航班</h2><div class="rule"></div></div>
-
-  <div class="card">
-    <h3>✈️ 去程 · 10月3日（六）</h3>
-    <dl class="kv">
-      <dt>航空公司</dt><dd>HK Express</dd>
-      <dt>路线</dt><dd>槟城 PEN 01:00 → 香港 HKG → 成田 NRT</dd>
-      <dt>抵达时间</dt><dd><strong style="color:var(--verm)">待确认 ⚠️</strong></dd>
-    </dl>
-  </div>
-
-  <div class="card">
-    <h3>✈️ 回程 · 10月12日（一）</h3>
-    <dl class="kv">
-      <dt>路线</dt><dd>羽田 HND 02:20 → 香港 HKG → 槟城 PEN</dd>
-    </dl>
-  </div>
-
-  <div class="card">
-    <h3>订位资讯</h3>
-    <dl class="kv">
-      <dt>订位代号</dt><dd><strong>ICDEFN</strong></dd>
-      <dt>总价（2人）</dt><dd>MYR 5,208</dd>
-    </dl>
-  </div>
-
-  <div class="note tip"><span class="ico">💡</span><div>
-    <strong>成田进、羽田出。</strong>去程和回程是不同机场，交通安排要分开规划。
-  </div></div>
-</section>
-
-<!-- ============ 3 住宿 ============ -->
-<section id="stay">
-  <div class="sec-head"><h2>住宿</h2><div class="rule"></div></div>
-
-  <div class="card">
-    <h3>🏠 东京基地 · Yoin TOKYO in Asakusa（32号房）</h3>
-    <dl class="kv">
-      <dt>平台</dt><dd>Airbnb</dd>
-      <dt>房型</dt><dd>2张单人床 · 27㎡ · 1K</dd>
-      <dt>位置</dt><dd>台东区竜泉（LUXURY STAY HOTEL Asakusa Ryusen）</dd>
-      <dt>日期</dt><dd>10月3日 – 10月12日（9晚）</dd>
-      <dt>价格</dt><dd><strong>RM 3,734</strong>（约 RM415/晚）</dd>
-      <dt>评分</dt><dd>5.0（16则）· 准确度 5.0</dd>
-      <dt>房东</dt><dd>Superhost · 3年 · 486则评价 4.82 · 会中英日韩四语</dd>
-      <dt>免费取消</dt><dd><strong>到10月2日</strong> ✅</dd>
-      <dt>设备</dt><dd>厨房、洗衣机、电梯、Wi-Fi、冷气</dd>
-    </dl>
-    <p style="margin:14px 0 4px;font-weight:700;font-size:.95rem">为什么选这间</p>
-    <ul class="plain-list pros">
-      <li>两张真床，不用挤、不用打地铺</li>
-      <li>27㎡，比商务饭店（13–17㎡）大很多</li>
-      <li>有洗衣机 → 9天行程可以少带一半衣服</li>
-      <li>有电梯</li>
-      <li>免费取消到出发前，弹性最大</li>
-    </ul>
-    <p style="margin:14px 0 4px;font-weight:700;font-size:.95rem">弱点</p>
-    <ul class="plain-list cons">
-      <li>评价只有16则，没有其他平台可交叉验证</li>
-      <li>没有柜台、没有每日打扫</li>
-      <li>垃圾要自己分类</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h3>🗻 河口湖 · 東横INN 富士河口湖大橋</h3>
-    <dl class="kv">
-      <dt>日期</dt><dd>10月6日 – 10月7日（1晚）</dd>
-      <dt>地址</dt><dd>山梨県南都留郡富士河口湖町船津 294-1</dd>
-      <dt>价格（2人）</dt><dd>约 ¥12,300 – 18,900</dd>
-      <dt>评分</dt><dd>4.5／10,653则 · Google 4.2／1,726则</dd>
-      <dt>入住 / 退房</dt><dd>15:00 / <strong>10:00</strong></dd>
-    </dl>
-    <p style="margin:14px 0 4px;font-weight:700;font-size:.95rem">为什么选这间</p>
-    <ul class="plain-list pros">
-      <li><strong>免费接驳车</strong>：河口湖站 ⇄ 饭店 7分钟，不用预约</li>
-      <li>免费接驳还到忍野八海、outlet、大月站（官网预约）</li>
-      <li>走路10–12分钟到河口湖大桥 → 清晨看富士山不用车</li>
-      <li>免费和洋自助早餐，评价好</li>
-      <li>投币洗衣、大浴场、房间较宽敞、浴缸大</li>
-    </ul>
-    <p style="margin:14px 0 4px;font-weight:700;font-size:.95rem">弱点</p>
-    <ul class="plain-list cons">
-      <li>不接受指定「富士山景」房间（可提要求但不保证）</li>
-      <li>早餐和食区会排队 → 早点去</li>
-      <li>退房时间 10:00，比一般早</li>
-    </ul>
-  </div>
-
-  <div class="note tip"><span class="ico">💡</span><div>
-    <strong>10月6日晚上东京公寓是空着的（已付费）。这是刻意的</strong>——大行李箱留在东京，去河口湖只带小背包。拆开订只省 RM126，但会失去周租折扣、可能换房、要拖两个行李箱上山，不值得。
-  </div></div>
-</section>
-
-<!-- ============ 4 交通 ============ -->
-<section id="transport">
-  <div class="sec-head"><h2>交通</h2><div class="rule"></div></div>
-
-  <div class="card">
-    <h3>📱 交通卡 · Welcome Suica Mobile</h3>
-    <dl class="kv">
-      <dt>适用</dt><dd>iPhone（iOS 17.2 以上）</dd>
-      <dt>费用</dt><dd>免费、无押金</dd>
-      <dt>有效期</dt><dd>180天（实体旅客卡只有28天）</dd>
-      <dt>通用范围</dt><dd>JR、地铁、都营、私铁、巴士、便利店、贩卖机</dd>
-      <dt>出发前开卡</dt><dd>可在马来西亚先开卡储值 ✅</dd>
-    </dl>
-    <p style="margin-top:12px;font-size:.95rem"><strong>做法：</strong>App Store 搜「Welcome Suica Mobile」→ 设密码 → 发卡 → 储值。落地成田直接刷进闸口，不用排队买卡。</p>
-  </div>
-
-  <div class="note warn"><span class="ico">⚠️</span><div>
-    <strong>Android 没有这个 App</strong> → 需在机场买实体卡（柜台有中英文）。<br>
-    <strong>Skyliner 和高速巴士要另外买票</strong>，Suica 不能直接刷。<br>
-    <strong>不建议买地铁72小时券</strong> — 行程跨 JR 和地铁，Suica 按次算更划算。
-  </div></div>
-
-  <div class="card">
-    <h3>🚉 住处附近的车站（竜泉）</h3>
-    <div class="tbl-wrap"><table>
-      <thead><tr><th>车站</th><th>步行</th><th>路线</th></tr></thead>
-      <tbody>
-        <tr><td><strong>三ノ轮站</strong></td><td class="num">6分钟</td><td>日比谷线 ← 日常用这个</td></tr>
-        <tr><td>入谷站</td><td class="num">10分钟</td><td>日比谷线</td></tr>
-        <tr><td>浅草站</td><td class="num">16分钟</td><td>银座线起点 · 都营浅草线</td></tr>
-      </tbody>
-    </table></div>
-    <div class="note warn" style="margin-bottom:0"><span class="ico">⚠️</span><div><strong>入谷站没有下行电扶梯、只有一部电梯</strong> → 拖大行李走三ノ轮站。</div></div>
-  </div>
-
-  <div class="card">
-    <h3>🚇 日比谷线直达（不用换车）</h3>
-    <div class="tbl-wrap"><table>
-      <thead><tr><th>目的地</th><th>时间</th></tr></thead>
-      <tbody>
-        <tr><td>上野</td><td class="num">4分钟</td></tr>
-        <tr><td>秋叶原</td><td class="num">8分钟</td></tr>
-        <tr><td>筑地</td><td class="num">18分钟</td></tr>
-        <tr><td>银座 · 东银座</td><td class="num">20分钟</td></tr>
-        <tr><td>六本木</td><td class="num">28分钟</td></tr>
-        <tr><td>惠比寿 · 中目黑</td><td class="num">33分钟</td></tr>
-      </tbody>
-    </table></div>
-    <div class="tbl-wrap"><table>
-      <thead><tr><th>要换车</th><th>时间</th><th>换乘</th></tr></thead>
-      <tbody>
-        <tr><td>东京站</td><td class="num">15分钟</td><td>上野换山手线</td></tr>
-        <tr><td>涩谷</td><td class="num">35分钟</td><td>上野换银座线</td></tr>
-        <tr><td>池袋</td><td class="num">30分钟</td><td>—</td></tr>
-        <tr><td>新宿</td><td class="num">35–40分钟</td><td>最不顺</td></tr>
-      </tbody>
-    </table></div>
-    <p style="font-size:.95rem;margin-top:8px"><strong>走路可到：</strong>浅草寺 16分钟 · 晴空塔 约20分钟</p>
-  </div>
-
-  <div class="note tip"><span class="ico">💡</span><div>
-    <strong>什么时候该走去浅草站（16分钟）：</strong><br>
-    去涩谷／表参道 → 浅草是银座线<strong>起点站</strong>，从这上车一定有位子坐，全程35分钟坐着。<br>
-    去羽田机场 → 都营浅草线<strong>直达羽田</strong>，不用换车。
-  </div></div>
-
-  <div class="card">
-    <h3>🛬 去程 · 成田 → 竜泉</h3>
-    <div class="route">
-      <ol>
-        <li>成田机场 — Skyliner 41分钟（¥2,570/人）</li>
-        <li>京成上野 — 走到 JR/地铁上野</li>
-        <li>建议：<strong>从上野直接打车到公寓</strong>（约¥1,500、10分钟）</li>
-      </ol>
-    </div>
-    <p style="font-size:.93rem;color:var(--ink2)">第一天拖行李带长辈，打车这钱值得花。</p>
-  </div>
-
-  <div class="card">
-    <h3>🛫 回程 · 竜泉 → 羽田</h3>
-    <div class="route">
-      <div class="rt">方案A（推荐）</div>
-      <ol>
-        <li>走16分钟到浅草站</li>
-        <li>都营浅草线<strong>直达</strong>羽田 T3</li>
-      </ol>
-    </div>
-    <div class="route">
-      <div class="rt">方案B</div>
-      <ol>
-        <li>三ノ轮 — 日比谷线 → 东银座</li>
-        <li>换浅草线 → 羽田 T3（约60分钟）</li>
-      </ol>
-    </div>
-    <div class="route">
-      <div class="rt">方案C</div>
-      <ol><li>直接打车到羽田（约¥9,000起）</li></ol>
-    </div>
-    <div class="note warn" style="margin-bottom:0"><span class="ico">⚠️</span><div>
-      <strong>末班车：</strong>浅草线直通羽田的末班车约在23点前后。21:45出发是安全的，但<strong>出发前一周要查10月11日的实际时刻表</strong>。
-    </div></div>
-  </div>
-</section>
-
-<!-- ============ 5 每日行程 ============ -->
-<section id="days">
-  <div class="sec-head"><h2>每日行程</h2><div class="rule"></div></div>
-  <p style="color:var(--muted);font-size:.92rem;margin-bottom:14px">点每一天可以展开细节。旅行期间，当天会自动展开并标红。</p>
-  <div id="dayList"></div>
-</section>
-
-<!-- ============ 6 河口湖 ============ -->
-<section id="kawaguchiko">
-  <div class="sec-head"><h2>河口湖两天一夜</h2><div class="rule"></div></div>
-
-  <div class="card">
-    <h3>为什么过夜，而不是当天来回</h3>
-    <div class="tbl-wrap"><table>
-      <thead><tr><th></th><th>当天来回</th><th>过夜 ✅</th></tr></thead>
-      <tbody>
-        <tr><td>在外时间</td><td>13小时</td><td>分两天</td></tr>
-        <tr><td>看到清晨富士山</td><td>❌</td><td>✅</td></tr>
-        <tr><td>体力负担</td><td>高</td><td>低</td></tr>
-      </tbody>
-    </table></div>
-    <p style="font-size:.96rem;margin-top:10px"><strong>富士山早上6–8点最容易露脸，中午之后常被云遮住。</strong>当天来回的人9:30才到，往往看不到最好的样子。10月是全年能见度最好的月份之一（秋天空气干燥）。</p>
-    <div class="note warn" style="margin-bottom:0"><span class="ico">⚠️</span><div>
-      <strong>10月初不是红叶季</strong> — 河口湖红叶要等到11月初中。<strong>这趟是看山，不是看叶。</strong>
-    </div></div>
-  </div>
-
-  <div class="card">
-    <h3>🚌 东京 → 河口湖：高速巴士</h3>
-    <dl class="kv">
-      <dt>出发地</dt><dd>东京站八重洲南口（从竜泉约15分钟）</dd>
-      <dt>备选</dt><dd>上野站（入谷口）— <strong style="color:var(--verm)">需确认是否运行</strong></dd>
-      <dt>车程</dt><dd>约2小时</dd>
-      <dt>单程</dt><dd>¥2,300／人</dd>
-      <dt>班次</dt><dd>每小时1–2班</dd>
-      <dt>订票</dt><dd>highwaybus.com（有英文）</dd>
-    </dl>
-    <div class="note tip"><span class="ico">💡</span><div>
-      从竜泉出发，<strong>东京站比新宿近很多</strong>（15分钟 vs 35–40分钟）。新宿出发替代方案：每小时约2班，线上订 ¥2,000、现场 ¥2,200。
-    </div></div>
-    <div class="note warn" style="margin-bottom:0"><span class="ico">⚠️</span><div>
-      <strong>回程票一定要跟去程一起订</strong>，别以为当天买得到。
-    </div></div>
-  </div>
-
-  <div class="card">
-    <h3>当地交通：不租车</h3>
-    <ul class="plain-list">
-      <li>饭店免费接驳：河口湖站 ⇄ 饭店（7分钟，不用预约）</li>
-      <li>饭店免费接驳：忍野八海、outlet、大月站（官网预约）</li>
-      <li><strong>河口湖周游巴士（红线）2日券 ¥1,500／人</strong> — 涵盖北岸的大石公园等</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h3>放弃的景点</h3>
-    <p style="font-size:.96rem"><strong>新仓山浅间公园</strong>（五重塔＋富士山经典机位）：没车的话要搭富士急行线约30分钟到下吉田，再爬 <strong>398阶</strong>。带长辈不建议。</p>
-  </div>
-</section>
-
-<!-- ============ 7 订票时间表 ============ -->
-<section id="booking">
-  <div class="sec-head"><h2>订票时间表</h2><div class="rule"></div></div>
-  <p class="check-progress" id="bookingProgress"></p>
-  <div class="check-list" id="bookingList"></div>
-
-  <div class="card" style="margin-top:22px">
-    <h3>🎫 涩谷SKY 抢票细节</h3>
-    <dl class="kv">
-      <dt>开卖时间</dt><dd>入场日前 <strong>14天</strong> · 日本时间 00:00</dd>
-      <dt>要抢的时刻</dt><dd><strong style="color:var(--verm)">9月24日（四）23:00 马来西亚时间</strong></dd>
-      <dt>建议时段</dt><dd><strong>16:20 或 16:40</strong>（10月9日日落约17:15）</dd>
-      <dt>价格</dt><dd>线上 ¥2,500／人（现场 ¥3,000）</dd>
-      <dt>免费取消</dt><dd>到入场前一天</dd>
-    </dl>
-    <div class="note warn" style="margin-bottom:0"><span class="ico">⚠️</span><div>
-      官网从2024年7月起<strong>常拒绝外国信用卡</strong> → 建议用 <strong>Klook</strong>（接受外国卡、24小时前免费取消），两边都设提醒比较保险。<br>
-      <strong>官网显示卖完，现场也买不到</strong> — 没有另外保留的现场票。
-    </div></div>
-  </div>
-</section>
-
-<!-- ============ 8 预算 ============ -->
-<section id="budget">
-  <div class="sec-head"><h2>预算</h2><div class="rule"></div></div>
-
-  <h3 style="margin:0 0 8px;font-size:1.08rem">已确定支出</h3>
-  <div class="tbl-wrap"><table>
-    <tbody>
-      <tr><td>机票（HK Express，2人）</td><td class="num">RM 5,208</td></tr>
-      <tr><td>东京公寓（9晚）</td><td class="num">RM 3,734</td></tr>
-      <tr><td>河口湖住宿＋巴士＋周游券</td><td class="num">RM 640 – 810</td></tr>
-      <tr class="total"><td>小计</td><td class="num">约 RM 9,600 – 9,750</td></tr>
-    </tbody>
-  </table></div>
-
-  <h3 style="margin:22px 0 8px;font-size:1.08rem">在地花费估算（2人）</h3>
-  <div class="tbl-wrap"><table>
-    <tbody>
-      <tr><td>Skyliner 单程×2</td><td class="num">¥5,140</td></tr>
-      <tr><td>东京市内交通（Suica，9天）</td><td class="num">¥14,000</td></tr>
-      <tr><td>涩谷SKY ×2</td><td class="num">¥5,000</td></tr>
-      <tr><td>餐饮（¥8,000/天 × 8天）</td><td class="num">¥128,000</td></tr>
-      <tr><td>门票 · 杂费</td><td class="num">¥15,000</td></tr>
-      <tr class="total"><td>合计</td><td class="num">约 ¥167,000 ≈ RM 4,350</td></tr>
-    </tbody>
-  </table></div>
-
-  <h3 style="margin:22px 0 8px;font-size:1.08rem">总计</h3>
-  <div class="tbl-wrap"><table>
-    <tbody>
-      <tr><td>固定支出</td><td class="num">约 RM 9,700</td></tr>
-      <tr><td>在地花费</td><td class="num">约 RM 4,400</td></tr>
-      <tr class="total"><td>总额（2人）</td><td class="num">约 RM 14,100</td></tr>
-      <tr class="total"><td>每人</td><td class="num">约 RM 7,050</td></tr>
-    </tbody>
-  </table></div>
-
-  <div class="note tip"><span class="ico">💡</span><div>
-    购物和伴手礼另计，建议再准备 <strong>RM 2,000 – 3,000</strong> 缓冲。
-  </div></div>
-</section>
-
-<!-- ============ 9 实用备忘 ============ -->
-<section id="tips">
-  <div class="sec-head"><h2>实用备忘</h2><div class="rule"></div></div>
-
-  <div class="card">
-    <h3>🌤 天气与衣着</h3>
-    <div class="tbl-wrap"><table>
-      <tbody>
-        <tr><td>东京日间</td><td class="num">20 – 24°C</td></tr>
-        <tr><td>东京早晚</td><td class="num">15 – 18°C</td></tr>
-        <tr><td><strong>河口湖清晨</strong></td><td class="num"><strong>10 – 12°C</strong>（湖风体感更低）</td></tr>
-      </tbody>
-    </table></div>
-    <ul class="plain-list" style="margin-top:8px">
-      <li><strong>薄外套必带</strong>，河口湖那两天要厚一点</li>
-      <li>10月偶有台风尾，带折伞</li>
-      <li>涩谷SKY 顶楼是露天的、229公尺高、风很大 → 傍晚上去要外套</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h3>👵 带长辈的提醒</h3>
-    <ul class="plain-list">
-      <li><strong>入谷站没有下行电扶梯</strong> → 拖行李走三ノ轮站（6分钟）</li>
-      <li>每天排一个「可以坐下来休息」的点（公园、咖啡馆）</li>
-      <li><strong>竜泉往东北邻近吉原</strong>，晚上有风俗店招牌 → 订房后用 Google 街景把回家路线看一遍，挑走大马路那条</li>
-      <li>便利店厕所是救命的，看到就用</li>
-      <li>日本住宅区晚上路灯昏暗、8点后店多半关门 — 这是正常的，不是治安问题</li>
-      <li><strong>第一晚趁天亮先走一次「车站→住处」</strong>，白天认过就不会慌</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h3>🍜 吃</h3>
-    <ul class="plain-list">
-      <li>早餐用便利店解决（¥500有找），省下的钱吃好的午晚餐</li>
-      <li><strong>百货公司 B1／B2 美食广场是性价比之王</strong></li>
-      <li>想吃的名店提前查公休日 — 很多店周一或周三休</li>
-      <li>河口湖必吃：<strong>ほうとう</strong>（味噌宽面）</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h3>🏠 公寓生活</h3>
-    <ul class="plain-list">
-      <li><strong>垃圾要自己分类</strong>（可燃／不可燃／塑胶／瓶罐），每种有固定丢弃日 → 入住时看清楚说明</li>
-      <li>有洗衣机 → <strong>衣服带4–5套就够</strong>，回程行李箱能空出位置装战利品</li>
-      <li>日本公寓通常<strong>没有烘干机</strong>，洗完晾在室内或阳台</li>
-    </ul>
-  </div>
-
-  <div class="note tip"><span class="ico">🌅</span><div>
-    <strong>万用技巧：清晨。</strong>浅草寺、明治神宫、上野公园这些地方，早上7点跟中午10点是两个世界。住在走路16分钟到浅草寺的地方——早起两小时，等于把周末变成平日。
-  </div></div>
-</section>
-
-<!-- ============ 10 关键提醒 ============ -->
-<section id="alerts">
-  <div class="sec-head"><h2>关键提醒</h2><div class="rule"></div></div>
-
-  <div class="critical">
-    <h3>🔴 绝对不能忘</h3>
-    <ol>
-      <li><strong>9月24日 23:00（马来西亚时间）抢涩谷SKY票</strong> — 设手机闹钟</li>
-      <li><strong>出发前一周查10月11日浅草线到羽田的末班车</strong> — 错过要打车 ¥9,000起</li>
-      <li><strong>10月11日 18:00 一定要回公寓洗澡休息</strong> — 之后是9小时的红眼航程</li>
-      <li><strong>河口湖 10月7日 05:15 起床</strong> — 前一晚设两个闹钟</li>
-    </ol>
-  </div>
-
-  <h3 style="margin:24px 0 10px;font-size:1.1rem">🟡 待确认</h3>
-  <p class="check-progress" id="todoProgress"></p>
-  <div class="check-list" id="todoList"></div>
-
-  <h3 style="margin:26px 0 10px;font-size:1.1rem">🟢 已放弃（不用再考虑）</h3>
-  <div class="card">
-    <ul class="plain-list dropped">
-      <li><strong>鸿巢花火大会（10/10）</strong> — 三连休第一天、30万人、来回9小时，隔天要赶凌晨飞机</li>
-      <li><strong>租车</strong> — 東横INN 免费接驳涵盖忍野八海，清晨走路到河口湖大桥就能看富士山 → 不用办国际驾照</li>
-      <li><strong>新仓山浅间公园五重塔</strong> — 没车，且要爬398阶</li>
-      <li><strong>箱根</strong> — 富士山看不清楚，这趟以看山为主</li>
-    </ul>
-  </div>
-</section>
-
-</main>
-
-<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
-
-<footer>
-  东京 · 河口湖 2026 · 最后更新：2026年8月<br>
-  🗻 给妈妈的旅行手册<br>
-  <span style="font-size:.78rem">照片来自 <a href="https://unsplash.com" rel="noopener">Unsplash</a>：Charles Postiaux · Yuta Koike · Nakaharu Line · Alberto Gallego · Takashi Miyazaki · Bundo Kim · Daiji Sasahara · Lex Brogan · Clement Souchet · Karl Fredrickson · Dewang Gupta</span>
-</footer>
-
 <script>
-/* ============ 每日行程数据 ============ */
-const DAYS=[
-{n:1,date:"10月3日",w:"六",iso:"2026-10-03",title:"抵达 · 安顿",level:"lo",
- rows:[
-  ["落地后","入境、取行李（预留45–60分钟）"],
-  ["接着","Skyliner 成田 → 京成上野"],
-  ["接着","上野打车到公寓（约¥1,500）"],
-  ["傍晚","入住、洗澡、附近超市补给"],
-  ["晚餐","入谷或上野附近，简单吃"],
-  ["21:00","早睡"]],
- notes:[["tip","<strong>不排任何景点。</strong>第一天的任务是安顿和休息。"],
-        ["warn","入住注意：确认 Airbnb 的 check-in 时间窗口，以及智能锁密码怎么拿。"]]},
-{n:2,date:"10月4日",w:"日",iso:"2026-10-04",title:"浅草清晨 · 晴空塔",level:"mid",
- rows:[
-  ["06:30","出门走路去浅草寺 ★",1],
-  ["07:00","<strong>浅草寺（无人时段）</strong> — 雷门、本堂、五重塔"],
-  ["08:30","浅草吃早餐"],
-  ["10:00","仲见世商店街（这时才开门）"],
-  ["12:00","午餐：大黑家天妇罗盖饭 或 巷内荞麦面"],
-  ["14:00","隅田公园散步 · 沿河看晴空塔"],
-  ["15:30","走去晴空塔 · Solamachi 商场"],
-  ["18:00","Solamachi 或浅草晚餐"]],
- notes:[["tip","<strong>清晨去浅草寺是住竜泉最大的红利。</strong>7点的浅草寺跟10点的是两个地方——几乎没人，光线最好。今天几乎不用坐车，正好倒时差。"],
-        ["warn","10月4日是星期天，白天浅草会非常挤。早上去完就撤。"]]},
-{n:3,date:"10月5日",w:"一",iso:"2026-10-05",title:"上野 · 阿美横町 · 谷根千",level:"mid",
- rows:[
-  ["09:30","日比谷线 → 上野（4分钟）"],
-  ["09:45","<strong>上野公园</strong> · 上野东照宫"],
-  ["11:00","不忍池 · 弁天堂"],
-  ["12:30","<strong>阿美横町</strong> 街头小吃 · 药妆采买"],
-  ["14:30","山手线一站 → 日暮里"],
-  ["15:00","<strong>谷中银座</strong> — 老街、猫、夕焼けだんだん阶梯"],
-  ["17:00","谷中／根津咖啡馆休息"],
-  ["18:30","回住处附近晚餐"]],
- notes:[["warn","<strong>星期一是日本博物馆的公休日</strong> → 今天全部排户外。休馆：东京国立博物馆、新宿御苑、根津美术馆。"]]},
-{n:4,date:"10月6日",w:"二",iso:"2026-10-06",title:"→ 河口湖",level:"mid",
- rows:[
-  ["08:00","东京站搭巴士（<strong>大行李留东京公寓，只带小背包</strong>）"],
-  ["10:00","抵达河口湖站"],
-  ["10:15","免费接驳车 → 饭店（7分钟）"],
-  ["11:00","寄放行李（入住15:00）"],
-  ["11:30","湖畔午餐 — <strong>ほうとう</strong>（山梨名物味噌宽面）"],
-  ["13:30","免费接驳 → <strong>忍野八海</strong>"],
-  ["16:00","周游巴士（红线）→ <strong>大石公园</strong> 看夕阳"],
-  ["18:00","回饭店，入住、投币洗衣"],
-  ["19:00","大浴场、晚餐"]],
- notes:[["tip","交通与住宿细节见下方「河口湖两天一夜」章节。"]]},
-{n:5,date:"10月7日",w:"三",iso:"2026-10-07",title:"河口湖清晨 → 回东京",level:"mid",
- rows:[
-  ["05:15","出门",1],
-  ["05:30","<strong>走到河口湖大桥（10–12分钟）看清晨富士山</strong> ★★",1],
-  ["05:45","10月初日出约05:45 — 「红富士」出现在日出瞬间，只有几分钟",1],
-  ["07:00","回饭店"],
-  ["07:30","免费和洋自助早餐（<strong>和食区会排队，早点去</strong>）"],
-  ["09:30","退房（10:00前），行李寄放柜台"],
-  ["10:00","湖畔慢慢走 或 周游巴士再逛一圈"],
-  ["12:00","午餐"],
-  ["13:00","免费接驳回河口湖站"],
-  ["14:00","巴士回东京"],
-  ["16:00","抵达东京站"],
-  ["17:00","回到住处，晚上附近吃、早点休息"]],
- notes:[["warn","<strong>05:30 那趟是整个过夜的理由。别睡过头，前一晚设两个闹钟。</strong>"],
-        ["warn","<strong>会很冷</strong> — 河口湖清晨约 10–12°C，加湖风体感更低。厚外套、围巾必备。"]]},
-{n:6,date:"10月8日",w:"四",iso:"2026-10-08",title:"筑地 · 银座 · 日比谷",level:"mid",
- rows:[
-  ["09:30","日比谷线 → <strong>筑地</strong>（18分钟）"],
-  ["09:45","<strong>筑地场外市场</strong> 早午餐 — 海鲜丼、玉子烧、生蚝"],
-  ["11:30","日比谷线一站 → 东银座"],
-  ["12:00","<strong>银座中央通</strong> 散步"],
-  ["14:00","银座Six · 各百货公司 · 伊东屋文具"],
-  ["15:30","<strong>日比谷公园</strong> 休息"],
-  ["17:00","皇居外苑 · 二重桥（可选）"],
-  ["18:00","<strong>有乐町高架下</strong> 居酒屋小巷晚餐"]],
- notes:[["tip","今天全程日比谷线直达，一次车都不用换。昨天从河口湖回来，今天节奏放慢。"],
-        ["warn","筑地场外市场周日和周三很多店休 → 所以排周四。"]]},
-{n:7,date:"10月9日",w:"五",iso:"2026-10-09",title:"明治神宫 · 原宿 · 涩谷 · 涩谷SKY",level:"hi",
- rows:[
-  ["08:30","出发（约35–40分钟，上野换银座线）"],
-  ["09:30","<strong>明治神宫</strong> — 森林参道，趁人少"],
-  ["11:00","<strong>竹下通</strong> · 原宿可丽饼"],
-  ["13:00","表参道午餐 · 建筑散步"],
-  ["15:00","走到涩谷（约15分钟）"],
-  ["15:30","<strong>涩谷十字路口</strong> — 从星巴克或 Mag's Park 俯瞰"],
-  ["16:20","<strong>涩谷SKY 入场</strong> ★（日落约17:15）",1],
-  ["18:00","涩谷 Scramble Square 或附近晚餐"]],
- notes:[["warn","<strong>⭐ 全程最关键的一天——必须排在三连休之前。</strong>今天行程密度最高。体力不够可以砍掉竹下通或涩谷十字路口，但涩谷SKY 的时段票是固定的，务必准时到。"]]},
-{n:8,date:"10月10日",w:"六",iso:"2026-10-10",title:"清澄白河 · 门前仲町（低调日）",level:"lo",
- rows:[
-  ["10:00","<strong>清澄白河</strong> — 咖啡一条街（蓝瓶咖啡创始店）"],
-  ["11:00","清澄庭园"],
-  ["12:00","<strong>深川饭</strong> 或门前仲町午餐"],
-  ["14:00","<strong>月岛西仲通</strong> 文字烧街"],
-  ["16:00","隅田川散步"],
-  ["18:00","回住处，早点休息"]],
- notes:[["warn","三连休第一天，热门景点会挤爆 → 今天走低调路线。"],
-        ["tip","替代方案：谷根千重游（离住处近）／纯休息日：上野公园、超市和药妆扫货／住处附近散步＋洗衣服。"]]},
-{n:9,date:"10月11日",w:"日",iso:"2026-10-11",title:"全天休息 → 深夜赴羽田",level:"lo",
- rows:[
-  ["上午","睡到自然醒"],
-  ["中午","住处附近吃午餐"],
-  ["下午","最后采买（药妆、伴手礼、便利店）"],
-  ["18:00","<strong>回公寓：洗澡、小睡、整理行李</strong> ★",1],
-  ["21:45","出发去羽田",1],
-  ["接着","走16分钟到浅草站 → 都营浅草线直达羽田"],
-  ["23:00","抵达羽田 T3，从容 check-in"]],
- notes:[["tip","<strong>公寓订到10月12日，所以11日晚上还是你们的。</strong>可以洗澡、躺两小时再走——这是刻意保留的，别浪费。嫌走16分钟累，直接打车到浅草站或羽田都可以。"]]},
-{n:10,date:"10月12日",w:"一",iso:"2026-10-12",title:"02:20 起飞回家",level:"lo",
- rows:[
-  ["02:20","羽田起飞 → 香港 → 槟城"]],
- notes:[["tip","回到槟城后有 10月13、14日 两天缓冲，10月15日开工。"]]}
-];
-
-/* ============ 订票清单数据 ============ */
-const BOOKINGS=[
- {id:"b1",when:"现在（8月）",what:"订 Yoin 32号房（免费取消到10/2）"},
- {id:"b2",when:"现在（8月）",what:"订東横INN 富士河口湖大橋（10/6–7）— 旺季，尽早"},
- {id:"b3",when:"现在（8月）",what:"iPhone 下载 Welcome Suica Mobile，开卡储值"},
- {id:"b4",when:"8月内",what:"订高速巴士（东京站 ⇄ 河口湖，来回一起订）"},
- {id:"b5",when:"8月内",what:"确认「上野駅(入谷口)」巴士站是否运行"},
- {id:"b6",when:"9月中",what:"回去看 Yoin 评价累积情况，决定要不要换"},
- {id:"b7",when:"9月24日 23:00（马来西亚时间）",what:"⏰ 抢涩谷SKY 门票（=9/25 00:00 日本时间）"},
- {id:"b8",when:"9月中下旬",what:"teamLab 等需指定时段的门票（如果要去）"},
- {id:"b9",when:"9月底",what:"热门餐厅订位"},
- {id:"b10",when:"10月2日前",what:"Yoin 的免费取消最后期限"},
- {id:"b11",when:"出发前1周",what:"查10/11深夜浅草线到羽田的实际末班车时刻"},
- {id:"b12",when:"出发前3天",what:"查河口湖天气，云太厚可考虑调整"}
-];
-const TODOS=[
- {id:"t1",what:"成田的实际抵达时间（影响第一天的安排）"},
- {id:"t2",what:"「上野駅(入谷口)」巴士站是否运行"},
- {id:"t3",what:"Airbnb 入住时间窗口和智能锁取密码方式"},
- {id:"t4",what:"東横INN 是否能安排富士山侧房间（不保证）"},
- {id:"t5",what:"9月中回去看 Yoin 评价累积到几则、分数是否维持"},
- {id:"t6",what:"拿到确切地址后，用 Google 街景把「三ノ轮站 → 住处」走一遍"}
-];
-
-/* ============ 每日照片（Unsplash） ============ */
-const U="?auto=format&fit=crop&w=1200&q=60";
-const IMGS={
- 2:[{u:"https://images.unsplash.com/photo-1543402701-cfd2d56f773b"+U,a:"浅草寺雷门与灯笼"},
-    {u:"https://images.unsplash.com/photo-1740982355439-659cf202f8d7"+U,a:"东京晴空塔"}],
- 3:[{u:"https://images.unsplash.com/photo-1623733769741-7a1466644e69"+U,a:"谷中银座老街商店街"}],
- 4:[{u:"https://images.unsplash.com/photo-1752395480128-8c15c9364a03"+U,a:"河口湖畔倒映的富士山"}],
- 5:[{u:"https://images.unsplash.com/photo-1765347810364-e591815a9382"+U,a:"日出时分的富士山与湖面倒影"}],
- 6:[{u:"https://images.unsplash.com/photo-1758384075930-6e3835d22b1d"+U,a:"筑地风味刺身"},
-    {u:"https://images.unsplash.com/photo-1512699587109-3eb606946b8c"+U,a:"夜幕下的银座街头"}],
- 7:[{u:"https://images.unsplash.com/photo-1758557901510-d9091ddd9ea6"+U,a:"明治神宫森林中的木制鸟居"},
-    {u:"https://images.unsplash.com/photo-1759491125973-6c46d3f86c13"+U,a:"涩谷十字路口俯瞰人潮"}],
- 8:[{u:"https://images.unsplash.com/photo-1442512595331-e89e73853f31"+U,a:"手冲精品咖啡"}],
- 9:[{u:"https://images.unsplash.com/photo-1706264138264-2d704f469fdc"+U,a:"夜航机翼窗景"}]
-};
-
-/* ============ 日期逻辑 ============ */
-const TRIP_START=new Date(2026,9,3), TRIP_END=new Date(2026,9,12);
-const today=new Date(); today.setHours(0,0,0,0);
-const dayMs=86400000;
-const diffStart=Math.round((TRIP_START-today)/dayMs);
-let tripDayN=0;
-if(today>=TRIP_START&&today<=TRIP_END) tripDayN=Math.round((today-TRIP_START)/dayMs)+1;
-
-const pill=document.getElementById("statusPill");
-if(tripDayN>0){
-  pill.classList.add("on-trip");
-  pill.textContent=`🗻 今天是行程第 ${tripDayN} 天`;
-}else if(diffStart>0){
-  pill.textContent=`✈️ 距离出发还有 ${diffStart} 天`;
-}else{
-  pill.textContent="🏠 旅程已结束，欢迎回家";
+// Large Text Mode Toggle (For Mum)
+function toggleTextSize() {
+  const html = document.documentElement;
+  const btn = document.getElementById('text-toggle');
+  const current = html.getAttribute('data-text-size');
+  const next = current === 'large' ? 'normal' : 'large';
+  
+  html.setAttribute('data-text-size', next);
+  if (next === 'large') {
+    btn.classList.add('active');
+    btn.textContent = 'Aa 恢复正常';
+  } else {
+    btn.classList.remove('active');
+    btn.textContent = 'Aa 大字';
+  }
+  localStorage.setItem('tokyo_text_size', next);
 }
 
-/* ============ 渲染十天速览 ============ */
-const LEVELS={lo:"低",mid:"中",hi:"高"};
-document.getElementById("glance").innerHTML=DAYS.map(d=>
- `<a href="#day-${d.n}" class="${d.n===tripDayN?"today-row":""}">
-   <span class="dnum">D${d.n}</span>
-   <span class="gdate">${d.date}（${d.w}）</span>
-   <span>${d.title}</span>
-   <span class="badge ${d.level}">${LEVELS[d.level]}</span>
-  </a>`).join("");
-
-/* ============ 渲染每日卡片 ============ */
-document.getElementById("dayList").innerHTML=DAYS.map(d=>{
- const isToday=d.n===tripDayN;
- return `<details class="day ${isToday?"today":""}" id="day-${d.n}" ${isToday?"open":""}>
-  <summary>
-    <span class="dnum"><b>D${d.n}</b><span>${d.date}</span></span>
-    <span>
-      <span class="dtitle">${d.title}</span><br>
-      <span class="dmeta">${d.date}（${d.w}）</span>
-    </span>
-    <span class="dright">
-      ${isToday?'<span class="today-tag">今天</span>':""}
-      <span class="badge ${d.level}">${LEVELS[d.level]}</span>
-      <span class="arrow">▼</span>
-    </span>
-  </summary>
-  <div class="day-body">
-    ${IMGS[d.n]?`<div class="day-photos ${IMGS[d.n].length>1?"pair":""}">${IMGS[d.n].map(im=>
-      `<img src="${im.u}" alt="${im.a}" loading="lazy">`).join("")}</div>`:""}
-    <div class="tl">${d.rows.map(r=>
-      `<div class="tl-row ${r[2]?"star":""}"><span class="tl-time">${r[0]}</span><span class="tl-act">${r[1]}</span></div>`).join("")}
-    </div>
-    ${(d.notes||[]).map(n=>
-      `<div class="note ${n[0]}"><span class="ico">${n[0]==="warn"?"⚠️":"💡"}</span><div>${n[1]}</div></div>`).join("")}
-  </div>
- </details>`;}).join("");
-
-/* ============ 勾选清单（localStorage） ============ */
-const KEY="tokyo2026:";
-function renderChecks(listEl,progressEl,items,withWhen){
-  listEl.innerHTML=items.map(it=>{
-    const done=localStorage.getItem(KEY+it.id)==="1";
-    return `<label class="check-item ${done?"done":""}" data-id="${it.id}">
-      <input type="checkbox" ${done?"checked":""} aria-label="${it.what}">
-      <span>${withWhen&&it.when?`<span class="when">${it.when}</span>`:""}<span class="what">${it.what}</span></span>
-    </label>`;}).join("");
-  updateProgress(progressEl,items);
-  listEl.querySelectorAll("input").forEach(cb=>{
-    cb.addEventListener("change",e=>{
-      const item=e.target.closest(".check-item");
-      const id=item.dataset.id;
-      if(e.target.checked){localStorage.setItem(KEY+id,"1");item.classList.add("done");}
-      else{localStorage.removeItem(KEY+id);item.classList.remove("done");}
-      updateProgress(progressEl,items);
-    });
-  });
+function loadTextSize() {
+  const saved = localStorage.getItem('tokyo_text_size');
+  if (saved) {
+    document.documentElement.setAttribute('data-text-size', saved);
+    const btn = document.getElementById('text-toggle');
+    if (saved === 'large' && btn) {
+      btn.classList.add('active');
+      btn.textContent = 'Aa 恢复正常';
+    }
+  }
 }
-function updateProgress(el,items){
-  const done=items.filter(it=>localStorage.getItem(KEY+it.id)==="1").length;
-  el.textContent=`已完成 ${done} / ${items.length} 项${done===items.length?" 🎉 全部搞定！":""}`;
-}
-renderChecks(document.getElementById("bookingList"),document.getElementById("bookingProgress"),BOOKINGS,true);
-renderChecks(document.getElementById("todoList"),document.getElementById("todoProgress"),TODOS,false);
 
-/* ============ 深浅色模式 ============ */
-const themeBtn=document.getElementById("themeBtn");
-function applyTheme(t){
-  document.documentElement.dataset.theme=t;
-  themeBtn.textContent=t==="dark"?"☀️":"🌙";
-  document.querySelector('meta[name="theme-color"]').content=t==="dark"?"#0E1420":"#F3F5F9";
+// Theme Switcher (Light Washi vs Dark Sumi Night)
+function toggleTheme() {
+  const html = document.documentElement;
+  const btn = document.getElementById('theme-toggle');
+  const current = html.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  
+  html.setAttribute('data-theme', next);
+  btn.textContent = next === 'dark' ? '🌙' : '☀️';
+  localStorage.setItem('tokyo_theme', next);
 }
-const savedTheme=localStorage.getItem(KEY+"theme");
-applyTheme(savedTheme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"));
-themeBtn.addEventListener("click",()=>{
-  const next=document.documentElement.dataset.theme==="dark"?"light":"dark";
-  localStorage.setItem(KEY+"theme",next);
-  applyTheme(next);
-});
 
-/* ============ 导航高亮 + 返回顶部 ============ */
-const chips=[...document.querySelectorAll(".chip")];
-const secs=chips.map(c=>document.querySelector(c.getAttribute("href")));
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(en=>{
-    if(en.isIntersecting){
-      chips.forEach(c=>c.classList.toggle("active",c.getAttribute("href")==="#"+en.target.id));
-      const active=document.querySelector(".chip.active");
-      if(active){
-        const nav=active.parentElement;
-        const left=active.getBoundingClientRect().left-nav.getBoundingClientRect().left+nav.scrollLeft;
-        nav.scrollTo({left:left-(nav.clientWidth-active.offsetWidth)/2});
-      }
+function loadTheme() {
+  const saved = localStorage.getItem('tokyo_theme');
+  if (saved) {
+    document.documentElement.setAttribute('data-theme', saved);
+    document.getElementById('theme-toggle').textContent = saved === 'dark' ? '🌙' : '☀️';
+  }
+}
+
+// Language Switcher
+function setLang(lang) {
+  const zhEls = document.querySelectorAll('span.zh');
+  const enEls = document.querySelectorAll('span.en');
+  const btnZh = document.getElementById('btn-zh');
+  const btnEn = document.getElementById('btn-en');
+
+  if (lang === 'en') {
+    zhEls.forEach(el => el.classList.remove('on'));
+    enEls.forEach(el => el.classList.add('on'));
+    btnZh.classList.remove('active');
+    btnEn.classList.add('active');
+  } else {
+    enEls.forEach(el => el.classList.remove('on'));
+    zhEls.forEach(el => el.classList.add('on'));
+    btnEn.classList.remove('active');
+    btnZh.classList.active;
+  }
+  localStorage.setItem('tokyo_lang', lang);
+}
+
+// Real-time Day Category Filter
+function filterCategory(cat, btnEl) {
+  const chips = document.querySelectorAll('.nav-chips .chip');
+  chips.forEach(c => c.classList.remove('active'));
+  if (btnEl) btnEl.classList.add('active');
+
+  const days = document.querySelectorAll('.day');
+  days.forEach(day => {
+    const dayCat = day.getAttribute('data-cat') || '';
+    if (cat === 'all' || dayCat.includes(cat)) {
+      day.classList.remove('hidden-day');
+    } else {
+      day.classList.add('hidden-day');
     }
   });
-},{rootMargin:"-30% 0px -60% 0px"});
-secs.forEach(s=>s&&io.observe(s));
+}
 
-const toTop=document.getElementById("toTop");
-addEventListener("scroll",()=>{toTop.classList.toggle("show",scrollY>600)},{passive:true});
-toTop.addEventListener("click",()=>scrollTo({top:0,behavior:"smooth"}));
+// Day Accordion Toggle
+function toggleDay(dayId) {
+  const body = document.getElementById('body-' + dayId);
+  const chev = document.getElementById('chev-' + dayId);
+  if (!body) return;
+
+  if (body.classList.contains('open')) {
+    body.classList.remove('open');
+    if (chev) chev.classList.remove('open');
+  } else {
+    body.classList.add('open');
+    if (chev) chev.classList.add('open');
+  }
+}
+
+// Checkbox LocalStorage Persistence
+function saveCheck(id) {
+  const chk = document.getElementById(id);
+  if (!chk) return;
+  localStorage.setItem('tokyo_2026_' + id, chk.checked ? 'true' : 'false');
+  updateItemStyle(chk);
+}
+
+function updateItemStyle(chk) {
+  const parent = chk.closest('.check-item');
+  if (parent) {
+    if (chk.checked) parent.classList.add('done');
+    else parent.classList.remove('done');
+  }
+}
+
+function loadChecklist() {
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  checkboxes.forEach(chk => {
+    const val = localStorage.getItem('tokyo_2026_' + chk.id);
+    if (val === 'true') {
+      chk.checked = true;
+      updateItemStyle(chk);
+    }
+  });
+}
+
+// Auto open Day 2 and Day 5 on load for preview & load preferences
+window.addEventListener('DOMContentLoaded', () => {
+  loadTheme();
+  loadTextSize();
+  loadChecklist();
+  const savedLang = localStorage.getItem('tokyo_lang');
+  if (savedLang) setLang(savedLang);
+  
+  toggleDay('day-2');
+  toggleDay('day-5');
+});
 </script>
 </body>
 </html>

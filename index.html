@@ -10,7 +10,9 @@
 try {
   const savedTheme = localStorage.getItem('tokyo_theme');
   const savedSize = localStorage.getItem('tokyo_text_size');
-  if (savedTheme) document.documentElement.dataset.theme = savedTheme;
+  const initialTheme = savedTheme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  document.documentElement.dataset.theme = initialTheme;
+  document.querySelector('meta[name="theme-color"]').content = initialTheme === 'dark' ? '#0c111a' : '#e6ded0';
   if (savedSize) document.documentElement.dataset.textSize = savedSize === 'normal' ? 'compact' : savedSize;
 } catch (error) {}
 </script>
@@ -22,7 +24,6 @@ try {
 
 /* Color System - Light Washi & Dark Sumi Night */
 :root{
-  --bg-gradient: radial-gradient(circle at 20% 10%,rgba(255,255,255,.7),transparent 50%),radial-gradient(circle at 80% 90%,rgba(184,50,27,.05),transparent 45%);
   --bg-body:#e6ded0;
   --washi:#f4efe4;
   --paper:#faf6ec;
@@ -38,7 +39,7 @@ try {
   --shu:#b8321b;         /* Rich Vermilion Red */
   --shu-soft:#e3a498;
   --shu-bg:#f8e8e4;
-  --kin:#996d18;         /* High-contrast Gold */
+  --kin:#79520f;         /* High-contrast Gold */
   --kin-bg:#f8edd4;
   --matcha:#526127;      /* High-contrast Matcha */
   --matcha-bg:#eaf0d8;
@@ -48,6 +49,12 @@ try {
   --focus:#122b49;
   --footer-bg:#122b49;
   --footer-ink:#fff;
+  --surface-info:color-mix(in oklch,var(--ai) 8%,var(--paper));
+  --surface-highlight:color-mix(in oklch,var(--shu) 7%,var(--paper));
+  --surface-calm:color-mix(in oklch,var(--matcha) 9%,var(--paper));
+  --surface-warn:color-mix(in oklch,var(--kin) 10%,var(--paper));
+  --line-info:color-mix(in oklch,var(--ai) 38%,var(--line));
+  --line-highlight:color-mix(in oklch,var(--shu) 45%,var(--line));
   --r-md:8px;
   --r-lg:12px;
   --font-sans:'PingFang SC','Hiragino Sans GB','Noto Sans SC','Microsoft YaHei',system-ui,sans-serif;
@@ -76,7 +83,6 @@ html[data-text-size="compact"] {
 }
 
 html[data-theme="dark"] {
-  --bg-gradient: radial-gradient(circle at 20% 10%,rgba(31,58,95,.25),transparent 50%),radial-gradient(circle at 80% 90%,rgba(200,68,44,.1),transparent 45%);
   --bg-body:#0c111a;
   --washi:#121824;
   --paper:#172235;
@@ -119,7 +125,6 @@ html[data-text-size="large"] {
 body{
   font-family:var(--font-sans);
   background:var(--bg-body);
-  background-image:var(--bg-gradient);
   color:var(--ink);
   font-size:var(--font-base);
   min-height:100vh;
@@ -127,6 +132,7 @@ body{
   -webkit-font-smoothing:antialiased;
   transition:background-color .3s, color .3s, font-size .2s;
 }
+a{color:var(--ai);text-underline-offset:.15em;}
 
 .page{max-width:800px;margin:0 auto;padding:20px 16px 70px;counter-reset:trip-day;}
 .skip-link{
@@ -135,6 +141,10 @@ body{
   background:var(--ai);color:var(--on-ai);font-weight:800;text-decoration:none;
 }
 .skip-link:focus{transform:none;}
+.sr-only{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
 
 /* Topbar with Safe Area support */
 .topbar{
@@ -203,13 +213,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   outline-offset:3px;
   box-shadow:none;
 }
+.lang-btn:focus-visible,.mobile-dock a:focus-visible,[role="button"]:focus-visible{outline-offset:-3px;}
 
 /* Hero */
 .hero{border-radius:var(--r-lg);overflow:hidden;position:relative;height:310px;margin-bottom:0;box-shadow:0 8px 30px rgba(0,0,0,.25);}
 .hero img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block;}
 .hero-overlay{
   position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(10,20,36,.94) 0%,rgba(10,20,36,.45) 50%,rgba(10,20,36,.15) 100%);
+  background:oklch(18% .04 250 / .52);
   display:flex;flex-direction:column;justify-content:flex-end;padding:26px 28px;
 }
 .hero-kanji{
@@ -227,21 +238,22 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   border-top:none;border-radius:0 0 var(--r-lg) var(--r-lg);margin-bottom:28px;overflow:hidden;
 }
 .meta-cell{flex:1;min-width:140px;padding:14px 18px;border-right:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);}
-.meta-cell:last-child{border-right:none;}
+.meta-cell:last-child{border-right:none;background:var(--surface-warn);}
+.meta-cell:last-child .meta-val{color:var(--kin);}
 .meta-label{font-size:var(--font-meta-lbl);color:var(--ink-faint);margin-bottom:3px;letter-spacing:.08em;font-weight:700;text-transform:uppercase;}
 .meta-val{font-family:var(--font-serif);font-size:var(--font-meta-val);font-weight:800;color:var(--ai);}
 .meta-sub{font-size:var(--font-sub);color:var(--ink-soft);margin-top:2px;}
 
 /* Section Heading */
 .sec-head{display:flex;align-items:center;gap:14px;margin:36px 4px 20px;scroll-margin-top:80px;}
-.sec-kanji{font-family:var(--font-serif);font-size:var(--font-h2);font-weight:800;color:var(--shu);letter-spacing:.05em;}
+.sec-kanji{font-family:var(--font-serif);font-size:var(--font-h2);font-weight:800;color:var(--ai);letter-spacing:.05em;}
 .sec-en{font-size:var(--font-meta-lbl);color:var(--ink-faint);letter-spacing:.18em;font-weight:700;text-transform:uppercase;}
-.sec-line{flex:1;height:2px;background:var(--line);}
+.sec-line{flex:1;height:2px;background:var(--line-info);}
 
 /* Cards */
 .card{
   background:var(--paper);border:1.5px solid var(--line);border-radius:var(--r-lg);
-  padding:22px;margin-bottom:18px;box-shadow:0 3px 12px rgba(0,0,0,.04);
+  padding:22px;margin-bottom:18px;
 }
 .card h3{font-family:var(--font-serif);font-size:var(--font-h3);font-weight:800;color:var(--ai);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
 
@@ -260,11 +272,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   border-radius:var(--r-md);padding:14px 18px;margin:14px 0;font-size:var(--font-sub);line-height:1.7;
   display:flex;gap:12px;align-items:flex-start;
 }
-.note-box.warn{background:var(--shu-bg);border:1.5px solid var(--shu-soft);color:var(--ink);}
+.note-box.warn{background:var(--surface-highlight);border:1.5px solid var(--line-highlight);color:var(--ink);}
 .note-box.warn strong{color:var(--shu);font-family:var(--font-serif);font-weight:800;}
-.note-box.tip{background:var(--ai-bg);border:1.5px solid var(--line-soft);color:var(--ink);}
+.note-box.tip{background:var(--surface-info);border:1.5px solid var(--line-info);color:var(--ink);}
 .note-box.tip strong{color:var(--ai);font-family:var(--font-serif);font-weight:800;}
-.note-box.kin{background:var(--kin-bg);border:1.5px solid var(--line-soft);color:var(--ink);}
+.note-box.kin{background:var(--surface-warn);border:1.5px solid color-mix(in oklch,var(--kin) 42%,var(--line));color:var(--ink);}
 .note-box.kin strong{color:var(--kin);font-family:var(--font-serif);font-weight:800;}
 
 /* Interactive 10-Day Quick Navigation Bar (Day Buttons) */
@@ -293,7 +305,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   font-family: var(--font-serif);
   font-weight: 800;
   font-size: 0.875rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
 }
 .day-nav-btn .day-sub {
   font-family: var(--font-sans);
@@ -303,13 +314,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   margin-top: 2px;
 }
 .day-nav-btn:hover, .day-nav-btn.active {
-  background: var(--shu);
-  color: var(--on-shu);
-  border-color: var(--shu);
-  box-shadow: 0 4px 12px rgba(204,41,54,0.3);
+  background: var(--ai);
+  color: var(--on-ai);
+  border-color: var(--ai);
 }
 .day-nav-btn:hover .day-sub, .day-nav-btn.active .day-sub {
-  color: var(--on-shu);
+  color: var(--on-ai);
 }
 
 /* Intensity Badges */
@@ -317,9 +327,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   font-family:var(--font-serif);font-size:var(--font-badge);padding:4px 12px;
   border-radius:99px;font-weight:800;white-space:nowrap;letter-spacing:.02em;
 }
-.badge.lo{background:var(--matcha-bg);color:var(--matcha);border:1.5px solid var(--line-soft);}
-.badge.mid{background:var(--kin-bg);color:var(--kin);border:1.5px solid var(--line-soft);}
-.badge.hi{background:var(--shu-bg);color:var(--shu);border:1.5px solid var(--shu-soft);}
+.badge.lo{background:var(--surface-calm);color:var(--matcha);border:1.5px solid color-mix(in oklch,var(--matcha) 35%,var(--line));}
+.badge.mid{background:var(--surface-warn);color:var(--kin);border:1.5px solid color-mix(in oklch,var(--kin) 38%,var(--line));}
+.badge.hi{background:var(--surface-highlight);color:var(--shu);border:1.5px solid var(--line-highlight);}
 
 /* Glance Overview Grid */
 .glance-list{display:flex;flex-direction:column;gap:10px;}
@@ -337,17 +347,18 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 /* Day Cards Accordion */
 .day{
   background:var(--paper);border:1.5px solid var(--line);border-radius:var(--r-lg);
-  margin-bottom:16px;overflow:hidden;transition:box-shadow .2s,transform .2s, opacity .2s;
+  margin-bottom:16px;overflow:hidden;transition:border-color .2s,background-color .2s;
   counter-increment:trip-day;scroll-margin-top:80px;
 }
 .day.hidden-day{display:none;}
-.day:hover{box-shadow:0 8px 24px rgba(0,0,0,.08);}
+.day:hover{border-color:var(--line-info);}
 .day-hdr{
   display:flex;align-items:center;gap:14px;padding:16px 18px;cursor:pointer;
   user-select:none;position:relative;min-height:64px;
 }
-.day-hdr::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--ai);}
-.day.highlight-day .day-hdr::before{background:var(--shu);}
+.day-hdr::before{display:none;}
+.day[data-cat~="must"]{border-color:var(--line-highlight);}
+.day[data-cat~="must"] .day-hdr{background:var(--surface-highlight);}
 
 /* Offline-Safe Icon Badge Thumbnails */
 .day-thumb{
@@ -430,7 +441,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   cursor:pointer;transition:background-color .15s,opacity .15s,color .15s;min-height:52px;line-height:1.6;
 }
 .check-item input[type="checkbox"]{width:22px;height:22px;margin-top:3px;accent-color:var(--shu);cursor:pointer;flex-shrink:0;}
-.check-item.done{opacity:.55;text-decoration:line-through;}
+.check-item.done{background:var(--paper);color:var(--ink-soft);text-decoration:line-through;}
 
 /* Budget Box */
 .budget-box{padding:18px;border-top:2px dashed var(--line);background:var(--paper-2);}
@@ -466,11 +477,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   .topbar{
     margin:-8px -8px 10px;
     padding:calc(7px + env(safe-area-inset-top, 0px)) 8px 7px;
-    background:color-mix(in srgb,var(--bg-body) 94%,transparent);
+    background:color-mix(in oklch,var(--bg-body) 94%,transparent);
     border-bottom:1px solid var(--line);
     backdrop-filter:blur(8px);
   }
-  html[data-theme="dark"] .topbar{background:color-mix(in srgb,var(--bg-body) 94%,transparent);}
+  html[data-theme="dark"] .topbar{background:color-mix(in oklch,var(--bg-body) 94%,transparent);}
   .topbar-content{gap:6px;}
   .brand{gap:0;}
   .brand-mark{width:36px;height:36px;font-size:1.125rem;box-shadow:none;}
@@ -606,7 +617,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
     bottom:max(8px,env(safe-area-inset-bottom, 0px));
     display:grid;grid-template-columns:repeat(4,1fr);
     border:1px solid var(--line);border-radius:12px;
-    background:color-mix(in srgb,var(--paper) 96%,transparent);
+    background:color-mix(in oklch,var(--paper) 96%,transparent);
     box-shadow:0 4px 8px rgba(0,0,0,.12);overflow:hidden;
   }
   .mobile-dock a{
@@ -615,7 +626,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
     border-right:1px solid var(--line-soft);
   }
   .mobile-dock a:last-child{border-right:0;}
-  .mobile-dock a:active{background:var(--ai-bg);color:var(--ai);}
+  .mobile-dock a:active,.mobile-dock a[aria-current="location"]{background:var(--surface-info);color:var(--ai);}
 }
 
 @media (max-width:640px) and (pointer:coarse) {
@@ -626,6 +637,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   html[data-text-size="large"] body{line-height:1.7;}
   html[data-text-size="large"] .page{padding-left:12px;padding-right:12px;}
   html[data-text-size="large"] .topbar{margin-left:-12px;margin-right:-12px;padding-left:12px;padding-right:12px;}
+  html[data-text-size="large"] .top-btn,
+  html[data-text-size="large"] .lang-btn,
+  html[data-text-size="large"] .chip{font-size:.9375rem;}
+  html[data-text-size="large"] .day-nav-btn{font-size:1rem;}
+  html[data-text-size="large"] .day-nav-btn .day-sub{font-size:.875rem;}
+  html[data-text-size="large"] .info-table{font-size:1rem;}
   html[data-text-size="large"] .hero{height:220px;}
   html[data-text-size="large"] .card{padding:17px;margin-bottom:14px;}
   html[data-text-size="large"] .day{margin-bottom:12px;}
@@ -638,8 +655,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   html[data-text-size="large"] .tl{padding:0;}
   html[data-text-size="large"] .tl-head,
   html[data-text-size="large"] .tl-item>div:last-child{grid-template-columns:7rem minmax(0,1fr);}
+  html[data-text-size="large"] .tl-time{font-size:1rem;}
   html[data-text-size="large"] .glance-item{min-height:64px;padding:11px;}
+  html[data-text-size="large"] .glance-title{font-size:1.125rem;}
+  html[data-text-size="large"] .glance-date{font-size:.9375rem;}
   html[data-text-size="large"] .check-item{min-height:52px;padding:13px;}
+  html[data-text-size="large"] .mobile-dock a{font-size:1rem;}
 }
 
 /* Print & PDF Media Styles */
@@ -692,6 +713,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
     <a href="#sec-booking" class="chip"><span class="zh on">订票</span><span class="en">Booking</span></a>
     <a href="#sec-budget" class="chip"><span class="zh on">预算</span><span class="en">Budget</span></a>
   </nav>
+  <div class="sr-only" id="filter-status" role="status" aria-live="polite"></div>
 
   <!-- Hero Banner (Real High-Res Stock Photo) -->
   <div class="hero">
@@ -1642,11 +1664,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
             <div class="tl-main"><span class="zh on">银座线起点站直达 · <a href="https://maps.google.com/?q=Meiji+Jingu" target="_blank" style="color:var(--ai);text-decoration:underline;">明治神宫</a> 森林参道散步 ★</span><span class="en">Meiji Jingu Shrine Walk</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
-                <li><strong>交通体验</strong>：从浅草站搭乘<a href="https://maps.google.com/?q=Asakusa+Station" target="_blank" style="color:var(--shu);font-weight:700;">银座线(浅草为起点站，100%保证有座)</a>直达表参道，全长30分钟不用站着。</li>
+                <li><strong>双重精准交通方案</strong>：
+                  <ul>
+                    <li><strong>方案 A (短途计程车 + 100%有座)</strong>：公寓搭<a href="https://maps.google.com/?q=Asakusa+Station" target="_blank" style="color:var(--shu);font-weight:700;">计程车 5m (~¥900)</a> 抵浅草站(G19起点站) ➔ 银座线 30m 直达表参道。<strong>最省力、100%保证有座位</strong>！(门到门约 35m)</li>
+                    <li><strong>方案 B (纯地铁全程西瓜卡)</strong>：公寓走 6m 至三ノ轮站 ➔ 日比谷线 14m 至银座站 ➔ 站内换乘银座线 9m 抵表参道。<strong>省钱(人均¥250)，免计程车费</strong>！(门到门约 33m)</li>
+                  </ul>
+                </li>
                 <li><strong>核心看点</strong>：参拜全日本最大木造大鸟居，漫步 70 公顷高耸森林参道，全平坦碎石路，空气极佳。</li>
                 <li><strong>避坑提醒</strong>：排在周五完成，避开 10/10-10/12 三连休的庞大人潮。</li>
               </ol>
-              <span class="pill">银座线起点必有座</span>
+              <span class="pill">可自由选计程车或纯地铁</span>
             </div>
           </div>
         </div>
@@ -2174,7 +2201,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   <footer class="footer">
     <div class="footer-kanji">旅</div>
     <div class="footer-title">
-      <div class="brand-mark" style="background:#fff;color:var(--shu);">旅</div>
+      <div class="brand-mark" style="background:var(--footer-ink);color:var(--footer-bg);">旅</div>
       <span class="zh on">东京 · 河口湖 2026 · 旅行手册</span>
       <span class="en">Tokyo & Kawaguchiko 2026</span>
     </div>
@@ -2312,14 +2339,18 @@ function filterCategory(cat, btnEl) {
   }
 
   const days = document.querySelectorAll('.day');
+  let visibleCount = 0;
   days.forEach(day => {
     const dayCat = day.getAttribute('data-cat') || '';
     if (cat === 'all' || dayCat.includes(cat)) {
       day.classList.remove('hidden-day');
+      visibleCount += 1;
     } else {
       day.classList.add('hidden-day');
     }
   });
+  const status = document.getElementById('filter-status');
+  if (status) status.textContent = `显示 ${visibleCount} 天行程`;
 }
 
 // Interactive Day Quick-Jump Function (Day Buttons)
@@ -2342,8 +2373,9 @@ function jumpToDay(dayId, btn) {
 
   if (dayId === 'all') {
     const section = document.getElementById('sec-days');
+    section.setAttribute('tabindex', '-1');
     section.scrollIntoView({ behavior: preferredScrollBehavior(), block: 'start' });
-    section.querySelector('h2')?.focus({preventScroll:true});
+    section.focus({preventScroll:true});
   } else {
     const targetDay = document.getElementById(dayId);
     if (targetDay) {
@@ -2428,8 +2460,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.tl').forEach(schedule => {
     if (schedule.querySelector('.tl-head')) return;
+    schedule.setAttribute('role', 'list');
+    schedule.setAttribute('aria-label', '每日行程时间表');
+    schedule.querySelectorAll('.tl-item').forEach(item => item.setAttribute('role', 'listitem'));
     const header = document.createElement('div');
     header.className = 'tl-head';
+    header.setAttribute('aria-hidden', 'true');
     header.innerHTML = `
       <span><span class="zh on">时间</span><span class="en">Time</span></span>
       <span><span class="zh on">行程与说明</span><span class="en">Plan & details</span></span>
@@ -2437,8 +2473,17 @@ window.addEventListener('DOMContentLoaded', () => {
     schedule.prepend(header);
   });
 
+  document.querySelectorAll('.info-table').forEach(table => {
+    table.setAttribute('aria-label', '行程资料表');
+    table.querySelectorAll('th').forEach(cell => cell.setAttribute('scope', 'col'));
+  });
+
   const savedLang = getStoredPreference('tokyo_lang');
   if (savedLang) setLang(savedLang);
+
+  document.querySelectorAll('.day-nav-btn').forEach((button, index) => {
+    button.setAttribute('aria-pressed', index === 0 ? 'true' : 'false');
+  });
 
   document.querySelectorAll('.day-hdr').forEach(header => {
     const day = header.closest('.day');
@@ -2465,11 +2510,39 @@ window.addEventListener('DOMContentLoaded', () => {
       const body = day.querySelector('.day-body');
       if (body && !body.classList.contains('open')) toggleDay(dayId, false);
       history.replaceState(null, '', '#' + dayId);
-      requestAnimationFrame(() => day.scrollIntoView({block:'start'}));
+      requestAnimationFrame(() => {
+        day.scrollIntoView({block:'start',behavior:preferredScrollBehavior()});
+        day.querySelector('.day-hdr')?.focus({preventScroll:true});
+      });
     });
   });
 
-  const linkedDay = location.hash && document.querySelector(location.hash + '.day');
+  const dockLinks = [...document.querySelectorAll('.mobile-dock a')];
+  const dockSections = dockLinks
+    .map(link => document.querySelector(link.getAttribute('href')))
+    .filter(Boolean);
+  if ('IntersectionObserver' in window && dockSections.length) {
+    const updateDock = entries => {
+      const visibleSection = entries
+        .filter(entry => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visibleSection) return;
+      dockLinks.forEach(link => {
+        const isCurrent = link.getAttribute('href') === `#${visibleSection.target.id}`;
+        if (isCurrent) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    };
+    const dockObserver = new IntersectionObserver(updateDock, {
+      rootMargin: '-20% 0px -60% 0px',
+      threshold: [0, 0.25, 0.5]
+    });
+    dockSections.forEach(section => dockObserver.observe(section));
+  }
+
+  const linkedDay = /^#day-(?:10|[1-9])$/.test(location.hash)
+    ? document.querySelector(location.hash + '.day')
+    : null;
   if (linkedDay) toggleDay(linkedDay.id, false);
 });
 </script>

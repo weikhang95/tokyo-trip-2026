@@ -362,13 +362,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .day-body.open{display:block;animation:fade .3s ease;}
 @keyframes fade{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:none;}}
 
-/* Day Banner Container with High-Res Real Stock Photos */
-.day-banner-wrap{position:relative;width:100%;height:220px;background:var(--ai-soft);overflow:hidden;}
+/* Day Banner Container with High-Res Real Stock Photos (Mobile Optimized) */
+.day-banner-wrap{position:relative;width:100%;aspect-ratio:16/9;max-height:240px;background:var(--paper-2);overflow:hidden;}
 .day-banner{width:100%;height:100%;object-fit:cover;display:block;}
 
-/* Sub-card photo gallery for Plan A & Plan B options */
-.bplan-gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
-.bplan-img-card{border-radius:var(--r-md);overflow:hidden;height:120px;position:relative;}
+/* Sub-card photo gallery for Plan A & Plan B options (Mobile Responsive) */
+.bplan-gallery{display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:10px;margin-top:12px;}
+.bplan-img-card{border-radius:var(--r-md);overflow:hidden;aspect-ratio:16/9;position:relative;background:var(--paper-2);}
 .bplan-img-card img{width:100%;height:100%;object-fit:cover;display:block;}
 .bplan-img-lbl{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.65);color:#fff;font-size:.75rem;padding:3px 8px;font-weight:700;}
 
@@ -559,8 +559,8 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
   .chev{width:18px;height:18px;}
   .day-body{border-top-width:1px;background:var(--paper);}
   .day-body.open{animation:none;}
-  .day-banner-wrap{display:none;}
-  .bplan-gallery{display:none;}
+  .day-banner-wrap{display:block;position:relative;width:100%;aspect-ratio:16/9;max-height:180px;background:var(--paper-2);overflow:hidden;}
+  .bplan-gallery{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;}
   .bplan-img-card{height:88px;border-radius:6px;}
   .bplan-img-lbl{font-size:.75rem;line-height:1.3;}
 
@@ -835,8 +835,8 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
           <td>UO769 | UO848</td>
           <td>
             <strong>03 Oct (六) 01:00</strong> 槟城 (PEN)<br/>
-            $\rightarrow$ 香港 (HKG) 转机<br/>
-            $\rightarrow$ <strong>03 Oct (六) 14:45 抵达 成田 (NRT Terminal 2)</strong>
+            → 香港 (HKG) 转机<br/>
+            → <strong>03 Oct (六) 14:45 抵达 成田 (NRT Terminal 2)</strong>
           </td>
           <td>舱等: Z | U<br/>成田 T2 落地出关约 45-60 分钟</td>
         </tr>
@@ -845,8 +845,8 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
           <td>UO629 | UO746</td>
           <td>
             <strong>12 Oct (一) 02:20</strong> 羽田 (HND Terminal 3)<br/>
-            $\rightarrow$ 香港 (HKG) 转机<br/>
-            $\rightarrow$ <strong>12 Oct (一) 15:40 返抵 槟城 (PEN)</strong>
+            → 香港 (HKG) 转机<br/>
+            → <strong>12 Oct (一) 15:40 返抵 槟城 (PEN)</strong>
           </td>
           <td>舱等: W | Z<br/>10/11 21:45 从浅草乘都营浅草线直达羽田 T3</td>
         </tr>
@@ -1051,7 +1051,7 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
           <div class="tl-icon">🚆</div>
           <div>
             <div class="tl-time">16:08 - 16:50</div>
-            <div class="tl-main"><span class="zh on">搭乘 Keisei Skyliner 特快：成田 T2 $\rightarrow$ <a href="https://maps.google.com/?q=Keisei+Ueno+Station" target="_blank" style="color:var(--ai);text-decoration:underline;">京成上野站</a></span><span class="en">Skyliner Express: NRT T2 to Keisei-Ueno</span></div>
+            <div class="tl-main"><span class="zh on">搭乘 Keisei Skyliner 特快：成田 T2 → <a href="https://maps.google.com/?q=Keisei+Ueno+Station" target="_blank" style="color:var(--ai);text-decoration:underline;">京成上野站</a></span><span class="en">Skyliner Express: NRT T2 to Keisei-Ueno</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>直达车程</strong>：仅需 41 分钟直达上野 (¥2,580/人，提前网订优惠价 ¥2,310)。</li>
@@ -1065,7 +1065,7 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
           <div class="tl-icon">🚕</div>
           <div>
             <div class="tl-time">17:00 - 17:15</div>
-            <div class="tl-main"><span class="zh on">京成上野站搭乘计程车 $\rightarrow$ <a href="https://maps.google.com/?q=Luxury+Stay+Hotel+Asakusa+Ryusen" target="_blank" style="color:var(--ai);text-decoration:underline;">竜泉公寓</a> (推荐带长辈)</span><span class="en">Taxi Keisei-Ueno to Ryusen Airbnb</span></div>
+            <div class="tl-main"><span class="zh on">京成上野站搭乘计程车 → <a href="https://maps.google.com/?q=Luxury+Stay+Hotel+Asakusa+Ryusen" target="_blank" style="color:var(--ai);text-decoration:underline;">竜泉公寓</a> (推荐带长辈)</span><span class="en">Taxi Keisei-Ueno to Ryusen Airbnb</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>长辈保护</strong>：车程 2.3 km (8-10 分钟，车费约 ¥1,300 - ¥1,600)。</li>
@@ -1165,7 +1165,7 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
           <div class="tl-icon">⛩️</div>
           <div>
             <div class="tl-time">06:30 - 08:30</div>
-            <div class="tl-main"><span class="zh on">【主路线 徒步段一：1.3km】公寓 $\rightarrow$ <a href="https://maps.google.com/?q=Sensoji+Temple+Kaminarimon" target="_blank" style="color:var(--ai);text-decoration:underline;">浅草寺清晨漫步 ★</a></span><span class="en">Walk Leg 1: Base to Sensoji (1.3km)</span></div>
+            <div class="tl-main"><span class="zh on">【主路线 徒步段一：1.3km】公寓 → <a href="https://maps.google.com/?q=Sensoji+Temple+Kaminarimon" target="_blank" style="color:var(--ai);text-decoration:underline;">浅草寺清晨漫步 ★</a></span><span class="en">Walk Leg 1: Base to Sensoji (1.3km)</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>平地徒步</strong>：清晨沿着国际通平坦大道南行 16 分钟即达。</li>
@@ -1188,7 +1188,7 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
           <div class="tl-icon">🚶</div>
           <div>
             <div class="tl-time">11:30 - 13:00</div>
-            <div class="tl-main"><span class="zh on">【主路线 徒步段二&三：1.7km】隅田公园 $\rightarrow$ SUMIDA RIVER WALK 水上步道 $\rightarrow$ 晴空塔</span><span class="en">Walk Leg 2&3: River Walk & Mizumachi (1.7km)</span></div>
+            <div class="tl-main"><span class="zh on">【主路线 徒步段二&三：1.7km】隅田公园 → SUMIDA RIVER WALK 水上步道 → 晴空塔</span><span class="en">Walk Leg 2&3: River Walk & Mizumachi (1.7km)</span></div>
             <div class="tl-desc"><span class="zh on">跨过 SUMIDA RIVER WALK 水上步道，沿着 Mizumachi 运河绿荫公园咖啡馆散步至晴空塔。</span></div>
           </div>
         </div>
@@ -1199,7 +1199,7 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
             <div class="tl-main"><span class="zh on">【Day 2 降雨/避挤 3 大弹性 B Plan 备选方案与实景】</span><span class="en">Day 2 Rain/Crowd Avoidance B-Plans</span></div>
             <div class="tl-desc"><span class="zh on">
               <strong>方案 B1 (室内光影/极受欢迎)</strong>：teamLab Planets TOKYO 丰洲触感水上光影展 (全室内，裸足踏水与浮空兰花花园，Google 4.7★)。<br/>
-              <strong>方案 B2 (零体力/游船看景)</strong>：隅田川观光水上巴士 (浅草码头 $\rightarrow$ 台场/滨离宫，在玻璃船舱内看东京湾与彩虹大桥)。<br/>
+              <strong>方案 B2 (零体力/游船看景)</strong>：隅田川观光水上巴士 (浅草码头 → 台场/滨离宫，在玻璃船舱内看东京湾与彩虹大桥)。<br/>
               <strong>方案 B3 (室内观景/老街)</strong>：浅草文化观光中心 8F 免费展望台 (隈研吾设计，俯瞰浅草全景) & 合羽桥道具街。
             </span></div>
             <!-- Real Stock Photo Gallery for Day 2 B Plans -->
@@ -1361,7 +1361,7 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
           <div class="tl-icon">🚌</div>
           <div>
             <div class="tl-time">08:00 - 10:00</div>
-            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Tokyo+Station+Yaesu+South+Exit" target="_blank" style="color:var(--ai);text-decoration:underline;">东京站八重洲南口</a>搭乘高速巴士 $\rightarrow$ <a href="https://maps.google.com/?q=Kawaguchiko+Station" target="_blank" style="color:var(--ai);text-decoration:underline;">河口湖站</a></span><span class="en">Highway Bus to Kawaguchiko</span></div>
+            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Tokyo+Station+Yaesu+South+Exit" target="_blank" style="color:var(--ai);text-decoration:underline;">东京站八重洲南口</a>搭乘高速巴士 → <a href="https://maps.google.com/?q=Kawaguchiko+Station" target="_blank" style="color:var(--ai);text-decoration:underline;">河口湖站</a></span><span class="en">Highway Bus to Kawaguchiko</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>轻装策略</strong>：大行李留在东京公寓，只带随身小背包轻装出发！</li>
@@ -1605,7 +1605,7 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
           <div class="tl-icon">🍣</div>
           <div>
             <div class="tl-time">18:45 - 20:30</div>
-            <div class="tl-main"><span class="zh on">晚餐<a href="https://maps.google.com/?q=Umegaoka+Sushi+No+Midori+Shibuya" target="_blank" style="color:var(--ai);text-decoration:underline;">美登利寿司 (Google 4.4★)</a> $\rightarrow$ 银座线起点站返程</span><span class="en">Midori Sushi & Return Base</span></div>
+            <div class="tl-main"><span class="zh on">晚餐<a href="https://maps.google.com/?q=Umegaoka+Sushi+No+Midori+Shibuya" target="_blank" style="color:var(--ai);text-decoration:underline;">美登利寿司 (Google 4.4★)</a> → 银座线起点站返程</span><span class="en">Midori Sushi & Return Base</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>晚餐推荐</strong>：享用高性价比<a href="https://maps.google.com/?q=Umegaoka+Sushi+No+Midori+Shibuya" target="_blank">美登利寿司</a>。</li>
@@ -1829,10 +1829,10 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
           <div class="tl-icon">✈️</div>
           <div>
             <div class="tl-time">02:20 - 15:40</div>
-            <div class="tl-main"><span class="zh on">HK Express UO629 02:20 羽田 T3 起飞 $\rightarrow$ 15:40 抵槟城</span><span class="en">02:20 Flight HND T3 → 15:40 PEN Land</span></div>
+            <div class="tl-main"><span class="zh on">HK Express UO629 02:20 羽田 T3 起飞 → 15:40 抵槟城</span><span class="en">02:20 Flight HND T3 → 15:40 PEN Land</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
-                <li><strong>返航航班</strong>：UO629 02:20 羽田 T3 起飞 $\rightarrow$ 香港转机 $\rightarrow$ 15:40 顺利抵槟城 (PEN)。</li>
+                <li><strong>返航航班</strong>：UO629 02:20 羽田 T3 起飞 → 香港转机 → 15:40 顺利抵槟城 (PEN)。</li>
                 <li><strong>充裕缓冲</strong>：10/13 - 10/14 在家好好休息，10/15 满血开工！</li>
               </ol>
             </div>
@@ -1895,8 +1895,8 @@ html[data-theme="dark"] .footer{color:#f0f4fd;}
         <strong>· 上车地点</strong>：<a href="https://maps.google.com/?q=Tokyo+Station+Yaesu+South+Exit" target="_blank" style="color:var(--ai);text-decoration:underline;">东京站八重洲南口 9号巴士站</a> (一楼地面，零阶梯)<br/>
         <strong>· 官方预订网址</strong>：<a href="https://www.highwaybus.com/gp/inbound/inbPlanList?lineGroupNo=1&lineNo=110" target="_blank" style="color:var(--shu);font-weight:800;text-decoration:underline;">Highwaybus.com 官方中文网</a> 或 <a href="https://japanbusonline.com/en/CourseDetail/index/11300060001" target="_blank" style="color:var(--shu);font-weight:800;text-decoration:underline;">Japan Bus Online 官网</a><br/>
         <strong>· 放票时间凭据</strong>：乘车前 1 个月当天 10:00 (JST) / 09:00 (MYR) 准时开抢票。<br/>
-        <strong>· 去程放票</strong>：10/06 巴士票 $\rightarrow$ <strong>2026年9月6日 09:00 MYR 开抢</strong> (¥2,300/人)<br/>
-        <strong>· 回程放票</strong>：10/07 巴士票 $\rightarrow$ <strong>2026年9月7日 09:00 MYR 开抢</strong> (¥2,300/人)
+        <strong>· 去程放票</strong>：10/06 巴士票 → <strong>2026年9月6日 09:00 MYR 开抢</strong> (¥2,300/人)<br/>
+        <strong>· 回程放票</strong>：10/07 巴士票 → <strong>2026年9月7日 09:00 MYR 开抢</strong> (¥2,300/人)
       </span>
     </div>
 

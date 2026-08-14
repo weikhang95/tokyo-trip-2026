@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>东京 · 河口湖 2026 · 旅行手册</title>
 <meta name="description" content="东京 · 河口湖行程 2026 — 2026年10月3日至12日，两个人的富士山之旅"/>
-<meta name="theme-color" content="#e6ded0"/>
+<meta name="theme-color" content="#f7f5f0"/>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗻</text></svg>"/>
 <script>
 try {
@@ -13,127 +13,162 @@ try {
   const savedSize = localStorage.getItem('tokyo_text_size');
   const initialTheme = savedTheme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   document.documentElement.dataset.theme = initialTheme;
-  document.querySelector('meta[name="theme-color"]').content = initialTheme === 'dark' ? '#0c111a' : '#e6ded0';
+  document.querySelector('meta[name="theme-color"]').content = initialTheme === 'dark' ? '#0c1017' : '#f7f5f0';
   if (savedSize) document.documentElement.dataset.textSize = savedSize === 'normal' ? 'compact' : savedSize;
 } catch (error) {}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@700;800&family=Noto+Serif+SC:wght@700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700;800&family=Shippori+Mincho:wght@700;800&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 
-/* Color System - Light Washi & Dark Sumi Night */
+/* Serene Japanese Paper & Ink Design System */
 :root{
-  --bg-body:#e6ded0;
-  --washi:#f4efe4;
-  --paper:#faf6ec;
-  --paper-2:#eee7d6;
-  --ink:#1a1612;        /* Dark contrast for high legibility */
-  --ink-soft:#484036;   /* Legible secondary text */
-  --ink-faint:#675e50;
-  --line:#cdbf9f;
-  --line-soft:#ded4be;
-  --ai:#122b49;         /* Deep Navy */
-  --ai-soft:#e2e9f3;
-  --ai-bg:#e4ebf5;
-  --shu:#b8321b;         /* Rich Vermilion Red */
-  --shu-soft:#e3a498;
-  --shu-bg:#f8e8e4;
-  --kin:#79520f;         /* High-contrast Gold */
-  --kin-bg:#f8edd4;
-  --matcha:#526127;      /* High-contrast Matcha */
-  --matcha-bg:#eaf0d8;
-  --sumi:#231f1a;
-  --on-ai:#fff;
-  --on-shu:#fff;
-  --focus:#122b49;
-  --footer-bg:#122b49;
-  --footer-ink:#fff;
-  --surface-info:color-mix(in oklch,var(--ai) 8%,var(--paper));
-  --surface-highlight:color-mix(in oklch,var(--shu) 5%,var(--paper));
-  --surface-calm:color-mix(in oklch,var(--matcha) 9%,var(--paper));
-  --surface-warn:color-mix(in oklch,var(--kin) 10%,var(--paper));
-  --line-info:color-mix(in oklch,var(--ai) 38%,var(--line));
-  --line-highlight:color-mix(in oklch,var(--shu) 45%,var(--line));
+  --bg-body:#f7f5f0;        /* Soothing, light warm ivory linen */
+  --washi:#faf9f6;          /* Clean washi paper */
+  --paper:#ffffff;          /* Pure crisp card surface */
+  --paper-2:#f4f0e8;        /* Subtle secondary container */
+  --paper-tint:#f8f6f2;     /* Very gentle card background */
+  --ink:#231f1b;            /* Soft charcoal espresso - zero glare */
+  --ink-soft:#595045;       /* Comfortable readable body text */
+  --ink-faint:#8a8073;      /* Subtle muted metadata */
+  --line:#e8e2d6;           /* Delicate hairline border */
+  --line-soft:#f0ebe1;      /* Ultra faint inner separation */
+  --ai:#1c3553;             /* Serene Deep Indigo */
+  --ai-soft:#edf3fa;
+  --ai-bg:#edf3fa;
+  --shu:#c2412d;            /* Elegant Vermilion Red */
+  --shu-soft:#fceae6;
+  --shu-bg:#fdf2f0;
+  --kin:#855e16;            /* Quiet Bronze Gold */
+  --kin-bg:#faf4e6;
+  --matcha:#506628;         /* Tranquil Matcha Green */
+  --matcha-bg:#f0f5e6;
+  --sumi:#231f1b;
+  --on-ai:#ffffff;
+  --on-shu:#ffffff;
+  --focus:#1c3553;
+  --footer-bg:#162940;
+  --footer-ink:#f7f5f0;
+  
+  --card-shadow:0 2px 10px rgba(35,31,27,0.035), 0 1px 3px rgba(35,31,27,0.02);
+  --card-shadow-hover:0 6px 20px rgba(35,31,27,0.06), 0 2px 6px rgba(35,31,27,0.03);
+  
+  --surface-info:#edf3fa;
+  --surface-highlight:#fdf2f0;
+  --surface-calm:#f0f5e6;
+  --surface-warn:#faf4e6;
+  --line-info:#d5e3f4;
+  --line-highlight:#f7d1cb;
+  
   --space-2xs:4px;
   --space-xs:8px;
   --space-sm:12px;
-  --space-md:16px;
-  --space-reading:20px;
-  --space-lg:24px;
-  --space-xl:32px;
-  --space-2xl:48px;
-  --space-3xl:64px;
+  --space-md:18px;
+  --space-reading:22px;
+  --space-lg:28px;
+  --space-xl:36px;
+  --space-2xl:52px;
+  --space-3xl:72px;
+  
   --z-dock:30;
   --z-header:100;
   --z-skip-link:200;
-  --ease-out:cubic-bezier(.25,1,.5,1);
-  --r-md:8px;
-  --r-lg:12px;
-  --font-sans:'PingFang SC','Hiragino Sans GB','Noto Sans SC','Microsoft YaHei',system-ui,sans-serif;
+  --ease-out:cubic-bezier(.22,1,.36,1);
+  --r-sm:6px;
+  --r-md:10px;
+  --r-lg:16px;
+  
+  /* Font Family Stacks */
+  --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;
   --font-serif:'Shippori Mincho','Noto Serif SC','Songti SC',serif;
   
-  --font-base:1.125rem;
-  --font-sub:1rem;
-  --font-h3:1.25rem;
-  --font-h2:1.5rem;
-  --font-h1:1.875rem;
-  --font-meta-val:1.125rem;
-  --font-meta-lbl:.875rem;
-  --font-badge:.875rem;
+  /* Clean Typographic Scale */
+  --font-2xs:0.75rem;    /* 12px */
+  --font-xs:0.8125rem;   /* 13px */
+  --font-sm:0.875rem;    /* 14px */
+  --font-sub:0.9375rem;  /* 15px */
+  --font-base:1rem;      /* 16px */
+  --font-md:1.0625rem;   /* 17px */
+  --font-h3:1.1875rem;   /* 19px */
+  --font-h2:1.4375rem;   /* 23px */
+  --font-h1:1.875rem;    /* 30px */
+  
+  --font-meta-val:1.0625rem;
+  --font-meta-lbl:0.8125rem;
+  --font-badge:0.8125rem;
 }
 
-/* Compact is the personal default; large is the elder-friendly reading mode. */
+/* Compact (Refined Default) */
 html[data-text-size="compact"] {
-  --font-base:1rem;
-  --font-sub:1rem;
-  --font-h3:1.25rem;
-  --font-h2:1.5rem;
+  --font-2xs:0.71875rem;
+  --font-xs:0.78125rem;
+  --font-sm:0.84375rem;
+  --font-sub:0.90625rem;
+  --font-base:0.96875rem;
+  --font-md:1.03125rem;
+  --font-h3:1.15625rem;
+  --font-h2:1.375rem;
   --font-h1:1.75rem;
-  --font-meta-val:1.125rem;
-  --font-meta-lbl:.875rem;
-  --font-badge:.875rem;
+  --font-meta-val:1.03125rem;
+  --font-meta-lbl:0.78125rem;
+  --font-badge:0.78125rem;
 }
 
 html[data-theme="dark"] {
-  --bg-body:#0c111a;
-  --washi:#121824;
-  --paper:#172235;
-  --paper-2:#1e2d46;
-  --ink:#f0f4fd;         /* High contrast white */
-  --ink-soft:#b4c6e4;    /* Clear readable secondary */
-  --ink-faint:#8ba1c6;
-  --line:#2a3d5e;
-  --line-soft:#202e47;
-  --ai:#74a8f2;
-  --ai-soft:#1b2a42;
-  --ai-bg:#16253c;
-  --shu:#ff7660;
-  --shu-soft:#6e281d;
-  --shu-bg:#3b1a15;
-  --kin:#f2c363;
-  --kin-bg:#332812;
-  --matcha:#a2be52;
-  --matcha-bg:#212e14;
-  --sumi:#f0f4fd;
-  --on-ai:#0c111a;
-  --on-shu:#1a1612;
-  --focus:#f2c363;
-  --footer-bg:#172235;
-  --footer-ink:#f0f4fd;
+  --bg-body:#0c1017;
+  --washi:#111722;
+  --paper:#151c27;
+  --paper-2:#1b2433;
+  --paper-tint:#18202d;
+  --ink:#f0f4fc;
+  --ink-soft:#afbfd6;
+  --ink-faint:#7589a6;
+  --line:#222e40;
+  --line-soft:#192230;
+  --ai:#6ba8f8;
+  --ai-soft:#18283e;
+  --ai-bg:#152336;
+  --shu:#ff7d6b;
+  --shu-soft:#4d221d;
+  --shu-bg:#331714;
+  --kin:#f0c058;
+  --kin-bg:#2e220e;
+  --matcha:#9ec943;
+  --matcha-bg:#1d2910;
+  --sumi:#f0f4fc;
+  --on-ai:#0c1017;
+  --on-shu:#1a1410;
+  --focus:#f0c058;
+  --footer-bg:#111722;
+  --footer-ink:#f0f4fc;
+  
+  --surface-info:#152336;
+  --surface-highlight:#331714;
+  --surface-calm:#1d2910;
+  --surface-warn:#2e220e;
+  --line-info:#27436b;
+  --line-highlight:#63261e;
+  
+  --card-shadow:0 4px 14px rgba(0,0,0,0.4);
+  --card-shadow-hover:0 6px 20px rgba(0,0,0,0.55);
 }
 
-/* Large Text Mode (For Mum / Clearer Reading) */
+/* Large Text Mode (Elder-Friendly) */
 html[data-text-size="large"] {
-  --font-base:1.3125rem;
+  --font-2xs:0.875rem;
+  --font-xs:0.9375rem;
+  --font-sm:1.0625rem;
   --font-sub:1.125rem;
+  --font-base:1.25rem;
+  --font-md:1.375rem;
   --font-h3:1.5rem;
-  --font-h2:1.75rem;
+  --font-h2:1.875rem;
   --font-h1:2.25rem;
-  --font-meta-val:1.375rem;
-  --font-meta-lbl:.9375rem;
-  --font-badge:.9375rem;
+  --font-meta-val:1.3125rem;
+  --font-meta-lbl:0.9375rem;
+  --font-badge:0.9375rem;
 }
 
 body{
@@ -141,18 +176,20 @@ body{
   background:var(--bg-body);
   color:var(--ink);
   font-size:var(--font-base);
+  font-weight:400;
   min-height:100vh;
   line-height:1.75;
   -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
   transition:background-color .2s var(--ease-out),color .2s var(--ease-out);
 }
-a{color:var(--ai);text-underline-offset:.15em;}
+a{color:var(--ai);text-underline-offset:.2em;}
 
-.page{max-width:800px;margin:0 auto;padding:var(--space-lg) var(--space-md) var(--space-3xl);counter-reset:trip-day;}
+.page{max-width:820px;margin:0 auto;padding:var(--space-xl) var(--space-md) var(--space-3xl);counter-reset:trip-day;}
 .skip-link{
   position:fixed;z-index:var(--z-skip-link);inset-block-start:var(--space-xs);inset-inline-start:var(--space-xs);
   transform:translateY(-150%);padding:var(--space-sm) var(--space-md);border-radius:var(--r-md);
-  background:var(--ai);color:var(--on-ai);font-weight:800;text-decoration:none;
+  background:var(--ai);color:var(--on-ai);font-weight:700;text-decoration:none;
 }
 .skip-link:focus{transform:none;}
 .sr-only{
@@ -160,335 +197,374 @@ a{color:var(--ai);text-underline-offset:.15em;}
   overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
 }
 
-/* Topbar with Safe Area support */
+/* Topbar with Frosted Glass & Safe Area */
 .topbar{
   position:sticky;top:0;z-index:var(--z-header);
-  background:rgba(244,239,228,0.95);
-  backdrop-filter:blur(8px);
-  border-bottom:1.5px solid var(--line);
-  margin:calc(-1 * var(--space-lg)) calc(-1 * var(--space-md)) var(--space-lg);
+  background:rgba(247,245,240,0.92);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+  margin:calc(-1 * var(--space-xl)) calc(-1 * var(--space-md)) var(--space-xl);
   padding:calc(var(--space-sm) + env(safe-area-inset-top, 0px)) var(--space-md) var(--space-sm);
   transition:background-color .2s var(--ease-out),border-color .2s var(--ease-out);
 }
 html[data-theme="dark"] .topbar {
-  background:rgba(18,24,36,0.95);
+  background:rgba(12,16,23,0.92);
 }
 
-.topbar-content{display:flex;align-items:center;justify-content:space-between;max-width:800px;margin:0 auto;}
+.topbar-content{display:flex;align-items:center;justify-content:space-between;max-width:820px;margin:0 auto;}
 .brand{display:flex;align-items:center;gap:var(--space-sm);}
 .brand-mark{
-  width:42px;height:42px;border-radius:50%;background:var(--shu);
+  width:38px;height:38px;border-radius:50%;background:var(--shu);
   display:flex;align-items:center;justify-content:center;color:var(--on-shu);
-  font-family:var(--font-serif);font-weight:800;font-size:1.375rem;
-  flex-shrink:0;
+  font-family:var(--font-serif);font-weight:800;font-size:1.25rem;
+  flex-shrink:0;box-shadow:0 2px 5px rgba(0,0,0,0.12);
 }
-.brand-txt{font-family:var(--font-serif);font-size:1.125rem;font-weight:700;color:var(--ink);letter-spacing:.04em;}
+.brand-txt{font-family:var(--font-serif);font-size:1.0625rem;font-weight:700;color:var(--ink);letter-spacing:.04em;}
 
 .controls{display:flex;align-items:center;gap:var(--space-xs);}
 
-/* Action Buttons (Large Touch Area for Mum) */
+/* Action Buttons */
 .top-btn{
-  min-width:44px;height:44px;padding:0 12px;border-radius:99px;
-  border:1.5px solid var(--line);background:var(--paper);color:var(--ink);
+  min-width:44px;height:40px;padding:0 12px;border-radius:99px;
+  border:1px solid var(--line);background:var(--paper);color:var(--ink);
   cursor:pointer;display:flex;align-items:center;justify-content:center;
-  font-size:.9375rem;font-weight:700;transition:background-color .18s var(--ease-out),border-color .18s var(--ease-out),color .18s var(--ease-out);
+  font-size:var(--font-sm);font-weight:600;transition:all .18s var(--ease-out);
+  box-shadow:0 1px 2px rgba(0,0,0,0.03);
 }
 .top-btn:hover,.top-btn.active{border-color:var(--ai);background:var(--ai-bg);color:var(--ai);}
 
-.lang-bar{display:flex;gap:0;border:1.5px solid var(--line);border-radius:99px;overflow:hidden;background:var(--paper);}
+.lang-bar{display:flex;gap:0;border:1px solid var(--line);border-radius:99px;overflow:hidden;background:var(--paper);box-shadow:0 1px 2px rgba(0,0,0,0.03);}
 .lang-btn{
-  font-family:var(--font-serif);font-size:.875rem;padding:6px 16px;
-  height:44px;border:none;background:transparent;color:var(--ink-soft);
-  cursor:pointer;transition:background-color .18s var(--ease-out),color .18s var(--ease-out);font-weight:700;
+  font-family:var(--font-sans);font-size:var(--font-xs);padding:0 14px;
+  height:40px;border:none;background:transparent;color:var(--ink-soft);
+  cursor:pointer;transition:all .18s var(--ease-out);font-weight:600;
 }
-.lang-btn.active{background:var(--ai);color:var(--on-ai);}
+.lang-btn.active{background:var(--ai);color:var(--on-ai);font-weight:700;}
 
 span.en,span.zh{display:none;}
 span.zh.on,span.en.on{display:inline;}
 
 /* Navigation Chips */
 .nav-chips{
-  display:flex;gap:var(--space-xs);overflow-x:auto;padding-bottom:var(--space-xs);margin-bottom:var(--space-md);
+  display:flex;gap:var(--space-xs);overflow-x:auto;padding-bottom:var(--space-xs);margin-bottom:var(--space-lg);
   scrollbar-width:none;
 }
 .nav-chips::-webkit-scrollbar{display:none;}
 .chip{
-  font-family:var(--font-serif);font-size:.875rem;padding:var(--space-xs) var(--space-md);
-  min-height:44px;display:inline-flex;align-items:center;font-weight:700;
-  border-radius:99px;border:1.5px solid var(--line);background:var(--paper);
-  color:var(--ink);white-space:nowrap;cursor:pointer;transition:background-color .18s var(--ease-out),border-color .18s var(--ease-out),color .18s var(--ease-out);
-  text-decoration:none;
+  font-family:var(--font-sans);font-size:var(--font-xs);padding:var(--space-xs) var(--space-md);
+  min-height:40px;display:inline-flex;align-items:center;font-weight:600;
+  border-radius:99px;border:1px solid var(--line);background:var(--paper);
+  color:var(--ink-soft);white-space:nowrap;cursor:pointer;transition:all .18s var(--ease-out);
+  text-decoration:none;box-shadow:0 1px 2px rgba(0,0,0,0.02);
 }
-.chip:hover,.chip.active{background:var(--ai);color:var(--on-ai);border-color:var(--ai);}
+.chip:hover,.chip.active{background:var(--ai);color:var(--on-ai);border-color:var(--ai);font-weight:700;}
 
 /* Accessibility Focus Visible */
 button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visible, [role="button"]:focus-visible {
-  outline:3px solid var(--focus);
-  outline-offset:3px;
+  outline:2.5px solid var(--focus);
+  outline-offset:2.5px;
   box-shadow:none;
 }
-.lang-btn:focus-visible,.mobile-dock a:focus-visible,[role="button"]:focus-visible{outline-offset:-3px;}
 
-/* Hero */
-.hero{border-radius:var(--r-lg);overflow:hidden;position:relative;height:310px;margin-bottom:0;background:#1c2b40;}
+/* Hero Section */
+.hero{border-radius:var(--r-lg);overflow:hidden;position:relative;height:320px;margin-bottom:0;background:#18283d;box-shadow:var(--card-shadow);}
 .hero img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block;}
 .hero-overlay{
   position:absolute;inset:0;
-  background:oklch(18% .04 250 / .52);
-  display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-lg);
+  background:linear-gradient(to top, rgba(16,26,38,0.85) 0%, rgba(16,26,38,0.3) 60%, rgba(16,26,38,0.15) 100%);
+  display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-xl);
 }
 .hero-kanji{
-  position:absolute;top:20px;right:22px;font-family:var(--font-serif);
-  font-size:2.875rem;font-weight:700;color:rgba(255,255,255,.64);line-height:1.1;
-  writing-mode:vertical-rl;letter-spacing:.14em;
+  position:absolute;top:24px;right:26px;font-family:var(--font-serif);
+  font-size:2.75rem;font-weight:700;color:rgba(255,255,255,.5);line-height:1.1;
+  writing-mode:vertical-rl;letter-spacing:.16em;
 }
-.hero-title{font-family:var(--font-serif);font-size:var(--font-h1);font-weight:700;color:#fff;line-height:1.25;margin-bottom:8px;letter-spacing:.02em;}
-.hero-sub{font-size:var(--font-sub);color:rgba(255,255,255,.92);letter-spacing:.04em;font-weight:500;}
-.hero-rule{width:48px;height:4px;background:var(--shu);margin-bottom:var(--space-sm);border-radius:2px;}
+.hero-title{font-family:var(--font-serif);font-size:var(--font-h1);font-weight:800;color:#fff;line-height:1.24;margin-bottom:8px;letter-spacing:.02em;}
+.hero-sub{font-size:var(--font-sub);color:rgba(255,255,255,.9);letter-spacing:.03em;font-weight:400;line-height:1.5;}
+.hero-rule{width:40px;height:3px;background:var(--shu);margin-bottom:var(--space-sm);border-radius:2px;}
 
 /* Meta Strip */
 .meta-strip{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:var(--paper);border:1.5px solid var(--line);
-  border-top:none;border-radius:0 0 var(--r-lg) var(--r-lg);margin-bottom:var(--space-xl);overflow:hidden;
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:var(--paper);border:1px solid var(--line);
+  border-top:none;border-radius:0 0 var(--r-lg) var(--r-lg);margin-bottom:var(--space-2xl);overflow:hidden;
+  box-shadow:var(--card-shadow);
 }
-.meta-cell{min-width:0;padding:var(--space-sm) var(--space-md);border-right:1px solid var(--line-soft);}
+.meta-cell{min-width:0;padding:var(--space-md) var(--space-md);border-right:1px solid var(--line-soft);}
 .meta-cell:last-child{grid-column:1 / -1;border-top:1px solid var(--line-soft);border-right:none;background:var(--surface-warn);}
 .meta-cell:last-child .meta-val{color:var(--kin);}
-.meta-label{font-size:var(--font-meta-lbl);color:var(--ink-faint);margin-bottom:3px;letter-spacing:.08em;font-weight:700;text-transform:uppercase;}
+.meta-label{font-size:var(--font-2xs);color:var(--ink-faint);margin-bottom:4px;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
 .meta-val{font-family:var(--font-serif);font-size:var(--font-meta-val);font-weight:700;color:var(--ai);}
-.meta-sub{font-size:var(--font-sub);color:var(--ink-soft);margin-top:2px;}
+.meta-sub{font-size:var(--font-xs);color:var(--ink-soft);margin-top:2px;font-weight:400;line-height:1.4;}
 
-/* Section Heading */
+/* Section Heading (Airy Proximity) */
 .sec-head{display:flex;align-items:center;gap:var(--space-sm);margin:var(--space-2xl) 0 var(--space-md);scroll-margin-top:80px;}
 #sec-days,#sec-booking{margin-top:var(--space-3xl);}
-.sec-kanji{font-family:var(--font-serif);font-size:var(--font-h2);font-weight:700;color:var(--ai);letter-spacing:.05em;}
-.sec-en{font-size:var(--font-meta-lbl);color:var(--ink-faint);letter-spacing:.18em;font-weight:700;text-transform:uppercase;}
-.sec-line{flex:1;height:2px;background:var(--line-info);}
+.sec-kanji{font-family:var(--font-serif);font-size:var(--font-h2);font-weight:700;color:var(--ai);letter-spacing:.04em;line-height:1.3;}
+.sec-en{font-family:var(--font-sans);font-size:var(--font-2xs);color:var(--ink-faint);letter-spacing:.16em;font-weight:600;text-transform:uppercase;}
+.sec-line{flex:1;height:1px;background:var(--line);}
 
-/* Cards */
+/* Standard Content Cards */
 .card{
-  background:var(--paper);border:1.5px solid var(--line);border-radius:var(--r-lg);
-  padding:var(--space-lg);margin-bottom:var(--space-md);
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:var(--space-lg);margin-bottom:var(--space-lg);box-shadow:var(--card-shadow);
 }
-.card h3{font-family:var(--font-serif);font-size:var(--font-h3);font-weight:700;color:var(--ai);margin-bottom:var(--space-sm);display:flex;align-items:center;gap:var(--space-xs);}
-.card-lead{margin-bottom:var(--space-sm);}
-#sec-overview + .card{padding:0;border:0;background:transparent;}
-
-/* Legacy itinerary markup is normalized onto the spacing scale. */
-ol[style*="margin-left:18px"]{
-  margin-inline-start:var(--space-lg) !important;
-  margin-top:var(--space-xs) !important;
-}
-.info-table[style*="margin-top"]{margin-top:var(--space-sm) !important;}
-.bplan-gallery[style*="margin-top"]{margin-top:var(--space-sm) !important;}
+.card h3{font-family:var(--font-serif);font-size:var(--font-h3);font-weight:700;color:var(--ai);margin-bottom:var(--space-sm);display:flex;align-items:center;gap:var(--space-xs);line-height:1.35;}
+.card-lead{margin-bottom:var(--space-sm);font-size:var(--font-sub);color:var(--ink-soft);line-height:1.68;font-weight:400;}
+#sec-overview + .card{padding:0;border:0;background:transparent;box-shadow:none;}
 
 /* Tables & KV Grids */
-.kv-grid{display:grid;grid-template-columns:auto 1fr;gap:var(--space-xs) var(--space-lg);font-size:var(--font-sub);}
-.kv-label{color:var(--ink-soft);font-weight:700;}
-.kv-val{color:var(--ink);font-weight:700;}
+.kv-grid{display:grid;grid-template-columns:auto 1fr;gap:var(--space-xs) var(--space-lg);font-size:var(--font-sub);line-height:1.65;}
+.kv-label{color:var(--ink-faint);font-weight:600;}
+.kv-val{color:var(--ink);font-weight:450;}
 
-.info-table{width:100%;border-collapse:collapse;margin:var(--space-sm) 0;font-size:var(--font-sub);}
-.info-table th,.info-table td{padding:var(--space-sm);border:1.5px solid var(--line-soft);text-align:left;}
-.info-table th{background:var(--paper-2);font-family:var(--font-serif);font-weight:700;color:var(--ai);}
-.info-table td{background:var(--paper);color:var(--ink);}
+.info-table{width:100%;border-collapse:collapse;margin:var(--space-sm) 0;font-size:var(--font-sub);line-height:1.55;border-radius:var(--r-md);overflow:hidden;border:1px solid var(--line-soft);}
+.info-table th,.info-table td{padding:var(--space-sm) var(--space-md);border:1px solid var(--line-soft);text-align:left;}
+.info-table th{background:var(--paper-2);font-family:var(--font-sans);font-size:var(--font-xs);font-weight:650;color:var(--ai);letter-spacing:.02em;}
+.info-table td{background:var(--paper);color:var(--ink-soft);font-weight:400;}
+.info-table td strong{font-weight:600;color:var(--ink);}
 
-/* Notes */
+/* Notes (Quiet, Unobtrusive Callouts) */
 .note-box{
-  border-radius:var(--r-md);padding:var(--space-sm) var(--space-md);margin:var(--space-sm) 0;font-size:var(--font-sub);line-height:1.7;
-  display:flex;gap:var(--space-sm);align-items:flex-start;
+  border-radius:var(--r-md);padding:var(--space-sm) var(--space-md);margin:var(--space-sm) 0;font-size:var(--font-sub);line-height:1.68;
+  display:flex;gap:var(--space-sm);align-items:flex-start;font-weight:400;color:var(--ink-soft);border:1px solid var(--line-soft);
 }
-.note-box.warn{background:var(--surface-highlight);border:1.5px solid var(--line-highlight);color:var(--ink);}
-.note-box.warn strong{color:var(--shu);font-family:var(--font-serif);font-weight:700;}
-.note-box.tip{background:var(--surface-info);border:1.5px solid var(--line-info);color:var(--ink);}
-.note-box.tip strong{color:var(--ai);font-family:var(--font-serif);font-weight:700;}
-.note-box.kin{background:var(--surface-warn);border:1.5px solid color-mix(in oklch,var(--kin) 42%,var(--line));color:var(--ink);}
-.note-box.kin strong{color:var(--kin);font-family:var(--font-serif);font-weight:700;}
+.note-box.warn{background:var(--surface-highlight);border-color:var(--line-highlight);}
+.note-box.warn strong{color:var(--shu);font-weight:600;}
+.note-box.tip{background:var(--surface-info);border-color:var(--line-info);}
+.note-box.tip strong{color:var(--ai);font-weight:600;}
+.note-box.kin{background:var(--surface-warn);border-color:color-mix(in oklch,var(--kin) 25%,var(--line));}
+.note-box.kin strong{color:var(--kin);font-weight:600;}
 
-/* Interactive 10-Day Quick Navigation Bar (Day Buttons) */
+/* Day Navigation Bar (Modern Smooth Pills) */
 .day-nav-bar {
-  display: flex;
-  gap: var(--space-xs);
-  overflow-x: auto;
-  padding: var(--space-xs) 0 var(--space-md);
-  margin-bottom: var(--space-md);
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
+  display:flex;gap:var(--space-xs);overflow-x:auto;padding:var(--space-xs) 0 var(--space-md);margin-bottom:var(--space-md);
+  -webkit-overflow-scrolling:touch;scrollbar-width:thin;
 }
 .day-nav-btn {
-  flex-shrink: 0;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height:48px;
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--r-md);
-  background: var(--paper);
-  border: 1.5px solid var(--line);
-  color: var(--ink);
-  cursor: pointer;
-  transition:background-color .18s var(--ease-out),border-color .18s var(--ease-out),color .18s var(--ease-out);
-  font-family: var(--font-serif);
-  font-weight: 700;
-  font-size: 0.875rem;
+  flex-shrink:0;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:46px;padding:var(--space-xs) var(--space-md);border-radius:var(--r-md);
+  background:var(--paper);border:1px solid var(--line);color:var(--ink-soft);cursor:pointer;
+  transition:all .18s var(--ease-out);font-family:var(--font-sans);font-weight:650;font-size:var(--font-sm);
+  box-shadow:0 1px 2px rgba(0,0,0,0.02);
 }
 .day-nav-btn .day-sub {
-  font-family: var(--font-sans);
-  font-size:.875rem;
-  color: var(--ink-soft);
-  font-weight: 600;
-  margin-top: 2px;
+  font-size:var(--font-2xs);color:var(--ink-faint);font-weight:400;margin-top:2px;
 }
 .day-nav-btn:hover, .day-nav-btn.active {
-  background: var(--ai);
-  color: var(--on-ai);
-  border-color: var(--ai);
+  background:var(--ai);color:var(--on-ai);border-color:var(--ai);box-shadow:0 2px 5px rgba(0,0,0,0.12);
 }
 .day-nav-btn:hover .day-sub, .day-nav-btn.active .day-sub {
-  color: var(--on-ai);
+  color:rgba(255,255,255,0.85);
 }
 
-/* Intensity Badges */
+/* Badges */
 .badge{
-  font-family:var(--font-serif);font-size:var(--font-badge);padding:4px 12px;
-  border-radius:99px;font-weight:700;white-space:nowrap;letter-spacing:.02em;
+  font-family:var(--font-sans);font-size:var(--font-badge);padding:3px 9px;
+  border-radius:99px;font-weight:600;white-space:nowrap;letter-spacing:.02em;border:1px solid transparent;
 }
-.badge.lo{background:var(--surface-calm);color:var(--matcha);border:1.5px solid color-mix(in oklch,var(--matcha) 35%,var(--line));}
-.badge.mid{background:var(--surface-warn);color:var(--kin);border:1.5px solid color-mix(in oklch,var(--kin) 38%,var(--line));}
-.badge.hi{background:var(--surface-highlight);color:var(--shu);border:1.5px solid var(--line-highlight);}
+.badge.lo{background:var(--surface-calm);color:var(--matcha);border-color:color-mix(in oklch,var(--matcha) 25%,transparent);}
+.badge.mid{background:var(--surface-warn);color:var(--kin);border-color:color-mix(in oklch,var(--kin) 25%,transparent);}
+.badge.hi{background:var(--surface-highlight);color:var(--shu);border-color:var(--line-highlight);}
 
 /* Glance Overview Grid */
 .glance-list{display:flex;flex-direction:column;gap:var(--space-xs);}
 .glance-item{
   display:grid;grid-template-columns:54px 75px 1fr auto auto;align-items:center;gap:var(--space-sm);
-  background:var(--paper);border:1.5px solid var(--line);border-radius:var(--r-md);
-  padding:var(--space-sm) var(--space-md);color:var(--ink);text-decoration:none;transition:border-color .18s var(--ease-out),background-color .18s var(--ease-out);
-  min-height:52px;
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);
+  padding:var(--space-sm) var(--space-md);color:var(--ink);text-decoration:none;transition:all .18s var(--ease-out);
+  min-height:50px;box-shadow:0 1px 2px rgba(0,0,0,0.02);
 }
-.glance-item:hover{border-color:var(--line-info);background:var(--surface-info);}
-.glance-dnum{font-family:var(--font-serif);font-size:var(--font-sub);font-weight:700;color:var(--shu);}
-.glance-date{font-size:var(--font-sub);color:var(--ink-soft);font-weight:700;}
-.glance-title{font-size:var(--font-sub);font-weight:700;color:var(--ink);}
+.glance-item:hover{border-color:var(--line-info);background:var(--surface-info);transform:translateY(-1px);box-shadow:var(--card-shadow);}
+.glance-dnum{font-family:var(--font-serif);font-size:var(--font-xs);font-weight:700;color:var(--shu);letter-spacing:.02em;}
+.glance-date{font-size:var(--font-xs);color:var(--ink-faint);font-weight:450;}
+.glance-title{font-size:var(--font-sub);font-weight:600;color:var(--ink);line-height:1.4;}
 
-/* Day Cards Accordion */
+/* Day Cards Accordion (Spacious, Calming Hierarchy) */
 .day{
-  background:var(--paper);border:1.5px solid var(--line);border-radius:var(--r-lg);
-  margin-bottom:var(--space-md);overflow:hidden;transition:border-color .18s var(--ease-out),background-color .18s var(--ease-out);
-  counter-increment:trip-day;scroll-margin-top:80px;
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);
+  margin-bottom:var(--space-md);overflow:hidden;transition:all .2s var(--ease-out);
+  counter-increment:trip-day;scroll-margin-top:80px;box-shadow:var(--card-shadow);
 }
 .day.hidden-day{display:none;}
-.day:hover{border-color:var(--line-info);}
+.day:hover{border-color:var(--line-info);box-shadow:var(--card-shadow-hover);}
 .day-hdr{
-  display:flex;align-items:center;gap:var(--space-sm);padding:var(--space-md);cursor:pointer;
-  user-select:none;position:relative;min-height:64px;
+  display:flex;align-items:center;gap:var(--space-md);padding:var(--space-md) var(--space-lg);cursor:pointer;
+  user-select:none;position:relative;min-height:68px;background:var(--paper);transition:background-color .15s;
 }
-.day-hdr::before{display:none;}
+.day-hdr:hover{background:var(--paper-tint);}
 .day[data-cat~="must"]{border-color:var(--line-highlight);}
 .day[data-cat~="must"] .day-hdr{background:var(--surface-highlight);}
 
-/* Offline-Safe Icon Badge Thumbnails */
+/* Icon Badge Thumbnails */
 .day-thumb{
-  flex-shrink:0;width:58px;height:58px;border-radius:var(--r-md);overflow:hidden;
-  position:relative;box-shadow:0 2px 8px rgba(0,0,0,.18);background:var(--ai);
-  display:flex;align-items:center;justify-content:center;color:var(--on-ai);font-size:1.5rem;
+  flex-shrink:0;width:50px;height:50px;border-radius:var(--r-md);overflow:hidden;
+  position:relative;background:var(--paper-2);border:1px solid var(--line-soft);
+  display:flex;align-items:center;justify-content:center;font-size:1.35rem;
 }
-
 .day-daynum{
-  position:absolute;bottom:0;right:0;background:var(--shu);color:var(--on-shu);
-  font-family:var(--font-serif);font-size:0;font-weight:800;padding:2px 7px;
-  border-radius:var(--r-md) 0 0 0;
+  position:absolute;bottom:0;right:0;background:var(--ai);color:var(--on-ai);
+  font-family:var(--font-sans);font-size:0;font-weight:700;padding:1px 5px;
+  border-radius:var(--r-sm) 0 0 0;
 }
-.day-daynum::before{content:counter(trip-day);font-size:.875rem;}
+.day-daynum::before{content:counter(trip-day);font-size:var(--font-2xs);}
+
 .day-info{flex:1;min-width:0;}
 .day-info h3{
-  font-family:var(--font-serif);font-size:var(--font-h3);font-weight:700;margin-bottom:3px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.01em;color:var(--ink);
+  font-family:var(--font-serif);font-size:var(--font-h3);font-weight:700;margin-bottom:2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.01em;color:var(--ink);line-height:1.35;
 }
-.day-info p{font-size:var(--font-sub);color:var(--ink-soft);font-weight:600;}
-.chev{width:20px;height:20px;color:var(--ink-soft);transition:transform .2s var(--ease-out);flex-shrink:0;}
+.day-info p{font-size:var(--font-sub);color:var(--ink-faint);font-weight:400;line-height:1.45;}
+.chev{width:18px;height:18px;color:var(--ink-faint);transition:transform .2s var(--ease-out);flex-shrink:0;}
 .chev.open{transform:rotate(180deg);}
 
-.day-body{display:none;border-top:1.5px solid var(--line-soft);}
-.day-body.open{display:block;animation:fade .18s var(--ease-out);}
-@keyframes fade{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:none;}}
+.day-body{display:none;border-top:1px solid var(--line-soft);}
+.day-body.open{display:block;animation:fade .2s var(--ease-out);}
+@keyframes fade{from{opacity:0;transform:translateY(-3px);}to{opacity:1;transform:none;}}
 
-/* Day Banner Container with High-Res Real Stock Photos (Mobile & Desktop Optimized) */
+/* Day Banner Container */
 .day-banner-wrap{
-  position:relative;width:100%;aspect-ratio:16/9;max-height:280px;
+  position:relative;width:100%;aspect-ratio:16/9;max-height:260px;
   background:var(--paper-2);overflow:hidden;
 }
 .day-banner{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
 
-/* Sub-card photo gallery for Plan A & Plan B options (Desktop & Mobile Responsive) */
+/* Sub-card photo gallery for Plan A & Plan B options */
 .bplan-gallery{display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:var(--space-sm);margin-top:var(--space-sm);}
-.bplan-img-card{border-radius:var(--r-md);overflow:hidden;aspect-ratio:16/9;min-height:140px;position:relative;background:var(--paper-2);border:1px solid var(--line-soft);}
+.bplan-img-card{border-radius:var(--r-md);overflow:hidden;aspect-ratio:16/9;min-height:135px;position:relative;background:var(--paper-2);border:1px solid var(--line-soft);}
 .bplan-img-card img{width:100%;height:100%;object-fit:cover;display:block;}
-.bplan-img-lbl{position:absolute;bottom:0;left:0;right:0;background:oklch(18% .02 250 / .82);color:#fff;font-size:.875rem;padding:var(--space-xs) var(--space-sm);font-weight:700;line-height:1.35;}
+.bplan-img-lbl{position:absolute;bottom:0;left:0;right:0;background:rgba(22,33,48,0.85);color:#fff;font-size:var(--font-xs);padding:var(--space-xs) var(--space-sm);font-weight:600;line-height:1.35;backdrop-filter:blur(4px);}
 
-/* Responsive schedule table */
-.tl{padding:0;background:var(--paper);}
-.tl-head{
-  display:grid;grid-template-columns:7.5rem minmax(0,1fr);
-  background:var(--paper-2);border-bottom:1px solid var(--line);
-  color:var(--ink-soft);font-size:var(--font-meta-lbl);font-weight:700;
+/* Clean Flowing Timeline (De-cluttered Stream) */
+.tl{padding:var(--space-md) var(--space-lg);background:var(--paper);}
+.tl-head{display:none;} /* Removed heavy table header for serene flow */
+.tl-item{display:flex;gap:var(--space-md);padding:var(--space-md) 0;border-bottom:1px solid var(--line-soft);align-items:flex-start;}
+.tl-item:last-child{border-bottom:none;padding-bottom:var(--space-xs);}
+.tl-item>div:last-child{flex:1;min-width:0;}
+.tl-icon{
+  flex-shrink:0;width:32px;height:32px;border-radius:50%;background:var(--paper-2);
+  display:flex;align-items:center;justify-content:center;font-size:1.05rem;margin-top:2px;
 }
-.tl-head>span{padding:var(--space-sm) var(--space-md);}
-.tl-head>span:first-child{border-right:1px solid var(--line);}
-.tl-item{display:block;margin:0;padding:0;border-bottom:1px solid var(--line-soft);}
-.tl-item:last-child{border-bottom:0;}
-.tl-item::before{display:none;}
-.tl-item>div:last-child{
-  display:grid;grid-template-columns:7.5rem minmax(0,1fr);
-  min-width:0;
-}
-.tl-icon{display:none;}
 .tl-time{
-  grid-column:1;grid-row:1 / span 2;
-  padding:var(--space-md);border-right:1px solid var(--line-soft);
-  font-family:var(--font-serif);font-size:var(--font-sub);font-weight:700;
+  font-family:var(--font-sans);font-size:var(--font-xs);font-weight:650;
   color:var(--ai);letter-spacing:.02em;font-variant-numeric:tabular-nums;
+  padding:2px 8px;background:var(--ai-bg);border-radius:var(--r-sm);display:inline-block;margin-bottom:6px;
 }
 .tl-main{
-  grid-column:2;grid-row:1;padding:var(--space-sm) var(--space-md) var(--space-2xs);
-  min-width:0;font-size:var(--font-base);font-weight:700;
-  line-height:1.45;color:var(--ink);text-wrap:pretty;overflow-wrap:anywhere;
+  font-size:var(--font-md);font-weight:700;line-height:1.45;color:var(--ink);
+  margin-bottom:6px;text-wrap:pretty;overflow-wrap:anywhere;
 }
 .tl-desc{
-  grid-column:2;grid-row:2;padding:0 var(--space-md) var(--space-md);
-  min-width:0;font-size:var(--font-sub);color:var(--ink-soft);
-  line-height:1.65;text-wrap:pretty;font-weight:500;overflow-wrap:anywhere;
+  font-size:var(--font-sub);color:var(--ink-soft);line-height:1.75;font-weight:400;text-wrap:pretty;overflow-wrap:anywhere;
 }
+.tl-desc ol, .tl-desc ul{
+  display:flex;flex-direction:column;gap:8px;margin-left:1.15rem;margin-top:6px;
+}
+.tl-desc li{
+  font-size:var(--font-sub);color:var(--ink-soft);line-height:1.7;font-weight:400;
+}
+.tl-desc strong{font-weight:600;color:var(--ink);}
 
-.pill{display:inline-flex;align-items:center;gap:var(--space-xs);font-size:var(--font-badge);padding:var(--space-2xs) var(--space-sm);border-radius:99px;background:var(--ai-bg);border:1.5px solid var(--line-soft);color:var(--ai);margin-top:var(--space-xs);font-weight:700;}
-.must-tag{display:inline-block;font-size:var(--font-badge);padding:var(--space-2xs) var(--space-sm);border-radius:99px;background:var(--shu-bg);color:var(--shu);border:1.5px solid var(--shu-soft);margin-top:var(--space-xs);font-weight:700;font-family:var(--font-serif);letter-spacing:.02em;}
+.pill{display:inline-flex;align-items:center;gap:var(--space-2xs);font-size:var(--font-badge);padding:2px 8px;border-radius:99px;background:var(--ai-bg);border:1px solid var(--line-soft);color:var(--ai);margin-top:var(--space-xs);font-weight:600;letter-spacing:.02em;}
+.must-tag{display:inline-block;font-size:var(--font-badge);padding:2px 8px;border-radius:99px;background:var(--shu-bg);color:var(--shu);border:1px solid var(--line-highlight);margin-top:var(--space-xs);font-weight:650;font-family:var(--font-sans);letter-spacing:.02em;}
 
-/* Checkable Lists (High Contrast & Big Target for Mum) */
+/* Inline Dining Capsule Cards */
+.food-card{
+  background:var(--paper-tint);border:1px solid var(--line-soft);border-radius:var(--r-md);
+  padding:var(--space-md);margin:var(--space-sm) 0;box-shadow:0 1px 3px rgba(0,0,0,0.02);
+  transition:all .18s var(--ease-out);
+}
+.food-card:hover{border-color:var(--line-info);box-shadow:var(--card-shadow);}
+.food-card-head{display:flex;align-items:center;justify-content:space-between;gap:var(--space-sm);margin-bottom:var(--space-xs);flex-wrap:wrap;}
+.food-card-title{font-family:var(--font-serif);font-size:var(--font-md);font-weight:700;color:var(--ink);display:flex;align-items:center;gap:6px;}
+.food-card-rating{font-size:var(--font-xs);color:var(--kin);font-weight:650;display:flex;align-items:center;gap:4px;}
+.food-meta-list{display:flex;flex-direction:column;gap:6px;margin:var(--space-xs) 0 var(--space-sm);font-size:var(--font-sub);}
+.food-meta-item{display:grid;grid-template-columns:auto 1fr;gap:8px;line-height:1.52;color:var(--ink-soft);}
+.food-meta-label{font-weight:600;color:var(--ink);white-space:nowrap;font-size:var(--font-xs);}
+.food-card-actions{display:flex;gap:var(--space-xs);flex-wrap:wrap;padding-top:var(--space-xs);border-top:1px solid var(--line-soft);}
+.food-btn{
+  display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:var(--r-sm);
+  font-size:var(--font-xs);font-weight:600;cursor:pointer;text-decoration:none;
+  transition:all .15s var(--ease-out);border:1px solid var(--line);background:var(--paper);color:var(--ink-soft);
+}
+.food-btn:hover{background:var(--ai-bg);border-color:var(--ai);color:var(--ai);}
+.food-btn.primary{background:var(--ai);color:var(--on-ai);border-color:var(--ai);}
+.food-btn.primary:hover{opacity:.92;}
+
+/* Bilingual Ordering Bottom Drawer */
+.food-drawer-backdrop{
+  position:fixed;inset:0;background:rgba(0,0,0,0.52);backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);z-index:500;opacity:0;visibility:hidden;
+  transition:opacity .25s var(--ease-out),visibility .25s;
+}
+.food-drawer-backdrop.open{opacity:1;visibility:visible;}
+.food-drawer{
+  position:fixed;left:0;right:0;bottom:0;max-width:680px;margin:0 auto;
+  background:var(--paper);border-radius:20px 20px 0 0;box-shadow:0 -8px 32px rgba(0,0,0,0.25);
+  z-index:501;max-height:85vh;display:flex;flex-direction:column;
+  transform:translateY(100%);transition:transform .28s var(--ease-out);
+  border:1px solid var(--line);border-bottom:none;
+}
+.food-drawer.open{transform:translateY(0);}
+.drawer-handle-bar{width:44px;height:4px;border-radius:2px;background:var(--line);margin:10px auto 4px;flex-shrink:0;}
+.drawer-hdr{
+  display:flex;align-items:center;justify-content:space-between;padding:var(--space-sm) var(--space-lg);
+  border-bottom:1px solid var(--line-soft);flex-shrink:0;
+}
+.drawer-title{font-family:var(--font-serif);font-size:var(--font-h3);font-weight:700;color:var(--ai);}
+.drawer-close-btn{
+  width:36px;height:36px;border-radius:50%;border:1px solid var(--line-soft);
+  background:var(--paper-2);color:var(--ink-soft);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:1.1rem;transition:all .15s;
+}
+.drawer-close-btn:hover{background:var(--line);color:var(--ink);}
+.drawer-body{
+  padding:var(--space-md) var(--space-lg) calc(var(--space-2xl) + env(safe-area-inset-bottom, 0px));
+  overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:var(--space-md);
+}
+.dish-card{background:var(--paper-tint);border:1px solid var(--line-soft);border-radius:var(--r-md);padding:var(--space-md);}
+.dish-jp{font-size:1.1875rem;font-weight:700;color:var(--ink);font-family:var(--font-serif);margin-bottom:3px;line-height:1.4;}
+.dish-zh{font-size:var(--font-sub);color:var(--ink-soft);margin-bottom:5px;}
+.dish-tip{font-size:var(--font-xs);color:var(--ai);background:var(--ai-bg);padding:2px 7px;border-radius:4px;display:inline-block;font-weight:600;}
+.quick-phrase-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--space-xs);}
+.phrase-chip{
+  background:var(--paper-2);border:1px solid var(--line-soft);border-radius:var(--r-md);
+  padding:var(--space-sm);cursor:pointer;transition:all .15s;
+}
+.phrase-chip:hover{background:var(--surface-info);border-color:var(--line-info);}
+.phrase-jp{font-size:.9375rem;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.phrase-zh{font-size:var(--font-2xs);color:var(--ink-faint);}
+
+/* Checkable Lists */
 .check-list{display:flex;flex-direction:column;gap:var(--space-xs);margin-top:var(--space-sm);}
 .check-item{
-  display:flex;align-items:flex-start;gap:var(--space-sm);padding:var(--space-sm) var(--space-md);background:var(--paper-2);
-  border-radius:var(--r-md);border:1.5px solid var(--line-soft);font-size:var(--font-base);font-weight:700;
-  cursor:pointer;transition:background-color .15s,opacity .15s,color .15s;min-height:52px;line-height:1.6;
+  display:flex;align-items:flex-start;gap:var(--space-sm);padding:var(--space-sm) var(--space-md);background:var(--paper-tint);
+  border-radius:var(--r-md);border:1px solid var(--line-soft);font-size:var(--font-sub);font-weight:500;
+  cursor:pointer;transition:all .15s;min-height:48px;line-height:1.55;color:var(--ink);
 }
-.check-item input[type="checkbox"]{width:22px;height:22px;margin-top:3px;accent-color:var(--shu);cursor:pointer;flex-shrink:0;}
-.check-item.done{background:var(--paper);color:var(--ink-soft);text-decoration:line-through;}
+.check-item:hover{background:var(--paper-2);border-color:var(--line);}
+.check-item strong{font-weight:600;}
+.check-item input[type="checkbox"]{width:19px;height:19px;margin-top:2px;accent-color:var(--shu);cursor:pointer;flex-shrink:0;}
+.check-item.done{background:var(--paper);color:var(--ink-faint);text-decoration:line-through;opacity:.75;}
 
-/* Budget Box */
-.budget-box{padding:var(--space-md);border-top:2px dashed var(--line);background:var(--paper-2);}
-.budget-title{font-family:var(--font-serif);font-size:var(--font-sub);font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.1em;margin-bottom:var(--space-sm);display:flex;align-items:center;gap:var(--space-xs);}
-.b-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dotted var(--line);font-size:var(--font-sub);font-weight:700;}
+/* Budget Box (Clean & Quiet) */
+.budget-box{padding:var(--space-md) var(--space-lg);border-top:1px solid var(--line-soft);background:var(--paper-tint);}
+.budget-title{font-family:var(--font-sans);font-size:var(--font-xs);font-weight:700;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.08em;margin-bottom:var(--space-sm);display:flex;align-items:center;gap:var(--space-xs);}
+.b-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(0,0,0,0.03);font-size:var(--font-sub);font-weight:400;color:var(--ink-soft);}
+.b-row span:last-child{font-weight:600;color:var(--ink);}
 .b-row:last-of-type{border-bottom:none;}
-.b-total{display:flex;justify-content:space-between;align-items:center;padding:var(--space-sm) 0 0;border-top:2px solid var(--line);margin-top:var(--space-xs);font-weight:700;}
-.b-total-val{font-family:var(--font-serif);font-size:var(--font-h3);color:var(--shu);}
+.b-total{display:flex;justify-content:space-between;align-items:center;padding:var(--space-sm) 0 0;border-top:1.5px solid var(--line);margin-top:var(--space-xs);font-weight:600;color:var(--ink);font-size:var(--font-base);}
+.b-total-val{font-family:var(--font-serif);font-size:var(--font-h3);color:var(--shu);font-weight:800;}
 
 /* Footer */
-.footer{background:var(--footer-bg);border-radius:var(--r-lg);padding:var(--space-xl);margin-top:var(--space-2xl);position:relative;overflow:hidden;color:var(--footer-ink);}
-.footer-kanji{position:absolute;top:-10px;right:14px;font-family:var(--font-serif);font-size:6.25rem;font-weight:800;color:rgba(255,255,255,.05);line-height:1;pointer-events:none;}
-.footer-title{font-family:var(--font-serif);font-size:var(--font-h3);font-weight:700;color:var(--footer-ink);margin-bottom:var(--space-sm);letter-spacing:.05em;display:flex;align-items:center;gap:var(--space-xs);}
-.footer p{font-size:var(--font-sub);color:var(--footer-ink);line-height:1.85;padding:5px 0 5px 18px;position:relative;font-weight:600;}
-.footer p::before{content:'';position:absolute;left:0;top:14px;width:6px;height:6px;border-radius:50%;background:var(--shu);}
+.footer{background:var(--footer-bg);border-radius:var(--r-lg);padding:var(--space-xl);margin-top:var(--space-2xl);position:relative;overflow:hidden;color:var(--footer-ink);box-shadow:var(--card-shadow);}
+.footer-kanji{position:absolute;top:-10px;right:14px;font-family:var(--font-serif);font-size:6rem;font-weight:800;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;}
+.footer-title{font-family:var(--font-serif);font-size:var(--font-h3);font-weight:700;color:var(--footer-ink);margin-bottom:var(--space-sm);letter-spacing:.04em;display:flex;align-items:center;gap:var(--space-xs);}
+.footer p{font-size:var(--font-sub);color:var(--footer-ink);line-height:1.8;padding:4px 0 4px 16px;position:relative;font-weight:400;opacity:.9;}
+.footer p::before{content:'';position:absolute;left:0;top:13px;width:5px;height:5px;border-radius:50%;background:var(--shu);}
 
 .endmark{text-align:center;margin-top:var(--space-xl);}
-.endmark span{font-family:var(--font-serif);font-size:1rem;color:var(--ink-faint);letter-spacing:.3em;font-weight:700;}
+.endmark span{font-family:var(--font-serif);font-size:var(--font-sm);color:var(--ink-faint);letter-spacing:.25em;font-weight:600;}
 
 /* Reduced Motion Accessibility */
 @media (prefers-reduced-motion: reduce) {
@@ -500,76 +576,58 @@ ol[style*="margin-left:18px"]{
 
 @media (max-width:640px) {
   html{scroll-padding-top:68px;scrollbar-gutter:stable;}
-  body{line-height:1.55;background-image:none;}
-  .page{width:100%;padding:var(--space-sm) var(--space-sm) calc(80px + env(safe-area-inset-bottom, 0px));}
+  body{line-height:1.6;}
+  .page{width:100%;padding:var(--space-sm) var(--space-sm) calc(84px + env(safe-area-inset-bottom, 0px));}
 
   .topbar{
     margin:calc(-1 * var(--space-sm)) calc(-1 * var(--space-sm)) var(--space-sm);
     padding:calc(var(--space-xs) + env(safe-area-inset-top, 0px)) var(--space-sm) var(--space-xs);
-    background:color-mix(in oklch,var(--bg-body) 94%,transparent);
-    border-bottom:1px solid var(--line);
-    backdrop-filter:blur(8px);
+    background:rgba(247,245,240,0.95);
   }
-  html[data-theme="dark"] .topbar{background:color-mix(in oklch,var(--bg-body) 94%,transparent);}
-  .topbar-content{gap:var(--space-2xs);}
-  .brand{gap:0;}
-  .brand-mark{width:36px;height:36px;font-size:1.125rem;box-shadow:none;}
+  html[data-theme="dark"] .topbar{background:rgba(12,16,23,0.95);}
+  .brand-mark{width:34px;height:34px;font-size:1.1rem;}
   .brand-txt{display:none;}
-  .controls{gap:var(--space-2xs);margin-left:auto;flex-shrink:0;}
-  .top-btn{min-width:44px;height:44px;padding:0 var(--space-xs);border-width:1px;font-size:.875rem;}
-  .lang-bar{border-width:1px;flex-shrink:0;}
-  .lang-btn{height:44px;padding:var(--space-2xs) var(--space-sm);font-size:.875rem;}
+  .top-btn{min-width:40px;height:38px;padding:0 var(--space-xs);font-size:.84375rem;}
+  .lang-bar{border-width:1px;}
+  .lang-btn{height:38px;padding:0 var(--space-sm);font-size:.84375rem;}
 
   .nav-chips{display:none;}
-  .chip{min-height:44px;padding:var(--space-xs) var(--space-sm);border-width:1px;font-size:.875rem;scroll-snap-align:start;}
+  .day-nav-bar{margin:0 calc(-1 * var(--space-sm)) var(--space-sm);padding:var(--space-2xs) var(--space-sm) var(--space-xs);}
+  .day-nav-btn{min-height:42px;padding:var(--space-2xs) var(--space-sm);font-size:.84375rem;}
 
-  .day-nav-bar{margin:0 calc(-1 * var(--space-sm)) var(--space-md);padding:var(--space-2xs) var(--space-sm) var(--space-sm);}
-
-  .hero{height:168px;border-radius:var(--r-md);box-shadow:none;}
-  .hero-overlay{padding:var(--space-md);background:oklch(18% .04 250 / .52);}
+  .hero{height:175px;border-radius:var(--r-md);}
+  .hero-overlay{padding:var(--space-md);}
   .hero-kanji{display:none;}
-  .hero-title{font-size:var(--font-h1);line-height:1.18;margin-bottom:var(--space-2xs);letter-spacing:0;max-width:100%;overflow-wrap:anywhere;text-wrap:balance;}
-  .hero-sub{font-size:.875rem;line-height:1.5;max-width:100%;overflow-wrap:anywhere;}
-  .hero-rule{width:40px;height:3px;margin-bottom:var(--space-xs);}
+  .hero-title{font-size:var(--font-h1);line-height:1.2;margin-bottom:var(--space-2xs);}
+  .hero-sub{font-size:.84375rem;line-height:1.45;}
 
   .meta-strip{
     display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-    margin-bottom:var(--space-lg);border-width:1px;border-top:0;
+    margin-bottom:var(--space-md);border-radius:0 0 var(--r-md) var(--r-md);
   }
-  .meta-cell{min-width:0;padding:var(--space-sm);border-width:0 1px 1px 0;}
+  .meta-cell{padding:var(--space-sm);border-width:0 1px 1px 0;}
   .meta-cell:nth-child(2n){border-right:0;}
   .meta-cell:last-child{grid-column:1 / -1;border-right:0;border-bottom:0;}
-  .meta-label{margin-bottom:1px;letter-spacing:.04em;}
-  .meta-sub{font-size:.875rem;line-height:1.4;}
 
-  .sec-head{gap:var(--space-xs);margin:var(--space-xl) 0 var(--space-sm);scroll-margin-top:68px;}
-  #sec-days,#sec-booking{margin-top:var(--space-2xl);}
-  .sec-kanji{font-size:var(--font-h2);letter-spacing:.02em;}
+  .sec-head{margin:var(--space-lg) 0 var(--space-xs);scroll-margin-top:68px;}
+  #sec-days,#sec-booking{margin-top:var(--space-xl);}
   .sec-en{display:none;}
-  .sec-line{height:1px;}
 
-  .card{padding:var(--space-md);margin-bottom:var(--space-sm);border-width:1px;border-radius:var(--r-md);box-shadow:none;}
-  .card h3{margin-bottom:var(--space-xs);line-height:1.35;display:block;}
-  #sec-overview + .card>h3{display:none;}
-  .kv-grid{grid-template-columns:minmax(72px,auto) 1fr;gap:var(--space-xs) var(--space-sm);}
-  .kv-val{min-width:0;overflow-wrap:anywhere;}
+  .card{padding:var(--space-md);margin-bottom:var(--space-sm);border-radius:var(--r-md);}
+  .card h3{line-height:1.35;}
+  .kv-grid{grid-template-columns:minmax(68px,auto) 1fr;gap:var(--space-2xs) var(--space-sm);}
 
-  .info-table{display:block;max-width:100%;overflow-x:auto;margin:var(--space-xs) 0;font-size:.875rem;-webkit-overflow-scrolling:touch;}
-  .info-table th,.info-table td{min-width:112px;padding:var(--space-xs) var(--space-sm);border-width:1px;}
+  .info-table{display:block;max-width:100%;overflow-x:auto;margin:var(--space-xs) 0;font-size:.84375rem;-webkit-overflow-scrolling:touch;}
+  .info-table th,.info-table td{min-width:105px;padding:var(--space-xs) var(--space-sm);}
 
-  .note-box{display:block;padding:var(--space-sm);margin:var(--space-sm) 0;line-height:1.55;border-radius:var(--r-md);}
-  .note-box strong{display:block;margin-bottom:var(--space-2xs);}
-
-  .glance-list{gap:var(--space-xs);counter-reset:glance-day;}
   .glance-item{
-    position:relative;grid-template-columns:56px minmax(0,1fr);
+    position:relative;grid-template-columns:48px minmax(0,1fr);
     grid-template-rows:auto auto;gap:var(--space-2xs) var(--space-xs);
-    min-height:72px;padding:var(--space-xs);border-width:1px;border-radius:var(--r-md);overflow:hidden;
-    counter-increment:glance-day;
+    min-height:64px;padding:var(--space-xs);border-radius:var(--r-md);
   }
   .glance-item::before{
     content:"";grid-column:1;grid-row:1 / span 2;
-    width:52px;height:52px;border-radius:6px;
+    width:44px;height:44px;border-radius:6px;
     background-position:center;background-size:cover;background-color:var(--paper-2);
   }
   .glance-item:nth-child(1)::before{background-image:url("asakusa.jpg");}
@@ -583,88 +641,56 @@ ol[style*="margin-left:18px"]{
   .glance-item:nth-child(9)::before{background-image:url("shibuya.jpg");}
   .glance-item:nth-child(10)::before{background-image:url("fuji_hero.jpg");}
   .glance-dnum{
-    position:absolute;left:40px;bottom:var(--space-xs);min-width:20px;padding:1px var(--space-2xs);
-    border-radius:5px 0 5px 0;background:var(--ai);color:var(--on-ai);
-    font-size:0;line-height:1.125rem;text-align:center;
+    position:absolute;left:34px;bottom:var(--space-xs);min-width:18px;padding:1px var(--space-2xs);
+    border-radius:4px 0 4px 0;background:var(--ai);color:var(--on-ai);
+    font-size:0;line-height:1rem;text-align:center;
   }
-  .glance-dnum::after{content:counter(glance-day);font-size:.875rem;}
-  .glance-date{grid-column:2;grid-row:2;font-size:.875rem;}
+  .glance-dnum::after{content:counter(glance-day);font-size:.78125rem;}
+  .glance-date{grid-column:2;grid-row:2;font-size:.78125rem;}
   .glance-title{
     grid-column:2;grid-row:1;align-self:end;
     display:-webkit-box;min-width:0;overflow:hidden;-webkit-box-orient:vertical;
-    -webkit-line-clamp:2;font-size:1rem;line-height:1.35;
+    -webkit-line-clamp:2;font-size:.9375rem;line-height:1.35;
   }
   .glance-item .badge{display:none;}
 
-  .day{margin-bottom:8px;border-width:1px;border-radius:var(--r-md);scroll-margin-top:68px;}
+  .day{margin-bottom:10px;border-radius:var(--r-md);}
   .day-hdr{
-    display:grid;grid-template-columns:42px minmax(0,1fr) auto 18px;
-    gap:var(--space-xs);padding:var(--space-sm);min-height:64px;
+    display:grid;grid-template-columns:40px minmax(0,1fr) auto 16px;
+    gap:var(--space-xs);padding:var(--space-sm);min-height:60px;
   }
-  .day-hdr::before{display:none;}
-  .day-thumb{width:42px;height:42px;border-radius:6px;box-shadow:none;font-size:1.1875rem;}
-  .day-daynum{padding:1px 5px;border-radius:5px 0 0 0;}
+  .day-thumb{width:40px;height:40px;border-radius:6px;font-size:1.15rem;}
+  .day-daynum{padding:1px 4px;border-radius:4px 0 0 0;}
   .day-info h3{
     margin:0;white-space:normal;display:-webkit-box;-webkit-box-orient:vertical;
-    -webkit-line-clamp:2;line-height:1.3;font-size:1rem;
+    -webkit-line-clamp:2;line-height:1.3;font-size:.96875rem;
   }
   .day-info p{display:none;}
-  .badge{padding:3px 7px;border-width:1px;letter-spacing:0;}
-  .chev{width:18px;height:18px;}
-  .day-body{border-top-width:1px;background:var(--paper);}
-  .day-body.open{animation:none;}
-  .day-banner-wrap{display:block;position:relative;width:100%;aspect-ratio:16/9;max-height:220px;background:var(--paper-2);overflow:hidden;border-radius:0;}
-  .day-banner{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
-  .bplan-gallery{
-    display:flex;gap:var(--space-sm);overflow-x:auto;
-    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
-    padding:var(--space-2xs) 0 var(--space-xs);margin-top:var(--space-sm);
-    scrollbar-width:none;
-  }
-  .bplan-img-card{
-    flex:0 0 84%;scroll-snap-align:start;aspect-ratio:16/9;min-height:165px;
-    border-radius:var(--r-md);overflow:hidden;position:relative;
-  }
-  .bplan-img-card img{width:100%;height:100%;object-fit:cover;display:block;}
-  .bplan-img-lbl{font-size:.875rem;padding:var(--space-xs) var(--space-sm);}
+  .badge{padding:2px 6px;}
 
-  .tl{padding:0;background:var(--paper);}
-  .tl-head,.tl-item>div:last-child{grid-template-columns:5.75rem minmax(0,1fr);}
-  .tl-head>span{padding:var(--space-xs) var(--space-sm);}
-  .tl-time{padding:var(--space-sm);font-size:.875rem;line-height:1.4;}
-  .tl-main{padding:var(--space-sm) var(--space-sm) var(--space-2xs);line-height:1.4;}
-  .tl-desc{padding:0 var(--space-sm) var(--space-sm);line-height:1.55;}
-  .pill,.must-tag{padding:var(--space-2xs) var(--space-xs);margin-top:var(--space-2xs);}
-  .must-tag{background:var(--ai-bg);border-color:var(--line-soft);color:var(--ai);}
+  .tl{padding:var(--space-sm) var(--space-sm);}
+  .tl-item{gap:var(--space-xs);padding:var(--space-sm) 0;}
+  .tl-icon{width:26px;height:26px;font-size:.95rem;}
+  .tl-time{font-size:var(--font-2xs);padding:1px 6px;margin-bottom:4px;}
+  .tl-main{font-size:var(--font-base);line-height:1.4;margin-bottom:4px;}
+  .tl-desc{font-size:var(--font-sub);line-height:1.68;}
 
-  .budget-box{padding:12px;border-top:1px solid var(--line-soft);background:var(--paper);}
-  .budget-title{margin-bottom:var(--space-xs);letter-spacing:.04em;}
-  .b-row{gap:var(--space-sm);padding:var(--space-xs) 0;align-items:flex-start;}
-  .b-row>span:last-child{flex-shrink:0;text-align:right;}
-  .b-total{gap:var(--space-sm);padding-top:var(--space-xs);margin-top:var(--space-xs);}
-  .b-total-val{text-align:right;line-height:1.25;}
-
-  .check-list{gap:var(--space-xs);margin-top:var(--space-xs);}
-  .check-item{gap:var(--space-sm);padding:var(--space-sm);min-height:48px;border-width:1px;line-height:1.45;}
-  .check-item input[type="checkbox"]{width:20px;height:20px;margin-top:1px;}
-  .footer{padding:var(--space-lg) var(--space-md);margin-top:var(--space-xl);border-radius:var(--r-md);}
-  .footer .brand-mark{width:34px;height:34px;}
-  .footer p{padding-left:13px;line-height:1.6;}
-  .footer-kanji{display:none;}
-  .endmark{margin-top:var(--space-lg);}
+  .budget-box{padding:var(--space-sm);}
+  .b-row{padding:var(--space-2xs) 0;}
 
   .mobile-dock{
     position:fixed;z-index:var(--z-dock);left:var(--space-xs);right:var(--space-xs);
     bottom:max(var(--space-xs),env(safe-area-inset-bottom, 0px));
     display:grid;grid-template-columns:repeat(4,1fr);
     border:1px solid var(--line);border-radius:12px;
-    background:var(--paper);
-    box-shadow:0 4px 8px rgba(0,0,0,.12);overflow:hidden;
+    background:rgba(255,255,255,0.96);backdrop-filter:blur(14px);
+    box-shadow:0 4px 14px rgba(0,0,0,.1);overflow:hidden;
   }
+  html[data-theme="dark"] .mobile-dock{background:rgba(21,28,39,0.96);}
   main{padding-bottom:calc(72px + env(safe-area-inset-bottom, 0px));}
   .mobile-dock a{
-    min-height:48px;display:flex;align-items:center;justify-content:center;
-    color:var(--ink-soft);font-size:.875rem;font-weight:700;text-decoration:none;
+    min-height:46px;display:flex;align-items:center;justify-content:center;
+    color:var(--ink-soft);font-size:var(--font-xs);font-weight:600;text-decoration:none;
     border-right:1px solid var(--line-soft);
   }
   .mobile-dock a:last-child{border-right:0;}
@@ -697,13 +723,6 @@ ol[style*="margin-left:18px"]{
   html[data-text-size="large"] .bplan-gallery{grid-template-columns:1fr;}
   html[data-text-size="large"] .bplan-img-card{height:auto;min-height:120px;}
   html[data-text-size="large"] .bplan-img-lbl{font-size:var(--font-badge);line-height:1.4;padding:var(--space-xs) var(--space-sm);}
-  html[data-text-size="large"] .tl{padding:0;}
-  html[data-text-size="large"] .tl-head,
-  html[data-text-size="large"] .tl-item>div:last-child{grid-template-columns:7rem minmax(0,1fr);}
-  html[data-text-size="large"] .tl-head>span,
-  html[data-text-size="large"] .tl-time{padding:var(--space-md);font-size:1rem;}
-  html[data-text-size="large"] .tl-main{padding:var(--space-md) var(--space-md) var(--space-xs);}
-  html[data-text-size="large"] .tl-desc{padding:0 var(--space-md) var(--space-md);}
   html[data-text-size="large"] .glance-item{min-height:76px;padding:var(--space-sm);}
   html[data-text-size="large"] .glance-title{font-size:1.125rem;}
   html[data-text-size="large"] .glance-date{font-size:.9375rem;}
@@ -1009,7 +1028,7 @@ ol[style*="margin-left:18px"]{
       <div class="kv-label"><span class="zh on">房型与面积</span><span class="en">Room Size</span></div>
       <div class="kv-val">33号房 · 27㎡ · 2 Single Beds (两张独立单人床)</div>
       <div class="kv-label"><span class="zh on">详细地址</span><span class="en">Address</span></div>
-      <div class="kv-val"><a href="https://maps.google.com/?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%AB%9C%E6%B3%893-15-3" target="_blank" style="color:var(--ai);text-decoration:underline;font-weight:700;">〒110-0012 東京都台東区竜泉 3-15-3</a><br/><span style="font-size:0.9em;">建筑物名称：<strong>フォルテハイツ (Forte Heights)</strong> — 大楼门口挂的是这个名字，不是 LUXURY STAY HOTEL，给司机看这个地址即可</span></div>
+      <div class="kv-val"><a href="https://maps.google.com/?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%AB%9C%E6%B3%893-15-3" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;font-weight:700;">〒110-0012 東京都台東区竜泉 3-15-3</a><br/><span style="font-size:0.9em;">建筑物名称：<strong>フォルテハイツ (Forte Heights)</strong> — 大楼门口挂的是这个名字，不是 LUXURY STAY HOTEL，给司机看这个地址即可</span></div>
       <div class="kv-label"><span class="zh on">预订日期</span><span class="en">Dates</span></div>
       <div class="kv-val">10月3日 – 10月12日 (共 9 晚)</div>
       <div class="kv-label"><span class="zh on">总费用</span><span class="en">Total Price</span></div>
@@ -1133,7 +1152,7 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🛬</div>
           <div>
             <div class="tl-time">14:45 - 15:45</div>
-            <div class="tl-main"><span class="zh on">14:45 落地<a href="https://maps.google.com/?q=Narita+Airport+Terminal+2" target="_blank" style="color:var(--ai);text-decoration:underline;">成田机场 T2 (UO848)</a> · 办理入境与提取行李</span><span class="en">14:45 Touchdown NRT T2 & Customs</span></div>
+            <div class="tl-main"><span class="zh on">14:45 落地<a href="https://maps.google.com/?q=Narita+Airport+Terminal+2" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">成田机场 T2 (UO848)</a> · 办理入境与提取行李</span><span class="en">14:45 Touchdown NRT T2 & Customs</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>入境安排</strong>：下机后预留 45-60 分钟完成海关入境与行李提取。</li>
@@ -1146,7 +1165,7 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🚆</div>
           <div>
             <div class="tl-time">16:08 - 16:50</div>
-            <div class="tl-main"><span class="zh on">搭乘 Keisei Skyliner 特快：成田 T2 → <a href="https://maps.google.com/?q=Keisei+Ueno+Station" target="_blank" style="color:var(--ai);text-decoration:underline;">京成上野站</a></span><span class="en">Skyliner Express: NRT T2 to Keisei-Ueno</span></div>
+            <div class="tl-main"><span class="zh on">搭乘 Keisei Skyliner 特快：成田 T2 → <a href="https://maps.google.com/?q=Keisei+Ueno+Station" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">京成上野站</a></span><span class="en">Skyliner Express: NRT T2 to Keisei-Ueno</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>直达车程</strong>：仅需 41 分钟直达上野 (¥2,580/人，提前网订优惠价 ¥2,310)。</li>
@@ -1160,7 +1179,7 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🚕</div>
           <div>
             <div class="tl-time">17:00 - 17:15</div>
-            <div class="tl-main"><span class="zh on">京成上野站搭乘计程车 → <a href="https://maps.google.com/?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%AB%9C%E6%B3%893-15-3" target="_blank" style="color:var(--ai);text-decoration:underline;">竜泉公寓</a> (推荐带长辈)</span><span class="en">Taxi Keisei-Ueno to Ryusen Airbnb</span></div>
+            <div class="tl-main"><span class="zh on">京成上野站搭乘计程车 → <a href="https://maps.google.com/?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%AB%9C%E6%B3%893-15-3" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">竜泉公寓</a> (推荐带长辈)</span><span class="en">Taxi Keisei-Ueno to Ryusen Airbnb</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>长辈保护</strong>：车程 2.3 km (8-10 分钟，车费约 ¥1,300 - ¥1,600)。</li>
@@ -1174,11 +1193,11 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🏠</div>
           <div>
             <div class="tl-time">17:30</div>
-            <div class="tl-main"><span class="zh on">入住 <a href="https://maps.google.com/?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%AB%9C%E6%B3%893-15-3" target="_blank" style="color:var(--ai);text-decoration:underline;">Yoin TOKYO in Asakusa</a> 33号房 (电子锁自助手续)</span><span class="en">Check-in Yoin TOKYO Asakusa</span></div>
+            <div class="tl-main"><span class="zh on">入住 <a href="https://maps.google.com/?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%AB%9C%E6%B3%893-15-3" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">Yoin TOKYO in Asakusa</a> 33号房 (电子锁自助手续)</span><span class="en">Check-in Yoin TOKYO Asakusa</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>房间特点</strong>：输入智能锁入住，放好大行李，熟悉两张独立单人床与电梯环境。</li>
-                <li><strong>生活周边</strong>：附近有 <a href="https://maps.google.com/?q=My+Basket+Ryusen+1-chome" target="_blank" style="color:var(--shu);font-weight:700;">My Basket 超市(至23:00)</a> 与 <a href="https://maps.google.com/?q=Torikizoku+Minowa" target="_blank" style="color:var(--shu);font-weight:700;">鸟贵族串烧(Minowa店)</a>。</li>
+                <li><strong>生活周边</strong>：附近有 <a href="https://maps.google.com/?q=My+Basket+Ryusen+1-chome" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">My Basket 超市(至23:00)</a> 与 <a href="https://maps.google.com/?q=Torikizoku+Minowa" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">鸟贵族串烧(Minowa店)</a>。</li>
               </ol>
               <span class="pill">台东区竜泉3丁目</span>
             </div>
@@ -1203,27 +1222,27 @@ ol[style*="margin-left:18px"]{
                 <tr>
                   <td><strong>方案 B1：浅草寺夜间点灯</strong></td>
                   <td>幽静拍照首选，日落点灯至 23:00，几乎完全没有游客，计程车 5 分钟直达</td>
-                  <td><a href="https://maps.google.com/?q=Sensoji+Temple+Kaminarimon" target="_blank" style="color:var(--shu);font-weight:700;">Google 4.6★</a></td>
+                  <td><a href="https://maps.google.com/?q=Sensoji+Temple+Kaminarimon" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Google 4.6★</a></td>
                 </tr>
                 <tr>
                   <td><strong>方案 B2：下町温泉钱汤</strong></td>
                   <td>舒缓搭机疲劳首选，曙汤 (Akebono-yu) 或 寿汤 (Kotobuki-yu) 泡天然碳酸泉 (¥550/人)</td>
-                  <td><a href="https://maps.google.com/?q=Akebono-yu+Sento+Taito" target="_blank" style="color:var(--shu);font-weight:700;">Google 4.3★</a></td>
+                  <td><a href="https://maps.google.com/?q=Akebono-yu+Sento+Taito" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Google 4.3★</a></td>
                 </tr>
                 <tr>
                   <td><strong>方案 B3：上野不忍池夜景</strong></td>
                   <td>感受夜间烟火气，不忍池湖畔漫步与阿美横町高架下海鲜屋台</td>
-                  <td><a href="https://maps.google.com/?q=Shinobazu+Pond" target="_blank" style="color:var(--shu);font-weight:700;">Google 4.3★</a></td>
+                  <td><a href="https://maps.google.com/?q=Shinobazu+Pond" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Google 4.3★</a></td>
                 </tr>
               </tbody>
             </table>
             <div class="bplan-gallery" style="margin-top:12px;">
               <div class="bplan-img-card">
-                <img src="asakusa.jpg" alt="" loading="lazy" decoding="async"/>
+                <img src="asakusa.jpg" alt="浅草寺雷门与参道" loading="lazy" decoding="async"/>
                 <div class="bplan-img-lbl">方案B1: 浅草寺夜间点灯</div>
               </div>
               <div class="bplan-img-card">
-                <img src="sento.jpg" alt="" loading="lazy" decoding="async"/>
+                <img src="sento.jpg" alt="下町钱汤温泉浴场" loading="lazy" decoding="async"/>
                 <div class="bplan-img-lbl">方案B2: 下町钱汤温泉</div>
               </div>
             </div>
@@ -1260,12 +1279,12 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">⛩️</div>
           <div>
             <div class="tl-time">06:30 - 08:30</div>
-            <div class="tl-main"><span class="zh on">【主路线 徒步段一：1.3km】公寓 → <a href="https://maps.google.com/?q=Sensoji+Temple+Kaminarimon" target="_blank" style="color:var(--ai);text-decoration:underline;">浅草寺清晨漫步 ★</a></span><span class="en">Walk Leg 1: Base to Sensoji (1.3km)</span></div>
+            <div class="tl-main"><span class="zh on">【主路线 徒步段一：1.3km】公寓 → <a href="https://maps.google.com/?q=Sensoji+Temple+Kaminarimon" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">浅草寺清晨漫步 ★</a></span><span class="en">Walk Leg 1: Base to Sensoji (1.3km)</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>平地徒步</strong>：清晨沿着国际通平坦大道南行 16 分钟即达。</li>
-                <li><strong>独享清静</strong>：07:00 前雷门、本堂、五重塔几乎完全没人，拍照光线极佳。</li>
-                <li><strong>本堂开放</strong>：<a href="https://maps.google.com/?q=Sensoji+Temple+Kaminarimon" target="_blank" style="color:var(--shu);font-weight:700;">浅草寺本堂 (06:30开门, Google 4.6★)</a>。</li>
+                <li><strong>独享清静</strong>：07:00 前 <a href="https://maps.google.com/?q=Kaminarimon+Gate" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">雷门 (Kaminarimon)</a>、本堂、五重塔几乎完全没人，拍照光线极佳。</li>
+                <li><strong>本堂开放</strong>：<a href="https://maps.google.com/?q=Sensoji+Temple+Kaminarimon" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">浅草寺本堂 (06:30开门, Google 4.6★)</a>。</li>
               </ol>
               <span class="must-tag">★ 住处红利 必去</span>
             </div>
@@ -1275,36 +1294,142 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🍡</div>
           <div>
             <div class="tl-time">08:30 - 11:30</div>
-            <div class="tl-main"><span class="zh on">仲见世街小吃 · 花月堂菠萝面包 · 午餐大黑家天妇罗</span><span class="en">Nakamise Bakery & Lunch</span></div>
-            <div class="tl-desc"><span class="zh on">品尝浅草花月堂巨型菠萝面包 (09:00开门，Google 4.4★)。11:00 享用大黑家天妇罗盖饭 (Google 3.8★) 或尾张屋荞麦面 (Google 4.1★)。</span></div>
+            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Nakamise-dori+Street" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">仲见世商店街小吃</a> · <a href="https://maps.google.com/?q=Asakusa+Kagetsudo+Honten" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">花月堂菠萝面包</a> · 浅草老店午餐</span><span class="en">Nakamise Bakery & Lunch</span></div>
+            <div class="tl-desc">
+              <ol style="margin-left:18px;margin-top:6px;">
+                <li><strong>老街小吃 (09:00陆续开门)</strong>：漫步 <a href="https://maps.google.com/?q=Nakamise-dori+Street" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">仲见世商店街 (Google 4.3★)</a>，品尝人形烧、现烤仙贝与抹茶冰淇淋。</li>
+                <li><strong>巨型菠萝面包</strong>：朝圣浅草超人气名店 <a href="https://maps.google.com/?q=Asakusa+Kagetsudo+Honten" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">浅草花月堂 本店 (09:00开门, Google 4.4★)</a>，外皮酥脆内里松软。</li>
+                <li><strong>午餐名店精选 (11:00)</strong>：建议享用百年老店尾张屋热荞麦面或大黑家海老天丼。</li>
+              </ol>
+
+              <!-- Food Card 1: Owariya & Kagetsudo -->
+              <div class="food-card">
+                <div class="food-card-head">
+                  <div class="food-card-title">🍜 浅草 尾张屋 本店 (百年荞麦面)</div>
+                  <div class="food-card-rating">⭐ 4.3 (1,850+ 评价) · 创立于1860年</div>
+                </div>
+                <div class="food-meta-list">
+                  <div class="food-meta-item">
+                    <span class="food-meta-label">🏷️ 必点招牌:</span>
+                    <span>上天妇罗巨虾荞麦面 (¥1,700，热汤养胃) · 炸虾酥脆甘甜</span>
+                  </div>
+                  <div class="food-meta-item">
+                    <span class="food-meta-label">💺 长辈贴士:</span>
+                    <span>传统靠背椅座无需盘腿 · 提供温热荞麦茶 · 步行至雷门仅 2分钟</span>
+                  </div>
+                  <div class="food-meta-item">
+                    <span class="food-meta-label">🔄 就近备选:</span>
+                    <span>大黑家天妇罗 (步行1分钟) · 並木薮荞麦</span>
+                  </div>
+                </div>
+                <div class="food-card-actions">
+                  <a href="https://maps.google.com/?q=Owariya+Soba+Asakusa" target="_blank" rel="noopener noreferrer" class="food-btn">📍 Google Maps 导航</a>
+                  <button type="button" onclick="openFoodDrawer('owariya')" class="food-btn primary">📋 点餐指路卡 (出示给店员)</button>
+                  <button type="button" onclick="openFoodDrawer('kagetudo')" class="food-btn">🍡 花月堂菠萝包点餐卡</button>
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
         <div class="tl-item">
-          <div class="tl-icon">🚶</div>
+          <div class="tl-icon">🌉</div>
           <div>
             <div class="tl-time">11:30 - 13:00</div>
-            <div class="tl-main"><span class="zh on">【主路线 徒步段二&三：1.7km】隅田公园 → SUMIDA RIVER WALK 水上步道 → 晴空塔</span><span class="en">Walk Leg 2&3: River Walk & Mizumachi (1.7km)</span></div>
-            <div class="tl-desc"><span class="zh on">跨过 SUMIDA RIVER WALK 水上步道，沿着 Mizumachi 运河绿荫公园咖啡馆散步至晴空塔。</span></div>
+            <div class="tl-main"><span class="zh on">【主路线 徒步段二&三：1.7km】<a href="https://maps.google.com/?q=Sumida+Park" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">隅田公园</a> → <a href="https://maps.google.com/?q=Sumida+River+Walk" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">SUMIDA RIVER WALK 水上铁桥步道 ★</a> → <a href="https://maps.google.com/?q=Tokyo+Mizumachi" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">Tokyo Mizumachi 东京水町</a></span><span class="en">Scenic Walk: Sumida Park → SUMIDA RIVER WALK → Tokyo Mizumachi (1.7km)</span></div>
+            <div class="tl-desc">
+              <ol style="margin-left:18px;margin-top:6px;">
+                <li><strong>隅田公园绿岸漫步</strong>：从浅草寺穿过 <a href="https://maps.google.com/?q=Sumida+Park" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">隅田公园 (Google 4.2★)</a>，沿河岸拍摄吾妻桥与晴空塔倒影。</li>
+                <li><strong>SUMIDA RIVER WALK 铁桥水上步道 (07:00–22:00 免费)</strong>：踏上依附于东武铁桥旁的 <a href="https://maps.google.com/?q=Sumida+River+Walk" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">SUMIDA RIVER WALK (Google 4.3★)</a> 跨越隅田川。步道设有<strong>透明玻璃视窗 (覗き窓)</strong> 可直视脚下水流与游船，身边不时有东武新型特急 <em>Spacia X</em> 列车驶过，是拍摄晴空塔无遮挡全景的绝佳机位！</li>
+                <li><strong>Tokyo Mizumachi 高架绿荫水町</strong>：过桥直达河畔复合街区 <a href="https://maps.google.com/?q=Tokyo+Mizumachi" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Tokyo Mizumachi (Google 4.1★)</a>，途经人手一份的 <a href="https://maps.google.com/?q=Bread+Espresso+and+machiawase" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Bread, Espresso & (Google 4.1★)</a> 吐司咖啡馆与日式选物店，平坦绿荫大道直通晴空塔。</li>
+              </ol>
+              <span class="must-tag">★ 强烈推荐 景观步道</span> <span class="pill">全程平坦 免费通行</span>
+            </div>
           </div>
         </div>
+        <div class="tl-item">
+          <div class="tl-icon">🗼</div>
+          <div>
+            <div class="tl-time">13:00 - 18:00</div>
+            <div class="tl-main"><span class="zh on">【主路线 A Plan】<a href="https://maps.google.com/?q=Tokyo+Skytree" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">东京晴空塔 (Tokyo Skytree) ★</a> · <a href="https://maps.google.com/?q=Tokyo+Solamachi" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">Solamachi 购物中心</a> 散策与晚餐</span><span class="en">Tokyo Skytree Observation & Solamachi Dinner</span></div>
+            <div class="tl-desc">
+              <ol style="margin-left:18px;margin-top:6px;">
+                <li><strong>晴空塔展望台 (可选登塔)</strong>：登临 350m 天望甲板与 450m 天望回廊的 <a href="https://maps.google.com/?q=Tokyo+Skytree" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">东京晴空塔 (Google 4.5★)</a> 俯瞰关东平原与夕阳景致。</li>
+                <li><strong>Solamachi 逛街与下午茶</strong>：在拥有 300+ 店铺的 <a href="https://maps.google.com/?q=Tokyo+Solamachi" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Tokyo Solamachi (Google 4.2★)</a> 选购东京特色伴手礼与吉卜力周边。</li>
+                <li><strong>丰盛晚餐推荐</strong>：在商场 6F 美食街享用正宗仙台炭烤厚切牛舌。</li>
+              </ol>
+
+              <!-- Food Card 2: Rikyu Gyutan -->
+              <div class="food-card">
+                <div class="food-card-head">
+                  <div class="food-card-title">🥩 仙臺 牛たん炭焼 利久 (晴空塔 Solamachi 6F)</div>
+                  <div class="food-card-rating">⭐ 4.2 (1,400+ 评价) · 仙台炭烤名店</div>
+                </div>
+                <div class="food-meta-list">
+                  <div class="food-meta-item">
+                    <span class="food-meta-label">🏷️ 必点招牌:</span>
+                    <span>极厚切炭烤牛舌定食 (¥2,860) · 炖牛舌定食 (¥1,980 软烂入口即化)</span>
+                  </div>
+                  <div class="food-meta-item">
+                    <span class="food-meta-label">💺 长辈贴士:</span>
+                    <span>商场宽敞沙发卡座 · 电梯直达无台阶 · 附赠清爽温热牛尾汤</span>
+                  </div>
+                  <div class="food-meta-item">
+                    <span class="food-meta-label">🔄 就近备选:</span>
+                    <span>六厘舍沾面 (6F) · 叙叙苑烧肉 (30F 观景高空)</span>
+                  </div>
+                </div>
+                <div class="food-card-actions">
+                  <a href="https://maps.google.com/?q=Gyutan+Rikyu+Tokyo+Solamachi" target="_blank" rel="noopener noreferrer" class="food-btn">📍 Google Maps 导航</a>
+                  <button type="button" onclick="openFoodDrawer('rikyu')" class="food-btn primary">📋 点餐指路卡 (出示给店员)</button>
+                </div>
+              </div>
+
+              <span class="pill">东京最高地标 634m</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plan B Comparison Table Day 2 -->
         <div class="tl-item">
           <div class="tl-icon">🌟</div>
           <div>
-            <div class="tl-time">13:30 - 18:00</div>
-            <div class="tl-main"><span class="zh on">【Day 2 降雨/避挤 3 大弹性 B Plan 备选方案与实景】</span><span class="en">Day 2 Rain/Crowd Avoidance B-Plans</span></div>
-            <div class="tl-desc"><span class="zh on">
-              <strong>方案 B1 (室内光影/极受欢迎)</strong>：teamLab Planets TOKYO 丰洲触感水上光影展 (全室内，裸足踏水与浮空兰花花园，Google 4.7★)。<br/>
-              <strong>方案 B2 (零体力/游船看景)</strong>：隅田川观光水上巴士 (浅草码头 → 台场/滨离宫，在玻璃船舱内看东京湾与彩虹大桥)。<br/>
-              <strong>方案 B3 (室内观景/老街)</strong>：浅草文化观光中心 8F 免费展望台 (隈研吾设计，俯瞰浅草全景) & 合羽桥道具街。
-            </span></div>
+            <div class="tl-time">Day 2 降雨/避挤 3 大 B Plan 方案对比表</div>
+            <div class="tl-main"><span class="zh on">【Day 2 降雨/避挤 3 大弹性 B Plan 备选方案】</span><span class="en">Day 2 Rain/Crowd Avoidance B-Plans</span></div>
+            <table class="info-table" style="margin-top:10px;">
+              <thead>
+                <tr>
+                  <th>Plan B 方案</th>
+                  <th>适合场景与体验特色</th>
+                  <th>Google 评分与地图导航</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>方案 B1：teamLab Planets TOKYO</strong></td>
+                  <td>室内水上光影展，裸足涉水、浮空兰花与水晶宇宙，雨天或避暑沉浸式首选</td>
+                  <td><a href="https://maps.google.com/?q=teamLab+Planets+TOKYO+Toyosu" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Google 4.7★ (丰洲)</a></td>
+                </tr>
+                <tr>
+                  <td><strong>方案 B2：隅田川观光水上巴士</strong></td>
+                  <td>浅草码头搭乘未来感玻璃船舱观光船 (HIMIKO/HOTALUNA) 直达台场或滨离宫，零体力看东京湾</td>
+                  <td><a href="https://maps.google.com/?q=Tokyo+Cruise+Asakusa+Pier" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Google 4.2★ (浅草码头)</a></td>
+                </tr>
+                <tr>
+                  <td><strong>方案 B3：浅草文化中心 & 合羽桥</strong></td>
+                  <td>隈研吾设计 8F 免费展望台俯瞰浅草全景；顺逛日本最大料理烘焙道具街</td>
+                  <td><a href="https://maps.google.com/?q=Asakusa+Culture+Tourist+Information+Center" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">浅草中心 4.4★</a> / <a href="https://maps.google.com/?q=Kappabashi+Kitchen+Tools+Street" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">合羽桥 4.4★</a></td>
+                </tr>
+              </tbody>
+            </table>
             <!-- Real Stock Photo Gallery for Day 2 B Plans -->
-            <div class="bplan-gallery">
+            <div class="bplan-gallery" style="margin-top:12px;">
               <div class="bplan-img-card">
-                <img src="teamlab.jpg" alt="" loading="lazy" decoding="async"/>
+                <img src="teamlab.jpg" alt="teamLab Planets 丰洲光影实景" loading="lazy" decoding="async"/>
                 <div class="bplan-img-lbl">方案B1: teamLab 丰洲光影</div>
               </div>
               <div class="bplan-img-card">
-                <img src="shibuya.jpg" alt="" loading="lazy" decoding="async"/>
+                <img src="asakusa_view.jpg" alt="浅草文化观光中心 8F 俯瞰实景" loading="lazy" decoding="async"/>
                 <div class="bplan-img-lbl">方案B3: 浅草文化中心俯瞰</div>
               </div>
             </div>
@@ -1341,11 +1466,11 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🌳</div>
           <div>
             <div class="tl-time">09:30 - 12:00</div>
-            <div class="tl-main"><span class="zh on">日比谷线 4m 至上野 · <a href="https://maps.google.com/?q=Ueno+Park" target="_blank" style="color:var(--ai);text-decoration:underline;">上野恩赐公园</a>与<a href="https://maps.google.com/?q=Ueno+Toshogu+Shrine" target="_blank" style="color:var(--ai);text-decoration:underline;">上野东照宫</a> ★</span><span class="en">Ueno Park & Ueno Toshogu Shrine</span></div>
+            <div class="tl-main"><span class="zh on">日比谷线 4m 至上野 · <a href="https://maps.google.com/?q=Ueno+Park" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">上野恩赐公园</a>与<a href="https://maps.google.com/?q=Ueno+Toshogu+Shrine" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">上野东照宫</a> ★</span><span class="en">Ueno Park & Ueno Toshogu Shrine</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>交通方式</strong>：日比谷线 4m 至上野站（或搭计程车 7m 直达公园门前）。</li>
-                <li><strong>核心景点</strong>：漫步上野公园大林荫道，参拜黑金交辉的<a href="https://maps.google.com/?q=Ueno+Toshogu+Shrine" target="_blank">上野东照宫 (09:00-16:30, Google 4.4★)</a> 与 <a href="https://maps.google.com/?q=Shinobazu+Pond" target="_blank">不忍池弁天堂 (Google 4.3★)</a>。</li>
+                <li><strong>核心景点</strong>：漫步上野公园大林荫道，参拜黑金交辉的<a href="https://maps.google.com/?q=Ueno+Toshogu+Shrine" target="_blank" rel="noopener noreferrer">上野东照宫 (09:00-16:30, Google 4.4★)</a> 与 <a href="https://maps.google.com/?q=Shinobazu+Pond" target="_blank" rel="noopener noreferrer">不忍池弁天堂 (Google 4.3★)</a>。</li>
                 <li><strong>避坑提醒</strong>：星期一为日本博物馆休馆日，排全户外公园非常顺畅。</li>
               </ol>
               <span class="pill">日比谷线 4m / 计程车 7m</span>
@@ -1356,12 +1481,12 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🍢</div>
           <div>
             <div class="tl-time">12:30 - 14:30</div>
-            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Ameyoko+Shopping+District" target="_blank" style="color:var(--ai);text-decoration:underline;">阿美横町</a> ➔ 【核心体验】<a href="https://maps.google.com/?q=Matsuzakaya+Ueno" target="_blank" style="color:var(--ai);text-decoration:underline;">上野松坂屋 B1F 顶级地下美食街 (Depachika) ★</a></span><span class="en">Ameyoko Market & Matsuzakaya Depachika</span></div>
+            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Ameyoko+Shopping+District" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">阿美横町</a> ➔ 【核心体验】<a href="https://maps.google.com/?q=Matsuzakaya+Ueno" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">上野松坂屋 B1F 顶级地下美食街 (Depachika) ★</a></span><span class="en">Ameyoko Market & Matsuzakaya Depachika</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
-                <li><strong>午餐推荐 (60分钟)</strong>：享用<a href="https://maps.google.com/?q=Tonkatsu+Yamabe+Ueno" target="_blank" style="color:var(--shu);font-weight:700;">山家炸猪排 (Yamabe, Google 4.4★)</a> 或平价海鲜丼、新鲜水果串。</li>
-                <li><strong>地下街核心体验 (60分钟)</strong>：顺路走进阿美横町南端的 <a href="https://maps.google.com/?q=Matsuzakaya+Ueno" target="_blank" style="color:var(--shu);font-weight:700;">上野松坂屋 B1F 地下美食街 (Google 4.3★)</a>，全室内大冷气无风雨！买当季切片水蜜桃、晴王麝香葡萄、现烤鳗鱼与和牛便当，在凉爽休息区享用！</li>
-                <li><strong>药妆宝藏 (30分钟)</strong>：前往本地人最爱<a href="https://maps.google.com/?q=OS+Drug+Ameyoko" target="_blank" style="color:var(--shu);font-weight:700;">OS Drug (Google 4.1★)</a> 享超低底价现金采买药妆。</li>
+                <li><strong>午餐推荐 (60分钟)</strong>：享用<a href="https://maps.google.com/?q=Tonkatsu+Yamabe+Ueno" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">山家炸猪排 (Yamabe, Google 4.4★)</a> 或平价海鲜丼、新鲜水果串。</li>
+                <li><strong>地下街核心体验 (60分钟)</strong>：顺路走进阿美横町南端的 <a href="https://maps.google.com/?q=Matsuzakaya+Ueno" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">上野松坂屋 B1F 地下美食街 (Google 4.3★)</a>，全室内大冷气无风雨！买当季切片水蜜桃、晴王麝香葡萄、现烤鳗鱼与和牛便当，在凉爽休息区享用！</li>
+                <li><strong>药妆宝藏 (30分钟)</strong>：前往本地人最爱<a href="https://maps.google.com/?q=OS+Drug+Ameyoko" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">OS Drug (Google 4.1★)</a> 享超低底价现金采买药妆。</li>
               </ol>
               <span class="must-tag">★ 最具代表性 Depachika 地下街</span>
             </div>
@@ -1371,12 +1496,12 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🐈</div>
           <div>
             <div class="tl-time">15:00 - 18:00</div>
-            <div class="tl-main"><span class="zh on">山手线 4m 至日暮里 · <a href="https://maps.google.com/?q=Yanaka+Ginza+Shopping+Street" target="_blank" style="color:var(--ai);text-decoration:underline;">谷中银座</a> & <a href="https://maps.google.com/?q=Yuyake+Dandan" target="_blank" style="color:var(--ai);text-decoration:underline;">夕阳阶梯 (夕焼けだんだん)</a> ★</span><span class="en">Yanaka Ginza & Yuyake Dandan Sunset Steps</span></div>
+            <div class="tl-main"><span class="zh on">山手线 4m 至日暮里 · <a href="https://maps.google.com/?q=Yanaka+Ginza+Shopping+Street" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">谷中银座</a> & <a href="https://maps.google.com/?q=Yuyake+Dandan" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">夕阳阶梯 (夕焼けだんだん)</a> ★</span><span class="en">Yanaka Ginza & Yuyake Dandan Sunset Steps</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>老街散步</strong>：在上野站搭 JR 山手线 2 站 (4分钟) 直达日暮里站西口。</li>
-                <li><strong>夕阳景观</strong>：在<a href="https://maps.google.com/?q=Yuyake+Dandan" target="_blank" style="color:var(--shu);font-weight:700;">夕阳阶梯 (Google 4.3★)</a> 欣赏 17:15 黄昏落日。</li>
-                <li><strong>手冲咖啡</strong>：在 <a href="https://maps.google.com/?q=Yanaka+Coffee+Honten" target="_blank" style="color:var(--shu);font-weight:700;">Yanaka Coffee (Google 4.2★)</a> 喝手冲咖啡看猫咪。</li>
+                <li><strong>夕阳景观</strong>：在<a href="https://maps.google.com/?q=Yuyake+Dandan" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">夕阳阶梯 (Google 4.3★)</a> 欣赏 17:15 黄昏落日。</li>
+                <li><strong>手冲咖啡</strong>：在 <a href="https://maps.google.com/?q=Yanaka+Coffee+Honten" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Yanaka Coffee (Google 4.2★)</a> 喝手冲咖啡看猫咪。</li>
               </ol>
               <span class="pill">谷根千 昭和风情</span>
             </div>
@@ -1401,27 +1526,27 @@ ol[style*="margin-left:18px"]{
                 <tr>
                   <td><strong>方案 B1：合羽桥道具街</strong></td>
                   <td>雨天室内首选，全室内骑楼，买精致日本陶瓷与仿真食物模型</td>
-                  <td><a href="https://maps.google.com/?q=Kappabashi+Kitchen+Tools+Street" target="_blank" style="color:var(--shu);font-weight:700;">Google 4.4★</a></td>
+                  <td><a href="https://maps.google.com/?q=Kappabashi+Kitchen+Tools+Street" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Google 4.4★</a></td>
                 </tr>
                 <tr>
                   <td><strong>方案 B2：旧岩崎邸庭园</strong></td>
                   <td>豪宅庭园首选，上野公园旁三菱财阀古迹与日式优雅茶室 (入馆 ¥400)</td>
-                  <td><a href="https://maps.google.com/?q=Kyu-Iwasaki-tei+Garden" target="_blank" style="color:var(--shu);font-weight:700;">Google 4.3★</a></td>
+                  <td><a href="https://maps.google.com/?q=Kyu-Iwasaki-tei+Garden" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Google 4.3★</a></td>
                 </tr>
                 <tr>
                   <td><strong>方案 B3：日暮里 齐藤汤温泉</strong></td>
                   <td>老街泡汤首选，逛完谷中老街泡天然高浓度碳酸泉露天温泉 (¥550/人)</td>
-                  <td><a href="https://maps.google.com/?q=Saito-yu+Sento+Nippori" target="_blank" style="color:var(--shu);font-weight:700;">Google 4.5★</a></td>
+                  <td><a href="https://maps.google.com/?q=Saito-yu+Sento+Nippori" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Google 4.5★</a></td>
                 </tr>
               </tbody>
             </table>
             <div class="bplan-gallery" style="margin-top:12px;">
               <div class="bplan-img-card">
-                <img src="ueno.jpg" alt="" loading="lazy" decoding="async"/>
+                <img src="ueno.jpg" alt="上野恩赐公园与东照宫" loading="lazy" decoding="async"/>
                 <div class="bplan-img-lbl">方案B2: 旧岩崎邸庭园</div>
               </div>
               <div class="bplan-img-card">
-                <img src="yanaka.jpg" alt="" loading="lazy" decoding="async"/>
+                <img src="yanaka.jpg" alt="谷中银座夕阳阶梯" loading="lazy" decoding="async"/>
                 <div class="bplan-img-lbl">方案B3: 谷中老街与温泉</div>
               </div>
             </div>
@@ -1462,7 +1587,7 @@ ol[style*="margin-left:18px"]{
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>06:50 起床 / 07:00 出门</strong>：前一晚先在超市备好早餐 (饭团/三明治)，路上吃。</li>
-                <li><strong>实测路线 (¥380/人，每 5 分钟一班)</strong>：公寓步行 <strong>7 分</strong>至<a href="https://maps.google.com/?q=%E4%B8%89%E3%83%8E%E8%BC%AA%E9%A7%85" target="_blank" style="color:var(--shu);font-weight:700;">三ノ轮站</a> → 日比谷线至上野 → JR 京浜东北/山手线至东京站。</li>
+                <li><strong>实测路线 (¥380/人，每 5 分钟一班)</strong>：公寓步行 <strong>7 分</strong>至<a href="https://maps.google.com/?q=%E4%B8%89%E3%83%8E%E8%BC%AA%E9%A7%85" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">三ノ轮站</a> → 日比谷线至上野 → JR 京浜东北/山手线至东京站。</li>
                 <li><strong>为何不叫计程车</strong>：实测车程 7.2 km / 16–17 分，但周二早高峰昭和通り例行塞车，车资 ¥3,000–4,000。地铁塞不到，且班次密 = 没有单点失败。</li>
                 <li><strong>07:35 抵达</strong>：八重洲南口 9 号巴士站在一楼地面零阶梯，但找月台仍预留 10 分钟。</li>
               </ol>
@@ -1474,7 +1599,7 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🚌</div>
           <div>
             <div class="tl-time">08:00 - 10:00</div>
-            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Tokyo+Station+Yaesu+South+Exit" target="_blank" style="color:var(--ai);text-decoration:underline;">东京站八重洲南口</a>搭乘高速巴士 → <a href="https://maps.google.com/?q=Kawaguchiko+Station" target="_blank" style="color:var(--ai);text-decoration:underline;">河口湖站</a></span><span class="en">Highway Bus to Kawaguchiko</span></div>
+            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Tokyo+Station+Yaesu+South+Exit" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">东京站八重洲南口</a>搭乘高速巴士 → <a href="https://maps.google.com/?q=Kawaguchiko+Station" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">河口湖站</a></span><span class="en">Highway Bus to Kawaguchiko</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>轻装策略</strong>：大行李留在东京公寓，只带随身小背包轻装出发！</li>
@@ -1489,12 +1614,39 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🍜</div>
           <div>
             <div class="tl-time">10:30 - 13:00</div>
-            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Toyoko+Inn+Fuji+Kawaguchiko+Ohashi" target="_blank" style="color:var(--ai);text-decoration:underline;">東横INN</a> 寄包 · 午餐<a href="https://maps.google.com/?q=Houtou+Fudo+Kawaguchiko+Station" target="_blank" style="color:var(--ai);text-decoration:underline;">ほうとう不動 馓子面</a></span><span class="en">Houtou Noodles & Hotel Drop</span></div>
+            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Toyoko+Inn+Fuji+Kawaguchiko+Ohashi" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">東横INN</a> 寄包 · 午餐享用河口湖名物铁锅馂馎面</span><span class="en">Houtou Noodles & Hotel Drop</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
-                <li><strong>免费接驳车</strong>：乘饭店免费接驳车至<a href="https://maps.google.com/?q=Toyoko+Inn+Fuji+Kawaguchiko+Ohashi" target="_blank" style="color:var(--shu);font-weight:700;">東横INN 富士河口湖大桥</a>寄存背包。</li>
-                <li><strong>午餐推荐</strong>：享用山梨名物<a href="https://maps.google.com/?q=Houtou+Fudo+Kawaguchiko+Station" target="_blank" style="color:var(--shu);font-weight:700;">ほうとう不動 (Google 4.1★)</a> 铁锅味噌蔬菜宽面。</li>
+                <li><strong>免费接驳车</strong>：乘饭店免费接驳车至<a href="https://maps.google.com/?q=Toyoko+Inn+Fuji+Kawaguchiko+Ohashi" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">東横INN 富士河口湖大桥</a>寄存背包。</li>
+                <li><strong>午餐推荐</strong>：享用山梨百年乡土名物铁锅味噌蔬菜宽面，热气腾腾。</li>
               </ol>
+
+              <!-- Food Card: Houtou Fudo -->
+              <div class="food-card">
+                <div class="food-card-head">
+                  <div class="food-card-title">🍲 名物 ほうとう不動 (河口湖 铁锅馂馎面)</div>
+                  <div class="food-card-rating">⭐ 4.3 (4,500+ 评价) · 富士山山梨名物</div>
+                </div>
+                <div class="food-meta-list">
+                  <div class="food-meta-item">
+                    <span class="food-meta-label">🏷️ 必点招牌:</span>
+                    <span>不动铁锅蔬菜馂馎面 (¥1,210) · 手打粗宽面炖煮甜南瓜与山菇</span>
+                  </div>
+                  <div class="food-meta-item">
+                    <span class="food-meta-label">💺 长辈贴士:</span>
+                    <span>木桌宽敞椅座 · 铁锅热汤暖胃暖身 · 站前店出站即达</span>
+                  </div>
+                  <div class="food-meta-item">
+                    <span class="food-meta-label">🔄 就近备选:</span>
+                    <span>湖波食事处 (湖畔定食) · 鸣泽村富士展望餐厅</span>
+                  </div>
+                </div>
+                <div class="food-card-actions">
+                  <a href="https://maps.google.com/?q=Houtou+Fudo+Kawaguchiko+Station" target="_blank" rel="noopener noreferrer" class="food-btn">📍 Google Maps 导航</a>
+                  <button type="button" onclick="openFoodDrawer('fudo')" class="food-btn primary">📋 点餐指路卡 (出示给店员)</button>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -1505,12 +1657,12 @@ ol[style*="margin-left:18px"]{
             <div class="tl-main"><span class="zh on">忍野八海 → 大石公园完整落日 → 富士眺望之汤 ゆらり</span><span class="en">Car Version: Oshino, Oishi Sunset & Yurari Onsen</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
-                <li><strong>12:30 取车（午餐后再取，不要 10:30）</strong>：<a href="https://maps.google.com/?q=%E3%83%8B%E3%83%83%E3%83%9D%E3%83%B3%E3%83%AC%E3%83%B3%E3%82%BF%E3%82%AB%E3%83%BC+%E6%B2%B3%E5%8F%A3%E6%B9%96%E9%A7%85%E5%89%8D" target="_blank" style="color:var(--shu);font-weight:700;">ニッポンレンタカー 河口湖駅前</a> (出站右手步行 2 分)。<strong>隔壁就是加油站且有店员服务</strong>，还车前加油最省事。トヨタレンタカー 也在站前，但加油要自己找。</li>
+                <li><strong>12:30 取车（午餐后再取，不要 10:30）</strong>：<a href="https://maps.google.com/?q=%E3%83%8B%E3%83%83%E3%83%9D%E3%83%B3%E3%83%AC%E3%83%B3%E3%82%BF%E3%82%AB%E3%83%BC+%E6%B2%B3%E5%8F%A3%E6%B9%96%E9%A7%85%E5%89%8D" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">ニッポンレンタカー 河口湖駅前</a> (出站右手步行 2 分)。<strong>隔壁就是加油站且有店员服务</strong>，还车前加油最省事。トヨタレンタカー 也在站前，但加油要自己找。</li>
                 <li><strong>💰 为什么 12:30 才取车</strong>：日本租车以 <strong>24 小时为一个费率级距</strong>。<code>10/6 12:30 → 10/7 12:00 = 23.5 小时</code>，落在 <strong>1 日料金</strong>内；若 10:30 取车则变 25.5 小时，要多付一段超时费。上午本来就在寄包＋吃馓子面，没有车也不影响。<em>(下单时请再确认该店的时段计费方式。)</em></li>
-                <li><strong>13:30–15:00 <a href="https://maps.google.com/?q=Oshino+Hakkai" target="_blank">忍野八海</a></strong>：停车场多为收费；忍野屋等土产店消费满 ¥500 可免费停 (约 15 位)。</li>
-                <li><strong>15:30–17:45 <a href="https://maps.google.com/?q=Oishi+Park+Kawaguchiko" target="_blank">大石公园</a></strong>：<strong>免费停车场</strong>。红叶期扫帚草 + <strong>完整看完 17:15 落日再走</strong>，不必赶巴士。</li>
-                <li><strong>18:30–20:30 <a href="https://maps.google.com/?q=Fuji+Yurari+Onsen" target="_blank">富士眺望之汤 ゆらり</a></strong>：鸣沢村，车程约 30 分，营业到较晚，可边泡露天汤边看富士山。<em>停车资讯待官网确认。</em></li>
-                <li><strong>21:00 回饭店</strong>：<a href="https://maps.google.com/?q=Toyoko+Inn+Fuji+Kawaguchiko+Ohashi" target="_blank">東横INN 富士河口湖大桥</a> <strong>住客停车免费</strong>，130 车位 (立体 40 / 平面 90)，先到先得。<strong>限高 2.1m、限宽 1.8m → 租 compact 即可</strong>。</li>
+                <li><strong>13:30–15:00 <a href="https://maps.google.com/?q=Oshino+Hakkai" target="_blank" rel="noopener noreferrer">忍野八海</a></strong>：停车场多为收费；忍野屋等土产店消费满 ¥500 可免费停 (约 15 位)。</li>
+                <li><strong>15:30–17:45 <a href="https://maps.google.com/?q=Oishi+Park+Kawaguchiko" target="_blank" rel="noopener noreferrer">大石公园</a></strong>：<strong>免费停车场</strong>。红叶期扫帚草 + <strong>完整看完 17:15 落日再走</strong>，不必赶巴士。</li>
+                <li><strong>18:30–20:30 <a href="https://maps.google.com/?q=Fuji+Yurari+Onsen" target="_blank" rel="noopener noreferrer">富士眺望之汤 ゆらり</a></strong>：鸣沢村，车程约 30 分，营业到较晚，可边泡露天汤边看富士山。<em>停车资讯待官网确认。</em></li>
+                <li><strong>21:00 回饭店</strong>：<a href="https://maps.google.com/?q=Toyoko+Inn+Fuji+Kawaguchiko+Ohashi" target="_blank" rel="noopener noreferrer">東横INN 富士河口湖大桥</a> <strong>住客停车免费</strong>，130 车位 (立体 40 / 平面 90)，先到先得。<strong>限高 2.1m、限宽 1.8m → 租 compact 即可</strong>。</li>
               </ol>
               <span class="must-tag">★ 租车才看得到完整落日</span>
             </div>
@@ -1544,7 +1696,7 @@ ol[style*="margin-left:18px"]{
             </span></div>
             <div class="bplan-gallery">
               <div class="bplan-img-card">
-                <img src="fuji_hero.jpg" alt="" loading="lazy" decoding="async"/>
+                <img src="fuji_hero.jpg" alt="河口湖与富士山全景" loading="lazy" decoding="async"/>
                 <div class="bplan-img-lbl">大石公园: 富士山湖光</div>
               </div>
             </div>
@@ -1592,7 +1744,7 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🌄</div>
           <div>
             <div class="tl-time">05:15 - 07:00</div>
-            <div class="tl-main"><span class="zh on">【徒步 10m / 800m】<a href="https://maps.google.com/?q=Kawaguchiko+Ohashi+Bridge" target="_blank" style="color:var(--ai);text-decoration:underline;">河口湖大桥</a> 观赏清晨赤富士 ★★</span><span class="en">Dawn "Red Fuji" at Kawaguchiko Bridge</span></div>
+            <div class="tl-main"><span class="zh on">【徒步 10m / 800m】<a href="https://maps.google.com/?q=Kawaguchiko+Ohashi+Bridge" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">河口湖大桥</a> 观赏清晨赤富士 ★★</span><span class="en">Dawn "Red Fuji" at Kawaguchiko Bridge</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>赤富士时刻 (15分钟)</strong>：日出时刻 (05:45) 晨曦照射在富士山峰呈现粉红色「赤富士」，绝不可错过！</li>
@@ -1611,13 +1763,13 @@ ol[style*="margin-left:18px"]{
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>07:00 饭店早餐 · 08:00 出发</strong>：10:00 前退房，背包放车上。河口湖 → 山中湖 <strong>仅 18 分钟车程</strong>。</li>
-                <li><strong>08:20 <a href="https://maps.google.com/?q=%E5%B1%B1%E4%B8%AD%E6%B9%96+%E3%83%91%E3%83%8E%E3%83%A9%E3%83%9E%E5%8F%B0" target="_blank" style="color:var(--shu);font-weight:700;">明神山 パノラマ台</a></strong>：俯瞰山中湖 + 富士山 + 南阿尔卑斯大全景，免费。<strong>⚠️ 停车位只有约 7 个</strong>（含 1 无障碍）— 所以要一早去，晚了停不到。</li>
-                <li><strong>09:00 <a href="https://maps.google.com/?q=%E9%95%B7%E6%B1%A0%E8%A6%AA%E6%B0%B4%E5%85%AC%E5%9C%92" target="_blank" style="color:var(--shu);font-weight:700;">長池亲水公园</a></strong>：山中湖第一名景点。<strong>免费停车约 80 台、24 小时开放</strong>。<strong>「逆富士」水面倒影要清晨无风才照得出来</strong> — 这个时段正确。</li>
-                <li><strong>09:45 <a href="https://maps.google.com/?q=%E5%B1%B1%E4%B8%AD%E6%B9%96+%E8%8A%B1%E3%81%AE%E9%83%BD%E5%85%AC%E5%9C%92" target="_blank" style="color:var(--shu);font-weight:700;">山中湖 花之都公园</a></strong>：10 月是<strong>波斯菊</strong>季，花田以富士山为背景。8:30–17:30 (10/15 前)。<strong>户外花田免费</strong>，清流之里/ふらら 才要入园费。全平路，适合长辈。</li>
+                <li><strong>08:20 <a href="https://maps.google.com/?q=%E5%B1%B1%E4%B8%AD%E6%B9%96+%E3%83%91%E3%83%8E%E3%83%A9%E3%83%9E%E5%8F%B0" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">明神山 パノラマ台</a></strong>：俯瞰山中湖 + 富士山 + 南阿尔卑斯大全景，免费。<strong>⚠️ 停车位只有约 7 个</strong>（含 1 无障碍）— 所以要一早去，晚了停不到。</li>
+                <li><strong>09:00 <a href="https://maps.google.com/?q=%E9%95%B7%E6%B1%A0%E8%A6%AA%E6%B0%B4%E5%85%AC%E5%9C%92" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">長池亲水公园</a></strong>：山中湖第一名景点。<strong>免费停车约 80 台、24 小时开放</strong>。<strong>「逆富士」水面倒影要清晨无风才照得出来</strong> — 这个时段正确。</li>
+                <li><strong>09:45 <a href="https://maps.google.com/?q=%E5%B1%B1%E4%B8%AD%E6%B9%96+%E8%8A%B1%E3%81%AE%E9%83%BD%E5%85%AC%E5%9C%92" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">山中湖 花之都公园</a></strong>：10 月是<strong>波斯菊</strong>季，花田以富士山为背景。8:30–17:30 (10/15 前)。<strong>户外花田免费</strong>，清流之里/ふらら 才要入园费。全平路，适合长辈。</li>
                 <li><strong>11:00 离开山中湖</strong>：回河口湖约 18–25 分。<strong>最迟 11:30 一定要走</strong>。</li>
                 <li><strong>11:30 加油</strong>：还车前在租车行<strong>隔壁</strong>加油站加满，说「<strong>満タンでお願いします</strong>」(mantan de onegai shimasu)。约 15 分钟。</li>
                 <li><strong>11:45–12:00 还车</strong>：验车与手续约 10–15 分。还完<strong>步行 2 分</strong>即到河口湖站。</li>
-                <li><strong>12:00–13:30 站前午餐</strong>：<a href="https://maps.google.com/?q=Fuji+Tempura+Idaten" target="_blank" style="color:var(--shu);font-weight:700;">天妇罗 Idaten (Google 4.3★)</a>，顺便买 <a href="https://maps.google.com/?q=Fujiyama+Cookie" target="_blank">Fujiyama Cookie</a>。</li>
+                <li><strong>12:00–13:30 站前午餐</strong>：<a href="https://maps.google.com/?q=Fuji+Tempura+Idaten" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">天妇罗 Idaten (Google 4.3★)</a>，顺便买 <a href="https://maps.google.com/?q=Fujiyama+Cookie" target="_blank" rel="noopener noreferrer">Fujiyama Cookie</a>。</li>
                 <li><strong>13:40 到巴士乘车处 · 14:00 发车</strong>：还车到发车留了 <strong>2 小时缓冲</strong>。回程是<strong>指定席</strong>，误了要重新买票。</li>
               </ol>
               <span class="must-tag">★ 三个景点全免费 · 还车到发车留 2 小时</span>
@@ -1628,12 +1780,12 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🍱</div>
           <div>
             <div class="tl-time">07:30 - 13:30 · 版本 B【巴士】</div>
-            <div class="tl-main"><span class="zh on">饭店免费早餐 · 10:00 退房寄包 · 湖畔散步 & 午餐<a href="https://maps.google.com/?q=Fuji+Tempura+Idaten" target="_blank" style="color:var(--ai);text-decoration:underline;">天妇罗 Idaten</a></span><span class="en">Bus Version: Hotel Breakfast & Lake Stroll</span></div>
+            <div class="tl-main"><span class="zh on">饭店免费早餐 · 10:00 退房寄包 · 湖畔散步 & 午餐<a href="https://maps.google.com/?q=Fuji+Tempura+Idaten" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">天妇罗 Idaten</a></span><span class="en">Bus Version: Hotel Breakfast & Lake Stroll</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>退房寄包</strong>：10:00 前办理退房，背包免费寄存前台。</li>
-                <li><strong>湖畔散步与采买</strong>：漫步 <a href="https://maps.google.com/?q=Kawaguchiko+Southern+Shore" target="_blank" style="color:var(--shu);font-weight:700;">南岸步道 (Google 4.4★)</a>，买 <a href="https://maps.google.com/?q=Fujiyama+Cookie" target="_blank" style="color:var(--shu);font-weight:700;">Fujiyama Cookie 饼干 (Google 4.3★)</a>。</li>
-                <li><strong>午餐推荐</strong>：12:15 抵 <a href="https://maps.google.com/?q=Fuji+Tempura+Idaten" target="_blank" style="color:var(--shu);font-weight:700;">天妇罗 Idaten (Google 4.3★)</a> 享用现炸炸虾天妇罗盖饭。</li>
+                <li><strong>湖畔散步与采买</strong>：漫步 <a href="https://maps.google.com/?q=Kawaguchiko+Southern+Shore" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">南岸步道 (Google 4.4★)</a>，买 <a href="https://maps.google.com/?q=Fujiyama+Cookie" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Fujiyama Cookie 饼干 (Google 4.3★)</a>。</li>
+                <li><strong>午餐推荐</strong>：12:15 抵 <a href="https://maps.google.com/?q=Fuji+Tempura+Idaten" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">天妇罗 Idaten (Google 4.3★)</a> 享用现炸炸虾天妇罗盖饭。</li>
                 <li><strong>取回行李 ★</strong>：13:00 午餐后搭免费接驳车回東横INN 取回背包 (7分钟)，再乘接驳车返回河口湖站，13:45 前抵达候车。</li>
                 <li><em>山中湖巴士班次稀疏且需转车，无车版本不建议排入。</em></li>
               </ol>
@@ -1644,7 +1796,7 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🚌</div>
           <div>
             <div class="tl-time">14:00 - 16:00</div>
-            <div class="tl-main"><span class="zh on">搭乘高速巴士 (2h) 直达 <a href="https://maps.google.com/?q=Tokyo+Station" target="_blank" style="color:var(--ai);text-decoration:underline;">东京站八重洲口</a></span><span class="en">Highway Bus Return to Tokyo</span></div>
+            <div class="tl-main"><span class="zh on">搭乘高速巴士 (2h) 直达 <a href="https://maps.google.com/?q=Tokyo+Station" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">东京站八重洲口</a></span><span class="en">Highway Bus Return to Tokyo</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>舒适返程</strong>：14:00 准时在河口湖站上车，2 小时直达东京站，避开夕阳塞车潮。</li>
@@ -1657,14 +1809,14 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🏛️</div>
           <div>
             <div class="tl-time">16:00 - 17:30</div>
-            <div class="tl-main"><span class="zh on">【遗珠体验 徒步3m】<a href="https://maps.google.com/?q=Tokyo+Station+Marunouchi+Building" target="_blank" style="color:var(--ai);text-decoration:underline;">东京车站赤砖大楼</a> ➔ <a href="https://maps.google.com/?q=KITTE+Marunouchi" target="_blank" style="color:var(--ai);text-decoration:underline;">KITTE 丸之内 6F 高空屋顶展望台 ★</a></span><span class="en">Tokyo Station & KITTE 6F View</span></div>
+            <div class="tl-main"><span class="zh on">【遗珠体验 徒步3m】<a href="https://maps.google.com/?q=Tokyo+Station+Marunouchi+Building" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">东京车站赤砖大楼</a> ➔ <a href="https://maps.google.com/?q=KITTE+Marunouchi" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">KITTE 丸之内 6F 高空屋顶展望台 ★</a></span><span class="en">Tokyo Station & KITTE 6F View</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>百年古迹 (30分钟)</strong>：平地散步 3m 至丸之内广场，欣赏 100 年历史的辰野金吾红砖大楼建筑。</li>
-                <li><strong>高空坐看列车 (60分钟)</strong>：登上 <a href="https://maps.google.com/?q=KITTE+Marunouchi" target="_blank" style="color:var(--shu);font-weight:700;">KITTE 6F 屋顶花园 (Google 4.4★)</a>，坐在舒适椅子上，俯瞰整座东京车站与穿梭的新干线列车！</li>
+                <li><strong>高空坐看列车 (60分钟)</strong>：登上 <a href="https://maps.google.com/?q=KITTE+Marunouchi" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">KITTE 6F 屋顶花园 (Google 4.4★)</a>，坐在舒适椅子上，俯瞰整座东京车站与穿梭的新干线列车！</li>
                 <li><strong>双重回程选择 (17:30)</strong>：
                   <ul>
-                    <li><strong>方案 A (Uber/计程车 12m)</strong>：丸之内大楼搭<a href="https://maps.google.com/?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%AB%9C%E6%B3%893-15-3" target="_blank" style="color:var(--shu);font-weight:700;">计程车 (实测 7.2 km / 16–17 分，约 ¥3,000)</a> 平稳直达公寓大门！可在 Uber/GO App 绑定 Wise 卡实现无感自动支付。<strong>注意：旧版写「12 分 ¥1,600」是低估，此段与 Day 4 早上同一条路。</strong></li>
+                    <li><strong>方案 A (Uber/计程车 12m)</strong>：丸之内大楼搭<a href="https://maps.google.com/?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%AB%9C%E6%B3%893-15-3" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">计程车 (实测 7.2 km / 16–17 分，约 ¥3,000)</a> 平稳直达公寓大门！可在 Uber/GO App 绑定 Wise 卡实现无感自动支付。<strong>注意：旧版写「12 分 ¥1,600」是低估，此段与 Day 4 早上同一条路。</strong></li>
                     <li><strong>方案 B (纯地铁 25m)</strong>：东京站搭丸之内线 3m 至银座站 ➔ 站内换乘日比谷线 18m 至三ノ轮站(¥210/人)。省钱顺畅！</li>
                   </ul>
                 </li>
@@ -1692,17 +1844,17 @@ ol[style*="margin-left:18px"]{
                 <tr>
                   <td><strong>方案 B1：六本木 Hills 52F 看东京铁塔</strong></td>
                   <td>日比谷线 28m 直达，在 52F 室内全景玻璃看东京铁塔正面点灯</td>
-                  <td><a href="https://maps.google.com/?q=Roppongi+Hills+Mori+Tower" target="_blank" style="color:var(--shu);font-weight:700;">Google 4.5★</a></td>
+                  <td><a href="https://maps.google.com/?q=Roppongi+Hills+Mori+Tower" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Google 4.5★</a></td>
                 </tr>
                 <tr>
                   <td><strong>方案 B2：浅草今半 和牛寿喜烧</strong></td>
                   <td>从公寓搭计程车 5m，享用全日本顶级关东寿喜烧 (Imahan) 和牛晚餐</td>
-                  <td><a href="https://maps.google.com/?q=Asakusa+Imahan" target="_blank" style="color:var(--shu);font-weight:700;">Google 4.4★</a></td>
+                  <td><a href="https://maps.google.com/?q=Asakusa+Imahan" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Google 4.4★</a></td>
                 </tr>
                 <tr>
                   <td><strong>方案 B3：公寓洗澡躺平早休</strong></td>
                   <td>清晨早起看赤富士后充裕早休，在公寓附近吃热腾腾拉面或鸟贵族串烧</td>
-                  <td><a href="https://maps.google.com/?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%AB%9C%E6%B3%893-15-3" target="_blank" style="color:var(--shu);font-weight:700;">Google 4.8★</a></td>
+                  <td><a href="https://maps.google.com/?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%AB%9C%E6%B3%893-15-3" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Google 4.8★</a></td>
                 </tr>
               </tbody>
             </table>
@@ -1741,11 +1893,11 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🐟</div>
           <div>
             <div class="tl-time">09:15 - 11:30</div>
-            <div class="tl-main"><span class="zh on">日比谷线 18m 直达 ➔ <a href="https://maps.google.com/?q=Tsukiji+Outer+Market" target="_blank" style="color:var(--ai);text-decoration:underline;">筑地场外市场</a> 新鲜海鲜早午餐 ★</span><span class="en">Tsukiji Outer Market Seafood Brunch</span></div>
+            <div class="tl-main"><span class="zh on">日比谷线 18m 直达 ➔ <a href="https://maps.google.com/?q=Tsukiji+Outer+Market" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">筑地场外市场</a> 新鲜海鲜早午餐 ★</span><span class="en">Tsukiji Outer Market Seafood Brunch</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>平滑直达 (18分钟)</strong>：三ノ轮站搭日比谷线直达筑地站(1号/2号出口有电梯)，09:15 准时出站。</li>
-                <li><strong>名店享用</strong>：品尝现切大脂鲔鱼刺身 <a href="https://maps.google.com/?q=Maguroya+Kurogin+Tsukiji" target="_blank" style="color:var(--shu);font-weight:700;">まぐろや黑银 (Google 4.4★)</a> 与 <a href="https://maps.google.com/?q=Soturo+Tamagoyaki" target="_blank" style="color:var(--shu);font-weight:700;">松露玉子烧 (Google 4.2★)</a>。</li>
+                <li><strong>名店享用</strong>：品尝现切大脂鲔鱼刺身 <a href="https://maps.google.com/?q=Maguroya+Kurogin+Tsukiji" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">まぐろや黑银 (Google 4.4★)</a> 与 <a href="https://maps.google.com/?q=Soturo+Tamagoyaki" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">松露玉子烧 (Google 4.2★)</a>。</li>
                 <li><strong>排周四避坑</strong>：完美避开筑地市场周三与周日的统一休市日。</li>
               </ol>
               <span class="pill">日比谷线直达 0换乘</span>
@@ -1756,12 +1908,12 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🛍️</div>
           <div>
             <div class="tl-time">12:00 - 15:30</div>
-            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Ginza+Central+Avenue" target="_blank" style="color:var(--ai);text-decoration:underline;">银座中央通</a> ➔ <a href="https://maps.google.com/?q=GINZA+SIX" target="_blank" style="color:var(--ai);text-decoration:underline;">GINZA SIX</a> ➔ <a href="https://maps.google.com/?q=Itoya+Ginza" target="_blank" style="color:var(--ai);text-decoration:underline;">伊东屋 Itoya</a></span><span class="en">Ginza Central Avenue & GINZA SIX</span></div>
+            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Ginza+Central+Avenue" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">银座中央通</a> ➔ <a href="https://maps.google.com/?q=GINZA+SIX" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">GINZA SIX</a> ➔ <a href="https://maps.google.com/?q=Itoya+Ginza" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">伊东屋 Itoya</a></span><span class="en">Ginza Central Avenue & GINZA SIX</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
-                <li><strong>奢华百货</strong>：漫步银座平坦大通，逛 <a href="https://maps.google.com/?q=GINZA+SIX" target="_blank" style="color:var(--shu);font-weight:700;">GINZA SIX (Google 4.4★)</a> 顶楼屋顶花园与 6F 休息沙发。</li>
-                <li><strong>文具殿堂</strong>：逛 12 层文具纸艺殿堂 <a href="https://maps.google.com/?q=Itoya+Ginza" target="_blank" style="color:var(--shu);font-weight:700;">伊东屋 Itoya (Google 4.4★)</a>。</li>
-                <li><strong>老牌甜品</strong>：品尝 <a href="https://maps.google.com/?q=Kimuraya+Ginza" target="_blank" style="color:var(--shu);font-weight:700;">木村家红豆面包 (Google 4.2★)</a>。</li>
+                <li><strong>奢华百货</strong>：漫步银座平坦大通，逛 <a href="https://maps.google.com/?q=GINZA+SIX" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">GINZA SIX (Google 4.4★)</a> 顶楼屋顶花园与 6F 休息沙发。</li>
+                <li><strong>文具殿堂</strong>：逛 12 层文具纸艺殿堂 <a href="https://maps.google.com/?q=Itoya+Ginza" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">伊东屋 Itoya (Google 4.4★)</a>。</li>
+                <li><strong>老牌甜品</strong>：品尝 <a href="https://maps.google.com/?q=Kimuraya+Ginza" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">木村家红豆面包 (Google 4.2★)</a>。</li>
               </ol>
             </div>
           </div>
@@ -1770,11 +1922,11 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🗼</div>
           <div>
             <div class="tl-time">16:00 - 18:00</div>
-            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Zojo-ji+Temple" target="_blank" style="color:var(--ai);text-decoration:underline;">增上寺</a> (古寺与铁塔同框) ➔ <a href="https://maps.google.com/?q=Shiba+Park" target="_blank" style="color:var(--ai);text-decoration:underline;">芝公园草坪看日落时分铁塔点灯 ★</a></span><span class="en">Zojo-ji Temple & Shiba Park Tokyo Tower</span></div>
+            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Zojo-ji+Temple" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">增上寺</a> (古寺与铁塔同框) ➔ <a href="https://maps.google.com/?q=Shiba+Park" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">芝公园草坪看日落时分铁塔点灯 ★</a></span><span class="en">Zojo-ji Temple & Shiba Park Tokyo Tower</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>尊贵视角 (45分钟)</strong>：在 600 年历史增上寺黑木大殿前，拍摄古朴寺庙与后方红白东京铁塔同框绝景。</li>
-                <li><strong>草坪看点灯 (60分钟)</strong>：步至 <a href="https://maps.google.com/?q=Shiba+Park" target="_blank" style="color:var(--shu);font-weight:700;">芝公园 (Google 4.4★)</a> 大草坪坐下休息，看东京铁塔橙红暖光在日落时分亮起（10/8 日落约 17:15）！</li>
+                <li><strong>草坪看点灯 (60分钟)</strong>：步至 <a href="https://maps.google.com/?q=Shiba+Park" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">芝公园 (Google 4.4★)</a> 大草坪坐下休息，看东京铁塔橙红暖光在日落时分亮起（10/8 日落约 17:15）！</li>
               </ol>
               <span class="must-tag">★ 顶级免费视角 必去</span>
             </div>
@@ -1784,12 +1936,39 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🍶</div>
           <div>
             <div class="tl-time">18:30 - 20:30</div>
-            <div class="tl-main"><span class="zh on">晚餐<a href="https://maps.google.com/?q=Yurakucho+Ga-ka-shita" target="_blank" style="color:var(--ai);text-decoration:underline;">有乐町高架下居酒屋</a> 或 <a href="https://maps.google.com/?q=Ginza+Kagari" target="_blank" style="color:var(--ai);text-decoration:underline;">银座 篝 鸡白汤拉面</a></span><span class="en">Yurakucho Izakaya or Ginza Kagari Ramen</span></div>
+            <div class="tl-main"><span class="zh on">晚餐：<a href="https://maps.google.com/?q=Ginza+Kagari" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">银座 篝 鸡白汤拉面</a> 或 <a href="https://maps.google.com/?q=Yurakucho+Ga-ka-shita" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">有乐町高架下居酒屋</a></span><span class="en">Dinner at Ginza Kagari or Yurakucho</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
-                <li><strong>烟火气晚餐</strong>：体验高架桥下居酒屋串烧，或享用米其林推荐 <a href="https://maps.google.com/?q=Ginza+Kagari" target="_blank" style="color:var(--shu);font-weight:700;">银座 篝 浓郁鸡白汤拉面 (Google 4.3★)</a>。</li>
+                <li><strong>米其林推介</strong>：享用汤头浓郁如牛奶、长辈极好入口的银座篝顶级鸡白汤拉面。</li>
                 <li><strong>平滑返程 (约25分钟)</strong>：走地下连通道至<strong>日比谷站</strong>（有乐町站旁，5分钟）搭日比谷线 20m 直达三ノ轮站 ➔ 20:30 重返公寓洗澡早休。</li>
               </ol>
+
+              <!-- Food Card: Ginza Kagari -->
+              <div class="food-card">
+                <div class="food-card-head">
+                  <div class="food-card-title">🍜 銀座 篝 本店 (米其林必比登 鸡白汤拉面)</div>
+                  <div class="food-card-rating">⭐ 4.4 (3,900+ 评价) · 银座必吃名店</div>
+                </div>
+                <div class="food-meta-list">
+                  <div class="food-meta-item">
+                    <span class="food-meta-label">🏷️ 必点招牌:</span>
+                    <span>特制鸡白汤 Soba (¥1,500) · 附慢煮嫩鸡胸、烤时蔬与松露油</span>
+                  </div>
+                  <div class="food-meta-item">
+                    <span class="food-meta-label">💺 长辈贴士:</span>
+                    <span>高雅日式吧台软椅 · 汤头温润养胃不油腻 · 仅支持刷卡/电子支付(无现金)</span>
+                  </div>
+                  <div class="food-meta-item">
+                    <span class="food-meta-label">🔄 就近备选:</span>
+                    <span>银座 鸭Soba (九代目) · 有乐町高架下串烧</span>
+                  </div>
+                </div>
+                <div class="food-card-actions">
+                  <a href="https://maps.google.com/?q=Ginza+Kagari" target="_blank" rel="noopener noreferrer" class="food-btn">📍 Google Maps 导航</a>
+                  <button type="button" onclick="openFoodDrawer('kagari')" class="food-btn primary">📋 点餐指路卡 (出示给店员)</button>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -1812,22 +1991,22 @@ ol[style*="margin-left:18px"]{
                 <tr>
                   <td><strong>方案 B1：银座 篝 (Ginza Kagari) 鸡白汤拉面</strong></td>
                   <td>安静室内名店，汤头浓郁如牛奶，极其适合长辈胃口</td>
-                  <td><a href="https://maps.google.com/?q=Ginza+Kagari" target="_blank" style="color:var(--shu);font-weight:700;">Google 4.3★</a></td>
+                  <td><a href="https://maps.google.com/?q=Ginza+Kagari" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Google 4.3★</a></td>
                 </tr>
                 <tr>
                   <td><strong>方案 B2：六本木 Hills 52F 室内观景台</strong></td>
                   <td>下雨天室内首选，日比谷线直达六本木，在 52F 玻璃大厅坐着看铁塔夜景</td>
-                  <td><a href="https://maps.google.com/?q=Roppongi+Hills+Mori+Tower" target="_blank" style="color:var(--shu);font-weight:700;">Google 4.5★</a></td>
+                  <td><a href="https://maps.google.com/?q=Roppongi+Hills+Mori+Tower" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Google 4.5★</a></td>
                 </tr>
                 <tr>
                   <td><strong>方案 B3：惠比寿花园大楼 38F/39F 免费高空观景台 ★</strong></td>
                   <td>【极力推荐】日比谷线直达惠比寿，搭乘 Skywalk 室内步道直达。38F/39F 免费看东京铁塔夜景与六本木天际线，欧式红砖城堡广场（Joël Robuchon）极佳拍照！</td>
-                  <td><a href="https://maps.google.com/?q=Yebisu+Garden+Place+Tower" target="_blank" style="color:var(--shu);font-weight:700;">Google 4.4★</a></td>
+                  <td><a href="https://maps.google.com/?q=Yebisu+Garden+Place+Tower" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Google 4.4★</a></td>
                 </tr>
                 <tr>
                   <td><strong>方案 B4：东京铁塔 FootTown 1F 室内</strong></td>
                   <td>进入铁塔大楼 1F 逛纪念品商店与海贼王主题街</td>
-                  <td><a href="https://maps.google.com/?q=Tokyo+Tower" target="_blank" style="color:var(--shu);font-weight:700;">Google 4.5★</a></td>
+                  <td><a href="https://maps.google.com/?q=Tokyo+Tower" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Google 4.5★</a></td>
                 </tr>
               </tbody>
             </table>
@@ -1864,12 +2043,12 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🌲</div>
           <div>
             <div class="tl-time">09:30 - 11:30</div>
-            <div class="tl-main"><span class="zh on">银座线起点站直达 · <a href="https://maps.google.com/?q=Meiji+Jingu" target="_blank" style="color:var(--ai);text-decoration:underline;">明治神宫</a> 森林参道散步 ★</span><span class="en">Meiji Jingu Shrine Walk</span></div>
+            <div class="tl-main"><span class="zh on">银座线起点站直达 · <a href="https://maps.google.com/?q=Meiji+Jingu" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">明治神宫</a> 森林参道散步 ★</span><span class="en">Meiji Jingu Shrine Walk</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>双重精准交通方案</strong>：
                   <ul>
-                    <li><strong>方案 A (短途计程车 + 100%有座)</strong>：公寓搭<a href="https://maps.google.com/?q=Asakusa+Station" target="_blank" style="color:var(--shu);font-weight:700;">计程车 5m (~¥900)</a> 抵浅草站(G19起点站) ➔ 银座线 30m 直达表参道。<strong>最省力、100%保证有座位</strong>！(门到门约 35m)</li>
+                    <li><strong>方案 A (短途计程车 + 100%有座)</strong>：公寓搭<a href="https://maps.google.com/?q=Asakusa+Station" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">计程车 5m (~¥900)</a> 抵浅草站(G19起点站) ➔ 银座线 30m 直达表参道。<strong>最省力、100%保证有座位</strong>！(门到门约 35m)</li>
                     <li><strong>方案 B (纯地铁全程西瓜卡)</strong>：公寓走 6m 至三ノ轮站 ➔ 日比谷线 14m 至银座站 ➔ 站内换乘银座线 9m 抵表参道。<strong>省钱(人均¥250)，免计程车费</strong>！(门到门约 33m)</li>
                   </ul>
                 </li>
@@ -1884,13 +2063,40 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🍜</div>
           <div>
             <div class="tl-time">11:45 - 14:30</div>
-            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Takeshita+Street" target="_blank" style="color:var(--ai);text-decoration:underline;">原宿竹下通</a> · <a href="https://maps.google.com/?q=Omotesando+Hills" target="_blank" style="color:var(--ai);text-decoration:underline;">表参道</a> · 午餐<a href="https://maps.google.com/?q=AFURI+Harajuku" target="_blank" style="color:var(--ai);text-decoration:underline;">AFURI 柚子盐拉面</a></span><span class="en">Harajuku & Omotesando Lunch</span></div>
+            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Takeshita+Street" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">原宿竹下通</a> · <a href="https://maps.google.com/?q=Omotesando+Hills" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">表参道</a> · 午餐享用 AFURI 柚子盐拉面</span><span class="en">Harajuku & Omotesando Lunch</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
-                <li><strong>午餐推荐</strong>：品尝<a href="https://maps.google.com/?q=AFURI+Harajuku" target="_blank" style="color:var(--shu);font-weight:700;">AFURI 柚子盐拉面 (Google 4.3★)</a> 或 <a href="https://maps.google.com/?q=Gyukatsu+Motomura+Harajuku" target="_blank" style="color:var(--shu);font-weight:700;">牛胜炸牛排 (Google 4.6★)</a>。</li>
-                <li><strong>特色甜品</strong>：品尝原宿名物 <a href="https://maps.google.com/?q=Marion+Crepes+Harajuku" target="_blank" style="color:var(--shu);font-weight:700;">Marion 奶油可丽饼 (Google 4.2★)</a>。</li>
+                <li><strong>午餐推荐</strong>：品尝清爽金黄鸡汤搭配天然柚子清香的 AFURI 柚子盐拉面。</li>
+                <li><strong>特色甜品</strong>：品尝原宿名物 <a href="https://maps.google.com/?q=Marion+Crepes+Harajuku" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Marion 奶油可丽饼 (Google 4.2★)</a>。</li>
                 <li><strong>林荫逛街</strong>：沿表参道榉木大道的平坦人行道漫步。</li>
               </ol>
+
+              <!-- Food Card: AFURI -->
+              <div class="food-card">
+                <div class="food-card-head">
+                  <div class="food-card-title">🍜 AFURI 原宿 / 涩谷 (清新柚子盐拉面)</div>
+                  <div class="food-card-rating">⭐ 4.3 (3,600+ 评价) · 清爽不腻</div>
+                </div>
+                <div class="food-meta-list">
+                  <div class="food-meta-item">
+                    <span class="food-meta-label">🏷️ 必点招牌:</span>
+                    <span>柚子盐拉面淡丽版 (¥1,290) · 炭火炙烤叉烧碎盖饭 (¥580)</span>
+                  </div>
+                  <div class="food-meta-item">
+                    <span class="food-meta-label">💺 长辈贴士:</span>
+                    <span>天然柚子香气开胃清淡 · 原宿站步行 3分钟 · 自动点餐机支持多语言</span>
+                  </div>
+                  <div class="food-meta-item">
+                    <span class="food-meta-label">🔄 就近备选:</span>
+                    <span>牛胜炸牛排 (Motomura) · 表参道豆浆松饼</span>
+                  </div>
+                </div>
+                <div class="food-card-actions">
+                  <a href="https://maps.google.com/?q=AFURI+Harajuku" target="_blank" rel="noopener noreferrer" class="food-btn">📍 Google Maps 导航</a>
+                  <button type="button" onclick="openFoodDrawer('afuri')" class="food-btn primary">📋 点餐指路卡 (出示给店员)</button>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -1898,11 +2104,11 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🐕</div>
           <div>
             <div class="tl-time">14:45 - 16:15</div>
-            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Shibuya+Scramble+Crossing" target="_blank" style="color:var(--ai);text-decoration:underline;">涩谷十字路口</a> & <a href="https://maps.google.com/?q=Hachiko+Statue" target="_blank" style="color:var(--ai);text-decoration:underline;">忠犬八公像</a> · <a href="https://maps.google.com/?q=Shibuya+Parco" target="_blank" style="color:var(--ai);text-decoration:underline;">PARCO</a></span><span class="en">Shibuya Scramble & Hachiko</span></div>
+            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Shibuya+Scramble+Crossing" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">涩谷十字路口</a> & <a href="https://maps.google.com/?q=Hachiko+Statue" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">忠犬八公像</a> · <a href="https://maps.google.com/?q=Shibuya+Parco" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">PARCO</a></span><span class="en">Shibuya Scramble & Hachiko</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
-                <li><strong>经典拍照</strong>：在世界最繁忙对角线十字路口拍照，与<a href="https://maps.google.com/?q=Hachiko+Statue" target="_blank">忠犬八公铜像</a>合影。</li>
-                <li><strong>动漫旗舰</strong>：逛 <a href="https://maps.google.com/?q=Shibuya+Parco" target="_blank" style="color:var(--shu);font-weight:700;">Shibuya PARCO (Google 4.5★)</a> 6楼任天堂与宝可梦旗舰店。</li>
+                <li><strong>经典拍照</strong>：在世界最繁忙对角线十字路口拍照，与<a href="https://maps.google.com/?q=Hachiko+Statue" target="_blank" rel="noopener noreferrer">忠犬八公铜像</a>合影。</li>
+                <li><strong>动漫旗舰</strong>：逛 <a href="https://maps.google.com/?q=Shibuya+Parco" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Shibuya PARCO (Google 4.5★)</a> 6楼任天堂与宝可梦旗舰店。</li>
               </ol>
             </div>
           </div>
@@ -1911,7 +2117,7 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🌅</div>
           <div>
             <div class="tl-time">16:20 - 18:30</div>
-            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Shibuya+SKY" target="_blank" style="color:var(--ai);text-decoration:underline;">涩谷SKY 展望台 ★ (日落黄昏 17:15)</a></span><span class="en">Shibuya SKY Sunset Deck</span></div>
+            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Shibuya+SKY" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">涩谷SKY 展望台 ★ (日落黄昏 17:15)</a></span><span class="en">Shibuya SKY Sunset Deck</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>三合一视野</strong>：16:20 登顶 229 米高空露天平台，17:00 看夕阳洒在富士山上，17:30 看 360 度璀璨夜景。</li>
@@ -1925,11 +2131,11 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🍣</div>
           <div>
             <div class="tl-time">18:45 - 21:00</div>
-            <div class="tl-main"><span class="zh on">晚餐<a href="https://maps.google.com/?q=Umegaoka+Sushi+No+Midori+Shibuya" target="_blank" style="color:var(--ai);text-decoration:underline;">美登利寿司 (Google 4.4★)</a> ➔ 银座线起点站直达浅草 (100%有座)</span><span class="en">Midori Sushi & Seated Return Base</span></div>
+            <div class="tl-main"><span class="zh on">晚餐<a href="https://maps.google.com/?q=Umegaoka+Sushi+No+Midori+Shibuya" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">美登利寿司 (Google 4.4★)</a> ➔ 银座线起点站直达浅草 (100%有座)</span><span class="en">Midori Sushi & Seated Return Base</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
-                <li><strong>名店晚餐 (90分钟)</strong>：18:45 抵 Shibuya Mark City 大楼享用高性价比<a href="https://maps.google.com/?q=Umegaoka+Sushi+No+Midori+Shibuya" target="_blank" style="color:var(--shu);font-weight:700;">美登利寿司 (Google 4.4★)</a> 大脂鲔鱼与牡丹虾。</li>
-                <li><strong>100%有座返程 (33分钟)</strong>：在涩谷站搭乘<a href="https://maps.google.com/?q=Shibuya+Station" target="_blank" style="color:var(--shu);font-weight:700;">银座线(涩谷为起点站，100%保证有座位)</a>直达浅草，全长 33 分钟不用站着。</li>
+                <li><strong>名店晚餐 (90分钟)</strong>：18:45 抵 Shibuya Mark City 大楼享用高性价比<a href="https://maps.google.com/?q=Umegaoka+Sushi+No+Midori+Shibuya" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">美登利寿司 (Google 4.4★)</a> 大脂鲔鱼与牡丹虾。</li>
+                <li><strong>100%有座返程 (33分钟)</strong>：在涩谷站搭乘<a href="https://maps.google.com/?q=Shibuya+Station" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">银座线(涩谷为起点站，100%保证有座位)</a>直达浅草，全长 33 分钟不用站着。</li>
                 <li><strong>平滑抵家 (10分钟)</strong>：20:45 浅草站出站搭计程车 5m 直达公寓大门，21:00 准时洗澡休息。</li>
               </ol>
               <span class="pill">银座线起点站 100%有座</span>
@@ -1955,27 +2161,27 @@ ol[style*="margin-left:18px"]{
                 <tr>
                   <td><strong>方案 B1：Shibuya Hikarie 11F</strong></td>
                   <td>强风/雨天/涩谷SKY露天封顶首选，免费室内高空全景落地窗俯瞰夜景</td>
-                  <td><a href="https://maps.google.com/?q=Shibuya+Hikarie" target="_blank" style="color:var(--shu);font-weight:700;">Google 4.3★</a></td>
+                  <td><a href="https://maps.google.com/?q=Shibuya+Hikarie" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Google 4.3★</a></td>
                 </tr>
                 <tr>
                   <td><strong>方案 B2：SHIBUYA STREAM</strong></td>
                   <td>下雨天室内商场，沿着运河风情街吃晚餐与喝咖啡</td>
-                  <td><a href="https://maps.google.com/?q=Shibuya+Stream" target="_blank" style="color:var(--shu);font-weight:700;">Google 4.3★</a></td>
+                  <td><a href="https://maps.google.com/?q=Shibuya+Stream" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Google 4.3★</a></td>
                 </tr>
                 <tr>
                   <td><strong>方案 B3：明治神宫御苑</strong></td>
                   <td>清静优雅日式庭园与清正井 (入园 ¥500)</td>
-                  <td><a href="https://maps.google.com/?q=Meiji+Jingu+Inner+Garden" target="_blank" style="color:var(--shu);font-weight:700;">Google 4.4★</a></td>
+                  <td><a href="https://maps.google.com/?q=Meiji+Jingu+Inner+Garden" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Google 4.4★</a></td>
                 </tr>
               </tbody>
             </table>
             <div class="bplan-gallery" style="margin-top:12px;">
               <div class="bplan-img-card">
-                <img src="shibuya.jpg" alt="" loading="lazy" decoding="async"/>
+                <img src="shibuya.jpg" alt="涩谷十字路口与涩谷SKY" loading="lazy" decoding="async"/>
                 <div class="bplan-img-lbl">核心体验: 涩谷SKY 360°露天高空夕阳</div>
               </div>
               <div class="bplan-img-card">
-                <img src="ueno.jpg" alt="" loading="lazy" decoding="async"/>
+                <img src="ueno.jpg" alt="上野恩赐公园与东照宫" loading="lazy" decoding="async"/>
                 <div class="bplan-img-lbl">明治神宫: 70公顷高耸森林参道</div>
               </div>
             </div>
@@ -2013,11 +2219,11 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🚆</div>
           <div>
             <div class="tl-time">08:30 - 09:55</div>
-            <div class="tl-main"><span class="zh on">JR横须贺线 Green Car (双层豪华软座) ➔ 直达<a href="https://maps.google.com/?q=Kamakura+Station" target="_blank" style="color:var(--ai);text-decoration:underline;">镰仓站</a> ★</span><span class="en">JR Yokosuka Line Green Car to Kamakura</span></div>
+            <div class="tl-main"><span class="zh on">JR横须贺线 Green Car (双层豪华软座) ➔ 直达<a href="https://maps.google.com/?q=Kamakura+Station" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">镰仓站</a> ★</span><span class="en">JR Yokosuka Line Green Car to Kamakura</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>平滑出发 (约25分钟)</strong>：<strong>08:30</strong> 从公寓搭计程车 5m 至浅草站换都营浅草线 9m 直达新桥站（或从三ノ轮站搭日比谷线 4m 至上野站换 JR 山手线 7m 抵新桥站），含换乘步行留足缓冲。</li>
-                <li><strong>双层豪华软座 (50分钟)</strong>：09:00 在新桥站搭乘 <a href="https://maps.google.com/?q=Kamakura+Station" target="_blank" style="color:var(--shu);font-weight:700;">JR 横须贺线 Green Car (双层大软座，¥750/人)</a> 直达镰仓站，全长 50 分钟一路看窗外风景。</li>
+                <li><strong>双层豪华软座 (50分钟)</strong>：09:00 在新桥站搭乘 <a href="https://maps.google.com/?q=Kamakura+Station" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">JR 横须贺线 Green Car (双层大软座，¥750/人)</a> 直达镰仓站，全长 50 分钟一路看窗外风景。</li>
                 <li><strong>⚠️ Green Car 是自由席不划位</strong>：三连休周六早上往镰仓可能满座 — 提早到月台排队，上车直上 2 楼找位。</li>
               </ol>
               <span class="pill">Green Car 双层软座 50m · 自由席</span>
@@ -2028,11 +2234,11 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">⛩️</div>
           <div>
             <div class="tl-time">10:00 - 12:00</div>
-            <div class="tl-main"><span class="zh on">参拜<a href="https://maps.google.com/?q=Kamakura+Daibutsu" target="_blank" style="color:var(--ai);text-decoration:underline;">高德院·镰仓大佛</a> (纯平路) ➔ <a href="https://maps.google.com/?q=Hasedera+Kamakura" target="_blank" style="color:var(--ai);text-decoration:underline;">长谷寺观音立像与看海平台 ★</a></span><span class="en">Kamakura Daibutsu & Hasedera Temple</span></div>
+            <div class="tl-main"><span class="zh on">参拜<a href="https://maps.google.com/?q=Kamakura+Daibutsu" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">高德院·镰仓大佛</a> (纯平路) ➔ <a href="https://maps.google.com/?q=Hasedera+Kamakura" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">长谷寺观音立像与看海平台 ★</a></span><span class="en">Kamakura Daibutsu & Hasedera Temple</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
-                <li><strong>露天大佛 (60分钟)</strong>：搭江之电 5m 至长谷站，参拜 13.35 米高的 <a href="https://maps.google.com/?q=Kamakura+Daibutsu" target="_blank" style="color:var(--shu);font-weight:700;">镰仓大佛 (Google 4.4★)</a>，全平地无阶梯。</li>
-                <li><strong>古刹观音与看海 (60分钟)</strong>：参拜 <a href="https://maps.google.com/?q=Hasedera+Kamakura" target="_blank" style="color:var(--shu);font-weight:700;">长谷寺 (Google 4.6★)</a> 9.18 米木造观音立像，在看海平台远眺相模湾海景。</li>
+                <li><strong>露天大佛 (60分钟)</strong>：搭江之电 5m 至长谷站，参拜 13.35 米高的 <a href="https://maps.google.com/?q=Kamakura+Daibutsu" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">镰仓大佛 (Google 4.4★)</a>，全平地无阶梯。</li>
+                <li><strong>古刹观音与看海 (60分钟)</strong>：参拜 <a href="https://maps.google.com/?q=Hasedera+Kamakura" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">长谷寺 (Google 4.6★)</a> 9.18 米木造观音立像，在看海平台远眺相模湾海景。</li>
               </ol>
               <span class="must-tag">★ 古都海景 必去</span>
             </div>
@@ -2042,7 +2248,7 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🍚</div>
           <div>
             <div class="tl-time">12:30 - 14:00</div>
-            <div class="tl-main"><span class="zh on">享用镰仓名物<a href="https://maps.google.com/?q=Shirasu-don+Kamakura" target="_blank" style="color:var(--ai);text-decoration:underline;">吻仔鱼海鲜饭 (Shirasu-don)</a> 或和牛釜饭套餐</span><span class="en">Kamakura Shirasu-don Lunch</span></div>
+            <div class="tl-main"><span class="zh on">享用镰仓名物<a href="https://maps.google.com/?q=Shirasu-don+Kamakura" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">吻仔鱼海鲜饭 (Shirasu-don)</a> 或和牛釜饭套餐</span><span class="en">Kamakura Shirasu-don Lunch</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>名品午餐 (90分钟)</strong>：在长谷/小町通享用新鲜清甜的吻仔鱼盖饭或和牛釜饭，胃里极其滋补。</li>
@@ -2054,7 +2260,7 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🌊</div>
           <div>
             <div class="tl-time">14:15 - 16:15</div>
-            <div class="tl-main"><span class="zh on">搭乘<a href="https://maps.google.com/?q=Kamakurakokomae+Station" target="_blank" style="color:var(--ai);text-decoration:underline;">江之电沿海电车</a> 漫步湘南海岸 ➔ 远眺富士山海景</span><span class="en">Enoden Coastal Train & Shonan Sea View</span></div>
+            <div class="tl-main"><span class="zh on">搭乘<a href="https://maps.google.com/?q=Kamakurakokomae+Station" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">江之电沿海电车</a> 漫步湘南海岸 ➔ 远眺富士山海景</span><span class="en">Enoden Coastal Train & Shonan Sea View</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>沿海电车 (30分钟)</strong>：搭乘江之电路面电车，紧贴湘南海岸线行驶，享受海风与列车穿梭风情。</li>
@@ -2094,17 +2300,17 @@ ol[style*="margin-left:18px"]{
                 <tr>
                   <td><strong>方案 B1：清澄白河庭园 & 门前仲町</strong></td>
                   <td>下町水石庭园与热汤蛤蜊饭，完全避开连休人群</td>
-                  <td><a href="https://maps.google.com/?q=Kiyosumi+Garden" target="_blank" style="color:var(--shu);font-weight:700;">Google 4.4★</a></td>
+                  <td><a href="https://maps.google.com/?q=Kiyosumi+Garden" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Google 4.4★</a></td>
                 </tr>
                 <tr>
                   <td><strong>方案 B2：木场公园 & 现代美术馆</strong></td>
                   <td>公园大草坪与高空桥，全平路舒适散步，现代美术馆室内咖啡馆</td>
-                  <td><a href="https://maps.google.com/?q=Kiba+Park" target="_blank" style="color:var(--shu);font-weight:700;">Google 4.3★</a></td>
+                  <td><a href="https://maps.google.com/?q=Kiba+Park" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Google 4.3★</a></td>
                 </tr>
                 <tr>
                   <td><strong>方案 B3：回归浅草/公寓早休</strong></td>
                   <td>三连休傍晚早早回公寓，在附近的鸟贵族或拉面店吃晚餐</td>
-                  <td><a href="https://maps.google.com/?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%AB%9C%E6%B3%893-15-3" target="_blank" style="color:var(--shu);font-weight:700;">Google 4.8★</a></td>
+                  <td><a href="https://maps.google.com/?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%AB%9C%E6%B3%893-15-3" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Google 4.8★</a></td>
                 </tr>
               </tbody>
             </table>
@@ -2144,10 +2350,10 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">☕</div>
           <div>
             <div class="tl-time">10:00 - 12:00</div>
-            <div class="tl-main"><span class="zh on">【精致离境早餐】造访 <a href="https://maps.google.com/?q=Blue+Bottle+Coffee+Kiyosumi" target="_blank" style="color:var(--ai);text-decoration:underline;">Blue Bottle 蓝瓶咖啡 (Google 4.3★)</a> 享用手冲咖啡与美点 ★</span><span class="en">Blue Bottle Coffee Breakfast</span></div>
+            <div class="tl-main"><span class="zh on">【精致离境早餐】造访 <a href="https://maps.google.com/?q=Blue+Bottle+Coffee+Kiyosumi" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">Blue Bottle 蓝瓶咖啡 (Google 4.3★)</a> 享用手冲咖啡与美点 ★</span><span class="en">Blue Bottle Coffee Breakfast</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
-                <li><strong>惬意早餐 (90分钟)</strong>：10:00 睡到自然醒，造访 <a href="https://maps.google.com/?q=Blue+Bottle+Coffee+Kiyosumi" target="_blank" style="color:var(--shu);font-weight:700;">Blue Bottle 蓝瓶咖啡日本一号店 (Google 4.3★)</a>，品尝新鲜现烘手冲咖啡与华夫饼。（交通：三ノ轮站搭日比谷线 4m 至上野站 ➔ 换都营大江户线 6m 直达清澄白河站，或搭计程车 12m 直达）。</li>
+                <li><strong>惬意早餐 (90分钟)</strong>：10:00 睡到自然醒，造访 <a href="https://maps.google.com/?q=Blue+Bottle+Coffee+Kiyosumi" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">Blue Bottle 蓝瓶咖啡日本一号店 (Google 4.3★)</a>，品尝新鲜现烘手冲咖啡与华夫饼。（交通：三ノ轮站搭日比谷线 4m 至上野站 ➔ 换都营大江户线 6m 直达清澄白河站，或搭计程车 12m 直达）。</li>
                 <li><strong>咖啡豆采买 (30分钟)</strong>：选购蓝瓶咖啡限定咖啡豆与精致咖啡杯作为带回国的精品纪念。</li>
               </ol>
               <span class="must-tag">★ 蓝瓶咖啡 精致离境早餐</span>
@@ -2158,11 +2364,11 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🛍️</div>
           <div>
             <div class="tl-time">12:30 - 17:00</div>
-            <div class="tl-main"><span class="zh on">上野<a href="https://maps.google.com/?q=Takeya+Ueno" target="_blank" style="color:var(--ai);text-decoration:underline;">多慶屋</a>与<a href="https://maps.google.com/?q=OS+Drug+Ameyoko" target="_blank" style="color:var(--ai);text-decoration:underline;">OS Drug</a> 伴手礼药妆最后大采买</span><span class="en">Final Souvenir & Drugstore Shopping</span></div>
+            <div class="tl-main"><span class="zh on">上野<a href="https://maps.google.com/?q=Takeya+Ueno" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">多慶屋</a>与<a href="https://maps.google.com/?q=OS+Drug+Ameyoko" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">OS Drug</a> 伴手礼药妆最后大采买</span><span class="en">Final Souvenir & Drugstore Shopping</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
-                <li><strong>伴手礼采买 (150分钟)</strong>：搭日比谷线 4m 至 <a href="https://maps.google.com/?q=Takeya+Ueno" target="_blank" style="color:var(--shu);font-weight:700;">上野多慶屋 (Takeya, Google 4.2★)</a> 采购日本零食干货与海苔。</li>
-                <li><strong>药妆补齐 (120分钟)</strong>：在 <a href="https://maps.google.com/?q=OS+Drug+Ameyoko" target="_blank" style="color:var(--shu);font-weight:700;">OS Drug (Google 4.1★)</a> / <a href="https://maps.google.com/?q=Nakamise-dori+Street" target="_blank" style="color:var(--shu);font-weight:700;">浅草商店街</a> 补齐眼药水、面膜与伴手礼。</li>
+                <li><strong>伴手礼采买 (150分钟)</strong>：搭日比谷线 4m 至 <a href="https://maps.google.com/?q=Takeya+Ueno" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">上野多慶屋 (Takeya, Google 4.2★)</a> 采购日本零食干货与海苔。</li>
+                <li><strong>药妆补齐 (120分钟)</strong>：在 <a href="https://maps.google.com/?q=OS+Drug+Ameyoko" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">OS Drug (Google 4.1★)</a> / <a href="https://maps.google.com/?q=Nakamise-dori+Street" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">浅草商店街</a> 补齐眼药水、面膜与伴手礼。</li>
               </ol>
             </div>
           </div>
@@ -2171,7 +2377,7 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🛁</div>
           <div>
             <div class="tl-time">17:30 - 20:45</div>
-            <div class="tl-main"><span class="zh on">重返<a href="https://maps.google.com/?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%AB%9C%E6%B3%893-15-3" target="_blank" style="color:var(--ai);text-decoration:underline;">竜泉公寓</a> 33号房洗澡 · 躺平小睡 · 提早封箱大行李 ★</span><span class="en">Rest, Shower & Pack Early at Base</span></div>
+            <div class="tl-main"><span class="zh on">重返<a href="https://maps.google.com/?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%AB%9C%E6%B3%893-15-3" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">竜泉公寓</a> 33号房洗澡 · 躺平小睡 · 提早封箱大行李 ★</span><span class="en">Rest, Shower & Pack Early at Base</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
                 <li><strong>保留公寓神功 (45分钟)</strong>：17:30 上飞机前徹底洗热水澡！换上宽松舒服的搭机衣服。</li>
@@ -2186,11 +2392,11 @@ ol[style*="margin-left:18px"]{
           <div class="tl-icon">🚇</div>
           <div>
             <div class="tl-time">21:00 - 22:00</div>
-            <div class="tl-main"><span class="zh on">【提早出发】计程车 5m 至浅草站 ➔ 都营浅草线 35m 直达<a href="https://maps.google.com/?q=Haneda+Airport+Terminal+3" target="_blank" style="color:var(--ai);text-decoration:underline;">羽田机场 T3 航厦</a></span><span class="en">Early Transit to Haneda T3</span></div>
+            <div class="tl-main"><span class="zh on">【提早出发】计程车 5m 至浅草站 ➔ 都营浅草线 35m 直达<a href="https://maps.google.com/?q=Haneda+Airport+Terminal+3" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">羽田机场 T3 航厦</a></span><span class="en">Early Transit to Haneda T3</span></div>
             <div class="tl-desc">
               <ol style="margin-left:18px;margin-top:6px;">
-                <li><strong>提早出发 (21:00)</strong>：考虑到首次赴日，21:00 提前从公寓搭 <a href="https://maps.google.com/?q=Asakusa+Station" target="_blank" style="color:var(--shu);font-weight:700;">计程车 5m (~¥900)</a> 轻松抵浅草站。</li>
-                <li><strong>全平路直达 (35分钟)</strong>：21:15 进站搭乘 <a href="https://maps.google.com/?q=Haneda+Airport+Terminal+3" target="_blank" style="color:var(--shu);font-weight:700;">都营浅草线 (エアポート快特/急行)</a>，35 分钟直达羽田 T3 地下站台。</li>
+                <li><strong>提早出发 (21:00)</strong>：考虑到首次赴日，21:00 提前从公寓搭 <a href="https://maps.google.com/?q=Asakusa+Station" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">计程车 5m (~¥900)</a> 轻松抵浅草站。</li>
+                <li><strong>全平路直达 (35分钟)</strong>：21:15 进站搭乘 <a href="https://maps.google.com/?q=Haneda+Airport+Terminal+3" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">都营浅草线 (エアポート快特/急行)</a>，35 分钟直达羽田 T3 地下站台。</li>
                 <li><strong>4.3小时超强缓冲 (22:00抵)</strong>：<strong>22:00 准时站在羽田 T3 报到大厅</strong>！距离 02:20 起飞拥有 4.3 小时充裕时间，刷卡过关、逛免税店毫无焦虑感。</li>
               </ol>
               <span class="pill">超从容 4.3h 离境缓冲</span>
@@ -2291,8 +2497,8 @@ ol[style*="margin-left:18px"]{
       <strong>🚌 河口湖高速巴士官方预订凭据与规则：</strong>
       <span class="zh on">
         <strong>· 路线名称</strong>：东京站 ⇄ 河口湖・富士山线 (富士急バス / 京王バス 联营)<br/>
-        <strong>· 上车地点</strong>：<a href="https://maps.google.com/?q=Tokyo+Station+Yaesu+South+Exit" target="_blank" style="color:var(--ai);text-decoration:underline;">东京站八重洲南口 9号巴士站</a> (一楼地面，零阶梯)<br/>
-        <strong>· 官方预订网址</strong>：<a href="https://www.highwaybus.com/gp/inbound/inbPlanList?lineGroupNo=1&lineNo=110" target="_blank" style="color:var(--shu);font-weight:800;text-decoration:underline;">Highwaybus.com 官方中文网</a> 或 <a href="https://japanbusonline.com/en/CourseDetail/index/11300060001" target="_blank" style="color:var(--shu);font-weight:800;text-decoration:underline;">Japan Bus Online 官网</a><br/>
+        <strong>· 上车地点</strong>：<a href="https://maps.google.com/?q=Tokyo+Station+Yaesu+South+Exit" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">东京站八重洲南口 9号巴士站</a> (一楼地面，零阶梯)<br/>
+        <strong>· 官方预订网址</strong>：<a href="https://www.highwaybus.com/gp/inbound/inbPlanList?lineGroupNo=1&lineNo=110" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:800;text-decoration:underline;">Highwaybus.com 官方中文网</a> 或 <a href="https://japanbusonline.com/en/CourseDetail/index/11300060001" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:800;text-decoration:underline;">Japan Bus Online 官网</a><br/>
         <strong>· 放票时间凭据</strong>：乘车前 1 个月当天 10:00 (JST) / 09:00 (MYR) 准时开抢票。<br/>
         <strong>· 去程放票</strong>：10/06 巴士票 → <strong>2026年9月6日 09:00 MYR 开抢</strong> (¥2,300/人)<br/>
         <strong>· 回程放票</strong>：10/07 巴士票 → <strong>2026年9月7日 09:00 MYR 开抢</strong> (¥2,300/人)
@@ -2318,7 +2524,7 @@ ol[style*="margin-left:18px"]{
       </label>
       <label class="check-item">
         <input type="checkbox" id="chk-2" onchange="saveCheck('chk-2')"/>
-        <span><strong>【已确认】</strong> 预订<a href="https://maps.google.com/?q=Toyoko+Inn+Fuji+Kawaguchiko+Ohashi" target="_blank">東横INN 富士河口湖大桥</a> (含早餐，备用计程车约 ¥1,000)</span>
+        <span><strong>【已确认】</strong> 预订<a href="https://maps.google.com/?q=Toyoko+Inn+Fuji+Kawaguchiko+Ohashi" target="_blank" rel="noopener noreferrer">東横INN 富士河口湖大桥</a> (含早餐，备用计程车约 ¥1,000)</span>
       </label>
       <label class="check-item">
         <input type="checkbox" id="chk-3" onchange="saveCheck('chk-3')"/>
@@ -2326,11 +2532,11 @@ ol[style*="margin-left:18px"]{
       </label>
       <label class="check-item">
         <input type="checkbox" id="chk-4" onchange="saveCheck('chk-4')"/>
-        <span>⏰ <strong>【9月6日 09:00 MYR】</strong> 在 <a href="https://www.highwaybus.com/gp/inbound/inbPlanList?lineGroupNo=1&lineNo=110" target="_blank" style="color:var(--shu);font-weight:800;text-decoration:underline;">Highwaybus.com</a> 抢 10/06 去程 08:00 巴士票</span>
+        <span>⏰ <strong>【9月6日 09:00 MYR】</strong> 在 <a href="https://www.highwaybus.com/gp/inbound/inbPlanList?lineGroupNo=1&lineNo=110" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:800;text-decoration:underline;">Highwaybus.com</a> 抢 10/06 去程 08:00 巴士票</span>
       </label>
       <label class="check-item">
         <input type="checkbox" id="chk-4-2" onchange="saveCheck('chk-4-2')"/>
-        <span>⏰ <strong>【9月7日 09:00 MYR】</strong> 在 <a href="https://www.highwaybus.com/gp/inbound/inbPlanList?lineGroupNo=1&lineNo=110" target="_blank" style="color:var(--shu);font-weight:800;text-decoration:underline;">Highwaybus.com</a> 抢 10/07 回程 14:00 巴士票</span>
+        <span>⏰ <strong>【9月7日 09:00 MYR】</strong> 在 <a href="https://www.highwaybus.com/gp/inbound/inbPlanList?lineGroupNo=1&lineNo=110" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:800;text-decoration:underline;">Highwaybus.com</a> 抢 10/07 回程 14:00 巴士票</span>
       </label>
       <label class="check-item">
         <input type="checkbox" id="chk-4-3" onchange="saveCheck('chk-4-3')"/>
@@ -2338,7 +2544,7 @@ ol[style*="margin-left:18px"]{
       </label>
       <label class="check-item">
         <input type="checkbox" id="chk-4-4" onchange="saveCheck('chk-4-4')"/>
-        <span>🚗 <strong>【若选租车版】</strong> 预订 <a href="https://maps.google.com/?q=%E3%83%8B%E3%83%83%E3%83%9D%E3%83%B3%E3%83%AC%E3%83%B3%E3%82%BF%E3%82%AB%E3%83%BC+%E6%B2%B3%E5%8F%A3%E6%B9%96%E9%A7%85%E5%89%8D" target="_blank" style="color:var(--shu);font-weight:700;">ニッポンレンタカー 河口湖駅前</a> compact 车 <strong>(10/6 12:30 – 10/7 12:00 = 23.5 小时，压在 1 日料金内)</strong>。限宽 1.8m 以内以符合饭店停车场。</span>
+        <span>🚗 <strong>【若选租车版】</strong> 预订 <a href="https://maps.google.com/?q=%E3%83%8B%E3%83%83%E3%83%9D%E3%83%B3%E3%83%AC%E3%83%B3%E3%82%BF%E3%82%AB%E3%83%BC+%E6%B2%B3%E5%8F%A3%E6%B9%96%E9%A7%85%E5%89%8D" target="_blank" rel="noopener noreferrer" style="color:var(--shu);font-weight:700;">ニッポンレンタカー 河口湖駅前</a> compact 车 <strong>(10/6 12:30 – 10/7 12:00 = 23.5 小时，压在 1 日料金内)</strong>。限宽 1.8m 以内以符合饭店停车场。</span>
       </label>
       <label class="check-item">
         <input type="checkbox" id="chk-5" onchange="saveCheck('chk-5')"/>
@@ -2509,7 +2715,7 @@ function toggleTheme() {
   btn.textContent = next === 'dark' ? '昼' : '夜';
   btn.setAttribute('aria-label', next === 'dark' ? '切换浅色模式' : '切换深色模式');
   btn.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
-  document.querySelector('meta[name="theme-color"]').setAttribute('content', next === 'dark' ? '#0c111a' : '#e6ded0');
+  document.querySelector('meta[name="theme-color"]').setAttribute('content', next === 'dark' ? '#0c1017' : '#f7f5f0');
   setStoredPreference('tokyo_theme', next);
 }
 
@@ -2522,7 +2728,7 @@ function loadTheme() {
     btn.textContent = theme === 'dark' ? '昼' : '夜';
     btn.setAttribute('aria-label', theme === 'dark' ? '切换浅色模式' : '切换深色模式');
     btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
-    document.querySelector('meta[name="theme-color"]').setAttribute('content', theme === 'dark' ? '#0c111a' : '#e6ded0');
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', theme === 'dark' ? '#0c1017' : '#f7f5f0');
   }
 }
 
@@ -2779,5 +2985,254 @@ window.addEventListener('DOMContentLoaded', () => {
   if (linkedDay) toggleDay(linkedDay.id, false);
 });
 </script>
+
+  <!-- Interactive Bilingual Ordering Bottom Drawer -->
+  <div class="food-drawer-backdrop" id="foodDrawerBackdrop" onclick="closeFoodDrawer()"></div>
+  <div class="food-drawer" id="foodDrawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+    <div class="drawer-handle-bar"></div>
+    <div class="drawer-hdr">
+      <div class="drawer-title" id="drawerTitle">中日双语点餐与指路卡</div>
+      <button class="drawer-close-btn" onclick="closeFoodDrawer()" aria-label="关闭抽屉">✕</button>
+    </div>
+    <div class="drawer-body" id="drawerContent">
+      <!-- Dynamic content rendered via openFoodDrawer(id) -->
+    </div>
+  </div>
+
+  <script>
+  // Food Database with Bilingual Ordering Cards
+  const foodDB = {
+    owariya: {
+      title: "浅草 尾张屋 本店 (百年荞麦面)",
+      rating: "⭐ 4.3 (1,850+ 评价) · 创立于1860年 (安政7年)",
+      address: "東京都台東区浅草1-7-1 (浅草雷门步行2分钟)",
+      hours: "11:30 - 20:30 (周五公休)",
+      seatTip: "💺 传统椅座无需盘腿 · 提供热荞麦茶 · 仅现金/Pay",
+      dishes: [
+        {
+          jp: "上天ぷらそば（温かいの）をお願いします。",
+          zh: "请给我一份【上等热天妇罗荞麦面】(巨虾天妇罗盖顶，热汤养胃)",
+          price: "¥1,700",
+          tip: "招牌必点 · 汤头鲜甜 · 巨虾酥脆不油腻"
+        },
+        {
+          jp: "せいろ（冷たい蕎麦）をお願いします。",
+          zh: "请给我一份【竹篓冷荞麦面】(附特调酱汁与芥末)",
+          price: "¥1,000",
+          tip: "清爽顺滑 · 荞麦香气浓郁"
+        },
+        {
+          jp: "親子丼をお願いします。",
+          zh: "请给我一份【特选母子滑蛋鸡肉饭】",
+          price: "¥1,300",
+          tip: "鸡蛋滑嫩 · 鸡肉软烂入味 · 长辈极好下饭"
+        }
+      ],
+      phrases: [
+        { jp: "温かいお茶（お湯）をいただけますか？", zh: "请问可以给我一杯温茶/温水吗？" },
+        { jp: "お会計をお願いします。", zh: "请帮我们结账。" },
+        { jp: "ネギを別皿にできますか？", zh: "可以把葱花单独放一个小碟子吗？" },
+        { jp: "領収書をいただけますか？", zh: "请问有收据吗？" }
+      ]
+    },
+    kagetudo: {
+      title: "浅草花月堂 本店 (巨型脆皮菠萝包)",
+      rating: "⭐ 4.4 (3,200+ 评价) · 浅草寺西参道入口",
+      address: "東京都台東区浅草2-7-13",
+      hours: "10:00 - 售完即止 (约16:00)",
+      seatTip: "💺 门口设有外带歇脚长凳 · 建议现烤现吃",
+      dishes: [
+        {
+          jp: "ジャンボめろんぱんを 2つ お願いします。",
+          zh: "请给我【2个 招牌巨型脆皮菠萝包】",
+          price: "¥300 / 个",
+          tip: "发酵3小时 · 外皮极酥脆内里如云朵般轻软"
+        },
+        {
+          jp: "抹茶アイスめろんぱんを 1つ お願いします。",
+          zh: "请给我一份【宇治抹茶冰淇淋夹心菠萝包】",
+          price: "¥600",
+          tip: "冷热交融 · 抹茶微苦解腻"
+        }
+      ],
+      phrases: [
+        { jp: "すぐ食べます。", zh: "我马上吃 (不打包)。" },
+        { jp: "お会計をお願いします。", zh: "请结账。" }
+      ]
+    },
+    rikyu: {
+      title: "仙臺 牛たん炭焼 利久 (晴空塔 Solamachi 6F)",
+      rating: "⭐ 4.2 (1,400+ 评价) · 仙台正宗炭烤厚切牛舌",
+      address: "東京都墨田区押上1-1-2 晴空塔 Solamachi 6F",
+      hours: "11:00 - 23:00 (全天无休)",
+      seatTip: "💺 宽敞沙发卡座 · 晴空塔电梯直达 · 支持信用卡与Suica",
+      dishes: [
+        {
+          jp: "牛たん定食（極・3枚6切）をお願いします。",
+          zh: "请给我一份【极厚切炭烤牛舌定食 3枚6切】(附牛尾汤+麦饭)",
+          price: "¥2,860",
+          tip: "外焦里嫩 · 弹牙爆汁 · 附赠清爽牛尾热汤"
+        },
+        {
+          jp: "牛たんシチュー定食をお願いします。",
+          zh: "请给我一份【特制红酒炖牛舌定食】",
+          price: "¥1,980",
+          tip: "牛舌炖至入口即化 · 浓郁醇厚 · 长辈咀嚼零负担"
+        }
+      ],
+      phrases: [
+        { jp: "お水をいただけますか？", zh: "请给我一杯水。" },
+        { jp: "ご飯少なめでお願いします。", zh: "米饭请帮我少装一点。" },
+        { jp: "お会計をお願いします。", zh: "请帮我们结账。" }
+      ]
+    },
+    fudo: {
+      title: "名物 ほうとう不動 (河口湖 铁锅馂馎面)",
+      rating: "⭐ 4.3 (4,500+ 评价) · 富士山山梨百年乡土料理",
+      address: "山梨県南都留郡富士河口湖町船津3631-2 (河口湖站正对面)",
+      hours: "11:00 - 19:00 (全天营业)",
+      seatTip: "💺 传统木桌椅座 · 富士山铁铸大锅 · 上菜速度极快",
+      dishes: [
+        {
+          jp: "不動ほうとうを 2つ お願いします。",
+          zh: "请给我们【2份 招牌不动铁锅野菜馂馎面】",
+          price: "¥1,210 / 锅",
+          tip: "手打粗宽面 · 炖煮南瓜/白菜/山菇 · 汤头鲜甜热气腾腾"
+        },
+        {
+          jp: "いなり寿司を 1皿 お願いします。",
+          zh: "请给我一份【甜豆皮寿司 (2贯)】",
+          price: "¥220",
+          tip: "米饭甘甜 · 配热汤绝佳"
+        }
+      ],
+      phrases: [
+        { jp: "熱いので取り皿をいただけますか？", zh: "锅很烫，请问可以给我们分食的小碗吗？" },
+        { jp: "温かいお茶をお願いします。", zh: "请给我一杯热茶。" },
+        { jp: "お会計をお願いします。", zh: "请结账。" }
+      ]
+    },
+    kagari: {
+      title: "銀座 篝 本店 (米其林必比登 鸡白汤拉面)",
+      rating: "⭐ 4.4 (3,900+ 评价) · 浓郁如浓汤的顶级鸡白汤",
+      address: "東京都中央区銀座6-4-12 (银座站步行3分钟)",
+      hours: "11:00 - 21:30",
+      seatTip: "💺 高级日式吧台椅 · 环境安静舒适 · 仅支持刷卡/电子支付(无现金)",
+      dishes: [
+        {
+          jp: "特製 鶏白湯Sobaを お願いします。",
+          zh: "请给我一份【特制鸡白汤拉面】(附低温慢煮鸡肉+烤时蔬)",
+          price: "¥1,500",
+          tip: "纯鸡骨熬制浓白高汤 · 附有机蔬菜与松露油 · 醇香浓郁"
+        },
+        {
+          jp: "特製 煮干醤油Sobaを お願いします。",
+          zh: "请给我一份【特制小鱼干酱油拉面】",
+          price: "¥1,300",
+          tip: "汤清鲜美 · 不油腻 · 长辈易入口"
+        }
+      ],
+      phrases: [
+        { jp: "カードで支払えますか？", zh: "请问可以刷信用卡吗？" },
+        { jp: "スープがとても美味しいです！", zh: "汤头非常美味！(夸赞店主)" },
+        { jp: "ごちそうさまでした。", zh: "多谢款待 (离店礼貌用语)。" }
+      ]
+    },
+    afuri: {
+      title: "AFURI 原宿 / 涩谷 (清新柚子盐拉面)",
+      rating: "⭐ 4.3 (3,600+ 评价) · 清爽不腻的女性与长辈最爱",
+      address: "東京都渋谷区千駄ヶ谷3-63-1 (原宿站步行3分钟)",
+      hours: "10:30 - 23:00",
+      seatTip: "💺 门口自动点餐机点单 · 提供冰/温水 · 仅无现金支付",
+      dishes: [
+        {
+          jp: "柚子塩らーめん（淡麗）をお願いします。",
+          zh: "请给我一份【招牌柚子盐拉面 (淡丽清淡鸡汤)】",
+          price: "¥1,290",
+          tip: "淡淡天然柚子清香 · 炭烤五花肉叉烧 · 极清爽"
+        },
+        {
+          jp: "炙りコロチャーシュー飯をお願いします。",
+          zh: "请给我一份【炭火炙烤叉烧碎盖饭】",
+          price: "¥580",
+          tip: "外焦里嫩 · 萝卜泥解腻"
+        }
+      ],
+      phrases: [
+        { jp: "麺の硬さは普通でお願いします。", zh: "面条硬度请帮我选正常。" },
+        { jp: "お水をいただけますか？", zh: "请给我一杯水。" }
+      ]
+    }
+  };
+
+  function openFoodDrawer(id) {
+    const data = foodDB[id];
+    if (!data) return;
+
+    const drawer = document.getElementById('foodDrawer');
+    const backdrop = document.getElementById('foodDrawerBackdrop');
+    const title = document.getElementById('drawerTitle');
+    const content = document.getElementById('drawerContent');
+
+    title.textContent = data.title;
+    content.innerHTML = `
+      <div style="background:var(--paper-2);padding:var(--space-sm) var(--space-md);border-radius:var(--r-md);border:1px solid var(--line-soft);">
+        <div style="font-size:var(--font-xs);color:var(--kin);font-weight:700;margin-bottom:2px;">${data.rating}</div>
+        <div style="font-size:var(--font-xs);color:var(--ink-soft);line-height:1.45;">📍 ${data.address}</div>
+        <div style="font-size:var(--font-xs);color:var(--ink-faint);margin-top:2px;">🕒 营业时间: ${data.hours}</div>
+        <div style="font-size:var(--font-xs);color:var(--ai);font-weight:600;margin-top:4px;">${data.seatTip}</div>
+      </div>
+
+      <div>
+        <div style="font-size:var(--font-xs);font-weight:700;color:var(--shu);letter-spacing:0.04em;text-transform:uppercase;margin-bottom:var(--space-xs);">
+          📋 必点招牌菜品 · 直接拿手机指给店员看
+        </div>
+        <div style="display:flex;flex-direction:column;gap:var(--space-sm);">
+          ${data.dishes.map(d => `
+            <div class="dish-card">
+              <div class="dish-jp">${d.jp}</div>
+              <div class="dish-zh">${d.zh}</div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px;">
+                <span class="dish-tip">${d.tip}</span>
+                <strong style="color:var(--shu);font-size:var(--font-base);">${d.price}</strong>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:var(--font-xs);font-weight:700;color:var(--ai);letter-spacing:0.04em;text-transform:uppercase;margin-bottom:var(--space-xs);">
+          💬 实用点餐与结账短语 (点击可放大)
+        </div>
+        <div class="quick-phrase-grid">
+          ${data.phrases.map(p => `
+            <div class="phrase-chip" onclick="alert('${p.jp}\\n\\n中文含义：${p.zh}')">
+              <div class="phrase-jp">${p.jp}</div>
+              <div class="phrase-zh">${p.zh}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+
+    backdrop.classList.add('open');
+    drawer.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeFoodDrawer() {
+    const drawer = document.getElementById('foodDrawer');
+    const backdrop = document.getElementById('foodDrawerBackdrop');
+    if (!drawer) return;
+    drawer.classList.remove('open');
+    backdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeFoodDrawer();
+  });
+  </script>
 </body>
 </html>

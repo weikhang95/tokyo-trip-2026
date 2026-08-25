@@ -1,0 +1,14 @@
+# Insurance / personal documents — repo is public, keep these local only
+*.pdf
+Certificate*
+certificate*
+*保单*
+*policy*.pdf
+
+# Passport / booking confirmations
+*passport*
+*boarding*
+*e-ticket*
+
+# OS
+.DS_Store

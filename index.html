@@ -2643,6 +2643,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
         <span><strong>【出发前1周】</strong> 确认 10/11 深夜都营浅草线至羽田末班车时间</span>
       </label>
       <label class="check-item">
+        <input type="checkbox" id="chk-6-2" onchange="saveCheck('chk-6-2')"/>
+        <span>🔴 <strong>【尽快 · 最迟 10月1日】</strong> 替<strong>妈妈另买一份旅游保险</strong> — 现有保单是 <strong>Individual</strong>，只保你一人；Chubb Family Plan 只含配偶子女，父母不在内。买 <strong>Executive / Zone 1</strong> 同期间 (10/2–10/13)。<strong>必须在 10/2 中午前生效</strong>（行程自出发前 24 小时起算）</span>
+      </label>
+      <label class="check-item">
         <input type="checkbox" id="chk-7" onchange="saveCheck('chk-7')"/>
         <span>🛡️ <strong>【出发前】</strong> 从 <strong>Certificate of Insurance</strong> 抄下<strong>保单号</strong>与 <strong>Chubb 24 小时紧急电话</strong>，两支手机各存一份 + 纸本放钱包；确认保障期涵盖 <strong>10/2–10/13</strong></span>
       </label>
@@ -2711,54 +2715,101 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   </div>
 
   <div class="card">
-    <h3><span class="zh on">🔴 绝对不能忘记的 6 大关键</span><span class="en">6 Must-Not-Forget Rules</span></h3>
+    <h3><span class="zh on">🔴 绝对不能忘记的 7 大关键</span><span class="en">7 Must-Not-Forget Rules</span></h3>
     <div class="check-list">
       <label class="check-item">
+        <input type="checkbox" id="rule-0" onchange="saveCheck('rule-0')"/>
+        <span>1. <strong>妈妈还没有旅游保险</strong> — 现有 Chubb 保单是 <strong>Individual</strong>，只保你一人。<strong>10月2日中午前</strong>替她买好 Executive / Zone 1</span>
+      </label>
+      <label class="check-item">
         <input type="checkbox" id="rule-1" onchange="saveCheck('rule-1')"/>
-        <span>1. <strong>9月24日 23:00 (马来西亚时间)</strong> 手机闹钟抢涩谷SKY 门票</span>
+        <span>2. <strong>9月24日 23:00 (马来西亚时间)</strong> 手机闹钟抢涩谷SKY 门票</span>
       </label>
       <label class="check-item">
         <input type="checkbox" id="rule-2" onchange="saveCheck('rule-2')"/>
-        <span>2. <strong>出发前一周</strong> 确认 10/11 都营浅草线至羽田末班车时刻 (周日直通约 23:17)</span>
+        <span>3. <strong>出发前一周</strong> 确认 10/11 都营浅草线至羽田末班车时刻 (周日直通约 23:17)</span>
       </label>
       <label class="check-item">
         <input type="checkbox" id="rule-3" onchange="saveCheck('rule-3')"/>
-        <span>3. <strong>10月11日 18:00</strong> 一定要回公寓洗澡休息小睡 2 小时再赴机场</span>
+        <span>4. <strong>10月11日 18:00</strong> 一定要回公寓洗澡休息小睡 2 小时再赴机场</span>
       </label>
       <label class="check-item">
         <input type="checkbox" id="rule-4" onchange="saveCheck('rule-4')"/>
-        <span>4. <strong>河口湖 10月7日 05:15</strong> 闹钟起床，看 05:45 赤富士日出</span>
+        <span>5. <strong>河口湖 10月7日 05:15</strong> 闹钟起床，看 05:45 赤富士日出</span>
       </label>
       <label class="check-item">
         <input type="checkbox" id="rule-5" onchange="saveCheck('rule-5')"/>
-        <span>5. <strong>10月11日 21:00 准时出门</strong> — 计程车深夜割増 22:00 起跳，晚一小时多花 ¥1,700-2,000</span>
+        <span>6. <strong>10月11日 21:00 准时出门</strong> — 计程车深夜割増 22:00 起跳，晚一小时多花 ¥1,700-2,000</span>
       </label>
       <label class="check-item">
         <input type="checkbox" id="rule-6" onchange="saveCheck('rule-6')"/>
-        <span>6. <strong>Skyliner 订票乗車駅选「空港第2ビル / Terminal 2·3」</strong> — 选成「成田空港駅」是 T1，错站 (HK Express 落 T2)</span>
+        <span>7. <strong>Skyliner 订票乗車駅选「空港第2ビル / Terminal 2·3」</strong> — 选成「成田空港駅」是 T1，错站 (HK Express 落 T2)</span>
       </label>
     </div>
   </div>
 
   <div class="card" id="sec-insurance">
-    <h3><span class="zh on">🛡️ 旅游保险速查 (Chubb Travel Insurance)</span><span class="en">Travel Insurance Cheat Sheet</span></h3>
+    <h3><span class="zh on">🛡️ 旅游保险速查 · Chubb Executive / Zone 1</span><span class="en">Travel Insurance Cheat Sheet</span></h3>
 
     <div class="note-box warn">
-      <strong>📝 出发前把这四格填满 (抄自 Certificate of Insurance)：</strong>
+      <strong>🔴 最要紧的一件事：这是 Individual（个人）方案 = 只保你一个人。</strong>
       <span class="zh on">
-        <strong>· 保单号 / Certificate No.</strong>：__________________<br/>
-        <strong>· 方案</strong>：☐ First　☐ Executive　(保额差 2-4 倍)<br/>
-        <strong>· 保障期间</strong>：必须涵盖 <strong>10/2 – 10/13</strong> (保障自出发前 24 小时起算)<br/>
-        <strong>· 24 小时紧急电话</strong>：__________________ ← <strong>两支手机都要存，且抄在纸上放钱包</strong>
+        <strong>妈妈目前没有任何旅游保险。</strong>「Plan Category: Individual」承保对象只有 Certificate 上具名的那一位。<br/>
+        而且 Chubb 的 <strong>Family Plan 只涵盖配偶与子女</strong>，父母不在内 —— 所以就算改买 Family Plan 也保不到妈妈。<br/>
+        → <strong>妈妈必须另买一份自己的 Chubb Executive / Zone 1 单次旅程保单</strong>（同样 10/2–10/13）。她 62 岁未满 65，保费与保额都还在正常档，现在买没问题。<br/>
+        <strong>⚠️ 保单必须在行程开始前生效</strong>（Part 2 第 4 条：This Policy must be purchased before the commencement of a Journey）。行程「开始」= 出发前 24 小时，即 <strong>10/2 中午</strong>。别拖到 10/2。
       </span>
     </div>
 
-    <div class="note-box kin">
-      <strong>👵 妈妈 (1964 年生，出发时 62 岁) — 好消息与坏消息：</strong>
+    <div class="note-box tip">
+      <strong>✅ Zone 1 涵盖范围已确认：</strong>
+      <span class="zh on">Zone 1 明列 <strong>Japan</strong> 与 <strong>Hong Kong SAR</strong> —— 你们 PEN → <strong>HKG 转机</strong> → NRT 全程都在保障区内，不需要升级到 Zone 2。</span>
+    </div>
+
+    <div class="note-box warn">
+      <strong>📝 出发前把这三格填满（抄自 Certificate of Insurance）：</strong>
       <span class="zh on">
-        <strong>✅ 未满 65 岁</strong>，医疗保额走高档：意外医疗 First <strong>RM 2,000,000</strong> / Executive RM 800,000；疾病医疗 First <strong>RM 1,000,000</strong> / Executive RM 450,000。若已满 65，疾病医疗会掉到 RM 150,000。<br/>
-        <strong>❌ 既往症 (Pre-existing Condition) 完全不赔</strong>，无等待期、无部分赔付。定义是<strong>出发前 12 个月内</strong>「看过医生、吃过处方药、有明显症状、或一般人看得出来」的任何状况。<br/>
-        → <strong>高血压 / 糖尿病 / 胆固醇 / 心脏</strong> 任何长期用药，该病在日本发作 Chubb 一分不出。出发前确认妈妈的用药清单，必要时另买既往症附加险 (需另行核保)。
+        <strong>· 保单号 / Certificate No.</strong>：__________________<br/>
+        <strong>· 24 小时紧急电话</strong>：__________________ ← <strong>两支手机都存，另抄纸本放钱包</strong><br/>
+        <strong>· 保障期间</strong>：确认涵盖 <strong>10/2 – 10/13</strong>（保障自出发前 24 小时起算，回国入境后 24 小时或到家为止）<br/>
+        <strong>· 另确认</strong>：是 <strong>Single Trip</strong>（单次）还是 <strong>Annual</strong>（年度）—— Annual 保障期是整年，看起讫日是否已涵盖十月。
+      </span>
+    </div>
+
+    <table class="info-table" style="margin-top:10px;">
+      <thead>
+        <tr>
+          <th><span class="zh on">项目</span><span class="en">Benefit</span></th>
+          <th><span class="zh on">你的实际保额 (Executive · 每人)</span><span class="en">Your Limit</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>海外医疗 · 因意外</strong>（62 岁，未满 65）</td><td><strong>RM 800,000</strong></td></tr>
+        <tr><td><strong>海外医疗 · 因生病</strong>（含 COVID-19 RM 450,000）</td><td><strong>RM 450,000</strong></td></tr>
+        <tr><td><strong>紧急医疗后送 / 遗体运返</strong></td><td><strong>无上限 Unlimited</strong></td></tr>
+        <tr><td>回马后续医疗（30 天内，须返马 24 小时内就医）</td><td>意外 RM 50,000 / 生病 RM 25,000<br/><span style="opacity:.8;">每张单据自付 RM 50</span></td></tr>
+        <tr><td>每日住院津贴（最多 60 天）</td><td>RM 250 / 天</td></tr>
+        <tr><td>意外身故 / 永久残疾</td><td>RM 300,000</td></tr>
+        <tr><td><strong>行程取消</strong>（出发前，限承保原因）</td><td>RM 50,000<br/><span style="opacity:.8;">改期 Postponement 仅 RM 500</span></td></tr>
+        <tr><td><strong>行程缩短</strong>（Curtailment）</td><td>RM 50,000</td></tr>
+        <tr><td>行程中断 Travel Disruption</td><td>RM 1,000</td></tr>
+        <tr><td><strong>行李遗失</strong></td><td>总额 RM 5,000<br/><span style="opacity:.8;"><strong>单件上限 RM 500</strong>、手提电脑 RM 1,000</span></td></tr>
+        <tr><td>证件遗失（护照等）</td><td>RM 5,000</td></tr>
+        <tr><td>现金遗失</td><td>RM 750<span style="opacity:.8;">（自付 RM 100）</span></td></tr>
+        <tr><td><strong>班机延误</strong></td><td>每满 6 小时 RM 200，<strong>上限 RM 3,600</strong></td></tr>
+        <tr><td><strong>行李延误</strong>（海外）</td><td>每满 6 小时 RM 200，<strong>上限 RM 800</strong></td></tr>
+        <tr><td>转机失败 / 改道 / 超卖 / 错过起飞</td><td>各每满 6 小时 RM 200，各上限 RM 600</td></tr>
+        <tr><td>信用卡遭盗刷</td><td>RM 500</td></tr>
+        <tr><td>个人责任</td><td>RM 1,000,000</td></tr>
+      </tbody>
+    </table>
+
+    <div class="note-box kin">
+      <strong>👵 妈妈（1964 年生，出发时 62 岁）——买保单前先确认这件事：</strong>
+      <span class="zh on">
+        <strong>✅ 未满 65 岁</strong>，保额走正常档（Executive：意外医疗 RM 800,000、疾病医疗 RM 450,000）。若已满 65，疾病医疗只剩 <strong>RM 100,000</strong>。这几年买正好。<br/>
+        <strong>❌ 既往症（Pre-existing Condition）完全不赔</strong> —— 无等待期、无部分赔付。定义是<strong>出发前 12 个月内</strong>「看过医生、吃过处方药、有明显症状，或一般人看得出来」的任何状况。<br/>
+        → <strong>高血压 / 糖尿病 / 胆固醇 / 心脏</strong> 任何长期用药，该病在日本发作 Chubb 一分不出。<strong>买保单前先确认妈妈的用药清单</strong>，必要时找有既往症附加的产品（须另行核保），并备英文处方笺随身。
       </span>
     </div>
 
@@ -2774,22 +2825,22 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
         <tr>
           <td><strong>生病 / 受伤</strong></td>
           <td>—</td>
-          <td>先打 <strong>24 小时紧急电话</strong>，Chubb 可直接向医院担保 (<strong>Cashless Hospital Admission</strong>)，不必自己垫钱。<strong>所有收据、诊断书、处方笺全部留底。</strong></td>
+          <td>先打 <strong>24 小时紧急电话</strong>，Chubb 可直接向医院担保（<strong>Cashless Hospital Admission</strong>），不必自己垫钱。<strong>所有收据、诊断书、处方笺全部留底。</strong></td>
         </tr>
         <tr>
           <td><strong>班机延误</strong></td>
           <td>满 <strong>6 小时</strong>起赔，之后每满 6 小时再一档</td>
-          <td>向航空公司柜台索取<strong>书面延误证明</strong> (须载明延误时数与原因)。<br/>⚠️ 若航空公司<strong>提前 24 小时以上</strong>通知你 → 不赔。自己迟到 → 不赔。</td>
+          <td>向航空公司柜台索取<strong>书面延误证明</strong>（须载明延误时数与原因）。<br/>⚠️ 若航空公司<strong>提前 24 小时以上</strong>通知你 → 不赔。自己迟到 → 不赔。</td>
         </tr>
         <tr>
           <td><strong>行李延误</strong></td>
           <td>抵达后 <strong>6 小时</strong>未送达</td>
-          <td><strong>出关前就在行李转盘旁申报</strong>，务必拿到 <strong>PIR (Property Irregularity Report)</strong>。First 每 6 小时 RM 200，上限 RM 3,000。</td>
+          <td><strong>出关前就在行李转盘旁申报</strong>，务必拿到 <strong>PIR (Property Irregularity Report)</strong>。每 6 小时 RM 200，上限 RM 800。</td>
         </tr>
         <tr>
           <td><strong>行李 / 证件 / 现金遗失</strong></td>
           <td><strong>24 小时内</strong>必须报案</td>
-          <td>就近到<strong>交番 (KOBAN，日本派出所)</strong> 报案并拿书面报案纪录 — <strong>没有报案书 = 不赔</strong>。现金另扣自付额 RM 100。</td>
+          <td>就近到<strong>交番 (KOBAN，日本派出所)</strong> 报案并拿书面报案纪录 — <strong>没有报案书 = 不赔</strong>。</td>
         </tr>
         <tr>
           <td><strong>行李在航空公司手上损坏／遗失</strong></td>
@@ -2807,10 +2858,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
     <div class="note-box tip">
       <strong>⏱️ 理赔时效与实务：</strong>
       <span class="zh on">
-        <strong>· 事发后 30 天内</strong>必须通知 Chubb — 线上提交 e-claim：<a href="https://www.chubbtravelinsurance.com.my/cti/my-en/home.html" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">Chubb Malaysia Claims Portal</a>。客服 1-800-88-2846 (周一至五 08:30-17:15)。<br/>
-        <strong>· 行李延误按「人」算不按「件」算</strong>，且同一件行李只准一个人申报 → <strong>两人的东西分装两个箱</strong>，真延误时两人各领一份。<br/>
+        <strong>· 事发后 30 天内</strong>必须通知 Chubb — 线上提交 e-claim：<a href="https://www.chubbtravelinsurance.com.my/cti/my-en/home.html" target="_blank" rel="noopener noreferrer" style="color:var(--ai);text-decoration:underline;">Chubb Malaysia Claims Portal</a>。客服 1-800-88-2846（周一至五 08:30–17:15）。<br/>
+        <strong>· 行李延误按「人」算不按「件」算</strong>，且同一件行李只准一个人申报 → <strong>两人的东西分装两个箱</strong>（前提是妈妈也有保单），真延误时两人各领一份。<br/>
         <strong>· 行李不可离身</strong>：放在公共场所无人看管遭窃 → 不赔。车站、餐厅别把箱子推远。<br/>
-        <strong>· 单件物品上限 RM 500</strong>：相机、镜头等贵重品超出部分不赔，贵重物品一律随身不托运。
+        <strong>· 单件物品上限 RM 500</strong>：相机、镜头等贵重品超出部分不赔，贵重物品一律随身不托运。<br/>
+        <strong>· 行程取消只赔承保原因</strong>：自己改变主意、家人改变主意 → 不赔。承保的是身故、重病住院、强制隔离、罢工停飞、天灾等。
       </span>
     </div>
   </div>

@@ -564,7 +564,7 @@
 
 - **单程**：网路优惠约 **¥2,020**，现场 ¥2,300
 - ⚠️ **订票渠道（重要更正）**：**切勿使用 highwaybus.com！** highwaybus.com 是京王电铁巴士系统，只卖新宿与涩谷发车的班次，东京站出发线路在其站内不开放售票！东京站 ⇄ 河口湖由 **JR巴士关东** 与 **富士急巴士** 联营，请使用以下正规渠道：
-  1. **[Japan Bus Online (日本巴士 e 路通)](https://japanbusonline.com/zh-tw/CourseDetail/index/11300060001)**（**最推荐**：全中文界面、支持海外信用卡与 Wise、直接凭邮件电子票扫码上车，免换纸票）
+  1. **[Japan Bus Online (东京站-富士五湖线 直达订票日历)](https://japanbusonline.com/zh-tw/CourseSearch/11500410001?AreaCd=313)**（**最推荐**：全中文界面、支持海外信用卡与 Wise、直接凭邮件电子票扫码上车，免换纸票）
   2. **[高速バスネット (kousokubus.net)](https://www.kousokubus.net/)**（JR 巴士官方系统，支持在线选座）
   3. **[WILLER TRAVEL 中文网](https://willer-travel.com/zh/)**（官方授权聚合平台）
 - 🔴 **乘车处依班次而异**：**東京駅八重洲南口**（JR高速巴士总站，绝大多数班次）或 **東京駅鉄鋼ビル**（近日本橋口，两者相距约 8 分钟脚程）。**订完票务必看清票面写哪一个**
@@ -654,8 +654,8 @@
 | **现在（8月）** | **本人 iPhone Suica 开通**：Wise Digital Visa 在 Apple Pay 储值 | [x] **实测成功开通 ✅** |
 | **现在（8月）** | **Skyliner 官网直营订票**：[京成 e-ticket](https://www.keisei.co.jp/keisei/tetudou/skyliner/e-ticket/zht/)（¥2,310×2=¥4,620，选「空港第2ビル」） | ⏳ 待买 |
 | **随时（8–9月）** | **Visit Japan Web 入境申报**：[VJW 官网](https://www.vjw.digital.go.jp/) 登记两本护照与航班，生成 QR 截图存相册 | ⏳ 待填 |
-| **9月6日 09:00 MYR（前1个月）** | ⏰ **抢河口湖高速巴士去程票（08:10发车）**：在 [Japan Bus Online](https://japanbusonline.com/zh-tw/CourseDetail/index/11300060001) 或 [高速バスネット](https://www.kousokubus.net/) 抢票（**切勿用 highwaybus**） | ⏳ 待办 |
-| **9月7日 09:00 MYR（前1个月）** | ⏰ **抢河口湖高速巴士回程票（13:30发车）**：在 [Japan Bus Online](https://japanbusonline.com/zh-tw/CourseDetail/index/11300060001) 或 [高速バスネット](https://www.kousokubus.net/) 抢票 | ⏳ 待办 |
+| **9月6日 09:00 MYR（前1个月）** | ⏰ **抢河口湖高速巴士去程票（08:10发车）**：在 [Japan Bus Online 直达页面](https://japanbusonline.com/zh-tw/CourseSearch/11500410001?AreaCd=313) 或 [高速バスネット](https://www.kousokubus.net/) 抢票（**切勿用 highwaybus**） | ⏳ 待办 |
+| **9月7日 09:00 MYR（前1个月）** | ⏰ **抢河口湖高速巴士回程票（13:30发车）**：在 [Japan Bus Online 直达页面](https://japanbusonline.com/zh-tw/CourseSearch/11500410001?AreaCd=313) 或 [高速バスネット](https://www.kousokubus.net/) 抢票 | ⏳ 待办 |
 | **9月中** | 回去看 Yoin 评价累积情况，并在 Airbnb 对话框发旅客护照与地址登记 | ⏳ 待办 |
 | **9月24日 23:00（马币时间）** | ⏰ **抢涩谷SKY 门票**（=9/25 00:00 日本时间，Klook/官网抢 16:20/16:40 日落场） | ⏳ 待办 |
 | **10月2日中午前** | 为妈妈投保 Chubb Executive / Zone 1 个人旅平险（确保行程开始前生效） | ⏳ 待办 |

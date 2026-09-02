@@ -147,7 +147,7 @@
 
 | 成员 | 方案 | 取得/储值方式 | 备注 |
 |---|---|---|---|
-| **本人** | **iPhone 12 Apple Wallet Suica** | **Wise Digital Visa 在 Apple Pay 储值**（已实测成功开通 ✅） | 快捷交通模式：手机无需解锁、无需亮屏，碰闸机秒过 |
+| **本人** | **iPhone 17 Pro Apple Wallet Suica** | **Wise Digital Visa 在 Apple Pay 储值**（已实测成功开通 ✅） | 快捷交通模式：手机无需解锁、无需亮屏，碰闸机秒过 |
 | **妈妈** | **Welcome Suica 实体卡**（红色游客版） | **成田机场 T2 B1 现场现金购买**（¥3,000–5,000） | 免押金、长辈 0 门槛；建议附挂绳伸缩卡套挂于随身小包 |
 
 **Wise 提现技巧（Seven Bank ATM 避坑指南）**：

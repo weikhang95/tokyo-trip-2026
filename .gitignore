@@ -12,3 +12,7 @@ certificate*
 
 # OS
 .DS_Store
+
+# Agent metadata
+.agent/
+.agents/

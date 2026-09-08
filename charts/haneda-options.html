@@ -3,18 +3,19 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Lieflat Charts — 羽田深夜回程方案决策对比</title>
+<title>Lieflat Charts — 羽田深夜返程 4 大方案权衡</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&family=Shippori+Mincho:wght@700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #F7F5F0;
+    --paper: #FAF9F6;
     --card-bg: #FFFFFF;
     --ink: #231F1B;
-    --muted: #8A8073;
-    --faint: #C4BEB3;
-    --grid: #E8E2D6;
+    --muted: #6B6255;
+    --faint: #B8B0A2;
+    --grid: #E5DFC5;
     --ai: #1C3553;
     --shu: #C2412D;
     --matcha: #506628;
@@ -24,45 +25,69 @@
     background: var(--bg);
     font-family: 'Inter', 'Noto Sans SC', sans-serif;
     color: var(--ink);
-    padding: 32px 16px;
+    padding: 36px 20px 60px;
     -webkit-font-smoothing: antialiased;
     display: flex;
     justify-content: center;
   }
-  .wrap { width: 100%; max-width: 600px; }
+  .wrap { width: 100%; max-width: 900px; }
+
+  .chart-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .chart-nav a {
+    color: var(--ai);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 99px;
+    background: rgba(28, 53, 83, 0.06);
+    transition: all .18s ease;
+  }
+  .chart-nav a:hover {
+    background: var(--ai);
+    color: #fff;
+  }
+  .nav-sep { color: var(--faint); }
+
   .card {
     background: var(--card-bg);
     border: 1px solid var(--grid);
     border-radius: 24px;
-    padding: 28px 24px 20px;
-    box-shadow: 0 2px 12px rgba(35, 31, 27, 0.04);
+    padding: 36px 36px 28px;
+    box-shadow: 0 4px 20px rgba(35, 31, 27, 0.05);
   }
   .badge {
     display: inline-block;
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: .08em;
-    padding: 3px 10px;
+    padding: 4px 12px;
     border-radius: 99px;
-    margin-bottom: 12px;
-    border: 1px dashed #C4BEB3;
+    margin-bottom: 14px;
+    border: 1px solid #D9D2C5;
+    background: #FAF9F6;
     color: var(--muted);
   }
   h2 {
-    font-size: 16px;
+    font-size: 22px;
     font-weight: 800;
     letter-spacing: -.02em;
     color: var(--ink);
-    margin-bottom: 4px;
-    line-height: 1.4;
+    margin-bottom: 8px;
+    line-height: 1.35;
   }
   .sub {
-    font-size: 11.5px;
+    font-size: 13.5px;
     color: var(--muted);
-    margin-bottom: 16px;
-    line-height: 1.5;
+    margin-bottom: 24px;
+    line-height: 1.6;
   }
-  .sub strong { color: var(--ai); font-weight: 700; }
+  .sub strong { color: var(--shu); font-weight: 700; }
   svg {
     width: 100%;
     height: auto;
@@ -72,14 +97,16 @@
   }
   svg text { font-family: 'Inter', 'Noto Sans SC', sans-serif; }
   .src {
-    font-size: 9px;
-    color: var(--faint);
-    margin-top: 14px;
-    letter-spacing: .08em;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 24px;
+    letter-spacing: .06em;
     font-weight: 600;
     text-transform: uppercase;
     display: flex;
     justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1px solid var(--grid);
   }
   .pop { transform-box: fill-box; transform-origin: center; animation: pop .5s cubic-bezier(.2,.7,.3,1.3) both; }
   @keyframes pop { from { transform: scale(0); } to { transform: none; } }
@@ -88,25 +115,37 @@
   @media (prefers-reduced-motion: reduce) {
     .pop, .fade { animation: none !important; }
   }
+  @media (max-width: 640px) {
+    body { padding: 20px 12px 40px; }
+    .card { padding: 24px 16px 20px; border-radius: 18px; }
+    h2 { font-size: 18px; }
+    .sub { font-size: 12px; }
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
+  <nav class="chart-nav">
+    <a href="index.html">← 决策图表集总览</a>
+    <span class="nav-sep">·</span>
+    <a href="../index.html">返回旅行手册主页 →</a>
+  </nav>
+
   <div class="card">
-    <span class="badge">F12 DUMBBELL QUEUE · 机场返程决策</span>
-    <h2>多花 ¥9,380 买到的不是速度，是 0 步数与暴雨庇护</h2>
-    <div class="sub">1 串珠 = ¥500 差价 · 空心圈 = <strong>方案 A 经济基准 (¥1,720)</strong> · 实心圈 = 该方案总花费 · 2人含税</div>
-    <svg id="dumbbell" viewBox="0 0 540 330" preserveAspectRatio="xMidYMid meet" role="img" aria-label="羽田深夜返程4大方案费用与步数哑铃对比图"></svg>
+    <span class="badge">F12 DUMBBELL QUEUE · 返程方案权衡</span>
+    <h2>省 ¥12,780 还是免搬行李：浅草至羽田 T3 的 4 大返程方案</h2>
+    <div class="sub">起点空心圆 = 方案A基准(¥1,720) · <strong>串珠 = 较基准每多 ¥500 一粒珠</strong> · 终点实心圆 = 2人总花费 (JPY)</div>
+    <svg id="dumbbell" viewBox="0 0 760 380" preserveAspectRatio="xMidYMid meet" role="img" aria-label="羽田深夜返程4大方案费用与体力权衡哑铃图"></svg>
     <div class="src">
       <span>F12 Dumbbell Queue · Haneda Airport Return</span>
-      <span>Click chart to replay</span>
+      <span>点击图表重新播放动画 · Click chart to replay</span>
     </div>
   </div>
 </div>
 
 <script>
 // ── Tokens & Helpers ──
-const INK = '#231F1B', MUTED = '#8A8073', GRID = '#E8E2D6', FAINT = '#C4BEB3';
+const INK = '#231F1B', MUTED = '#6B6255', GRID = '#E5DFC5', FAINT = '#B8B0A2';
 const AI = '#1C3553', SHU = '#C2412D', PAPER = '#FAF9F6';
 const NS = 'http://www.w3.org/2000/svg';
 const el = (p, t, a) => {
@@ -149,8 +188,8 @@ const D = [
 ];
 
 obsReveal('dumbbell', s => {
-  const y0 = i => 58 + i * 56;
-  const X0 = 172, X1 = 448;
+  const y0 = i => 65 + i * 68;
+  const X0 = 240, X1 = 570;
   const mapX = cost => X0 + Math.min(1, Math.max(0, (cost - BASE_COST) / (14500 - BASE_COST))) * (X1 - X0);
 
   D.forEach(([id, name, cost, time, walk, stairs, kind], i) => {
@@ -163,25 +202,25 @@ obsReveal('dumbbell', s => {
 
     // 左侧方案名称与核心标签
     txt(s, {
-      x: 160, y: y - 5,
-      'font-size': 8.5, 'font-weight': 800,
+      x: 220, y: y - 8,
+      'font-size': 13.5, 'font-weight': 800,
       fill: isBase ? AI : (isWarn ? SHU : INK),
       'text-anchor': 'end', 'letter-spacing': '.02em',
-      class: 'fade', style: `animation-delay: ${i * 0.08}s`
+      class: 'fade', style: `animation-delay: ${i * 0.07}s`
     }, id);
 
     txt(s, {
-      x: 160, y: y + 9,
-      'font-size': 7.5, 'font-weight': 500,
+      x: 220, y: y + 14,
+      'font-size': 11.5, 'font-weight': 500,
       fill: MUTED, 'text-anchor': 'end',
-      class: 'fade', style: `animation-delay: ${i * 0.08}s`
+      class: 'fade', style: `animation-delay: ${i * 0.07}s`
     }, name);
 
     // 导轨背景线
     el(s, 'line', {
-      x1: X0 - 8, y1: y, x2: X1 + 18, y2: y,
-      stroke: GRID, 'stroke-width': 0.8,
-      class: 'fade', style: `animation-delay: ${i * 0.08}s`
+      x1: X0 - 10, y1: y, x2: X1 + 20, y2: y,
+      stroke: GRID, 'stroke-width': 1.2,
+      class: 'fade', style: `animation-delay: ${i * 0.07}s`
     });
 
     // 哑铃轨道上的串珠：每 ¥500 差价一粒珠
@@ -190,74 +229,57 @@ obsReveal('dumbbell', s => {
     for (let k = 0; k < numBeads; k++) {
       const t = (k + 0.5) / numBeads;
       const bx = xa + t * (xb - xa);
-      const by = y + (rnd(k + 1, i + 3) - 0.5) * 2.2;
+      const by = y + (rnd(k + 1, i + 3) - 0.5) * 3.0;
       el(s, 'circle', {
         cx: bx, cy: by,
-        r: 1.4 + rnd(k + 2, i + 4) * 0.8,
+        r: 2.2 + rnd(k + 2, i + 4) * 0.9,
         fill: isWarn ? SHU : (isStorm ? AI : MUTED),
-        opacity: 0.75,
-        class: 'pop', style: `animation-delay: ${0.25 + i * 0.08 + k * 0.02}s`
+        opacity: 0.78,
+        class: 'pop', style: `animation-delay: ${0.2 + i * 0.06 + k * 0.015}s`
       });
     }
 
-    // 左端基准空心圈（仅在非基准行绘制，避免基准行自身重叠产生伪影）
+    // 左端基准空心圈（仅在非基准行绘制，避免基准行自身重叠伪影）
     if (!isBase) {
       el(s, 'circle', {
-        cx: xa, cy: y, r: 4.2,
-        fill: '#FFFFFF', stroke: AI, 'stroke-width': 1.6,
-        class: 'pop', style: `animation-delay: ${0.15 + i * 0.08}s`
+        cx: xa, cy: y, r: 5.5,
+        fill: '#FFFFFF', stroke: AI, 'stroke-width': 2.0,
+        class: 'pop', style: `animation-delay: ${0.15 + i * 0.06}s`
       });
     }
 
     // 右端花费实心圈
     const endDot = el(s, 'circle', {
-      cx: xb, cy: y, r: isBase ? 4.2 : 5.0,
+      cx: xb, cy: y, r: isBase ? 5.5 : 6.8,
       fill: isBase ? AI : (isWarn ? SHU : INK),
-      stroke: '#FFFFFF', 'stroke-width': 1.2,
-      class: 'pop', style: `animation-delay: ${0.5 + i * 0.08}s`
+      stroke: '#FFFFFF', 'stroke-width': 1.5,
+      class: 'pop', style: `animation-delay: ${0.4 + i * 0.06}s`
     });
 
     tip(endDot, `${id}：¥${cost.toLocaleString()} · ${time}分钟 · 步行 ${walk} (${stairs})`);
 
-    // 圈旁数值
+    // 右侧数值与属性说明
     txt(s, {
-      x: xb + 9, y: y + 4,
-      'font-size': 9.5, 'font-weight': 800,
-      fill: isWarn ? SHU : INK,
-      class: 'fade', style: `animation-delay: ${0.6 + i * 0.08}s`
+      x: xb + 14, y: y - 6,
+      'font-size': 13.5, 'font-weight': 800,
+      fill: isBase ? AI : (isWarn ? SHU : INK),
+      class: 'fade', style: `animation-delay: ${0.45 + i * 0.06}s`
     }, `¥${cost.toLocaleString()}`);
 
-    // 右侧辅助决策备注 (耗时与步数代价)
     txt(s, {
-      x: 525, y: y - 3,
-      'font-size': 7.5, 'font-weight': 700,
-      fill: INK, 'text-anchor': 'end',
-      class: 'fade', style: `animation-delay: ${0.6 + i * 0.08}s`
-    }, `${time}分 · 步${walk}`);
-
-    txt(s, {
-      x: 525, y: y + 9,
-      'font-size': 7, 'font-weight': 500,
-      fill: isWarn ? SHU : (isBase ? AI : MUTED),
-      'text-anchor': 'end',
-      class: 'fade', style: `animation-delay: ${0.6 + i * 0.08}s`
-    }, stairs);
+      x: xb + 14, y: y + 14,
+      'font-size': 11, 'font-weight': 600,
+      fill: isBase ? AI : (isWarn ? SHU : MUTED),
+      class: 'fade', style: `animation-delay: ${0.45 + i * 0.06}s`
+    }, `${time}分 · 步${walk} · ${stairs}`);
   });
 
-  // 底部辅助说明
+  // 底部指导结论
   txt(s, {
-    x: X0, y: 290, 'font-size': 7.5, 'font-weight': 700, fill: AI, class: 'fade'
-  }, '← 经济基准 ¥1,720');
-
-  txt(s, {
-    x: X1 + 10, y: 290, 'font-size': 7.5, 'font-weight': 700, fill: MUTED, 'text-anchor': 'end', class: 'fade'
-  }, '高价门对门 →');
-
-  txt(s, {
-    x: 270, y: 312,
-    'font-size': 7.5, 'font-weight': 600, fill: MUTED, 'text-anchor': 'middle',
-    'letter-spacing': '.08em', class: 'fade', style: 'animation-delay: 0.9s'
-  }, '1 珠 = ¥500 差价 · 方案 A 全程无障碍电梯最划算 · 遇到下雨改选 20:45 定额车');
+    x: 380, y: 355,
+    'font-size': 11, 'font-weight': 600, fill: MUTED, 'text-anchor': 'middle',
+    'letter-spacing': '.06em', class: 'fade', style: 'animation-delay: .7s'
+  }, '白天推荐方案 A (¥1,720 浅草线直通) · 疲惫选方案 B (¥3,300 GO接驳) · 切忌22:00后跳表打车 (+20%加价)');
 });
 </script>
 </body>

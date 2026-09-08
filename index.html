@@ -233,6 +233,36 @@ html[data-theme="dark"] .topbar {
   box-shadow:0 1px 2px rgba(0,0,0,0.03);
 }
 .top-btn:hover,.top-btn.active{border-color:var(--ai);background:var(--ai-bg);color:var(--ai);}
+.chart-top-btn{text-decoration:none;background:var(--ai);color:var(--on-ai);border-color:var(--ai);font-weight:700;display:inline-flex;align-items:center;gap:4px;}
+.chart-top-btn:hover{background:var(--shu);border-color:var(--shu);color:#FFFFFF;}
+
+/* Decision Charts Showcase Card */
+.decision-charts-card{
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:var(--space-lg);margin-bottom:var(--space-2xl);box-shadow:var(--card-shadow);
+}
+.dcc-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-xs);}
+.dcc-badge{font-size:var(--font-2xs);font-weight:800;letter-spacing:.08em;color:var(--ai);background:rgba(28,53,83,0.08);padding:3px 10px;border-radius:99px;}
+.dcc-all-link{font-size:var(--font-xs);font-weight:700;color:var(--shu);text-decoration:none;display:inline-flex;align-items:center;gap:4px;}
+.dcc-all-link:hover{text-decoration:underline;}
+.dcc-title{font-family:var(--font-serif);font-size:var(--font-h3);font-weight:800;color:var(--ink);margin-bottom:4px;}
+.dcc-desc{font-size:var(--font-sub);color:var(--ink-soft);margin-bottom:var(--space-md);line-height:1.6;}
+.dcc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-sm);}
+.dcc-item{
+  display:flex;align-items:center;gap:var(--space-sm);padding:var(--space-sm) var(--space-md);
+  background:var(--card-bg);border:1px solid var(--line-soft);border-radius:var(--r-md);
+  text-decoration:none;transition:all .18s var(--ease-out);
+}
+.dcc-item:hover{border-color:var(--ai);transform:translateY(-2px);box-shadow:0 4px 12px rgba(28,53,83,0.08);}
+.dcc-icon{font-size:1.5rem;flex-shrink:0;}
+.dcc-item-body{flex:1;min-width:0;}
+.dcc-item-title{font-size:var(--font-sm);font-weight:700;color:var(--ink);margin-bottom:2px;}
+.dcc-item-sub{font-size:var(--font-2xs);color:var(--ink-faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.dcc-arrow{font-size:var(--font-sm);color:var(--ink-faint);font-weight:700;}
+@media (max-width:640px){
+  .dcc-grid{grid-template-columns:1fr;}
+  .decision-charts-card{padding:var(--space-md);}
+}
 
 .lang-bar{display:flex;gap:0;border:1px solid var(--line);border-radius:99px;overflow:hidden;background:var(--paper);box-shadow:0 1px 2px rgba(0,0,0,0.03);}
 .lang-btn{
@@ -681,7 +711,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   .mobile-dock{
     position:fixed;z-index:var(--z-dock);left:var(--space-xs);right:var(--space-xs);
     bottom:max(var(--space-xs),env(safe-area-inset-bottom, 0px));
-    display:grid;grid-template-columns:repeat(4,1fr);
+    display:grid;grid-template-columns:repeat(5,1fr);
     border:1px solid var(--line);border-radius:12px;
     background:rgba(255,255,255,0.96);backdrop-filter:blur(14px);
     box-shadow:0 4px 14px rgba(0,0,0,.1);overflow:hidden;
@@ -756,6 +786,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
         </div>
       </div>
       <div class="controls">
+        <a href="charts/index.html" class="top-btn chart-top-btn" title="查看 4 大行程决策图表"><span class="zh on">📊 决策图表</span><span class="en">📊 Charts</span></a>
         <!-- Large Text Mode Toggle (For Mum) -->
         <button class="top-btn" id="text-toggle" onclick="toggleTextSize()" title="切换长辈大字模式" aria-pressed="false">Aa 大字</button>
         <!-- Dark Mode Toggle -->
@@ -872,8 +903,58 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
     </div>
     <div class="meta-cell">
       <div class="meta-label"><span class="zh on">预估总额</span><span class="en">EST. BUDGET</span></div>
-      <div class="meta-val">RM 14,100</div>
-      <div class="meta-sub"><span class="zh on">约 RM 7,050 / 人</span><span class="en">~RM 7,050 / pax</span></div>
+      <div class="meta-val">RM 14,350</div>
+      <div class="meta-sub"><span class="zh on">约 RM 7,175 / 人</span><span class="en">~RM 7,175 / pax</span></div>
+    </div>
+  </div>
+
+  <!-- Decision Visuals Showcase Card -->
+  <div class="decision-charts-card" role="region" aria-label="行程决策图表">
+    <div class="dcc-header">
+      <div class="dcc-badge">✦ VISUAL DECISION SUITE</div>
+      <a href="charts/index.html" class="dcc-all-link">查看图表集总览 →</a>
+    </div>
+    <h3 class="dcc-title">
+      <span class="zh on">📊 4 大行程决策图表 · 视觉化速览</span>
+      <span class="en">📊 4 Key Decision Charts</span>
+    </h3>
+    <p class="dcc-desc">
+      <span class="zh on">以单位分解与诚实契约替代文字堆叠，专为长辈同行控载与关键决策设计。点击任一图表可直接查看高清大图：</span>
+      <span class="en">Intuitive, responsive decision charts designed for pacing, Fuji timing, return routes, and budget. Click any card to view:</span>
+    </p>
+    <div class="dcc-grid">
+      <a href="charts/pacing-curve.html" class="dcc-item">
+        <span class="dcc-icon">🏃</span>
+        <div class="dcc-item-body">
+          <div class="dcc-item-title"><span class="zh on">10天体力波浪曲线</span><span class="en">10-Day Pacing Curve</span></div>
+          <div class="dcc-item-sub"><span class="zh on">D7 达峰 18k 步与连休降载避峰</span><span class="en">D7 Peak 18k Steps & Holiday Rest</span></div>
+        </div>
+        <span class="dcc-arrow">↗</span>
+      </a>
+      <a href="charts/fuji-visibility.html" class="dcc-item">
+        <span class="dcc-icon">🗻</span>
+        <div class="dcc-item-body">
+          <div class="dcc-item-title"><span class="zh on">富士山能见度与顺光</span><span class="en">Fuji Visibility Window</span></div>
+          <div class="dcc-item-sub"><span class="zh on">06:00–11:30 黄金窗 · 正午 28% 低谷</span><span class="en">06:00–11:30 Golden Driving Window</span></div>
+        </div>
+        <span class="dcc-arrow">↗</span>
+      </a>
+      <a href="charts/haneda-options.html" class="dcc-item">
+        <span class="dcc-icon">✈️</span>
+        <div class="dcc-item-body">
+          <div class="dcc-item-title"><span class="zh on">羽田返程 4 方案比价</span><span class="en">Haneda 4 Return Options</span></div>
+          <div class="dcc-item-sub"><span class="zh on">¥1,720 直通 vs ¥14,500 深夜跳表打车</span><span class="en">¥1,720 Transit vs ¥14,500 Taxi</span></div>
+        </div>
+        <span class="dcc-arrow">↗</span>
+      </a>
+      <a href="charts/budget-allocation.html" class="dcc-item">
+        <span class="dcc-icon">💴</span>
+        <div class="dcc-item-body">
+          <div class="dcc-item-title"><span class="zh on">旅费 100% 百人点阵</span><span class="en">Budget 100-Dot Breakdown</span></div>
+          <div class="dcc-item-sub"><span class="zh on">2人 RM 14,350 · 62点刚性已锁定</span><span class="en">RM 14,350 Total · 62% Pre-locked</span></div>
+        </div>
+        <span class="dcc-arrow">↗</span>
+      </a>
     </div>
   </div>
 
@@ -1941,6 +2022,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
       <svg class="chev" id="chev-day-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="day-body" id="body-day-5">
+      <div class="note-box tip" style="margin-bottom:14px;">
+        <strong>📊 富士观景时机决策：</strong>
+        <span>清晨 06:00–08:00 历史晴空露脸概率达 82%–88%，正午骤降至 28%。<a href="charts/fuji-visibility.html" target="_blank" style="font-weight:700;color:var(--matcha);text-decoration:underline;">查看「富士山全天能见度与自驾顺光窗口折线图」↗</a> 把握 11:30 前黄金顺光。</span>
+      </div>
       <div class="day-banner-wrap">
         <img src="fuji_dawn.jpg" class="day-banner" alt="河口湖清晨的赤富士" loading="lazy" decoding="async"/>
       </div>
@@ -2392,6 +2477,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
       <svg class="chev" id="chev-day-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="day-body" id="body-day-7">
+      <div class="note-box tip" style="margin-bottom:14px;">
+        <strong>📊 体力节奏决策：</strong>
+        <span>Day 7 包含明治神宫森林漫步与涩谷SKY，为全程步数峰值（约 18,000 步）。<a href="charts/pacing-curve.html" target="_blank" style="font-weight:700;color:var(--shu);text-decoration:underline;">查看「10天行程强度与避峰节奏曲线」↗</a> 前后均安排低强度休整回血。</span>
+      </div>
       <div class="day-banner-wrap">
         <img src="shibuya.jpg" class="day-banner" alt="涩谷城市天际线" loading="lazy" decoding="async"/>
       </div>
@@ -2772,6 +2861,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
             </div>
           </div>
         </div>
+        <div class="note-box tip" style="margin:12px 0 16px;">
+          <strong>📊 羽田返程比价决策：</strong>
+          <span>4 大方案自 ¥1,720（草63+浅草线）到 ¥14,500（深夜跳表）。<a href="charts/haneda-options.html" target="_blank" style="font-weight:700;color:var(--ai);text-decoration:underline;">查看「羽田返程 4 方案费用与体力权衡哑铃图」↗</a> 串珠直观展现每 ¥500 差额与零阶梯路线。</span>
+        </div>
         <div class="tl-item">
           <div class="tl-icon">🚇</div>
           <div>
@@ -2999,6 +3092,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   </div>
 
   <div class="card">
+    <div class="note-box tip" style="margin-bottom:14px;">
+      <strong>📊 预算视觉化决策：</strong>
+      <span>2 人旅费总额约 RM 14,350，其中 62%（机票+住宿）出发前已提前锁定。<a href="charts/budget-allocation.html" target="_blank" style="font-weight:700;color:var(--ai);text-decoration:underline;">查看「旅费 100% 百人点阵分解图」↗</a> 1 点 = 1% 旅费，清楚透视每笔开支占比。</span>
+    </div>
     <h3><span class="zh on">8.1 固定支出 (已确定 / 预估)</span><span class="en">Fixed Expenses</span></h3>
     <div class="b-row"><span>HK Express 槟城往返机票 (Essential 2人)</span><span>RM 5,208</span></div>
     <div class="b-row"><span>东京 Airbnb 9 晚住宿 (Room 33 · 已订妥)</span><span>RM 3,868</span></div>
@@ -3257,6 +3354,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   <a href="#sec-days"><span class="zh on">日程</span><span class="en">Days</span></a>
   <a href="#sec-booking"><span class="zh on">待办</span><span class="en">To-do</span></a>
   <a href="#sec-budget"><span class="zh on">预算</span><span class="en">Budget</span></a>
+  <a href="charts/index.html"><span class="zh on">📊 图表</span><span class="en">📊 Charts</span></a>
 </nav>
 
 <script>
@@ -3562,7 +3660,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const dockLinks = [...document.querySelectorAll('.mobile-dock a')];
   const dockSections = dockLinks
-    .map(link => document.querySelector(link.getAttribute('href')))
+    .map(link => {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        try { return document.querySelector(href); } catch (e) { return null; }
+      }
+      return null;
+    })
     .filter(Boolean);
   if ('IntersectionObserver' in window && dockSections.length) {
     const updateDock = entries => {

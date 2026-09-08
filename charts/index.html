@@ -3,146 +3,378 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>东京 · 河口湖 2026 — 行程精选 Lieflat Charts 图表集</title>
+<title>东京 · 河口湖 2026 — 行程精选决策图表集</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&family=Shippori+Mincho:wght@700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #F7F5F0;
+    --paper: #FAF9F6;
     --card-bg: #FFFFFF;
     --ink: #231F1B;
-    --muted: #8A8073;
-    --faint: #C4BEB3;
-    --grid: #E8E2D6;
+    --muted: #6B6255;
+    --faint: #B8B0A2;
+    --grid: #E5DFC5;
     --ai: #1C3553;
     --shu: #C2412D;
+    --matcha: #506628;
+    --card-shadow: 0 4px 20px rgba(35, 31, 27, 0.06);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     background: var(--bg);
     font-family: 'Inter', 'Noto Sans SC', sans-serif;
     color: var(--ink);
-    padding: 40px 20px 80px;
+    padding: 0 0 100px;
     -webkit-font-smoothing: antialiased;
   }
-  .container { max-width: 960px; margin: 0 auto; }
-  .header { margin-bottom: 36px; text-align: center; }
+
+  /* Sticky Top Bar */
+  .top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(247, 245, 240, 0.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--grid);
+    padding: 12px 24px;
+  }
+  .top-nav-inner {
+    max-width: 1060px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #FFFFFF;
+    background: var(--ai);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 99px;
+    transition: all .18s ease;
+    box-shadow: 0 2px 6px rgba(28, 53, 83, 0.18);
+  }
+  .back-link:hover {
+    background: var(--shu);
+    transform: translateY(-1px);
+  }
+  .nav-pills {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-pills::-webkit-scrollbar { display: none; }
+  .nav-pill {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 99px;
+    background: #FAF9F6;
+    border: 1px solid var(--grid);
+    white-space: nowrap;
+    transition: all .18s ease;
+  }
+  .nav-pill:hover {
+    background: var(--ai);
+    color: #fff;
+    border-color: var(--ai);
+  }
+  .view-toggle {
+    display: flex;
+    gap: 4px;
+    background: #FAF9F6;
+    padding: 3px;
+    border-radius: 99px;
+    border: 1px solid var(--grid);
+  }
+  .toggle-btn {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    border-radius: 99px;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .toggle-btn.active {
+    background: var(--ai);
+    color: #fff;
+  }
+
+  /* Main Container */
+  .container {
+    max-width: 1040px;
+    margin: 40px auto 0;
+    padding: 0 20px;
+  }
+  .header {
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .header-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    color: var(--ai);
+    background: rgba(28, 53, 83, 0.08);
+    padding: 4px 14px;
+    border-radius: 99px;
+    margin-bottom: 12px;
+  }
   .header h1 {
     font-family: 'Shippori Mincho', 'Inter', serif;
-    font-size: 26px;
+    font-size: 32px;
     font-weight: 800;
     color: var(--ai);
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     letter-spacing: .02em;
   }
   .header p {
-    font-size: 13.5px;
+    font-size: 14.5px;
     color: var(--muted);
-    line-height: 1.6;
-    max-width: 680px;
+    line-height: 1.68;
+    max-width: 720px;
     margin: 0 auto;
   }
-  .grid {
+
+  /* Chart Frames List */
+  .chart-list {
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+  }
+  .chart-list.grid-view {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 28px;
   }
+
   .chart-frame {
     background: var(--card-bg);
     border: 1px solid var(--grid);
-    border-radius: 24px;
+    border-radius: 28px;
     overflow: hidden;
-    box-shadow: 0 4px 16px rgba(35, 31, 27, 0.04);
-    display: flex;
-    flex-direction: column;
+    box-shadow: var(--card-shadow);
     transition: transform .2s ease, box-shadow .2s ease;
   }
   .chart-frame:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(35, 31, 27, 0.08);
+    box-shadow: 0 8px 30px rgba(35, 31, 27, 0.09);
   }
   .frame-head {
-    padding: 16px 20px 12px;
+    padding: 20px 28px;
     border-bottom: 1px solid var(--grid);
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: #FAF9F6;
+    flex-wrap: wrap;
+    gap: 12px;
   }
-  .frame-title {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--ai);
-  }
-  .frame-link {
-    font-size: 11.5px;
-    color: var(--shu);
-    text-decoration: none;
-    font-weight: 600;
+  .frame-info {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 12px;
   }
-  .frame-link:hover { text-decoration: underline; }
-  iframe {
+  .frame-tag {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    padding: 3px 10px;
+    border-radius: 99px;
+    color: #fff;
+    background: var(--ai);
+  }
+  .frame-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .frame-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .frame-link {
+    font-size: 12.5px;
+    color: var(--shu);
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 12px;
+    border-radius: 99px;
+    background: rgba(194, 65, 45, 0.06);
+    transition: all .18s ease;
+  }
+  .frame-link:hover {
+    background: var(--shu);
+    color: #fff;
+  }
+
+  /* Responsive generous iframes */
+  .iframe-container {
     width: 100%;
-    height: 480px;
-    border: none;
+    position: relative;
     background: var(--bg);
   }
-  .back-btn {
-    display: inline-block;
-    margin-bottom: 24px;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--ai);
-    text-decoration: none;
+  iframe {
+    width: 100%;
+    height: 580px;
+    border: none;
+    display: block;
+    background: var(--bg);
   }
-  .back-btn:hover { text-decoration: underline; }
+  .grid-view iframe {
+    height: 480px;
+  }
+
+  @media (max-width: 860px) {
+    .chart-list.grid-view { grid-template-columns: 1fr; }
+    .header h1 { font-size: 24px; }
+    iframe { height: 500px; }
+  }
+  @media (max-width: 640px) {
+    .top-nav { padding: 10px 14px; }
+    .container { padding: 0 12px; margin-top: 24px; }
+    .chart-frame { border-radius: 20px; }
+    .frame-head { padding: 14px 16px; }
+    .frame-title { font-size: 14px; }
+    iframe { height: 460px; }
+  }
 </style>
 </head>
 <body>
+
+<!-- Sticky Navigation Bar -->
+<header class="top-nav">
+  <div class="top-nav-inner">
+    <div class="nav-left">
+      <a href="../index.html" class="back-link">← 返回旅行手册主页</a>
+      <div class="nav-pills">
+        <a href="#chart-pacing" class="nav-pill">1. 节奏曲线</a>
+        <a href="#chart-fuji" class="nav-pill">2. 富士山能见度</a>
+        <a href="#chart-haneda" class="nav-pill">3. 羽田返程比价</a>
+        <a href="#chart-budget" class="nav-pill">4. 预算构成分解</a>
+      </div>
+    </div>
+    <div class="view-toggle" role="group" aria-label="排版布局切换">
+      <button class="toggle-btn active" id="btn-single" onclick="setViewMode('single')">通栏大图</button>
+      <button class="toggle-btn" id="btn-grid" onclick="setViewMode('grid')">双列对比</button>
+    </div>
+  </div>
+</header>
+
 <div class="container">
-  <a href="../index.html" class="back-btn">← 返回旅行手册主页</a>
   <div class="header">
-    <h1>东京 · 河口湖 2026 · 精选决策图表集</h1>
-    <p>基于 Lieflat Charts（图表品味法典）打造的 4 张无依赖、单文件响应式决策图表。以单位分解与诚实契约替代装饰，服务于长辈同行与突发决策场景。</p>
+    <span class="header-badge">VISUAL DECISION SUITE · 4 大决策图表</span>
+    <h1>东京 · 河口湖 2026 · 行程精选决策图表集</h1>
+    <p>专为 62 岁长辈同行与自由行决策定制。以单位分解与诚实契约替代复杂文字，在桌面大屏上舒展呈现全程体力控制、观景时刻、返程权衡与预算全貌。</p>
   </div>
 
-  <div class="grid">
-    <div class="chart-frame">
+  <div class="chart-list" id="chartList">
+    <!-- Chart 1 -->
+    <section class="chart-frame" id="chart-pacing">
       <div class="frame-head">
-        <span class="frame-title">1. 全程节奏 · 10天体力与三连休避峰曲线</span>
-        <a class="frame-link" href="pacing-curve.html" target="_blank">独立全屏 ↗</a>
+        <div class="frame-info">
+          <span class="frame-tag">01 行程节奏</span>
+          <h2 class="frame-title">全程 10 天体力消耗与三连休避峰曲线</h2>
+        </div>
+        <div class="frame-actions">
+          <a class="frame-link" href="pacing-curve.html" target="_blank">独立全屏大图 ↗</a>
+        </div>
       </div>
-      <iframe src="pacing-curve.html"></iframe>
-    </div>
+      <div class="iframe-container">
+        <iframe src="pacing-curve.html" title="10天行程强度与避峰节奏阶梯柱状图" loading="lazy"></iframe>
+      </div>
+    </section>
 
-    <div class="chart-frame">
+    <!-- Chart 2 -->
+    <section class="chart-frame" id="chart-fuji">
       <div class="frame-head">
-        <span class="frame-title">2. 景观决策 · 富士山全天能见度与顺光窗口</span>
-        <a class="frame-link" href="fuji-visibility.html" target="_blank">独立全屏 ↗</a>
+        <div class="frame-info">
+          <span class="frame-tag" style="background:var(--matcha);">02 富士观景</span>
+          <h2 class="frame-title">富士山全天能见度与自驾顺光拍摄黄金窗口</h2>
+        </div>
+        <div class="frame-actions">
+          <a class="frame-link" href="fuji-visibility.html" target="_blank">独立全屏大图 ↗</a>
+        </div>
       </div>
-      <iframe src="fuji-visibility.html"></iframe>
-    </div>
+      <div class="iframe-container">
+        <iframe src="fuji-visibility.html" title="富士山全天各时刻能见度与顺光拍摄窗口折线图" loading="lazy"></iframe>
+      </div>
+    </section>
 
-    <div class="chart-frame">
+    <!-- Chart 3 -->
+    <section class="chart-frame" id="chart-haneda">
       <div class="frame-head">
-        <span class="frame-title">3. 突发抉择 · 羽田深夜返程 4 大方案权衡</span>
-        <a class="frame-link" href="haneda-options.html" target="_blank">独立全屏 ↗</a>
+        <div class="frame-info">
+          <span class="frame-tag" style="background:#855E16;">03 突发抉择</span>
+          <h2 class="frame-title">浅草往羽田深夜返程 4 大方案权衡</h2>
+        </div>
+        <div class="frame-actions">
+          <a class="frame-link" href="haneda-options.html" target="_blank">独立全屏大图 ↗</a>
+        </div>
       </div>
-      <iframe src="haneda-options.html"></iframe>
-    </div>
+      <div class="iframe-container">
+        <iframe src="haneda-options.html" title="羽田深夜返程4大方案费用与体力权衡哑铃图" loading="lazy"></iframe>
+      </div>
+    </section>
 
-    <div class="chart-frame">
+    <!-- Chart 4 -->
+    <section class="chart-frame" id="chart-budget">
       <div class="frame-head">
-        <span class="frame-title">4. 财务全貌 · 旅费 100% 构成分解</span>
-        <a class="frame-link" href="budget-allocation.html" target="_blank">独立全屏 ↗</a>
+        <div class="frame-info">
+          <span class="frame-tag" style="background:var(--shu);">04 财务全貌</span>
+          <h2 class="frame-title">2 人旅费 100% 百人点阵分解</h2>
+        </div>
+        <div class="frame-actions">
+          <a class="frame-link" href="budget-allocation.html" target="_blank">独立全屏大图 ↗</a>
+        </div>
       </div>
-      <iframe src="budget-allocation.html"></iframe>
-    </div>
+      <div class="iframe-container">
+        <iframe src="budget-allocation.html" title="旅费100%构成百人点阵图" loading="lazy"></iframe>
+      </div>
+    </section>
   </div>
 </div>
+
+<script>
+function setViewMode(mode) {
+  const list = document.getElementById('chartList');
+  const btnSingle = document.getElementById('btn-single');
+  const btnGrid = document.getElementById('btn-grid');
+  if (mode === 'grid') {
+    list.classList.add('grid-view');
+    btnGrid.classList.add('active');
+    btnSingle.classList.remove('active');
+  } else {
+    list.classList.remove('grid-view');
+    btnSingle.classList.add('active');
+    btnGrid.classList.remove('active');
+  }
+}
+</script>
 </body>
 </html>

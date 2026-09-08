@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Lieflat Charts — 羽田深夜回程方案决策对比</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F5F0;
+    --card-bg: #FFFFFF;
+    --ink: #231F1B;
+    --muted: #8A8073;
+    --faint: #C4BEB3;
+    --grid: #E8E2D6;
+    --ai: #1C3553;
+    --shu: #C2412D;
+    --matcha: #506628;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    font-family: 'Inter', 'Noto Sans SC', sans-serif;
+    color: var(--ink);
+    padding: 32px 16px;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    justify-content: center;
+  }
+  .wrap { width: 100%; max-width: 600px; }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--grid);
+    border-radius: 24px;
+    padding: 28px 24px 20px;
+    box-shadow: 0 2px 12px rgba(35, 31, 27, 0.04);
+  }
+  .badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    padding: 3px 10px;
+    border-radius: 99px;
+    margin-bottom: 12px;
+    border: 1px dashed #C4BEB3;
+    color: var(--muted);
+  }
+  h2 {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    color: var(--ink);
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+  .sub {
+    font-size: 11.5px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .sub strong { color: var(--ai); font-weight: 700; }
+  svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    overflow: visible;
+  }
+  svg text { font-family: 'Inter', 'Noto Sans SC', sans-serif; }
+  .src {
+    font-size: 9px;
+    color: var(--faint);
+    margin-top: 14px;
+    letter-spacing: .08em;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+  }
+  .pop { transform-box: fill-box; transform-origin: center; animation: pop .5s cubic-bezier(.2,.7,.3,1.3) both; }
+  @keyframes pop { from { transform: scale(0); } to { transform: none; } }
+  .fade { animation: fade .8s ease both; }
+  @keyframes fade { from { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) {
+    .pop, .fade { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <span class="badge">F12 DUMBBELL QUEUE · 机场返程决策</span>
+    <h2>多花 ¥9,380 买到的不是速度，是 0 步数与暴雨庇护</h2>
+    <div class="sub">1 串珠 = ¥500 差价 · 空心圈 = <strong>方案 A 经济基准 (¥1,720)</strong> · 实心圈 = 该方案总花费 · 2人含税</div>
+    <svg id="dumbbell" viewBox="0 0 540 330" preserveAspectRatio="xMidYMid meet" role="img" aria-label="羽田深夜返程4大方案费用与步数哑铃对比图"></svg>
+    <div class="src">
+      <span>F12 Dumbbell Queue · Haneda Airport Return</span>
+      <span>Click chart to replay</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Tokens & Helpers ──
+const INK = '#231F1B', MUTED = '#8A8073', GRID = '#E8E2D6', FAINT = '#C4BEB3';
+const AI = '#1C3553', SHU = '#C2412D', PAPER = '#FAF9F6';
+const NS = 'http://www.w3.org/2000/svg';
+const el = (p, t, a) => {
+  const n = document.createElementNS(NS, t);
+  for (const k in a) n.setAttribute(k, a[k]);
+  p.appendChild(n);
+  return n;
+};
+const txt = (p, a, s) => {
+  const n = el(p, 'text', a);
+  n.textContent = s;
+  return n;
+};
+const tip = (n, s) => {
+  const t = document.createElementNS(NS, 'title');
+  t.textContent = s;
+  n.appendChild(t);
+};
+const rnd = (i, k) => Math.abs(((i * 73856093) ^ (k * 19349663)) % 1000) / 1000;
+
+const obsReveal = (id, fn) => {
+  const n = document.getElementById(id);
+  const go = () => { n.innerHTML = ''; fn(n); };
+  const io = new IntersectionObserver(es => {
+    if (es[0].isIntersecting) { go(); io.disconnect(); }
+  }, { threshold: .2 });
+  io.observe(n);
+  n.style.cursor = 'pointer';
+  n.addEventListener('click', go);
+};
+
+// ── 4 大返程方案数据 ──
+// [ID, Name, Cost(JPY), Time(min), WalkDistance, Stairs, ToneTag]
+const BASE_COST = 1720;
+const D = [
+  ['方案 A', '公车草63 + 浅草线直通', 1720, 55, '280m', '0阶梯', 'rec'],
+  ['方案 B', 'GO叫车浅草 + 浅草线', 3300, 45, '50m', '0阶梯', 'bal'],
+  ['方案 C', '定额计程车 (20:45出发)', 11100, 50, '0m', '门对门', 'storm'],
+  ['方案 D', '深夜跳表打车 (22:00后)', 14500, 40, '0m', '避坑+20%', 'warn']
+];
+
+obsReveal('dumbbell', s => {
+  const y0 = i => 58 + i * 56;
+  const X0 = 172, X1 = 448;
+  const mapX = cost => X0 + Math.min(1, Math.max(0, (cost - BASE_COST) / (14500 - BASE_COST))) * (X1 - X0);
+
+  D.forEach(([id, name, cost, time, walk, stairs, kind], i) => {
+    const y = y0(i);
+    const xa = mapX(BASE_COST);
+    const xb = mapX(cost);
+    const isBase = (cost === BASE_COST);
+    const isWarn = (kind === 'warn');
+    const isStorm = (kind === 'storm');
+
+    // 左侧方案名称与核心标签
+    txt(s, {
+      x: 160, y: y - 5,
+      'font-size': 8.5, 'font-weight': 800,
+      fill: isBase ? AI : (isWarn ? SHU : INK),
+      'text-anchor': 'end', 'letter-spacing': '.02em',
+      class: 'fade', style: `animation-delay: ${i * 0.08}s`
+    }, id);
+
+    txt(s, {
+      x: 160, y: y + 9,
+      'font-size': 7.5, 'font-weight': 500,
+      fill: MUTED, 'text-anchor': 'end',
+      class: 'fade', style: `animation-delay: ${i * 0.08}s`
+    }, name);
+
+    // 导轨背景线
+    el(s, 'line', {
+      x1: X0 - 8, y1: y, x2: X1 + 18, y2: y,
+      stroke: GRID, 'stroke-width': 0.8,
+      class: 'fade', style: `animation-delay: ${i * 0.08}s`
+    });
+
+    // 哑铃轨道上的串珠：每 ¥500 差价一粒珠
+    const diff = cost - BASE_COST;
+    const numBeads = Math.round(diff / 500);
+    for (let k = 0; k < numBeads; k++) {
+      const t = (k + 0.5) / numBeads;
+      const bx = xa + t * (xb - xa);
+      const by = y + (rnd(k + 1, i + 3) - 0.5) * 2.2;
+      el(s, 'circle', {
+        cx: bx, cy: by,
+        r: 1.4 + rnd(k + 2, i + 4) * 0.8,
+        fill: isWarn ? SHU : (isStorm ? AI : MUTED),
+        opacity: 0.75,
+        class: 'pop', style: `animation-delay: ${0.25 + i * 0.08 + k * 0.02}s`
+      });
+    }
+
+    // 左端基准空心圈（仅在非基准行绘制，避免基准行自身重叠产生伪影）
+    if (!isBase) {
+      el(s, 'circle', {
+        cx: xa, cy: y, r: 4.2,
+        fill: '#FFFFFF', stroke: AI, 'stroke-width': 1.6,
+        class: 'pop', style: `animation-delay: ${0.15 + i * 0.08}s`
+      });
+    }
+
+    // 右端花费实心圈
+    const endDot = el(s, 'circle', {
+      cx: xb, cy: y, r: isBase ? 4.2 : 5.0,
+      fill: isBase ? AI : (isWarn ? SHU : INK),
+      stroke: '#FFFFFF', 'stroke-width': 1.2,
+      class: 'pop', style: `animation-delay: ${0.5 + i * 0.08}s`
+    });
+
+    tip(endDot, `${id}：¥${cost.toLocaleString()} · ${time}分钟 · 步行 ${walk} (${stairs})`);
+
+    // 圈旁数值
+    txt(s, {
+      x: xb + 9, y: y + 4,
+      'font-size': 9.5, 'font-weight': 800,
+      fill: isWarn ? SHU : INK,
+      class: 'fade', style: `animation-delay: ${0.6 + i * 0.08}s`
+    }, `¥${cost.toLocaleString()}`);
+
+    // 右侧辅助决策备注 (耗时与步数代价)
+    txt(s, {
+      x: 525, y: y - 3,
+      'font-size': 7.5, 'font-weight': 700,
+      fill: INK, 'text-anchor': 'end',
+      class: 'fade', style: `animation-delay: ${0.6 + i * 0.08}s`
+    }, `${time}分 · 步${walk}`);
+
+    txt(s, {
+      x: 525, y: y + 9,
+      'font-size': 7, 'font-weight': 500,
+      fill: isWarn ? SHU : (isBase ? AI : MUTED),
+      'text-anchor': 'end',
+      class: 'fade', style: `animation-delay: ${0.6 + i * 0.08}s`
+    }, stairs);
+  });
+
+  // 底部辅助说明
+  txt(s, {
+    x: X0, y: 290, 'font-size': 7.5, 'font-weight': 700, fill: AI, class: 'fade'
+  }, '← 经济基准 ¥1,720');
+
+  txt(s, {
+    x: X1 + 10, y: 290, 'font-size': 7.5, 'font-weight': 700, fill: MUTED, 'text-anchor': 'end', class: 'fade'
+  }, '高价门对门 →');
+
+  txt(s, {
+    x: 270, y: 312,
+    'font-size': 7.5, 'font-weight': 600, fill: MUTED, 'text-anchor': 'middle',
+    'letter-spacing': '.08em', class: 'fade', style: 'animation-delay: 0.9s'
+  }, '1 珠 = ¥500 差价 · 方案 A 全程无障碍电梯最划算 · 遇到下雨改选 20:45 定额车');
+});
+</script>
+</body>
+</html>

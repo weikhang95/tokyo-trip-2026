@@ -233,18 +233,21 @@
     color: #fff;
   }
 
-  /* Responsive generous iframes */
+  /* Responsive auto-fitting iframes (zero scroll bars) */
   .iframe-container {
     width: 100%;
     position: relative;
     background: var(--bg);
+    overflow: hidden;
   }
   iframe {
     width: 100%;
-    height: 580px;
+    height: 620px;
     border: none;
     display: block;
     background: var(--bg);
+    overflow: hidden;
+    transition: height .2s ease;
   }
   .grid-view iframe {
     height: 480px;
@@ -253,7 +256,6 @@
   @media (max-width: 860px) {
     .chart-list.grid-view { grid-template-columns: 1fr; }
     .header h1 { font-size: 24px; }
-    iframe { height: 500px; }
   }
   @media (max-width: 640px) {
     .top-nav { padding: 10px 14px; }
@@ -261,7 +263,6 @@
     .chart-frame { border-radius: 20px; }
     .frame-head { padding: 14px 16px; }
     .frame-title { font-size: 14px; }
-    iframe { height: 460px; }
   }
 </style>
 </head>
@@ -306,7 +307,7 @@
         </div>
       </div>
       <div class="iframe-container">
-        <iframe src="pacing-curve.html" title="10天行程强度与避峰节奏阶梯柱状图" loading="lazy"></iframe>
+        <iframe id="frame-pacing" src="pacing-curve.html" title="10天行程强度与避峰节奏阶梯柱状图" loading="lazy" scrolling="no" onload="handleIframeLoad(this)"></iframe>
       </div>
     </section>
 
@@ -322,7 +323,7 @@
         </div>
       </div>
       <div class="iframe-container">
-        <iframe src="fuji-visibility.html" title="富士山全天各时刻能见度与顺光拍摄窗口折线图" loading="lazy"></iframe>
+        <iframe id="frame-fuji" src="fuji-visibility.html" title="富士山全天各时刻能见度与顺光拍摄窗口折线图" loading="lazy" scrolling="no" onload="handleIframeLoad(this)"></iframe>
       </div>
     </section>
 
@@ -338,7 +339,7 @@
         </div>
       </div>
       <div class="iframe-container">
-        <iframe src="haneda-options.html" title="羽田深夜返程4大方案费用与体力权衡哑铃图" loading="lazy"></iframe>
+        <iframe id="frame-haneda" src="haneda-options.html" title="羽田深夜返程4大方案费用与体力权衡哑铃图" loading="lazy" scrolling="no" onload="handleIframeLoad(this)"></iframe>
       </div>
     </section>
 
@@ -354,13 +355,69 @@
         </div>
       </div>
       <div class="iframe-container">
-        <iframe src="budget-allocation.html" title="旅费100%构成百人点阵图" loading="lazy"></iframe>
+        <iframe id="frame-budget" src="budget-allocation.html" title="旅费100%构成百人点阵图" loading="lazy" scrolling="no" onload="handleIframeLoad(this)"></iframe>
       </div>
     </section>
   </div>
 </div>
 
 <script>
+// ── Iframe Auto-Height (Zero Scrollbars) ──
+function resizeIframe(iframe) {
+  if (!iframe) return;
+  try {
+    const doc = iframe.contentDocument || (iframe.contentWindow && iframe.contentWindow.document);
+    if (doc && doc.body) {
+      doc.documentElement.classList.add('is-embedded');
+      doc.body.classList.add('is-embedded');
+      const h = Math.max(
+        doc.body.scrollHeight,
+        doc.body.offsetHeight,
+        doc.documentElement.scrollHeight,
+        doc.documentElement.offsetHeight
+      );
+      if (h > 100) {
+        iframe.style.height = Math.ceil(h) + 'px';
+      }
+    }
+  } catch (e) {
+    // Cross-origin fallback handled by window message event below
+  }
+}
+
+function handleIframeLoad(iframe) {
+  resizeIframe(iframe);
+  try {
+    const doc = iframe.contentDocument || (iframe.contentWindow && iframe.contentWindow.document);
+    if (doc && window.ResizeObserver && doc.body) {
+      new ResizeObserver(() => resizeIframe(iframe)).observe(doc.body);
+    }
+  } catch (e) {}
+}
+
+function resizeAllIframes() {
+  document.querySelectorAll('.iframe-container iframe').forEach(frame => {
+    resizeIframe(frame);
+  });
+}
+
+// Listen for message broadcasts from child documents
+window.addEventListener('message', function(e) {
+  if (e.data && e.data.type === 'resize-iframe') {
+    const { frameSrc, height } = e.data;
+    if (frameSrc && height > 100) {
+      const frame = document.querySelector(`iframe[src*="${frameSrc}"]`);
+      if (frame) {
+        frame.style.height = Math.ceil(height) + 'px';
+      }
+    }
+  }
+});
+
+window.addEventListener('resize', () => {
+  resizeAllIframes();
+});
+
 function setViewMode(mode) {
   const list = document.getElementById('chartList');
   const btnSingle = document.getElementById('btn-single');
@@ -374,7 +431,14 @@ function setViewMode(mode) {
     btnSingle.classList.add('active');
     btnGrid.classList.remove('active');
   }
+  // Recalculate iframe heights after layout reflow
+  setTimeout(resizeAllIframes, 60);
+  setTimeout(resizeAllIframes, 250);
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  resizeAllIframes();
+});
 </script>
 </body>
 </html>

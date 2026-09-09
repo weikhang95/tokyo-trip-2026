@@ -235,6 +235,8 @@ html[data-theme="dark"] .topbar {
 .top-btn:hover,.top-btn.active{border-color:var(--ai);background:var(--ai-bg);color:var(--ai);}
 .chart-top-btn{text-decoration:none;background:var(--ai);color:var(--on-ai);border-color:var(--ai);font-weight:700;display:inline-flex;align-items:center;gap:4px;}
 .chart-top-btn:hover{background:var(--shu);border-color:var(--shu);color:#FFFFFF;}
+.companion-top-btn{text-decoration:none;background:var(--shu);color:#FFFFFF;border-color:var(--shu);font-weight:700;display:inline-flex;align-items:center;gap:4px;}
+.companion-top-btn:hover{background:#a33423;border-color:#a33423;color:#FFFFFF;}
 
 /* Decision Charts Showcase Card */
 .decision-charts-card{
@@ -711,7 +713,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   .mobile-dock{
     position:fixed;z-index:var(--z-dock);left:var(--space-xs);right:var(--space-xs);
     bottom:max(var(--space-xs),env(safe-area-inset-bottom, 0px));
-    display:grid;grid-template-columns:repeat(5,1fr);
+    display:grid;grid-template-columns:repeat(6,1fr);
     border:1px solid var(--line);border-radius:12px;
     background:rgba(255,255,255,0.96);backdrop-filter:blur(14px);
     box-shadow:0 4px 14px rgba(0,0,0,.1);overflow:hidden;
@@ -786,6 +788,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
         </div>
       </div>
       <div class="controls">
+        <a href="companion.html" class="top-btn companion-top-btn" title="查看 随身极简行程与地图助手"><span class="zh on">📱 随身行程</span><span class="en">📱 Companion</span></a>
         <a href="charts/index.html" class="top-btn chart-top-btn" title="查看 4 大行程决策图表"><span class="zh on">📊 决策图表</span><span class="en">📊 Charts</span></a>
         <!-- Large Text Mode Toggle (For Mum) -->
         <button class="top-btn" id="text-toggle" onclick="toggleTextSize()" title="切换长辈大字模式" aria-pressed="false">Aa 大字</button>
@@ -802,6 +805,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 
   <!-- Interactive Nav Chips & Category Filters -->
   <nav class="nav-chips" aria-label="行程筛选与章节导航">
+    <a href="companion.html" class="chip" style="border-color:var(--shu);color:var(--shu);font-weight:700;"><span class="zh on">📱 随身行程地图</span><span class="en">📱 Companion Map</span></a>
     <button class="chip active" aria-pressed="true" onclick="filterCategory('all', this)"><span class="zh on">全部行程 (10天)</span><span class="en">All Days (10D)</span></button>
     <button class="chip" aria-pressed="false" onclick="filterCategory('d13', this)"><span class="zh on">Day 1-3 东京</span><span class="en">Day 1-3 Tokyo</span></button>
     <button class="chip" aria-pressed="false" onclick="filterCategory('fuji', this)"><span class="zh on">Day 4-5 河口湖</span><span class="en">Day 4-5 Fuji</span></button>
@@ -1319,6 +1323,18 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
     <h2 class="sec-kanji">日 程</h2>
     <div class="sec-en">DAILY ITINERARY (DAYS 1 - 10)</div>
     <div class="sec-line"></div>
+  </div>
+
+  <!-- Companion Callout Card -->
+  <div class="card" style="border-left:4px solid var(--shu);padding:var(--space-sm) var(--space-md);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:var(--space-md);background:var(--paper);">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span style="font-size:1.6rem;line-height:1;">📱</span>
+      <div>
+        <div style="font-weight:700;font-size:var(--font-sm);color:var(--ink);"><span class="zh on">户外在路上？推荐使用「随身时间行程与地图助手」</span><span class="en">On the road? Try the Companion Itinerary & Map</span></div>
+        <div style="font-size:var(--font-xs);color:var(--ink-soft);margin-top:2px;"><span class="zh on">纯时间轴 + 分日 Leaflet 地图 + 一键直跳 Google Maps 导航，去除主页冗长背景，专为手机户外速查打造。</span><span class="en">Pure timeline + daily interactive map + 1-tap Google Maps navigation, built for quick mobile lookup.</span></div>
+      </div>
+    </div>
+    <a href="companion.html" class="top-btn" style="background:var(--shu);color:#fff;border-color:var(--shu);font-weight:700;text-decoration:none;"><span class="zh on">打开随身助手 ↗</span><span class="en">Open Companion ↗</span></a>
   </div>
 
   <!-- DAY 1 (With 3 B-Plan Options, Numbered Lists & Plan B Table) -->
@@ -3384,6 +3400,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 <nav class="mobile-dock" aria-label="手机快捷导航">
   <a href="#sec-overview"><span class="zh on">速览</span><span class="en">Overview</span></a>
   <a href="#sec-days"><span class="zh on">日程</span><span class="en">Days</span></a>
+  <a href="companion.html" style="color:var(--shu);font-weight:700;"><span class="zh on">📱 随身</span><span class="en">📱 Map</span></a>
   <a href="#sec-booking"><span class="zh on">待办</span><span class="en">To-do</span></a>
   <a href="#sec-budget"><span class="zh on">预算</span><span class="en">Budget</span></a>
   <a href="charts/index.html"><span class="zh on">📊 图表</span><span class="en">📊 Charts</span></a>

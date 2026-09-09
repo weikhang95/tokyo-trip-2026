@@ -256,6 +256,39 @@
   }
 
   /* ── Day Summary Header Card ── */
+  
+  /* Day 8 Tri-Option Switcher Pills */
+  .day8-switcher {
+    display: flex;
+    gap: 6px;
+    background: #EAE6DE;
+    padding: 3px;
+    border-radius: 99px;
+    margin-bottom: 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .day8-switcher::-webkit-scrollbar { display: none; }
+  .d8-opt-btn {
+    flex: 1 0 auto;
+    border: none;
+    background: transparent;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--muted);
+    padding: 6px 12px;
+    border-radius: 99px;
+    cursor: pointer;
+    transition: all .18s ease;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .d8-opt-btn.active {
+    background: var(--ai);
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(28, 53, 83, 0.25);
+  }
+
   .day-hero-card {
     background: var(--card-bg);
     border: 1px solid var(--grid);
@@ -582,6 +615,219 @@
 // ══════════════════════════════════════════════════════════════════════
 // 10-Day Complete Data Structure with Exact Coordinates & Hacks
 // ══════════════════════════════════════════════════════════════════════
+
+// ══════════════════════════════════════════════════════════════════════
+// Day 8 Tri-Option Full Dataset (Kamakura / Kiyosumi / Kichijoji)
+// ══════════════════════════════════════════════════════════════════════
+let currentDay8OptionKey = 'kamakura'; // 'kamakura', 'kiyosumi', 'kichijoji'
+
+const DAY8_OPTIONS = {
+  kamakura: {
+    key: 'kamakura',
+    label: '🌊 方案 A · 镰仓海景大佛 (主推)',
+    day: 'D8',
+    date: '10/10',
+    weekday: '周六',
+    intensity: '🟡 中等负荷 · 全程双层软座与打车跳关',
+    title: '镰仓大佛祈福 ➔ 长谷寺海景 ➔ 湘南海岸 bills 顶级海景 Cafe ★',
+    desc: '满足妈妈看大佛与搭乘复古江之电的心愿，也满足您的太平洋海景松弛愿望！双层 Green Car 软座直达，镰仓站西口打车直抵大佛门前跳过排队，bills 落地窗享用入口即化热香饼，15:45 提早撤离避开大拥堵。',
+    transit: '🚆 JR 横须贺线 Green Car 双层大软座 ➔ 站前打车 ➔ 江之电复古电车',
+    routeUrl: 'https://www.google.com/maps/dir/?api=1&origin=Kamakura+Station&destination=bills+Shichirigahama',
+    nodes: [
+      {
+        time: '08:30 - 09:50',
+        name: '新桥站 ➔ JR 横须贺线 Green Car (双层豪华软座) ★',
+        sub: 'JR Yokosuka Line Green Car to Kamakura',
+        lat: 35.6664, lng: 139.7583,
+        action: '公寓打车至浅草转车或日比谷线至上野转山手线。新桥站登上双层 Green Car 软座 (加价 ¥750/人，50分钟直达镰仓)，大沙发靠窗看景，长辈安稳闭目养神。',
+        tags: ['双层大软座', '全程有座闭目养神', '避开普通车厢挤车'],
+        hero: false
+      },
+      {
+        time: '09:50 - 10:00',
+        name: '镰仓站西口 ➔ 打车直达大佛门前 (避三连休排队绝招)',
+        sub: '3.3 km · 8分钟 · 车资约 ¥1,200',
+        lat: 35.3190, lng: 139.5504,
+        action: '⚠️ 避开三连休排队绝招：出西口直接在站前搭出租车直达大佛门口，花几十块钱彻底跳过江之电月台 20–30 分钟排队长龙！',
+        tags: ['打车跳关', '零排队', '长辈免站立受罪'],
+        hero: false
+      },
+      {
+        time: '10:00 - 10:45',
+        name: '高德院 · 镰仓大佛 (0 阶梯平路祈福合影) ★',
+        sub: '国宝青铜大佛 · 门票 ¥300',
+        lat: 35.3168, lng: 139.5357,
+        action: '满足妈妈心愿 1：全平坦砂石地 (0 阶梯！)，进门平步仰望 13.35 米高露天大佛。晨光下庄严慈祥，给长辈祈福拍照，腿部零负担。',
+        tags: ['0阶梯平路', '大佛祈福合影', '长辈核心高光'],
+        hero: true
+      },
+      {
+        time: '10:45 - 11:45',
+        name: '长谷老街 ➔ 长谷寺 (十一面观音 & 见晴台看海平台)',
+        sub: '平路漫步 550m ➔ 见晴台远眺相模湾海景',
+        lat: 35.3125, lng: 139.5330,
+        action: '门票 ¥400。平缓老街漫步，参拜 9.18 米木造十一面观音；走平坡到「见晴台」树荫长椅，坐着吹初秋海风看相模湾蔚蓝海景！',
+        tags: ['观音立像', '见晴台看海长椅', '海风怡人'],
+        hero: false
+      },
+      {
+        time: '11:45 - 12:00',
+        name: '江之电长谷站 ➔ 七里ヶ浜站 (复古海景电车体验)',
+        sub: '长谷寺走 397m 至车站 ➔ 乘车 7 分钟',
+        lat: 35.3113, lng: 139.5356,
+        action: '满足妈妈心愿 2：搭乘复古江之电下行方向 3 站 (7分钟)。下行方向人少，穿梭海边民宅与铁道，体验生动日剧风情。',
+        tags: ['江之电复古电车', '下行避峰', '海边铁道'],
+        hero: false
+      },
+      {
+        time: '12:00 - 14:15',
+        name: 'bills 七里ヶ浜 (世界第一早餐 · 太平洋全景海景 Cafe) ☕ ★',
+        sub: '出站步行仅 175m 平路 · TableCheck 提前预约',
+        lat: 35.3057, lng: 139.5097,
+        action: '满足你的海景愿望：大片落地窗直面太平洋海浪，品尝如云朵般入口即化的【招牌瑞可塔热香饼 (Ricotta Hotcakes)】与热澳白。软皮沙发室内空调，提前预约免排队！',
+        tags: ['世界第一早餐', '太平洋全景海景', '软绵热香饼', 'TableCheck提前预约'],
+        hero: true
+      },
+      {
+        time: '14:30 - 15:45',
+        name: '七里ヶ浜海堤看浪 ➔ 乘江之电返回镰仓站',
+        sub: '相模湾沿岸海堤吹风看浪',
+        lat: 35.3050, lng: 139.5100,
+        action: '平坦海堤散步看冲浪者与相模湾浪花 (晴天远眺富士山)，在七里ヶ浜站搭江之电悠闲返回镰仓站。坚决不逛拥挤的小町通！',
+        tags: ['海堤漫步', '远眺富士山', '不逛拥挤小町通'],
+        hero: false
+      },
+      {
+        time: '15:45 - 17:00',
+        name: '【提前撤离避堵】镰仓站 ➔ JR Green Car 躺回新桥',
+        sub: '彻底避开傍晚 17:00-19:00 大堵塞！',
+        lat: 35.3190, lng: 139.5504,
+        action: '15:45 在镰仓站登上 Green Car 双层大软座，躺着睡 50 分钟直达新桥，浅草转车或打车回竜泉，17:00 进门早休泡脚，彻底蓄力！',
+        tags: ['15:45提早撤离', '双层软座躺回', '全程有座'],
+        hero: false
+      }
+    ]
+  },
+  kiyosumi: {
+    key: 'kiyosumi',
+    label: '☕ 方案 B · 清澄白河 (避连休回血)',
+    day: 'D8',
+    date: '10/10',
+    weekday: '周六',
+    intensity: '🟢 低负荷 (深度回血) · 约 3,500 步',
+    title: '清澄白河慢调 ➔ 水上回游庭园 ➔ 门前仲町深川饭 (避连休)',
+    desc: '日本三连休首日避开热区！上午漫步清澄庭园水上踏石，午餐在门前仲町享用热腾腾深川蛤蜊饭，下午悠闲打卡东京慢调咖啡馆，晚间早休备战羽田离境。',
+    transit: '🚇 大江户线/半藏门线直达 ➔ 傍晚步行回巢',
+    routeUrl: 'https://www.google.com/maps/dir/?api=1&origin=Blue+Bottle+Coffee+Kiyosumi&destination=Kiyosumi+Gardens&travelmode=walking',
+    nodes: [
+      {
+        time: '10:30',
+        name: '清澄白河 · 蓝瓶咖啡 (日本1号店)',
+        sub: 'Blue Bottle Kiyosumi Shirakawa',
+        lat: 35.6820, lng: 139.8000,
+        action: '高挑明亮原木大空间，慢品一杯清香手冲咖啡配香软饼干，安静惬意避开人潮。',
+        tags: ['日本一号店', '手冲咖啡', '宁静街区'],
+        hero: false
+      },
+      {
+        time: '11:30',
+        name: '清澄庭园 (水上回游式大名庭园) ★',
+        sub: '都立庭园 · 门票仅 ¥150 (长辈半价)',
+        lat: 35.6805, lng: 139.7985,
+        action: '踏伊豆大石矶渡水步道，池中巨大锦鲤与水鸟嬉戏，绿树倒影如镜，平坦幽静完全零拥挤。',
+        tags: ['都立名园', '水上矶渡', '人少景幽'],
+        hero: true
+      },
+      {
+        time: '13:00',
+        name: '门前仲町 · 下町传统名物「深川饭」',
+        sub: '富冈八幡宫旁老铺',
+        lat: 35.6720, lng: 139.7960,
+        action: '甘甜饱满蛤蜊肉吸饱浓郁热高汤的石锅炊饭，粒粒软糯鲜香，极易消化完全无肠胃负担！',
+        tags: ['软烂蛤蜊炊饭', '下町名物', '长辈极爱'],
+        hero: false
+      },
+      {
+        time: '14:30',
+        name: '隅田川林荫漫步 ➔ 回公寓午休',
+        sub: '沿江木栈道吹风 ➔ 回房躺平蓄力',
+        lat: 35.7230, lng: 139.7905,
+        action: '下午不排任何硬行程，回竜泉公寓睡个香甜午觉，泡脚看电视，为明晚羽田返程养足百分之百精神。',
+        tags: ['午后大午睡', '连休避峰', '彻底蓄力'],
+        hero: false
+      }
+    ]
+  },
+  kichijoji: {
+    key: 'kichijoji',
+    label: '🛍️ 方案 C · 吉祥寺井之头 (文青备选)',
+    day: 'D8',
+    date: '10/10',
+    weekday: '周六',
+    intensity: '🟡 中等负荷 · 假日人潮较多宜放慢走',
+    title: '吉祥寺慢活 ➔ 井之头公园林荫 ➔ Sunroad 拱廊百货 ➔ 吉卜力外围',
+    desc: '东京人最想居住街区！探访井之头恩赐公园水塘林荫，闲逛 Sunroad 遮雨商业街与中道通杂货铺。假日人潮密集，宜放慢脚步走走停停。',
+    transit: '🚆 JR 中央线快速 / 京王井之头线 ➔ 巴士接驳',
+    routeUrl: 'https://www.google.com/maps/dir/?api=1&origin=Kichijoji+Station&destination=Ghibli+Museum',
+    nodes: [
+      {
+        time: '09:30',
+        name: '吉祥寺站出站 ➔ 穿越平和通り',
+        sub: 'Kichijoji Station North Exit',
+        lat: 35.7026, lng: 139.5797,
+        action: '出站即见繁华生活街区，平坦人行道漫步前往商业拱廊街。',
+        tags: ['车站直达', '繁华生活感'],
+        hero: false
+      },
+      {
+        time: '09:45',
+        name: 'Sunroad 拱廊商业街 & Satou 松阪牛肉丸',
+        sub: '全遮雨拱廊步行街 · 肉のさとう',
+        lat: 35.7040, lng: 139.5790,
+        action: '长辈若想尝鲜可趁早买热腾腾外焦里嫩炸牛肉丸；若排队超 20 人建议果断放弃免长辈久站。',
+        tags: ['遮雨拱廊', '名物牛肉丸', '人多不排队'],
+        hero: false
+      },
+      {
+        time: '11:00',
+        name: '井之头恩赐公园 (神田川源头天鹅湖与绿荫) ★',
+        sub: 'Inokashira Park · 百年都立公园',
+        lat: 35.6997, lng: 139.5737,
+        action: '绿树成荫，湖面天鹅船游弋。在池畔树荫长椅坐下吹风吃点心，享受东京人的慢调周末。',
+        tags: ['天鹅湖', '林荫长椅', '绿意放松'],
+        hero: true
+      },
+      {
+        time: '12:15',
+        name: 'Chai Break 斯里兰卡奶茶 / 咖啡早午餐',
+        sub: '公园入口旁宁静红茶名店',
+        lat: 35.6991, lng: 139.5762,
+        action: '品尝香浓现煮肉桂香料奶茶与温热早午餐，给长辈双腿充分坐下歇息充能。',
+        tags: ['现煮香料奶茶', '公园入口', '坐下歇息'],
+        hero: false
+      },
+      {
+        time: '14:00',
+        name: '三鹰之森吉卜力美术馆外围 (龙猫售票亭合影)',
+        sub: 'Ghibli Museum 外围森林步道',
+        lat: 35.6962, lng: 139.5704,
+        action: '在茂密绿树包围的童话城堡前与巨大龙猫合影打卡，宛如走入宫崎骏动画世界。',
+        tags: ['龙猫城堡合影', '童话绿荫', '合影留念'],
+        hero: true
+      },
+      {
+        time: '15:30',
+        name: '搭乘巴士直达吉祥寺站 ➔ JR 中央线返程',
+        sub: '乘小田急巴士 (¥220) 跳过步行回程',
+        lat: 35.7026, lng: 139.5797,
+        action: '美术馆门前直接搭巴士 5 分钟回吉祥寺站 (免走 1.8km 回头路！)，搭乘中央线返回东京市区。',
+        tags: ['巴士跳关', '免走回头路', '从容返程'],
+        hero: false
+      }
+    ]
+  }
+};
+
 const DAYS = [
   {
     day: "D1",
@@ -1162,54 +1408,7 @@ const DAYS = [
       }
     ]
   },
-  {
-    day: "D8",
-    date: "10/10",
-    weekday: "六",
-    title: "清澄白河慢调 ➔ 水上回游庭园 ➔ 门前仲町深川饭 (避连休)",
-    intensity: "低负荷 (深度回血) · 约 3,500 步",
-    desc: "日本体育之日三连休首日，避开所有主流景区！清澄白河喝精品咖啡，漫步水上绿树回游庭园，吃软烂鲜美蛤蜊深川饭，下午回房午休。",
-    transit: "🚇 大江户线/半藏门线直达 ➔ 傍晚步行回巢",
-    routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Blue+Bottle+Coffee+Kiyosumi&destination=Kiyosumi+Gardens&travelmode=walking",
-    nodes: [
-      {
-        time: "10:30",
-        name: "清澄白河 · 蓝瓶咖啡 (日本1号店)",
-        sub: "Blue Bottle Kiyosumi Shirakawa",
-        lat: 35.6820, lng: 139.8000,
-        action: "高挑明亮原木大空间，慢品一杯清香手冲咖啡配香软饼干，安静惬意避开人潮。",
-        tags: ["日本一号店", "手冲咖啡", "宁静街区"],
-        hero: false
-      },
-      {
-        time: "11:30",
-        name: "清澄庭园 (水上回游式大名庭园) ★",
-        sub: "都立庭园 · 门票仅 ¥150 (长辈半价)",
-        lat: 35.6805, lng: 139.7985,
-        action: "踏伊豆大石矶渡水步道，池中巨大锦鲤与水鸟嬉戏，绿树倒影如镜，平坦幽静完全零拥挤。",
-        tags: ["都立名园", "水上矶渡", "人少景幽"],
-        hero: true
-      },
-      {
-        time: "13:00",
-        name: "门前仲町 · 下町传统名物「深川饭」",
-        sub: "富冈八幡宫旁老铺",
-        lat: 35.6720, lng: 139.7960,
-        action: "甘甜饱满蛤蜊肉吸饱浓郁热高汤的石锅炊饭，粒粒软糯鲜香，极易消化完全无肠胃负担！",
-        tags: ["软烂蛤蜊炊饭", "下町名物", "长辈极爱"],
-        hero: false
-      },
-      {
-        time: "14:30",
-        name: "隅田川林荫漫步 ➔ 回公寓午休",
-        sub: "沿江木栈道吹风 ➔ 回房躺平蓄力",
-        lat: 35.7230, lng: 139.7905,
-        action: "下午不排任何硬行程，回竜泉公寓睡个香甜午觉，泡脚看电视，为明晚羽田返程养足百分之百精神。",
-        tags: ["午后大午睡", "连休避峰", "彻底蓄力"],
-        hero: false
-      }
-    ]
-  },
+  DAY8_OPTIONS.kamakura,
   {
     day: "D9",
     date: "10/11",
@@ -1350,14 +1549,29 @@ const PREBAKED_ROUTES = {
     "encoded": "}~}xE_ggtYM?s@Co@AG?OA@OL@x@@`BBR@F?|AFP?p@B`@D^P~BvA\\TNJHFJHb@\\hAfAHFX\\FDB@`@`@lCzAnAt@JHTLTNf@\\`BdAFDFDVPlCzBx@|@DDTVRX`BvBx@hAv@bAtAdBFFNPHLdArAx@bAFH@@`@f@VXf@l@h@p@`@^JHNHPLPJNJnAz@fAr@p@b@LHFFNHNHNJfAp@B@^T~@f@lAt@n@^HDTLNHdB|@fAn@JDTNZNVLt@`@x@b@HFRJNFr@ZBB|@ZXNFFJHBFLLbAvANRNTRXz@jAfA|AjA`BLPJPnBlCHLRXNTrAlBJNLP^h@LPLThBvDBFHPHN`AlB`@x@DHNZLXp@rAnAnCHRd@vB`@bBBN@ZTv@HTBNj@jCH^DNDRh@jCThADNJd@Hb@DLXnAb@nBBFBLDRBHLh@`@fBRz@Rz@DJVNHDRNZX|@n@dAv@bAXTFTFjI|BHBNDVRWhBCLEXIf@{@zGALGb@E^a@~CEZEVm@rEANEXVDxGnAFBXFZFxCp@J@`@JlAXZF`E~@tEdAxEjAHBTFVDZHvD|@jEhA~Ct@TFTJVJBBPJXXPPW\\QVs@lAYr@qA`E_@nAKZsAvECFITCHELu@vB}A|E[dAMd@K`@CX?TBN@LTdAZ~A^jBL`ALdAF~@@hB?z@?V?TAB?FADCFCDk@|@aB~AoAbAu@h@]Z{@z@QT[^KPINGNIVGV[xAI\\AJAPALAJE|@AL?L@P?PBPBTD`@z@~HBND\\Hv@nAhL@NJ|@D^BXTlDJ|C?hAJlC@VBRDRDLDLHNJPjAzAV`@R\\lAlCx@rAnAfCvC|FHPDFd@x@JR`BbDN\\Rj@FXDTJj@ZxCFh@Fb@H^FZNj@zAzFl@vChAjFBPBHnAhGHd@FTLf@\\rAFXv@~Ct@|CZpAJb@J\\Nj@J^z@fCJXt@bCb@tATx@j@vBJb@ZjA@FFRFNPXVb@LLPN`BnAVRGLGLQ\\i@`AGL]n@[h@iAnBIP_@l@[h@IN??A?g@`@uBfB_@VWNUL[H[H]DS@WBE`@OnAYrCALAL?R?J@VBXFVR|@Ll@FPJb@\\xAH^BLHXBN@F@F?PEd@Ef@ANCRCPOAMAWAU@QBG@SFa@L}An@c@PqBt@mAp@UPUNYPgAVWDk@LMDoBZu@NSBa@FcBZ]FODSFSH]PoAx@KHMFuAbA_Ap@y@p@e@N]Ji@HELKNSPIHODKBPpB@LH`ABTDTPb@?Jb@j@b@Zr@\\v@L?`@G~AERx@nAlAjAjAt@dAQz@UVItAe@~A_A`@WXQTOd@YNb@J`@B`@O`@AR?Z@d@QR?JO@mBLE@GY]k@c@]EQAGuAd@WH{@TeAPkAu@mAkAy@oADSF_B?a@w@Ms@]c@[c@k@?KQc@EUCUIaAAMQqBGi@CWCQZ?H@TAZARATERGPGLGnA_Af@[`As@`@YLIJId@]^U\\Ud@Qh@MPEDAh@ILCf@I^GTEt@O??v@Mx@OJCl@KBAz@OZKXSTMVOFE|@e@f@UpAg@DAhAc@lAg@`@I\\EVAV@J@J@LDRHNHPLpAdAlAbAt@d@xAv@@@PJJFDDx@n@ZT~@p@^ZHF`At@LH^TNJZR|A`ABIb@}@FIJEDCJCRMLODEGCa@[SOEC~@kB@EBE@C@A?A@AN[Vg@BEjAz@j@f@RTXZLNHLLPDFRXDDBFFLDJFNFJDHBFPTDDDFV`@FFLFv@L\\DFD`@d@LNj@l@|@nAJREPg@hCCNYvACJRFJDXHTD\\DH@P@zAA`BEzBGb@A^AfCGzBCfBGPAHAJAVGBRDj@@XHrB?dAA\\?X??AFAf@ALGv@?FABAL?LAL?J?P@N@X@LDNDNDVBJBLj@fDBLNG~@c@NIn@[@Ah@WNg@@Il@iAVk@^y@JEl@UHERICOe@iBAIGSs@_D]}Ao@oCEe@k@TcA^??"
   },
   "D8": {
-    "distance": "8.1 km",
-    "duration": "13 分钟",
-    "encoded": "edxxE}tgtY@LBtA@b@BbA@ZXAzBSjBKPCPA~BMINoBNE?A@OQPA~BMp@GJ?RFLHNJDBr@j@l@b@LLFDbAx@LJ\\Th@`@^Vj@d@h@`@x@l@^XFFn@f@vAbAHDFDLDF@L@PBzBPR@NBR@lAL`AJNBF@TH`@PHDHD\\RXPFDdAh@~@f@j@ZRLJYh@eBBK\\_ATm@BIBKPJCJUn@]dAq@rBIXKVQKUKk@[[Q]Uq@_@]Q]S[SWOOIQGOE]Gs@IiAKWCOAQCu@EeAGOCUEKE[SiCmBIGaCgB}@q@OMi@a@]UMKy@q@MICCq@g@u@k@GGECOKKIMGS@s@DuBNA@_@@iBL_CPW@[BoAJw@BiAH_ADqAF[@sADsADeAFS?Q@u@BgADgCHa@@G@uADyADY@K@U@{@Dg@BkADi@BW@qBHS@O@cADuAFiAFO?Q@iAFm@Bq@Be@@sAFM@O@Y@m@@q@Dm@Ba@BaADWBQ?YBm@Be@Bk@Bw@DkERU@Y@U@qHZM?O@uGXS?Q@S@eABmBFe@BcABK?O@wCLuCFM?I?QCKCWG_Bi@qC{@KCKEkBk@qBo@KCUIICwDiAICg@Ya@~@CFkAzCiArCELGNCHCFELA^ANAHARAT?HQzBI|@KrAAJCTCZUfCMdAIn@CPSrAEZ[bCETCLALGAICQEwA[o@OeAW}@UGCq@M[EKAoAO{AOOAOC_CWmAOQAUCgAKWAi@CqACU?oBG{@EO?UAoACaACs@AY?M?UAE?i@?gA?u@?m@@G?I@G@a@PaDvAQHSJk@V{At@gBx@s@ZMBKBeABqAB{ABS?@V@jAG?i@@"
+    "distance": "11.9 km",
+    "duration": "24 分钟",
+    "encoded": "{fqvEkzvrYR@BBBD?FAFA?GDK?EACAKCCL_@hB[nAAZFBi@lHW|CCZM`CC`@MtCQrAIb@Q~@Uz@s@jCERQx@[hBOlAc@tCIt@A^ErDChCxEx@@?~Cp@F@pB\\rB`@zAVb@H@@|@LXHXPLZd@tBFP|@`AfAr@d@Rt@Zb@^\\h@Kn@q@Gm@@SBG@QB[Hu@Pc@NIDYOSI_@U??g@Gk@Ku@I}AMwDW@c@}@G|@FAb@vDV|ALt@Hj@Jf@F^TRHXNHEb@Ot@QZIPCFARCl@Ap@FVDz@Ll@Dp@AbAI~AMbAIBbAGp@Gd@AHCTE^Ed@I|@HdDA]GgCH}@De@D_@BU@IFe@Fq@CcAp@IL?~@Wn@MdDu@@?`@K@?DAhASrAMj@EHfBDr@z@SdAUJCBH^|BBH@LBHTbAP^NTJHNNTJ\\Jn@J^D~@Lt@Jj@HJBLDXHdAd@xAp@rAn@dAf@JDVL^Pn@Zb@Tb@^l@r@j@`APf@VfAZvAf@jCf@zBVjAXbBLx@H|@Hz@DzA?~@AzAArAC~@Cx@G`AAHAFCXIl@CRANCNANKx@K|@G^Gl@Gd@ANAHALEd@C|@A|@?N?B?L@~@@THbB@X@pA@p@Ar@Ct@Cr@CTE`@w@xISzAKx@Oz@s@rDs@nDa@nBs@lD]jBSfAOhAO|AEn@CXMC_Di@CLEVE\\@TPEF\\h@v@DEh@j@RRXMD@@KD}@F{@@U@MBYDo@N}ANiARgA\\kBr@mD`@oBr@oDr@sDN{@Jy@R{Av@yIDa@BUBs@Bu@@s@Aq@AqAAYIcBAUA_A?M?C?O@}@B}@De@@M@I@OFe@Fm@F_@J}@Jy@@OBO@OBSHm@BY@G@IFaABy@B_A@sA@{A?_AE{AI{@I}@My@YcBWkAg@{Bg@kC[wAWgAQg@k@aAm@s@c@_@c@Uo@[_@QWMKEeAg@sAo@yAq@eAe@YIMEKCk@Iu@K_AM_@Eo@K]KUKOOKIOUQ_@UcACIAMCI_@}BCICOYwAS_AQq@a@yAOk@EKIYYgAEWAKCSMmAKBu@Lq@X[Fc@@e@?YHc@LMD]`@OHU@_AMC?c@?k@G}@\\I}@I{@G_@Ie@GWUuAWoBGo@ASCWKcAIeACu@Co@EgBCyBEsCCe@Eg@CW?CAEGg@ESAII[UaAU_AWy@Wi@g@y@e@u@CGIKOWIMGIIMMDS?GCQCq@[q@]KEi@WmAo@sAq@e@SSIWKeAm@}Aw@mDuAc@SGC@[ZoA^iBBMBOBCBCDA??"
   },
   "D9": {
     "distance": "31.9 km",
     "duration": "39 分钟",
     "encoded": "_o~xEgmetYHu@DWR@`@@TBh@Bj@HrARF@J@v@Jf@Fn@HNBPBv@Jt@HlBHZ@dBL\\BF?J@EXK`AUpBGj@CRC\\OrAe@vEC\\Gl@_@vD[tCCTAREX]|COxACTCVWvBCTCROxA]hDANK`AKjAEZANAL?LBJFNpAnBXb@^f@NPPNLFXFXBZBrCNZ@xAFP@bADj@BD?x@DtBHZBEv@AVE~@L@hETZ@dBJH@D?DkA?KQA}BMqDSe@CYCMAqBKu@Ce@CsDU]AMAuCOI?{@GYEICMCQGQMQWc@m@c@y@SUMYGUGc@GMGMGGEEMKs@m@uAy@sBqAkDuBMIMIqCgBaCyASMYS}BaBOKSOkA{@{@q@m@e@USaAq@_@Yu@i@w@m@qBaBMKOMSQ{@o@sAcAiBsASM[UkBwAuA_ASMEc@?[C_B?YAm@?M?WAaAC}A?C???UA{@AoAAkA?U?QCsA?{@AcAAkAAWgAD?PAlAZ?h@AF?Aq@?YAW?WRA|AE|AAt@?LCLEd@UdBy@r@[xAs@PITKdD}ATKNGLAJA~@@p@?`@@\\?n@?T?L?X?X?bBDbABV@N?lCHZ@dBFh@@\\BhAJRBPBlAJ|BVLBP@PBbBRv@FH@TBBc@LiB?O@K@QPkCTiD@S@MPqCNyB@M@Q@O@YBYJwAFiA@ODm@JK?TCf@IlAInAAP?BC`@ADV@fBJn@BN@J@b@BP@R@h@DN@H@L@f@BHBB?XBJBlCzAnAt@JHTLTNf@\\`BdAFDFDVPlCzBx@|@DDTVRX`BvBx@hAv@bAtAdBFFNPHLdArAx@bAFH@@`@f@VXf@l@h@p@`@^JHNHPLPJNJnAz@fAr@p@b@LHFFNHNHNJfAp@B@^T~@f@lAt@n@^HDTLNHdB|@fAn@JDTNZNVLt@`@x@b@HFRJNFr@ZBB|@ZXNFFJHBFLLbAvANRNTRXz@jAfA|AjA`BLPJPnBlCHLRXNTrAlBJNLP^h@LPLThBvDBFHPHN`AlB`@x@DHNZLXp@rAnAnCHRd@vB`@bBBN@Zb@Mf@OBAt@URG|@[lAa@b@OdA]l@STGf@EXAPHRDTBR@RA`EOXARCNELELENKFGDEDEBGDGBGDMFWDWLy@DSFQFODKFGFKHGJIJEHEFAHAFAH?H?J@LBLDPHh@Z~Az@|BpAjFjCzDlBtKrFjAj@dBz@lB`Ar@^hCvAtBnArAt@NHNHJDLBNBP@d@@bABT?ZBR@d@Hn@L|Bf@|@Rb@N^N\\NVLh@Zr@d@XVb@h@rA~AnBdCfAvA`BvB`C|Cp@v@LLLLLHJFHDJBJDN@l@Ff@FJ@JBHDHBJFHHHHLLJLdCjDnAbBRTTTnA`Ad@`@TTTRRTNPJPNXLXJVFTHZFXN~@H`@FXFRFLFPFJHPJNLNJJLLPNZRpGzEvB~A`D|BvAfARNNHHDJDHBJBJ@H@J?J?J?JAHAJCJEJEJEpAw@NKPIPGRERETAT?TApG?hE?~EGhBCZ@V?TBXBVFVFVHTH^L`@PjLvE|CnAbC`AxDnAhC`ALDLBNBN@L@P?TAVCRETGpAg@TIVIVGTEPCZCTCf@Ch@AhBAhC?pGAxEAbD?n@?\\?ZANCNCRCPGRGRIPINKNMPONONQNUP[N]L_@L[Jc@No@~Mmn@t@sDF]F]D[B[DY@[B]@]?_@?_@?]A]C]E]Ec@Ge@Ki@Ke@Ic@K]Ka@qByHI]Sw@Mo@Os@Ko@Kq@Kw@K{@Is@Em@Eq@Cq@Ai@?i@?g@?c@Be@Bc@Di@Dg@Hk@Hg@He@Jc@Ng@Ng@Pg@Re@Te@Ve@Va@V_@Za@b@e@b@c@~BoBjCuBtBmBfDuDRUROPONIPKPGPGNCPCR?P?P@RBPDPHPHNJNNPNJNNRJRNZvA`DjDzHv@fBhBlEfBpEn@hBtHtPTj@l@hAVb@j@`AxAtB|FfIlFnHb@n@`r@xaAbAvAhAvAr@f@n@r@p@l@|@v@j@`@`Al@n@Xl@Vp@Pn@LfAHT@HAb@Dr@Bz@BjA@fIC`@?Z?r@?lB@nA?dCDfC?nA?n@@~F?hC?`B?nC?dC@nF?~I@`D?jB?fC?tE@fC?v@?r@?nA@vAALFr@H|ALVBVBV@V@`DBdHJdEHXFbGAnAAx@Eh@ErAMnAOhAQfB]`B[`FgAf@KjIiB`NuCfAWbYeGfCk@rDy@t@O~Ae@tAg@bAg@v@e@l@a@l@e@h@g@p@w@t@cAp@eAz@eB`AyBpAcDjD}IdL{YnBkFhCsGrBeFjDkI`C{Fx@iBhA_Cl@oA~@}AdAaBt@eAf@eAl@w@hAwAf@k@d@k@r@s@l@i@l@g@|AmAx@q@jAw@rA}@tD}BhCaB\\UPSNWFOBMBQ@S?O?QCQGSGQIWGWCMAMAM?O@WBSDMDMDMFKJKHIVOVOZWfBoAHIbC{AFETO^UZSTO@?DEDATOVOFGTMXOl@]b@Up@c@NIPKt@e@fBeAn@_@j@e@TKPGTCZBLDLHLLJNL\\PVbA`CZj@Vh@b@fAt@pBDTBNBT?TARCPEJELIPKPKHQNa@\\MHyA~@kAt@aGxDwJfG"
+  },
+  "D8_kamakura": {
+    "distance": "11.9 km",
+    "duration": "24 分钟",
+    "encoded": "{fqvEkzvrYR@BBBD?FAFA?GDK?EACAKCCL_@hB[nAAZFBi@lHW|CCZM`CC`@MtCQrAIb@Q~@Uz@s@jCERQx@[hBOlAc@tCIt@A^ErDChCxEx@@?~Cp@F@pB\\rB`@zAVb@H@@|@LXHXPLZd@tBFP|@`AfAr@d@Rt@Zb@^\\h@Kn@q@Gm@@SBG@QB[Hu@Pc@NIDYOSI_@U??g@Gk@Ku@I}AMwDW@c@}@G|@FAb@vDV|ALt@Hj@Jf@F^TRHXNHEb@Ot@QZIPCFARCl@Ap@FVDz@Ll@Dp@AbAI~AMbAIBbAGp@Gd@AHCTE^Ed@I|@HdDA]GgCH}@De@D_@BU@IFe@Fq@CcAp@IL?~@Wn@MdDu@@?`@K@?DAhASrAMj@EHfBDr@z@SdAUJCBH^|BBH@LBHTbAP^NTJHNNTJ\\Jn@J^D~@Lt@Jj@HJBLDXHdAd@xAp@rAn@dAf@JDVL^Pn@Zb@Tb@^l@r@j@`APf@VfAZvAf@jCf@zBVjAXbBLx@H|@Hz@DzA?~@AzAArAC~@Cx@G`AAHAFCXIl@CRANCNANKx@K|@G^Gl@Gd@ANAHALEd@C|@A|@?N?B?L@~@@THbB@X@pA@p@Ar@Ct@Cr@CTE`@w@xISzAKx@Oz@s@rDs@nDa@nBs@lD]jBSfAOhAO|AEn@CXMC_Di@CLEVE\\@TPEF\\h@v@DEh@j@RRXMD@@KD}@F{@@U@MBYDo@N}ANiARgA\\kBr@mD`@oBr@oDr@sDN{@Jy@R{Av@yIDa@BUBs@Bu@@s@Aq@AqAAYIcBAUA_A?M?C?O@}@B}@De@@M@I@OFe@Fm@F_@J}@Jy@@OBO@OBSHm@BY@G@IFaABy@B_A@sA@{A?_AE{AI{@I}@My@YcBWkAg@{Bg@kC[wAWgAQg@k@aAm@s@c@_@c@Uo@[_@QWMKEeAg@sAo@yAq@eAe@YIMEKCk@Iu@K_AM_@Eo@K]KUKOOKIOUQ_@UcACIAMCI_@}BCICOYwAS_AQq@a@yAOk@EKIYYgAEWAKCSMmAKBu@Lq@X[Fc@@e@?YHc@LMD]`@OHU@_AMC?c@?k@G}@\\I}@I{@G_@Ie@GWUuAWoBGo@ASCWKcAIeACu@Co@EgBCyBEsCCe@Eg@CW?CAEGg@ESAII[UaAU_AWy@Wi@g@y@e@u@CGIKOWIMGIIMMDS?GCQCq@[q@]KEi@WmAo@sAq@e@SSIWKeAm@}Aw@mDuAc@SGC@[ZoA^iBBMBOBCBCDA??"
+  },
+  "D8_kiyosumi": {
+    "distance": "8.1 km",
+    "duration": "13 分钟",
+    "encoded": "edxxE}tgtY@LBtA@b@BbA@ZXAzBSjBKPCPA~BMINoBNE?A@OQPA~BMp@GJ?RFLHNJDBr@j@l@b@LLFDbAx@LJ\\Th@`@^Vj@d@h@`@x@l@^XFFn@f@vAbAHDFDLDF@L@PBzBPR@NBR@lAL`AJNBF@TH`@PHDHD\\RXPFDdAh@~@f@j@ZRLJYh@eBBK\\_ATm@BIBKPJCJUn@]dAq@rBIXKVQKUKk@[[Q]Uq@_@]Q]S[SWOOIQGOE]Gs@IiAKWCOAQCu@EeAGOCUEKE[SiCmBIGaCgB}@q@OMi@a@]UMKy@q@MICCq@g@u@k@GGECOKKIMGS@s@DuBNA@_@@iBL_CPW@[BoAJw@BiAH_ADqAF[@sADsADeAFS?Q@u@BgADgCHa@@G@uADyADY@K@U@{@Dg@BkADi@BW@qBHS@O@cADuAFiAFO?Q@iAFm@Bq@Be@@sAFM@O@Y@m@@q@Dm@Ba@BaADWBQ?YBm@Be@Bk@Bw@DkERU@Y@U@qHZM?O@uGXS?Q@S@eABmBFe@BcABK?O@wCLuCFM?I?QCKCWG_Bi@qC{@KCKEkBk@qBo@KCUIICwDiAICg@Ya@~@CFkAzCiArCELGNCHCFELA^ANAHARAT?HQzBI|@KrAAJCTCZUfCMdAIn@CPSrAEZ[bCETCLALGAICQEwA[o@OeAW}@UGCq@M[EKAoAO{AOOAOC_CWmAOQAUCgAKWAi@CqACU?oBG{@EO?UAoACaACs@AY?M?UAE?i@?gA?u@?m@@G?I@G@a@PaDvAQHSJk@V{At@gBx@s@ZMBKBeABqAB{ABS?@V@jAG?i@@"
+  },
+  "D8_kichijoji": {
+    "distance": "5.5 km",
+    "duration": "15 分钟",
+    "encoded": "}c|xEcv|rYRaADMIC{Ai@IAY?_@?K@Q?o@?OAO?[EQEsAi@KGm@SOGENc@fBWdAm@dCq@tCEVTHr@XXLv@ZB@rAh@FBHDB@\\Nf@RvAl@TDPFt@\\DBXLTJLF^N^NHDVVFDRXFNFRT~@VnANp@DHf@rAVn@z@nBFJHRLZFNDLZx@|@lCZbADJDENG|@w@l@_@FCpAu@DCBC@AT]d@y@PWT]h@o@_@_@c@l@MSM?ODg@C_@QKG??JF^Pf@BNEL?LRb@m@^^v@iAPYVi@r@wA`@{@FMl@yAJWE?w@Ci@DWLy@`@oDkB??nDjBx@a@VMh@Ev@BD?JSXg@f@aAPa@Re@FQLS^g@HIX[XYTS`@_@LMb@c@FJBHjB|DHPNVDHHTJ\\\\|@H^BNDZNdBHh@Lv@Ht@Lt@Lx@BPHp@@F@L?@@FHxAFz@R|AJl@BT@LAJKjA[fEMdBMjBALMAeEWi@EI?_AGIA[Am@Cw@EEAG?e@EuCOkBKI?mBIsBKMAEAGAGCECSKGGGEIIKOEGEIEGEIK[K]q@{Bq@}BEOEK[cA}@mC[y@EMGOM[ISGK{@oBWo@g@sAEIOq@WoAU_AGSGOSYGEWWIE_@O_@OMGUKHa@BMR_ADYNq@H_@DQDUBODWDQLg@DUDMPq@Le@DM@IBILi@Po@S?QGKH{@f@ID??"
   }
 };
 
@@ -1585,6 +1799,21 @@ function renderDayPills() {
   });
 }
 
+
+function switchDay8Option(key) {
+  if (!DAY8_OPTIONS[key]) return;
+  currentDay8OptionKey = key;
+  DAYS[7] = DAY8_OPTIONS[key];
+  
+  // Update PREBAKED_ROUTES for D8
+  if (PREBAKED_ROUTES['D8_' + key]) {
+    PREBAKED_ROUTES['D8'] = PREBAKED_ROUTES['D8_' + key];
+  }
+
+  // Re-render Day 8
+  selectDay(7, false);
+}
+
 function selectDay(idx, updateHash = true) {
   currentDayIdx = idx;
   const day = DAYS[idx];
@@ -1609,7 +1838,19 @@ function selectDay(idx, updateHash = true) {
 
   // Render Day Hero Card
   const heroCard = document.getElementById('dayHero');
+  let d8SwitcherHtml = '';
+  if (idx === 7) {
+    d8SwitcherHtml = `
+      <div class="day8-switcher" role="group" aria-label="Day 8 方案选择">
+        <button class="d8-opt-btn ${currentDay8OptionKey === 'kamakura' ? 'active' : ''}" onclick="switchDay8Option('kamakura')">🌊 方案 A: 镰仓海景大佛 (主推)</button>
+        <button class="d8-opt-btn ${currentDay8OptionKey === 'kiyosumi' ? 'active' : ''}" onclick="switchDay8Option('kiyosumi')">☕ 方案 B: 清澄白河 (避人潮回血)</button>
+        <button class="d8-opt-btn ${currentDay8OptionKey === 'kichijoji' ? 'active' : ''}" onclick="switchDay8Option('kichijoji')">🛍️ 方案 C: 吉祥寺井之头 (文青备选)</button>
+      </div>
+    `;
+  }
+
   heroCard.innerHTML = `
+    ${d8SwitcherHtml}
     <div class="hero-meta">
       <span class="hero-badge">${day.day} · ${day.date} (${day.weekday})</span>
       <span class="hero-pacing">${day.intensity}</span>

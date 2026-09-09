@@ -163,8 +163,8 @@
 
   <div class="card">
     <span class="badge">F1 RUNG BARS · 行程节奏与负荷</span>
-    <h2>硬仗前必有深歇：Day 7 涩谷高峰前后的波浪回血节奏</h2>
-    <div class="sub">1 档梯 = 2,000 步预估消耗 · <strong>朱红虚线 = 日本体育之日三连休避峰</strong> · 10/3–10/12 (长辈友好控载)</div>
+    <h2>硬仗前必有深歇：Day 7 涩谷达峰 13.5k 步前后的波浪回血节奏</h2>
+    <div class="sub">1 档梯 = 2,000 步预估消耗 · <strong>朱红虚线 = 日本体育之日三连休大幅降载避峰</strong> · 10/3–10/12 (长辈控载波浪节奏)</div>
     <svg id="rungs" viewBox="0 0 760 370" preserveAspectRatio="xMidYMid meet" role="img" aria-label="10天行程强度与避峰节奏阶梯柱状图"></svg>
     <div class="src">
       <span>F1 Rung Bars · Tokyo Trip 2026</span>
@@ -210,15 +210,15 @@ const obsReveal = (id, fn) => {
 // ── Data (10 Days) ──
 // [Day, Date, Steps(k), Title, HighlightType]
 const D = [
-  ['D1', '10/3六', 3, '抵达安顿', 'lo'],
-  ['D2', '10/4日', 6.5, '浅草晨·晴空塔', 'mid'],
-  ['D3', '10/5一', 4.5, '上野·日本桥', 'lo'],
-  ['D4', '10/6二', 5, '河口湖自驾', 'mid'],
-  ['D5', '10/7三', 5.5, '富士五湖大满贯', 'mid'],
-  ['D6', '10/8四', 6, '筑地·银座·铁塔', 'mid'],
-  ['D7', '10/9五', 9, '明治神宫·涩谷SKY', 'hi'],
-  ['D8', '10/10六', 3.5, '清澄白河·连休避峰', 'holiday'],
-  ['D9', '10/11日', 3, '合羽桥·整备赴羽田', 'holiday'],
+  ['D1', '10/3六', 2, '抵达安顿', 'lo'],
+  ['D2', '10/4日', 4.5, '浅草晨·秋叶原', 'mid'],
+  ['D3', '10/5一', 3, '上野·日本桥', 'lo'],
+  ['D4', '10/6二', 2.75, '河口湖自驾', 'mid'],
+  ['D5', '10/7三', 3.5, '富士五湖自驾', 'mid'],
+  ['D6', '10/8四', 5, '筑地·银座·铁塔', 'mid'],
+  ['D7', '10/9五', 6.75, '神宫·表参道·涩谷SKY', 'hi'],
+  ['D8', '10/10六', 3, '镰仓大佛·江之电海景', 'holiday'],
+  ['D9', '10/11日', 2.5, '采买·整备赴羽田', 'holiday'],
   ['D10', '10/12一', 0.5, '02:20起飞回马', 'end']
 ];
 
@@ -267,8 +267,8 @@ obsReveal('rungs', s => {
         class: 'fade', style: `animation-delay: ${i * 0.05 + k * 0.015}s`
       });
 
-      // 每 5 档（10,000步警戒线）红点标记
-      if (k === 4) {
+      // 每 6 档（12,000步高负荷线）红点标记
+      if (k === 5) {
         el(s, 'circle', {
           cx: x + HW + 6, cy: y, r: 2.2, fill: isHero ? SHU : FAINT,
           class: 'fade', style: `animation-delay: ${i * 0.05 + k * 0.015}s`
@@ -290,7 +290,8 @@ obsReveal('rungs', s => {
 
     // 柱顶数值
     const topY = base - (rungsCount - 1) * step;
-    const stepsVal = Math.round(rungsCount * 2);
+    const stepsRaw = rungsCount * 2;
+    const stepsVal = (stepsRaw % 1 === 0) ? stepsRaw : stepsRaw.toFixed(1);
     const num = txt(s, {
       x, y: topY - 12,
       'font-size': isHero ? 15 : 12.5,
@@ -323,7 +324,7 @@ obsReveal('rungs', s => {
     x: 380, y: 355,
     'font-size': 11, 'font-weight': 600, fill: MUTED, 'text-anchor': 'middle',
     'letter-spacing': '.06em', class: 'fade', style: 'animation-delay: .7s'
-  }, '1 档 = 2,000 步 · 5 档点标 = 10,000 步红线 · DAY 7 达峰后连休大幅降载');
+  }, '1 档 = 2,000 步 · 6 档点标 = 12,000 步高负荷线 · D7 达峰 13.5k 步后连休大幅降载');
 });
 
 // ── Embedded Mode Detection & Auto-Height Communication ──

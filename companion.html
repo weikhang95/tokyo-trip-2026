@@ -708,9 +708,68 @@ const DAY8_OPTIONS = {
       }
     ]
   },
+  nezu: {
+    key: 'nezu',
+    label: '⛩️ 方案 B · 根津神社与谷中祭 (第一平替)',
+    day: 'D8',
+    date: '10/10',
+    weekday: '周六',
+    intensity: '🟢 低负荷 (下町回血) · 约 3,800 步',
+    title: '根津神社千本鸟居 ➔ 谷中祭传统神轿 ➔ 米其林手打乌冬 ➔ 提前回房大午睡 ★',
+    desc: '日本三连休最佳市内平替！住处打车仅 8 分钟直达，漫步 300 年江户德川国宝古刹与朱红千本鸟居。恰逢一年一度【谷中祭】，偶遇街头传统神轿出巡与温情人情味市集，吃庭园手打乌冬面，14:30 回房泡脚大午睡，为次日羽田深夜离境储备 100% 精力！',
+    transit: '🚕 门口计程车 8 分钟 (约¥1,300) 直达 ➔ 谷根千漫步 ➔ 计程车直达回巢',
+    routeUrl: 'https://www.google.com/maps/dir/?api=1&origin=Tokyo+Taito+Ryusen+3-10-8&destination=Nezu+Shrine&waypoints=Nezu+Kamachiku%7CYanaka+Ginza&travelmode=walking',
+    nodes: [
+      {
+        time: '09:30 - 09:45',
+        name: '竜泉住处叫车 ➔ 直达根津神社正门 (0换乘0楼梯)',
+        sub: '2.7 km · 计程车 8–10 分钟 (约¥1,300)',
+        lat: 35.7203, lng: 139.7611,
+        action: '无需早起赶电车！住处门口直接用 GO App 叫计程车直达根津神社正门下车，彻底跳过地铁换乘与步行，长辈体能零损耗。',
+        tags: ['计程车直达', '0换乘0楼梯', '直达正门'],
+        hero: false
+      },
+      {
+        time: '09:45 - 11:00',
+        name: '根津神社 (300年原装国宝古建 & 朱红千本鸟居) ★',
+        sub: '1706年德川将军造营 · 重要文化财 · 锦鲤神桥',
+        lat: 35.7203, lng: 139.7611,
+        action: '参拜关东大地震与二战毫发无损的 300 年德川原装国宝楼门与拜殿；长辈走平坦石板路看连绵朱红千本鸟居，在池泉神桥旁石椅晒初秋暖阳看肥硕锦鲤，全境平坦无障碍！',
+        tags: ['300年国宝', '朱红千本鸟居', '全平路无障碍', '锦鲤池泉'],
+        hero: true
+      },
+      {
+        time: '11:15 - 12:30',
+        name: '根津老街 ➔ 根津 釜竹 (手打乌冬面) / 百年和食定食 ★',
+        sub: '步行仅 350m 平路 · 米其林必比登推荐',
+        lat: 35.7190, lng: 139.7645,
+        action: '步行至古朴老街，在百年清幽日式庭院座席享用现煮手打热汤乌冬面与热天妇罗，筋道温润极好消化；或吃家常熟食定食，舒适大休息。',
+        tags: ['米其林必比登', '日式清幽庭院', '热汤手打乌冬', '舒适大卡座'],
+        hero: false
+      },
+      {
+        time: '12:35 - 14:15',
+        name: '谷根千老街散策 ➔ 巧遇一年一度【谷中祭】神轿出巡 ★',
+        sub: '谷中まつり (10/10–10/11 限定) · 东京本土民间盛典',
+        lat: 35.7255, lng: 139.7680,
+        action: '漫步充满生活烟火气的无车巷弄，看当地街坊抬传统神轿游行、听欢庆太鼓声，逛传统工艺小摊。在古民家茶铺喝热煎茶吃小点心，体验最地道的东京市井温情。',
+        tags: ['一年一度谷中祭', '传统神轿出巡', '下町人情味', '长辈极爱'],
+        hero: true
+      },
+      {
+        time: '14:30 - 15:00',
+        name: '计程车 8 分钟回竜泉公寓 ➔ 深度泡脚大午睡 (彻底回血) ★',
+        sub: '下午早早回巢 · 充沛备战次日深夜返程',
+        lat: 35.7230, lng: 139.7905,
+        action: '下午绝不逛商场！在谷中街头直接叫计程车（¥1,200），8 分钟直达公寓大门。进屋洗热水澡、泡脚、躺平大睡 2 小时，全天仅 3,800 步，精力彻底满血！',
+        tags: ['14:30回房躺平', '深度大午睡', '彻底回血蓄力'],
+        hero: false
+      }
+    ]
+  },
   kiyosumi: {
     key: 'kiyosumi',
-    label: '☕ 方案 B · 清澄白河 (避连休回血)',
+    label: '☕ 方案 C · 清澄白河 (避连休回血)',
     day: 'D8',
     date: '10/10',
     weekday: '周六',
@@ -1563,6 +1622,11 @@ const PREBAKED_ROUTES = {
     "duration": "24 分钟",
     "encoded": "{fqvEkzvrYR@BBBD?FAFA?GDK?EACAKCCL_@hB[nAAZFBi@lHW|CCZM`CC`@MtCQrAIb@Q~@Uz@s@jCERQx@[hBOlAc@tCIt@A^ErDChCxEx@@?~Cp@F@pB\\rB`@zAVb@H@@|@LXHXPLZd@tBFP|@`AfAr@d@Rt@Zb@^\\h@Kn@q@Gm@@SBG@QB[Hu@Pc@NIDYOSI_@U??g@Gk@Ku@I}AMwDW@c@}@G|@FAb@vDV|ALt@Hj@Jf@F^TRHXNHEb@Ot@QZIPCFARCl@Ap@FVDz@Ll@Dp@AbAI~AMbAIBbAGp@Gd@AHCTE^Ed@I|@HdDA]GgCH}@De@D_@BU@IFe@Fq@CcAp@IL?~@Wn@MdDu@@?`@K@?DAhASrAMj@EHfBDr@z@SdAUJCBH^|BBH@LBHTbAP^NTJHNNTJ\\Jn@J^D~@Lt@Jj@HJBLDXHdAd@xAp@rAn@dAf@JDVL^Pn@Zb@Tb@^l@r@j@`APf@VfAZvAf@jCf@zBVjAXbBLx@H|@Hz@DzA?~@AzAArAC~@Cx@G`AAHAFCXIl@CRANCNANKx@K|@G^Gl@Gd@ANAHALEd@C|@A|@?N?B?L@~@@THbB@X@pA@p@Ar@Ct@Cr@CTE`@w@xISzAKx@Oz@s@rDs@nDa@nBs@lD]jBSfAOhAO|AEn@CXMC_Di@CLEVE\\@TPEF\\h@v@DEh@j@RRXMD@@KD}@F{@@U@MBYDo@N}ANiARgA\\kBr@mD`@oBr@oDr@sDN{@Jy@R{Av@yIDa@BUBs@Bu@@s@Aq@AqAAYIcBAUA_A?M?C?O@}@B}@De@@M@I@OFe@Fm@F_@J}@Jy@@OBO@OBSHm@BY@G@IFaABy@B_A@sA@{A?_AE{AI{@I}@My@YcBWkAg@{Bg@kC[wAWgAQg@k@aAm@s@c@_@c@Uo@[_@QWMKEeAg@sAo@yAq@eAe@YIMEKCk@Iu@K_AM_@Eo@K]KUKOOKIOUQ_@UcACIAMCI_@}BCICOYwAS_AQq@a@yAOk@EKIYYgAEWAKCSMmAKBu@Lq@X[Fc@@e@?YHc@LMD]`@OHU@_AMC?c@?k@G}@\\I}@I{@G_@Ie@GWUuAWoBGo@ASCWKcAIeACu@Co@EgBCyBEsCCe@Eg@CW?CAEGg@ESAII[UaAU_AWy@Wi@g@y@e@u@CGIKOWIMGIIMMDS?GCQCq@[q@]KEi@WmAo@sAq@e@SSIWKeAm@}Aw@mDuAc@SGC@[ZoA^iBBMBOBCBCDA??"
   },
+  "D8_nezu": {
+    "distance": "8.0 km",
+    "duration": "19 分钟",
+    "encoded": "wc`yE{yetYh@AF?@bA?z@BrA?P?T@jA@nA@z@?T???BB|A@`A?V?L@l@?X@~A@ZTPLHRNnA|@~AdATPVRl@b@tA`AfBpALJRLNJETCJGXEXCHUdAy@rDCJYtAERGTQ\\Q\\GL]j@KLMLSPYVWT{@r@}@t@i@f@]\YZQTOTKTKXmBrHg@rBEPCVAXAf@H`BD^DNDHDJLR\\j@LPd@t@V\\f@v@`@l@Zd@LRh@l@DHDFHRDPFRPr@BFRt@d@lBRt@BJJh@TfANz@BHBNLp@Lt@Nv@Nn@@HNl@FJHNj@`AvAbClAxBNXJRDJh@bAPZNX\\n@HPFJ^l@n@dAd@z@LRR\\PXLT`@v@DFA@ED_@Zo@h@CBE@kAjAUTEFw@v@@FEDi@l@c@f@Zn@P\\d@|@q@j@c@\\ISGMyCtB??xCuBO_@]u@AEGK[o@Sa@GMEKi@_Ap@s@TUZYDEz@}@|@_A~A}A\\[r@s@FEe@{@o@eA_@m@GKIQ]o@OYQ[i@cAEKKSOYmAyBwAcCk@aAIOGKOm@AIOo@Ow@Mu@Mq@COGDo@N[H]Je@LE@C@u@TYJqAZKFIHQVy@~@g@h@OPEHAJAP?DAJAVCn@Cr@AJ?JC`@G|@G?m@?}@BC?c@?S@g@?cABa@?Aa@CeAGo@\\KDABAHA`@KXGDAFC@?RG\\I\\IHCd@M^GDCNCJAXCJA?E@Q@KDINQf@i@x@_APWHIJGpA[XKt@UBADAd@M\\KZIn@OFECIO{@UgAKi@CKSu@e@mBSu@CGQs@GSEQISEGEIi@m@MS[e@a@m@g@w@W]e@u@MQ]k@MSEKEIEOE_@IaBGe@?[@YFWvCeLJYHSLWX[X[\\]d@g@d@g@`@_@l@k@VUZWXWHMZg@LSR[L[HUFWRiADQfAyEPw@BKF]SQ{@o@sAcAiBsASM[UkBwAuA_ASMEc@A[A_B?YAm@?M?WAaAC}A?C???UA{@AoAAkA?U?QCsA?{@AcAG?i@@"
+  },
   "D8_kiyosumi": {
     "distance": "8.1 km",
     "duration": "13 分钟",
@@ -1843,8 +1907,9 @@ function selectDay(idx, updateHash = true) {
     d8SwitcherHtml = `
       <div class="day8-switcher" role="group" aria-label="Day 8 方案选择">
         <button class="d8-opt-btn ${currentDay8OptionKey === 'kamakura' ? 'active' : ''}" onclick="switchDay8Option('kamakura')">🌊 方案 A: 镰仓海景大佛 (主推)</button>
-        <button class="d8-opt-btn ${currentDay8OptionKey === 'kiyosumi' ? 'active' : ''}" onclick="switchDay8Option('kiyosumi')">☕ 方案 B: 清澄白河 (避人潮回血)</button>
-        <button class="d8-opt-btn ${currentDay8OptionKey === 'kichijoji' ? 'active' : ''}" onclick="switchDay8Option('kichijoji')">🛍️ 方案 C: 吉祥寺井之头 (文青备选)</button>
+        <button class="d8-opt-btn ${currentDay8OptionKey === 'nezu' ? 'active' : ''}" onclick="switchDay8Option('nezu')">⛩️ 方案 B: 根津神社·谷中祭 (第一平替)</button>
+        <button class="d8-opt-btn ${currentDay8OptionKey === 'kiyosumi' ? 'active' : ''}" onclick="switchDay8Option('kiyosumi')">☕ 方案 C: 清澄白河 (避人潮)</button>
+        <button class="d8-opt-btn ${currentDay8OptionKey === 'kichijoji' ? 'active' : ''}" onclick="switchDay8Option('kichijoji')">🛍️ 方案 D: 吉祥寺井之头</button>
       </div>
     `;
   }

@@ -1,0 +1,1537 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+<title>东京 · 随身行程与地图助手 (Tokyo Companion)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&family=Shippori+Mincho:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<style>
+  :root {
+    --bg: #F7F5F0;
+    --paper: #FAF9F6;
+    --card-bg: #FFFFFF;
+    --ink: #231F1B;
+    --muted: #6B6255;
+    --faint: #B8B0A2;
+    --grid: #E5DFC5;
+    --ai: #1C3553;
+    --ai-soft: rgba(28, 53, 83, 0.08);
+    --shu: #C2412D;
+    --shu-soft: rgba(194, 65, 45, 0.08);
+    --matcha: #506628;
+    --matcha-soft: rgba(80, 102, 40, 0.1);
+    --kin: #855E16;
+    --kin-soft: rgba(133, 94, 22, 0.08);
+    --shadow: 0 4px 16px rgba(35, 31, 27, 0.06);
+    --radius: 16px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    background: var(--bg);
+    font-family: 'Inter', 'Noto Sans SC', sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: 90px;
+  }
+
+  /* ── Sticky Top Bar ── */
+  .top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(247, 245, 240, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--grid);
+  }
+  .bar-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .brand-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ai);
+    background: var(--ai-soft);
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 99px;
+  }
+  .page-title {
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: .02em;
+    color: var(--ink);
+  }
+  .view-toggles {
+    display: flex;
+    gap: 4px;
+    background: #EFECE6;
+    padding: 2px;
+    border-radius: 99px;
+  }
+  .view-btn {
+    border: none;
+    background: transparent;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    padding: 4px 8px;
+    border-radius: 99px;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .view-btn.active {
+    background: var(--ai);
+    color: #fff;
+  }
+
+  /* ── Day Selector Pills ── */
+  .day-scroll {
+    overflow-x: auto;
+    scrollbar-width: none;
+    display: flex;
+    gap: 6px;
+    padding: 6px 12px 10px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .day-scroll::-webkit-scrollbar { display: none; }
+  .day-pill {
+    flex: 0 0 auto;
+    padding: 6px 12px;
+    background: var(--paper);
+    border: 1px solid var(--grid);
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all .18s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .day-pill .dp-tag {
+    font-size: 10px;
+    font-weight: 600;
+    opacity: 0.8;
+  }
+  .day-pill.active {
+    background: var(--ai);
+    color: #fff;
+    border-color: var(--ai);
+    box-shadow: 0 2px 8px rgba(28, 53, 83, 0.25);
+  }
+
+  /* ── Main Layout Container ── */
+  .content-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 12px 14px;
+  }
+
+  /* ── Map Container ── */
+  .map-card {
+    background: var(--card-bg);
+    border: 1px solid var(--grid);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    transition: all .2s ease;
+  }
+  .map-card.collapsed {
+    display: none;
+  }
+  .map-header {
+    padding: 8px 14px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--grid);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--muted);
+  }
+  .map-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .map-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--shu);
+    text-decoration: none;
+    padding: 3px 8px;
+    border-radius: 99px;
+    background: var(--shu-soft);
+  }
+  #map {
+    width: 100%;
+    height: 270px;
+    background: #e5e3df;
+  }
+  @media (min-width: 640px) {
+    #map { height: 340px; }
+  }
+
+  /* Leaflet custom pin markers */
+  .custom-pin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    background: var(--ai);
+    color: #FFFFFF;
+    font-weight: 800;
+    font-size: 12px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  }
+  .custom-pin span {
+    transform: rotate(45deg);
+  }
+  .custom-pin.hero {
+    background: var(--shu);
+  }
+  .custom-pin.nature {
+    background: var(--matcha);
+  }
+
+  /* ── Day Summary Header Card ── */
+  .day-hero-card {
+    background: var(--card-bg);
+    border: 1px solid var(--grid);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+  .hero-badge {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .06em;
+    padding: 2px 8px;
+    border-radius: 99px;
+    background: var(--ai);
+    color: #fff;
+  }
+  .hero-pacing {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 99px;
+    background: #EFECE6;
+    color: var(--muted);
+  }
+  .hero-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.35;
+    margin-bottom: 6px;
+  }
+  .hero-desc {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .hero-transit {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--ai);
+    background: var(--ai-soft);
+    padding: 4px 10px;
+    border-radius: 8px;
+    margin-top: 8px;
+    width: 100%;
+  }
+  .hero-route-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--shu);
+    background: var(--shu-soft);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 99px;
+    margin-top: 8px;
+    transition: all .15s;
+  }
+  .hero-route-link:hover {
+    background: var(--shu);
+    color: #fff;
+  }
+
+  /* ── Timeline Nodes ── */
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    bottom: 14px;
+    left: 11px;
+    width: 2px;
+    background: var(--grid);
+    border-radius: 2px;
+  }
+  .node-item {
+    position: relative;
+    margin-bottom: 16px;
+    cursor: pointer;
+  }
+  .node-dot {
+    position: absolute;
+    left: -28px;
+    top: 14px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 2px solid var(--ai);
+    color: var(--ai);
+    font-size: 11px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 2;
+    transition: all .2s;
+  }
+  .node-item.hero .node-dot {
+    border-color: var(--shu);
+    color: var(--shu);
+  }
+  .node-item.active .node-dot {
+    background: var(--shu);
+    border-color: var(--shu);
+    color: #FFFFFF;
+    transform: scale(1.15);
+  }
+
+  .node-card {
+    background: var(--card-bg);
+    border: 1px solid var(--grid);
+    border-radius: 14px;
+    padding: 12px 14px;
+    box-shadow: var(--shadow);
+    transition: transform .15s, border-color .15s, box-shadow .15s;
+  }
+  .node-item.active .node-card {
+    border-color: var(--shu);
+    box-shadow: 0 4px 18px rgba(194, 65, 45, 0.15);
+  }
+  .node-card:active {
+    transform: scale(0.99);
+  }
+
+  .node-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .time-badge {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--ai);
+    background: var(--ai-soft);
+    padding: 2px 7px;
+    border-radius: 6px;
+    letter-spacing: .02em;
+    display: inline-block;
+  }
+  .node-item.hero .time-badge {
+    color: var(--shu);
+    background: var(--shu-soft);
+  }
+
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #FFFFFF;
+    background: var(--ai);
+    text-decoration: none;
+    padding: 4px 9px;
+    border-radius: 99px;
+    flex-shrink: 0;
+    transition: background .15s;
+  }
+  .nav-btn:hover {
+    background: var(--shu);
+  }
+  .node-name {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.35;
+    margin-bottom: 4px;
+  }
+  .node-name-sub {
+    font-size: 11.5px;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .node-action {
+    font-size: 12.5px;
+    color: var(--ink);
+    line-height: 1.48;
+    margin-bottom: 8px;
+  }
+  .node-tags {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .ntag {
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: #FAF9F6;
+    border: 1px solid var(--grid);
+    color: var(--muted);
+  }
+  .ntag.highlight {
+    background: var(--shu-soft);
+    border-color: rgba(194, 65, 45, 0.2);
+    color: var(--shu);
+  }
+  .ntag.ease {
+    background: var(--matcha-soft);
+    border-color: rgba(80, 102, 40, 0.2);
+    color: var(--matcha);
+  }
+
+  /* ── Bottom Floating Quick Action ── */
+  .float-dock {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(28, 53, 83, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 99px;
+    padding: 6px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+    z-index: 1000;
+  }
+  .dock-btn {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .dock-sep {
+    width: 1px;
+    height: 14px;
+    background: rgba(255,255,255,0.25);
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Sticky Top Bar ── -->
+<header class="top-bar">
+  <div class="bar-main">
+    <div class="brand-group">
+      <a href="index.html" class="back-btn">← 手册</a>
+      <span class="page-title">📱 随身行程与地图</span>
+    </div>
+    <div class="view-toggles" role="group" aria-label="视图模式">
+      <button class="view-btn active" id="btn-split" onclick="setViewMode('split')">分屏</button>
+      <button class="view-btn" id="btn-time" onclick="setViewMode('time')">仅时间</button>
+      <button class="view-btn" id="btn-map" onclick="setViewMode('map')">仅地图</button>
+    </div>
+  </div>
+
+  <!-- Day Selector Pills -->
+  <div class="day-scroll" id="dayPills">
+    <!-- Populated by JS -->
+  </div>
+</header>
+
+<div class="content-wrap">
+  <!-- Interactive Map -->
+  <section class="map-card" id="mapCard">
+    <div class="map-header">
+      <span id="mapDayLabel">📍 今日定位点标</span>
+      <div class="map-actions">
+        <a id="btnGmapsDayRoute" class="map-link-btn" href="#" target="_blank">Google 路线 ↗</a>
+      </div>
+    </div>
+    <div id="map"></div>
+  </section>
+
+  <!-- Day Hero Card -->
+  <section class="day-hero-card" id="dayHero">
+    <!-- Populated by JS -->
+  </section>
+
+  <!-- Chronological Timeline Stream -->
+  <main class="timeline" id="timelineList">
+    <!-- Populated by JS -->
+  </main>
+</div>
+
+<!-- Floating Action Bar -->
+<div class="float-dock">
+  <a href="charts/index.html" class="dock-btn">📊 决策图表</a>
+  <div class="dock-sep"></div>
+  <button class="dock-btn" onclick="scrollToCurrentNode()">⏱️ 查当下</button>
+  <div class="dock-sep"></div>
+  <button class="dock-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">⬆ 顶部</button>
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<script>
+// ══════════════════════════════════════════════════════════════════════
+// 10-Day Complete Data Structure with Exact Coordinates & Hacks
+// ══════════════════════════════════════════════════════════════════════
+const DAYS = [
+  {
+    day: "D1",
+    date: "10/3",
+    weekday: "六",
+    title: "落地成田 ➔ 日暮里直达公车 ➔ 竜泉入住",
+    intensity: "低负荷 · 约 3,000 步",
+    desc: "抵达成田 T2，办妥乘车与取现，搭乘 16:42 Skyliner 极速回巢，绝不安排景点，全心安顿早睡蓄力。",
+    transit: "🚅 Skyliner 36m 直达日暮里 ➔ 都08公车 5站平路直达住处大门",
+    routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Narita+Airport+Terminal+2&destination=Tokyo+Taito+Ryusen+3-10-8&travelmode=transit",
+    nodes: [
+      {
+        time: "14:45",
+        name: "成田机场 T2 (第2航厦)",
+        sub: "Narita Airport Terminal 2 · UO848 落地",
+        lat: 35.7720, lng: 140.3876,
+        action: "办入境、领行李、7-11 ATM 提现 JPY（选 Without Conversion 扣余额），B1 机台兑换 Skyliner 磁票与买 Welcome Suica 卡。",
+        tags: ["免排队券売机", "7-11 ATM", "Welcome Suica"],
+        hero: false
+      },
+      {
+        time: "16:42",
+        name: "Skyliner 快速特急 (黄金班次)",
+        sub: "京成电铁空港第2ビル駅 ➔ 日暮里站",
+        lat: 35.7728, lng: 140.3882,
+        action: "36 分钟极速直达日暮里！大行李放车厢专属行李架，安静平稳坐着闭目养神。",
+        tags: ["36分直达", "行李架", "指定席对号"],
+        hero: false
+      },
+      {
+        time: "17:18",
+        name: "日暮里站东口 ②番のりば",
+        sub: "换乘都营巴士【都08】(錦糸町駅前行)",
+        lat: 35.7278, lng: 139.7710,
+        action: "出闸乘东口电梯下站前广场，始发站空车上车，大行李推入低地板区扶稳，坐 5 站(10分)直达「竜泉」站牌。",
+        tags: ["电梯下楼", "始发空车", "均一价¥210"],
+        hero: false
+      },
+      {
+        time: "17:45",
+        name: "竜泉基地 (Yoin TOKYO)",
+        sub: "東京都台東区竜泉 3-10-8 (32/33号房)",
+        lat: 35.7230, lng: 139.7905,
+        action: "站牌下车平路步行 140 米进大堂，电子锁自助入住，洗热水澡换装。给司机看地址，切勿报大楼名。",
+        tags: ["平路140m", "电子锁", "有电梯洗衣机"],
+        hero: true
+      },
+      {
+        time: "18:30",
+        name: "My Basket 超市 & 清淡定食",
+        sub: "まいばすけっと 竜泉1丁目店 (营业至23:00)",
+        lat: 35.7225, lng: 139.7915,
+        action: "步行 150 米采买大瓶饮用水、鲜奶与水果，周边吃热汤面，21:00 准时熄灯大睡，倒时差深度蓄力。",
+        tags: ["营业至23:00", "21:00熄灯", "平价便当"],
+        hero: false
+      }
+    ]
+  },
+  {
+    day: "D2",
+    date: "10/4",
+    weekday: "日",
+    title: "浅草无人晨拍 ➔ 待乳山缆车 ➔ 桜桥 ➔ 秋叶原步行街",
+    intensity: "中负荷 · 约 6,500 步",
+    desc: "利用倒时差早起优势独享清空雷门，中午吃 160 年手打荞麦，午后乘免费迷你缆车赏晴空塔，傍晚抢拍周日限定秋叶原步行者天国！",
+    transit: "🚌 门口公车直达浅草雷门 ➔ 桜桥徒步 ➔ 计程车15分赴秋叶原 ➔ 日比谷线直达回竜泉",
+    routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Tokyo+Taito+Ryusen+3-10-8&destination=Akihabara+Electric+Town&waypoints=Kaminarimon+Gate%7CMatsuchiyama+Shoden%7CSakurabashi+Bridge&travelmode=walking",
+    nodes: [
+      {
+        time: "06:30",
+        name: "竜泉站牌搭公车",
+        sub: "都08 (錦糸町行) 或 草43 (浅草寿町行)",
+        lat: 35.7228, lng: 139.7908,
+        action: "门口 140 米公车站，先来哪班坐哪班，直达浅草雷门前，省去 1.4km 步行大太阳体力。",
+        tags: ["省步数1.4km", "刷Suica¥210"],
+        hero: false
+      },
+      {
+        time: "06:50",
+        name: "浅草寺 · 雷门无人黄金晨拍 ★",
+        sub: "Sensoji Temple & Kaminarimon Gate",
+        lat: 35.7111, lng: 139.7963,
+        action: "06:50–07:50 核心晨拍窗口！雷门大灯笼下完全零游客，仲见世紧闭铁卷门浮世绘露天美术馆，40mm母子肖像与广角大景。",
+        tags: ["零游客空景", "本堂06:30开门", "40mm定焦"],
+        hero: true
+      },
+      {
+        time: "08:00",
+        name: "FUGLEN ASAKUSA (浅草店)",
+        sub: "浅草 2-6-15 (本堂西侧步行 4 分)",
+        lat: 35.7145, lng: 139.7937,
+        action: "08:00 开门第一批进店免排队！直上 2F 复古大皮沙发深度休整 1 小时，挪威心形华夫饼两人分食尝鲜，配妈妈热茶/拿铁。",
+        tags: ["2F大皮沙发", "现烤华夫饼", "深层回血"],
+        hero: false
+      },
+      {
+        time: "10:00",
+        name: "浅草メンチ (传法院通炸肉饼)",
+        sub: "高座豚爆汁肉饼 · Google 4.1★",
+        lat: 35.7126, lng: 139.7954,
+        action: "10:00 开门刚出炉金黄爆汁，高座豚肉加甘甜洋葱 (¥400 Cash Only)，在侧方站立区趁热吃完。",
+        tags: ["只收现金", "金黄爆汁", "浅草名物"],
+        hero: false
+      },
+      {
+        time: "10:40",
+        name: "浅草文化观光中心 8F 免费展望台",
+        sub: "雷门正对面 · 开放至 22:00",
+        lat: 35.7106, lng: 139.7966,
+        action: "大直梯直通 8F 露台，坐感舒适有冷气强风吹拂，优质卫生间，俯拍仲见世全景与正对面的晴空塔。",
+        tags: ["免费展望台", "电梯直达", "晴空塔合影"],
+        hero: false
+      },
+      {
+        time: "11:30",
+        name: "尾张屋 本店 (160年手打荞麦面)",
+        sub: "浅草 1-7-1 · 11:30 准点开门",
+        lat: 35.7107, lng: 139.7936,
+        action: "开门第一批进店完全免排队！麻油香气扑鼻巨大炸虾热汤荞麦面，清淡软烂超暖胃 (Cash Only)。",
+        tags: ["11:30准点免排", "现金支付", "巨大炸虾天妇罗"],
+        hero: false
+      },
+      {
+        time: "12:20",
+        name: "待乳山圣天 (免费迷你小缆车)",
+        sub: "浅草 7-4-1 · 06:00–16:30",
+        lat: 35.7197, lng: 139.8038,
+        action: "雷门打车 5 分钟 (¥600) 直达。乘免费 4 人座斜坡登山小缆车 (さくらレール) 滑上山顶，白萝卜祈愿幽静庭园，零游客。",
+        tags: ["免费小缆车", "0台阶登顶", "白萝卜祈福"],
+        hero: false
+      },
+      {
+        time: "13:20",
+        name: "桜桥 (Sakurabashi X型景观桥)",
+        sub: "隅田川唯一的纯步行景观桥",
+        lat: 35.7196, lng: 139.8078,
+        action: "东京唯一 X 字形步行专用桥，零机动车噪音与尾气！江心宽阔观景台拍晴空塔明信片母子合照。",
+        tags: ["纯行人桥", "晴空塔全景机位", "零汽车尾气"],
+        hero: true
+      },
+      {
+        time: "13:45",
+        name: "向岛茶歇：长命寺樱饼 / 言问团子",
+        sub: "下桥 250m · 300年江户老铺",
+        lat: 35.7188, lng: 139.8105,
+        action: "长命寺薄皮咸甜樱饼配阿姨无限免费续热茶 (¥350) 或 言问团子靠背大茶室，深度歇脚 1.5 小时。",
+        tags: ["无限续热茶", "老铺和果子", "靠背软座"],
+        hero: false
+      },
+      {
+        time: "16:15",
+        name: "秋叶原 · 周日限定「步行者天国」★",
+        sub: "中央通大马路 · 17:00 准时结束封路",
+        lat: 35.7022, lng: 139.7741,
+        action: "向岛叫计程车 (15分 ¥2,000) 直达末広町。抢拍马路正中央无车动漫街景！17:00 街道解封通车后全城霓虹灯瞬间全亮。",
+        tags: ["17:00截止", "中央通封路", "赛博朋克夜景"],
+        hero: true
+      },
+      {
+        time: "18:30",
+        name: "友都八喜 8F 舒适美食街",
+        sub: "Yodobashi-Akiba 8F · 炸猪排/寿喜烧",
+        lat: 35.6987, lng: 139.7747,
+        action: "室内冷气大卡座、免街头排队。就餐后秋叶原站搭日比谷线 4 站 8 分钟一车直达三ノ轮站回房！",
+        tags: ["宽敞大卡座", "室内冷气", "日比谷线8分回房"],
+        hero: false
+      }
+    ]
+  },
+  {
+    day: "D3",
+    date: "10/5",
+    weekday: "一",
+    title: "上野江户奇趣 ➔ 大户屋定食 ➔ 日本桥重要文化财 ➔ COREDO",
+    intensity: "中低负荷 · 约 4,500 步",
+    desc: "周一避开上野公立博物馆闭馆，利用商场大直梯登顶上野公园零爬坡，欣赏纯金箔唐门与月之松；午后地下通道直结日本桥三越与老铺高汤。",
+    transit: "🚇 日比谷线 4m 至上野 ➔ 银座线 5m 至日本桥三越前 ➔ 银座线+日比谷线极速回巢",
+    routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Ueno+Toshogu+Shrine&destination=Nihombashi+Mitsukoshi+Main+Store&waypoints=Kiyomizu+Kannon-do%7COotoya+Ueno+Park%7CCOREDO+Muromachi&travelmode=transit",
+    nodes: [
+      {
+        time: "08:45",
+        name: "三ノ轮站搭日比谷线至上野",
+        sub: "仅 2 站 4 分钟 (¥180)",
+        lat: 35.7297, lng: 139.7915,
+        action: "上野站走 5a 垂直电梯上地面，进 Sakura Terrace 乘商场大电梯直达顶层公园口，完全不爬坡、零台阶！",
+        tags: ["商场直梯", "零爬坡", "2站4分钟"],
+        hero: false
+      },
+      {
+        time: "09:05",
+        name: "上野东照宫 · 纯金箔唐门 ★",
+        sub: "Ueno Toshogu · 09:00 开门第一批",
+        lat: 35.7153, lng: 139.7739,
+        action: "独享晨光空景！漫步 200 座大名石灯笼林道，欣赏 400 年纯金箔唐门 (国宝文化财)，金碧辉煌。",
+        tags: ["国宝文化财", "200座石灯笼", "晨光金箔"],
+        hero: true
+      },
+      {
+        time: "09:40",
+        name: "上野大佛 (不跌倒大佛)",
+        sub: "步行 100 米 · 仅剩一张佛面",
+        lat: 35.7142, lng: 139.7735,
+        action: "历经关东大地震与二战熔毁，仅剩一张青铜大佛脸镶嵌在石壁上，寓意「已不能再跌了」，摸摸佛面祈愿全家健康平安。",
+        tags: ["摸佛面求健康", "不会再跌了", "奇趣故事"],
+        hero: false
+      },
+      {
+        time: "09:55",
+        name: "清水观音堂 & 月之松",
+        sub: "仿京都清水寺悬空舞台 · 歌川广重浮世绘原型",
+        lat: 35.7126, lng: 139.7738,
+        action: "建于 1631 年上野最古老木造建筑。透过 360 度圆环奇松「月之松」俯瞰公园全景。",
+        tags: ["悬空舞台", "月之松", "浮世绘名所"],
+        hero: false
+      },
+      {
+        time: "10:25",
+        name: "花园稻荷千本鸟居 & 弁天堂",
+        sub: "朱红小鸟居走廊 ➔ 穿过中之岛直道",
+        lat: 35.7138, lng: 139.7732,
+        action: "拍千本鸟居斑驳光影肖像。10月荷花已枯萎，坚决不绕湖，顺湖心直道 10:55 跨出南门过马路。",
+        tags: ["千本鸟居", "拒绝枯燥绕湖", "穿湖而过"],
+        hero: false
+      },
+      {
+        time: "11:00",
+        name: "大户屋 (上野公园店) 暖胃午餐",
+        sub: "弁天堂对面大厦 3F · 全电梯卡座",
+        lat: 35.7118, lng: 139.7730,
+        action: "平板中文配图点餐，现烤青花鱼/黑醋鸡定食配热味噌汤，人均仅 ¥950–1,200，清淡软烂极暖胃。",
+        tags: ["电梯3F", "平板点餐", "软烂家常定食"],
+        hero: false
+      },
+      {
+        time: "12:20",
+        name: "上野广小路搭银座线",
+        sub: "仅 3 站 5 分钟 (¥180) 直达三越前站",
+        lat: 35.7078, lng: 139.7725,
+        action: "A1 出口垂直电梯直达站台，地下空调通道平路直结日本桥三越百货。",
+        tags: ["空调地下连通道", "电梯直达", "5分钟直达"],
+        hero: false
+      },
+      {
+        time: "12:45",
+        name: "日本桥三越本店 (重要文化财) ★",
+        sub: "1673 年开业 · 日本第一家百货公司",
+        lat: 35.6860, lng: 139.7735,
+        action: "中庭仰望 11 米震撼天女木雕像与复古管风琴，搭大正手摇电梯，至 RF 日本桥庭园露天长椅晒暖阳。",
+        tags: ["重要文化财", "11米天女像", "空中露台花园"],
+        hero: true
+      },
+      {
+        time: "14:00",
+        name: "COREDO 室町 · にんべん柴鱼高汤",
+        sub: "325 年老铺「日本桥 だし場」",
+        lat: 35.6872, lng: 139.7745,
+        action: "站立吧台喝一杯现刨热柴鱼高汤 (仅 ¥100 起)，暖胃驱寒！参拜竹林掩映的福德神社求健康财运。",
+        tags: ["现刨高汤¥100", "福德神社", "金箔手工艺"],
+        hero: false
+      },
+      {
+        time: "16:30",
+        name: "银座线+日比谷线回竜泉 (早睡蓄力)",
+        sub: "三越前 ➔ 上野换日比谷 ➔ 三ノ轮 (15m)",
+        lat: 35.7230, lng: 139.7905,
+        action: "整理次日河口湖小背包 (大箱锁公寓)，21:00 熄灯大睡，明晨 06:30 起床乘车！",
+        tags: ["15分回巢", "收拾小背包", "21:00熄灯蓄力"],
+        hero: false
+      }
+    ]
+  },
+  {
+    day: "D4",
+    date: "10/6",
+    weekday: "二",
+    title: "高速巴士赴河口湖 ➔ 自驾忍野八海 ➔ 大石落日 ➔ 鸣泽温泉",
+    intensity: "中负荷 · 自驾 48 km",
+    desc: "大行李留东京，轻装乘八重洲高速巴士赴河口湖，12:30 顺利取车，町役场Lawson优雅平替，大石公园看完整落日，入住 SAWA 后泡鸣泽露天温泉！",
+    transit: "🚌 东京站八重洲南口 08:10 高速巴士 ➔ 河口湖自驾 compact 小车",
+    routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Kawaguchiko+Station&destination=Fuji+Yurari+Onsen&waypoints=Lawson+Fujikawaguchiko+Town+Hall%7COshino+Hakkai%7COishi+Park+Kawaguchiko%7CSawa+Hotel+Fujikawaguchiko&travelmode=driving",
+    nodes: [
+      {
+        time: "08:10",
+        name: "东京站八重洲南口高速巴士",
+        sub: "JR 巴士关东直达车 · 10:07 抵河口湖",
+        lat: 35.6800, lng: 139.7690,
+        action: "只带小背包轻装登车！八重洲南口 9 号站台平地无阶梯，对号入座补眠 2 小时。",
+        tags: ["大行李留东京", "0阶梯登车", "车程2小时"],
+        hero: false
+      },
+      {
+        time: "11:00",
+        name: "站前午餐：天妇罗 いだ天 / 不动茶屋",
+        sub: "出站 1-2 分钟 · 11:00 开门第一批",
+        lat: 35.4990, lng: 138.7695,
+        action: "现炸大虾天妇罗盖饭 (¥1,500) 或 大铁锅南瓜蔬菜面 (¥1,210 Cash Only)，饱足暖胃。",
+        tags: ["开门0排队", "大虾天妇罗", "南瓜馎饦面"],
+        hero: false
+      },
+      {
+        time: "12:15",
+        name: "ニッポンレンタカー 验车取车",
+        sub: "河口湖駅前店 (出站右手步行 2 分钟)",
+        lat: 35.4985, lng: 138.7690,
+        action: "核对大马驾照+IDP小册子，刷全险 CDW+ECO，背包放后备箱，12:30 准点平稳开出！",
+        tags: ["取车23.5h", "已含全险", "Compact小车"],
+        hero: false
+      },
+      {
+        time: "12:45",
+        name: "富士山 Lawson 町役场前店 (优雅平替)",
+        sub: "距车行仅 1.4km (4分钟) · 超大免费停车场",
+        lat: 35.5034, lng: 138.7602,
+        action: "自带划线大车位，避开车站前店铁马与人潮！买两罐温热绿茶，富士山端坐蓝白店招上方，合影 5 分钟搞定。",
+        tags: ["大免费停车场", "零推挤", "富士山同框"],
+        hero: true
+      },
+      {
+        time: "13:30",
+        name: "忍野八海 (涌泉与木栈道)",
+        sub: "车程约 20 分钟 (10.4km) · 免费停车",
+        lat: 35.4605, lng: 138.8329,
+        action: "平坦木栈道零台阶看清澈透底池水与锦鲤游鱼，忍野屋买热草饼吃，消费满 ¥500 可免费停。",
+        tags: ["平路木栈道", "0台阶", "现烤热草饼"],
+        hero: false
+      },
+      {
+        time: "15:30",
+        name: "大石公园落日绝景 ★",
+        sub: "车程约 30 分钟 · 专属免费停车场",
+        lat: 35.5230, lng: 138.7456,
+        action: "赏红艳扫帚草花海！自驾优势：完整看完 17:24 落日再走，红霞映照富士山变色，沿湖长椅从容坐看。",
+        tags: ["17:24完整落日", "红色扫帚草", "长椅无障碍"],
+        hero: true
+      },
+      {
+        time: "18:00",
+        name: "SAWA Hotel 入住 & Ogino 采买",
+        sub: "开回 SAWA 15m ➔ 2m 达大型超市 Ogino",
+        lat: 35.4975, lng: 138.7562,
+        action: "停门前平地车位，拿房卡放背包；去 Ogino 备好明晨 04:15 出门的加热饭团、三明治与温热茶饮。",
+        tags: ["门前免费停车", "备好明晨早餐", "21㎡大空间"],
+        hero: false
+      },
+      {
+        time: "18:50",
+        name: "富士眺望之汤 ゆらり (鸣泽露天温泉)",
+        sub: "车程 15 分钟 · 鸣泽村 · 营业至 21:00",
+        lat: 35.4740, lng: 138.6946,
+        action: "边泡露天温泉边看富士山星空！馆内餐厅「ふじざくら」享用热腾腾晚餐，吃饱泡暖 20:45 回房熄灯。",
+        tags: ["露天看富士山", "馆内晚餐", "洗净疲劳"],
+        hero: true
+      }
+    ]
+  },
+  {
+    day: "D5",
+    date: "10/7",
+    weekday: "三",
+    title: "富士五湖晨光大满贯 ➔ KITTE 6F 露台看新干线 ➔ 回竜泉",
+    intensity: "中负荷 · 自驾 90 km",
+    desc: "清晨制霸千圆日出、朝雾高原金山与精进湖抱子富士，还车后乘高速巴士回东京站，傍晚在 KITTE 6F 露台看新干线夕阳，早早休整！",
+    transit: "🚗 自驾五湖晨光环线 ➔ 高速巴士 13:30 返东京站 ➔ JR山手线+日比谷线回竜泉",
+    routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Sawa+Hotel+Fujikawaguchiko&destination=Nippon+Rent-A-Car+Kawaguchiko+Station&waypoints=Koan+Camping+Ground+Motosuko%7CMichi-no-Eki+Asagiri+Kogen%7CShojiko+Tatego-hama%7CNagasaki+Park+Kawaguchiko%7COishi+Park+Kawaguchiko%7CYamanakako+Panorama-dai&travelmode=driving",
+    nodes: [
+      {
+        time: "04:15",
+        name: "SAWA 驾车出发西行",
+        sub: "国道 139 号 · 车内暖气 24°C",
+        lat: 35.4975, lng: 138.7562,
+        action: "房内吃前晚备好的早餐热饮，保温杯装满开水，清晨大路平稳驾驶 30 分钟。",
+        tags: ["04:15出车", "国道大路好开", "自备热饮"],
+        hero: false
+      },
+      {
+        time: "04:45",
+        name: "本栖湖 · 浩庵湖畔日出 ★★",
+        sub: "日币千圆纸钞日出原型 · 05:48 日出",
+        lat: 35.4719, lng: 138.5833,
+        action: "05:10–05:35 蓝调紫粉朝霞剪影，05:48 太阳自山脊跃出照亮逆富士！长辈不下车受冻，在暖气车内静坐欣赏，车位距湖滩仅 5 米。",
+        tags: ["千圆日出", "05:48日出", "下车仅5米"],
+        hero: true
+      },
+      {
+        time: "06:10",
+        name: "道の駅 朝霧高原 (静冈西麓牧场)",
+        sub: "本栖湖南下 12km / 15分跨入静冈",
+        lat: 35.4124, lng: 138.5867,
+        action: "金光照射富士山西壁，草原奶牛漫步，自动贩卖机喝温热纯鲜奶。",
+        tags: ["顺侧光西壁金山", "温热鲜奶", "宽敞公厕"],
+        hero: false
+      },
+      {
+        time: "06:50",
+        name: "精进湖 他手合滨 (抱子富士) ★",
+        sub: "県営精進湖他手合浜駐車場 (免费柏油车位)",
+        lat: 35.4905, lng: 138.6087,
+        action: "大富士怀抱小大室山，倒影纯净无风！停在柏油车位（严禁开上松散砾石沙滩），平步 20 米坐享绝景。",
+        tags: ["抱子富士", "倒影大满贯峰值", "严禁沙滩开车"],
+        hero: true
+      },
+      {
+        time: "07:40",
+        name: "河口湖 长崎公园 & 大石公园",
+        sub: "西湖车览 ➔ 对称镜面逆富士",
+        lat: 35.5218, lng: 138.7600,
+        action: "半岛凸角正中央对称无遮挡逆富士，8 点前湖面平静无波。大石公园晨光顺光北壁花海。",
+        tags: ["对称逆富士", "湖面平滑", "避开旅行团"],
+        hero: false
+      },
+      {
+        time: "09:00",
+        name: "回到 SAWA 休整退房",
+        sub: "洗热水澡暖身 · 09:50 退房",
+        lat: 35.4975, lng: 138.7562,
+        action: "回房整理背包放后备箱。退房后看体能：若选全制霸则去山中湖全景台；若选轻松则提早还车吃大餐。",
+        tags: ["热水澡暖身", "09:50退房", "机动双方案"],
+        hero: false
+      },
+      {
+        time: "10:15",
+        name: "山中湖 明神山 パノラマ台",
+        sub: "车程 35 分 · 俯瞰全景与天鹅",
+        lat: 35.4215, lng: 138.8988,
+        action: "俯瞰金字塔富士与开阔湖面，湖畔亲水公园看优雅白天鹅，10:55 准时撤退走 R138 免费国道还车。",
+        tags: ["俯瞰全景", "野生天鹅", "免费国道R138"],
+        hero: true
+      },
+      {
+        time: "11:30",
+        name: "ENEOS 富士见店加油 ➔ 还车",
+        sub: "距车行 268m · 务必保留纸本发票",
+        lat: 35.4985, lng: 138.7690,
+        action: "说「レギュラー、満タンでお願いします」，保留发票顺利验车。站内午餐伴手礼，13:15 放行李检票。",
+        tags: ["加满油要发票", "提前还车0压力", "站前午餐"],
+        hero: false
+      },
+      {
+        time: "13:30",
+        name: "高速巴士回东京站",
+        sub: "2h5m 直达东京站八重洲南口",
+        lat: 35.4982, lng: 138.7686,
+        action: "指定席对号入座，全家车内补眠充饱电，15:35 准点抵达东京站！",
+        tags: ["补眠2小时", "直达东京站", "准点15:35抵"],
+        hero: false
+      },
+      {
+        time: "16:05",
+        name: "KITTE 6F 屋顶花园 (免费露台) ★",
+        sub: "木甲板俯瞰东京车站红砖与新干线",
+        lat: 35.6797, lng: 139.7656,
+        action: "大直梯直达 6F 露台，坐长椅俯瞰辰野金吾百年红砖穹顶与脚下穿梭的各系新干线，看金色夕阳。在 5F 吃高品质和食晚餐后轻松回竜泉早睡！",
+        tags: ["免费观景台", "俯瞰新干线", "大沙发和食晚餐"],
+        hero: true
+      }
+    ]
+  },
+  {
+    day: "D6",
+    date: "10/8",
+    weekday: "四",
+    title: "小网神社 ➔ 筑地市场海鲜 ➔ 银座GSIX/伊东屋 ➔ 增上寺东京铁塔",
+    intensity: "中负荷 · 约 6,000 步",
+    desc: "河口湖归来后的深度休整日：拜访东京第一财运小网神社，筑地吃大腹黑鲔鱼早午餐，漫步银座伊东屋，傍晚拍增上寺与东京铁塔点灯！",
+    transit: "🚇 日比谷线直达人形町/筑地/银座 ➔ 日比谷线直达神谷町 ➔ 大门搭浅草线直达回巢",
+    routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Koami+Shrine&destination=Zojoji+Temple&waypoints=Tsukiji+Outer+Market%7CGINZA+SIX%7CTokyo+Tower&travelmode=transit",
+    nodes: [
+      {
+        time: "08:45",
+        name: "小网神社 (强运厄除·洗钱之泉)",
+        sub: "中央区日本桥小网町 10-27",
+        lat: 35.6853, lng: 139.7806,
+        action: "日比谷线直达人形町 A3 电梯口。参拜二战东京大空袭全境未损的强运名社，将硬币放入竹篓洗钱祈福。",
+        tags: ["洗钱祈财运", "强运厄除", "电梯出口"],
+        hero: false
+      },
+      {
+        time: "09:30",
+        name: "筑地场外市场 (海鲜早午餐)",
+        sub: "日比谷线 5m 直达筑地站 1 号口",
+        lat: 35.6655, lng: 139.7708,
+        action: "现切大腹黑鲔鱼生鱼片入口即化、热腾腾玉子烧、海鲜丼，人均 ¥2,000–3,000 鲜美开怀！",
+        tags: ["大腹黑鲔鱼", "热腾腾玉子烧", "海鲜早午餐"],
+        hero: true
+      },
+      {
+        time: "11:15",
+        name: "银座 GSIX & 百年伊东屋 (Itoya)",
+        sub: "日比谷线 4m 直达银座 · 室内冷气",
+        lat: 35.6696, lng: 139.7640,
+        action: "逛 12 层精美文具殿堂伊东屋、GSIX 挑空中庭当代艺术，累了至室内咖啡馆软座饮茶歇脚。",
+        tags: ["12层文具殿堂", "GSIX中庭", "全冷气无日晒"],
+        hero: false
+      },
+      {
+        time: "16:00",
+        name: "增上寺 (大殿与东京铁塔同框) ★",
+        sub: "日比谷线至神谷町 / 芝公园",
+        lat: 35.6575, lng: 139.7482,
+        action: "600 年三解脱门，平坦石板广场，仰望江户古刹与橘红色东京铁塔古今同框震撼画面！",
+        tags: ["铁塔古今同框", "江户古刹", "平路无台阶"],
+        hero: true
+      },
+      {
+        time: "17:15",
+        name: "芝公园 · 东京铁塔点灯与大门晚餐",
+        sub: "日落蓝调点灯 ➔ 大门站地道和食",
+        lat: 35.6558, lng: 139.7490,
+        action: "17:15 铁塔准点点亮温暖橘红灯火！芝公园长椅静坐观赏，随后在大门站享用热腾腾晚餐，搭浅草线直达回竜泉。",
+        tags: ["17:15准点点灯", "芝公园长椅", "浅草线直达回房"],
+        hero: false
+      }
+    ]
+  },
+  {
+    day: "D7",
+    date: "10/9",
+    weekday: "五",
+    title: "浅草始发银座线 ➔ 明治神宫氧气漫步 ➔ 涩谷SKY日落黄金场",
+    intensity: "高负荷 (全程峰值) · 约 9,000 步",
+    desc: "浅草起点站坐着到底直通表参道，漫步明治神宫参天古树森林氧吧，傍晚登上 46F 涩谷 SKY 坐看绝美大都会夕阳与富士山剪影！",
+    transit: "🚇 浅草站银座线起点 (全程有座坐到底) ➔ 徒步/山手线 ➔ 计程车直达回竜泉",
+    routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Meiji+Jingu&destination=SHIBUYA+SKY&waypoints=Harajuku+Station%7CShibuya+Crossing&travelmode=transit",
+    nodes: [
+      {
+        time: "08:45",
+        name: "浅草站搭银座线 (全程坐着到底)",
+        sub: "起点站始发 100% 保证有座位",
+        lat: 35.7120, lng: 139.7975,
+        action: "公车 8 分钟到浅草站，坐始发银座线，35 分钟全程坐着直达表参道，养精蓄锐！",
+        tags: ["100%有座", "始发车", "全程坐到底"],
+        hero: false
+      },
+      {
+        time: "09:30",
+        name: "明治神宫 (百年森林氧气步道)",
+        sub: "原宿站出口即达 · 南参道大鸟居",
+        lat: 35.6764, lng: 139.6993,
+        action: "穿过参天古树林荫大道，满目绿意负离子，参拜本堂与巨大清酒桶墙，平缓碎石路慢慢散步。",
+        tags: ["百年林荫道", "负离子氧吧", "大鸟居"],
+        hero: false
+      },
+      {
+        time: "12:00",
+        name: "表参道 / 原宿 精致和食午餐",
+        sub: "商业街高品质餐厅卡座",
+        lat: 35.6672, lng: 139.7065,
+        action: "享用精致黑毛和牛定食或热汤定食，饭后室内逛表参道 Hills，确保长辈有充分坐下休息时间。",
+        tags: ["大卡座休息", "软烂和牛", "补足体力"],
+        hero: false
+      },
+      {
+        time: "13:30",
+        name: "涩谷十字路口 (都会奇观合影)",
+        sub: "Shibuya Crossing · 忠犬八公像",
+        lat: 35.6595, lng: 139.7005,
+        action: "体验世界最大人潮十字路口，与八公铜像合影，随后直接进入 Scramble Square 室内吹空调歇脚。",
+        tags: ["世界十字路口", "八公铜像", "室内歇脚"],
+        hero: false
+      },
+      {
+        time: "16:20",
+        name: "SHIBUYA SKY (46F 露天全景日落) ★★",
+        sub: "日落黄金场次 · 提前在 9/24 抢票",
+        lat: 35.6585, lng: 139.7022,
+        action: "46 层顶楼 360 度玻璃悬空步道！16:20 登顶看白天都会、17:15 夕阳斜照富士山剪影、17:35 璀璨千万霓虹灯海！",
+        tags: ["360度玻璃栈道", "富士山夕阳剪影", "全程视觉最高潮"],
+        hero: true
+      },
+      {
+        time: "18:30",
+        name: "涩谷大厦高空晚餐 ➔ 极速回巢",
+        sub: "Scramble Square 美食街 ➔ 打车或电车",
+        lat: 35.6585, lng: 139.7022,
+        action: "馆内享用美味晚餐。若长辈疲惫直接门前打车直达竜泉 (约¥4,000)，或银座线坐回浅草，早睡彻底回血！",
+        tags: ["馆内晚餐免走路", "长辈累了叫车", "早睡回血"],
+        hero: false
+      }
+    ]
+  },
+  {
+    day: "D8",
+    date: "10/10",
+    weekday: "六",
+    title: "清澄白河慢调 ➔ 水上回游庭园 ➔ 门前仲町深川饭 (避连休)",
+    intensity: "低负荷 (深度回血) · 约 3,500 步",
+    desc: "日本体育之日三连休首日，避开所有主流景区！清澄白河喝精品咖啡，漫步水上绿树回游庭园，吃软烂鲜美蛤蜊深川饭，下午回房午休。",
+    transit: "🚇 大江户线/半藏门线直达 ➔ 傍晚步行回巢",
+    routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Blue+Bottle+Coffee+Kiyosumi&destination=Kiyosumi+Gardens&travelmode=walking",
+    nodes: [
+      {
+        time: "10:30",
+        name: "清澄白河 · 蓝瓶咖啡 (日本1号店)",
+        sub: "Blue Bottle Kiyosumi Shirakawa",
+        lat: 35.6820, lng: 139.8000,
+        action: "高挑明亮原木大空间，慢品一杯清香手冲咖啡配香软饼干，安静惬意避开人潮。",
+        tags: ["日本一号店", "手冲咖啡", "宁静街区"],
+        hero: false
+      },
+      {
+        time: "11:30",
+        name: "清澄庭园 (水上回游式大名庭园) ★",
+        sub: "都立庭园 · 门票仅 ¥150 (长辈半价)",
+        lat: 35.6805, lng: 139.7985,
+        action: "踏伊豆大石矶渡水步道，池中巨大锦鲤与水鸟嬉戏，绿树倒影如镜，平坦幽静完全零拥挤。",
+        tags: ["都立名园", "水上矶渡", "人少景幽"],
+        hero: true
+      },
+      {
+        time: "13:00",
+        name: "门前仲町 · 下町传统名物「深川饭」",
+        sub: "富冈八幡宫旁老铺",
+        lat: 35.6720, lng: 139.7960,
+        action: "甘甜饱满蛤蜊肉吸饱浓郁热高汤的石锅炊饭，粒粒软糯鲜香，极易消化完全无肠胃负担！",
+        tags: ["软烂蛤蜊炊饭", "下町名物", "长辈极爱"],
+        hero: false
+      },
+      {
+        time: "14:30",
+        name: "隅田川林荫漫步 ➔ 回公寓午休",
+        sub: "沿江木栈道吹风 ➔ 回房躺平蓄力",
+        lat: 35.7230, lng: 139.7905,
+        action: "下午不排任何硬行程，回竜泉公寓睡个香甜午觉，泡脚看电视，为明晚羽田返程养足百分之百精神。",
+        tags: ["午后大午睡", "连休避峰", "彻底蓄力"],
+        hero: false
+      }
+    ]
+  },
+  {
+    day: "D9",
+    date: "10/11",
+    weekday: "日",
+    title: "合羽桥选品 ➔ 采买大整备 ➔ 20:40 门口公车转浅草线直通羽田",
+    intensity: "低负荷 · 约 3,000 步 (推箱 0 楼梯)",
+    desc: "全天不赶时间！上午选购精致日本餐具，下午多庆屋采购伴手礼，傍晚回公寓洗澡收拾大行李，20:40 门口公车直达浅草，浅草线直通羽田 T3！",
+    transit: "🚌 20:40 门口公车草63 (¥210) ➔ 浅草站 21:15 浅草线直通快特 (¥650) ➔ 22:05 羽田T3",
+    routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Tokyo+Taito+Ryusen+3-10-8&destination=Haneda+Airport+Terminal+3&travelmode=transit",
+    nodes: [
+      {
+        time: "10:30",
+        name: "合羽桥道具街 (Kappabashi)",
+        sub: "步行 15 分 · 厨房用品与逼真食物模型",
+        lat: 35.7145, lng: 139.7885,
+        action: "传统街区不挤，选购精致日式陶瓷碗碟、木筷与可爱的便当小物带回家给妈妈作纪念。",
+        tags: ["日式碗碟", "食品模型", "特色伴手礼"],
+        hero: false
+      },
+      {
+        time: "13:30",
+        name: "多庆屋 (Takeya) / 药妆采购",
+        sub: "御徒町站旁 · 09:00–23:00 全年无休",
+        lat: 35.7065, lng: 139.7755,
+        action: "集中补齐免税药妆、日本零食与保健品，买齐装箱，下午回房打包。",
+        tags: ["免税一站式", "退税方便", "装箱大扫货"],
+        hero: false
+      },
+      {
+        time: "18:00",
+        name: "回公寓：洗热水澡 · 整理行李 · 躺平休息 ★",
+        sub: "公寓保留至出发 · 极其从容体面",
+        lat: 35.7230, lng: 139.7905,
+        action: "房间已付清到明天，从容洗个热水澡、换好搭机长裤卫衣、平摊两个 28 吋大箱收紧，躺平休息 2 小时。",
+        tags: ["洗热水澡", "大箱收整", "平躺休息2小时"],
+        hero: true
+      },
+      {
+        time: "20:40",
+        name: "出发：门口「竜泉」站牌",
+        sub: "都营公车草63 / 草43 (8–10分钟直达浅草)",
+        lat: 35.7228, lng: 139.7908,
+        action: "平路推箱 80 米到站牌，乘公车直达「浅草寿町/浅草雷门南」，平步 2 分钟走入浅草站 A2b 电梯口直达闸机，全程 0 阶梯！",
+        tags: ["推箱0楼梯", "电梯直达闸口", "¥210/人"],
+        hero: true
+      },
+      {
+        time: "21:15",
+        name: "浅草线 · 直通羽田空港行 (快特) ★",
+        sub: "浅草站 2 番线 ➔ 羽田机场 T3 (45-50分)",
+        lat: 35.7107, lng: 139.7965,
+        action: "一车直达羽田 T3！大电梯直达 3F 国际线出境大厅，2 人总费用仅 ¥1,720 (RM 55)，立省一万日元出租车费！",
+        tags: ["直通一车到底", "省¥12,780", "22:10稳稳抵达"],
+        hero: true
+      },
+      {
+        time: "22:15",
+        name: "羽田机场 T3 航厦候机",
+        sub: "Haneda Airport Terminal 3 · 3F 出境大厅",
+        lat: 35.5494, lng: 139.7798,
+        action: "23:20 柜台开柜托运，轻装过安检进免税店买白色恋人与伴手礼，候机大厅舒适皮椅休息等登机。",
+        tags: ["3小时从容缓冲", "免税店买伴手礼", "02:20起飞回马"],
+        hero: false
+      }
+    ]
+  },
+  {
+    day: "D10",
+    date: "10/12",
+    weekday: "一",
+    title: "02:20 羽田起飞 ➔ 香港转机 ➔ 顺利返抵槟城",
+    intensity: "机上休息 · 平安归家",
+    desc: "UO623 02:20 羽田起飞，香港转机返回槟城 PEN，有 10/13–14 两天居家缓冲，10/15 精神饱满开工！",
+    transit: "✈️ 飞机 02:20 HND ➔ HKG ➔ PEN 槟城",
+    routeUrl: "https://www.google.com/maps/search/?api=1&query=Penang+International+Airport",
+    nodes: [
+      {
+        time: "02:20",
+        name: "羽田 T3 起飞 ✈️",
+        sub: "HK Express 航班 · 飞往香港转机",
+        lat: 35.5494, lng: 139.7798,
+        action: "飞机准点起飞，机上深沉安睡。",
+        tags: ["起飞", "机上补眠"],
+        hero: true
+      },
+      {
+        time: "午后",
+        name: "抵达槟城国际机场 (PEN) 🏠",
+        sub: "Penang International Airport",
+        lat: 5.2971, lng: 100.2768,
+        action: "顺利提领行李出关，乘车平安回温暖的家！拥有 10/13、10/14 两天充裕缓冲，10/15 正式开工。",
+        tags: ["平安到家", "缓冲2天", "开工"],
+        hero: true
+      }
+    ]
+  }
+];
+
+// ══════════════════════════════════════════════════════════════════════
+// Map & Interaction Engine
+// ══════════════════════════════════════════════════════════════════════
+let map = null;
+let currentDayIdx = 0;
+let markersLayer = null;
+let polylineLayer = null;
+let currentViewMode = 'split'; // 'split', 'time', 'map'
+
+function getDayIdxFromHash() {
+  const hash = window.location.hash.toLowerCase().replace('#', '');
+  if (!hash) return 0;
+  const match = hash.match(/\d+/);
+  if (match) {
+    const num = parseInt(match[0], 10);
+    if (num >= 1 && num <= DAYS.length) return num - 1;
+  }
+  return 0;
+}
+
+function initApp() {
+  renderDayPills();
+  initMap();
+  const initIdx = getDayIdxFromHash();
+  selectDay(initIdx, false);
+
+  window.addEventListener('hashchange', () => {
+    const idx = getDayIdxFromHash();
+    if (idx !== currentDayIdx) {
+      selectDay(idx, false);
+    }
+  });
+}
+
+function initMap() {
+  map = L.map('map', {
+    zoomControl: true,
+    attributionControl: false
+  }).setView([35.6895, 139.6917], 12);
+
+  // CartoDB Voyager Clean Tiles (Fast, legible, elegant)
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    maxZoom: 19,
+    subdomains: 'abcd'
+  }).addTo(map);
+
+  markersLayer = L.layerGroup().addTo(map);
+  polylineLayer = L.layerGroup().addTo(map);
+}
+
+function renderDayPills() {
+  const container = document.getElementById('dayPills');
+  container.innerHTML = '';
+  DAYS.forEach((d, idx) => {
+    const btn = document.createElement('button');
+    btn.className = `day-pill ${idx === currentDayIdx ? 'active' : ''}`;
+    btn.id = `pill-${idx}`;
+    btn.innerHTML = `<span>${d.day}</span><span class="dp-tag">${d.date}${d.weekday}</span>`;
+    btn.onclick = () => selectDay(idx);
+    container.appendChild(btn);
+  });
+}
+
+function selectDay(idx, updateHash = true) {
+  currentDayIdx = idx;
+  const day = DAYS[idx];
+
+  if (updateHash && window.location.hash !== `#${day.day}`) {
+    history.replaceState(null, '', `#${day.day}`);
+  }
+
+  // Update pills
+  document.querySelectorAll('.day-pill').forEach((p, i) => {
+    p.classList.toggle('active', i === idx);
+  });
+  const activePill = document.getElementById(`pill-${idx}`);
+  if (activePill) {
+    activePill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }
+
+  // Update map header
+  document.getElementById('mapDayLabel').textContent = `📍 ${day.day} (${day.date} ${day.weekday}) 地图路线`;
+  const routeBtn = document.getElementById('btnGmapsDayRoute');
+  routeBtn.href = day.routeUrl;
+
+  // Render Day Hero Card
+  const heroCard = document.getElementById('dayHero');
+  heroCard.innerHTML = `
+    <div class="hero-meta">
+      <span class="hero-badge">${day.day} · ${day.date} (${day.weekday})</span>
+      <span class="hero-pacing">${day.intensity}</span>
+    </div>
+    <h1 class="hero-title">${day.title}</h1>
+    <p class="hero-desc">${day.desc}</p>
+    <div class="hero-transit">🚇 ${day.transit}</div>
+    <a href="${day.routeUrl}" target="_blank" class="hero-route-link">🗺️ 打开今日完整 Google Maps 路线规划 ↗</a>
+  `;
+
+  // Render Timeline
+  renderTimeline(day);
+
+  // Update Leaflet Map
+  updateMap(day);
+}
+
+function renderTimeline(day) {
+  const list = document.getElementById('timelineList');
+  list.innerHTML = '';
+
+  day.nodes.forEach((node, nIdx) => {
+    const item = document.createElement('article');
+    item.className = `node-item ${node.hero ? 'hero' : ''}`;
+    item.id = `node-${nIdx}`;
+    
+    // Google Maps Navigation Deep Link
+    const gmapsNavUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(node.name + ' ' + (node.sub || ''))}`;
+
+    item.innerHTML = `
+      <div class="node-dot">${nIdx + 1}</div>
+      <div class="node-card">
+        <div class="node-top">
+          <span class="time-badge">${node.time}</span>
+          <a href="${gmapsNavUrl}" target="_blank" class="nav-btn" title="在 Google Maps 中导航">📍 导航 ↗</a>
+        </div>
+        <h2 class="node-name">${node.name}</h2>
+        <div class="node-name-sub">${node.sub}</div>
+        <p class="node-action">${node.action}</p>
+        <div class="node-tags">
+          ${node.tags.map(t => `<span class="ntag ${t.includes('★') || t.includes('现金') || t.includes('注意') || t.includes('日出') ? 'highlight' : (t.includes('0') || t.includes('电梯') || t.includes('直达') || t.includes('省') ? 'ease' : '')}">${t}</span>`).join('')}
+        </div>
+      </div>
+    `;
+
+    // Click card to highlight and center map
+    item.onclick = (e) => {
+      if (e.target.closest('.nav-btn')) return; // Allow normal link click
+      focusNode(nIdx);
+    };
+
+    list.appendChild(item);
+  });
+}
+
+let mapMarkers = [];
+
+function updateMap(day) {
+  if (!map) return;
+  markersLayer.clearLayers();
+  polylineLayer.clearLayers();
+  mapMarkers = [];
+
+  const latlngs = [];
+
+  day.nodes.forEach((node, nIdx) => {
+    latlngs.push([node.lat, node.lng]);
+
+    // Custom numbered pin
+    const pinClass = node.hero ? 'custom-pin hero' : (day.day === 'D4' || day.day === 'D5' ? 'custom-pin nature' : 'custom-pin');
+    const icon = L.divIcon({
+      className: '',
+      html: `<div class="${pinClass}"><span>${nIdx + 1}</span></div>`,
+      iconSize: [26, 26],
+      iconAnchor: [13, 26],
+      popupAnchor: [0, -26]
+    });
+
+    const gmapsNavUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(node.name + ' ' + (node.sub || ''))}`;
+
+    const marker = L.marker([node.lat, node.lng], { icon })
+      .bindPopup(`
+        <div style="font-family:'Inter','Noto Sans SC',sans-serif; min-width:160px;">
+          <div style="font-size:11px; font-weight:800; color:var(--shu); margin-bottom:2px;">${node.time} · 第 ${nIdx + 1} 站</div>
+          <div style="font-size:13.5px; font-weight:800; color:var(--ink); margin-bottom:4px;">${node.name}</div>
+          <div style="font-size:11.5px; color:var(--muted); margin-bottom:8px;">${node.sub}</div>
+          <a href="${gmapsNavUrl}" target="_blank" style="display:inline-block; font-size:11.5px; font-weight:700; color:#fff; background:var(--ai); text-decoration:none; padding:4px 10px; border-radius:99px;">📍 Google Maps 导航 ↗</a>
+        </div>
+      `);
+
+    marker.on('click', () => {
+      highlightNodeCard(nIdx);
+    });
+
+    markersLayer.addLayer(marker);
+    mapMarkers.push(marker);
+  });
+
+  // Polyline path connecting nodes
+  if (latlngs.length > 1) {
+    const polyline = L.polyline(latlngs, {
+      color: '#1C3553',
+      weight: 3,
+      opacity: 0.65,
+      dashArray: '5, 8'
+    });
+    polylineLayer.addLayer(polyline);
+  }
+
+  // Auto fit bounds with padding
+  if (latlngs.length > 0) {
+    map.fitBounds(L.latLngBounds(latlngs), { padding: [40, 40], maxZoom: 15 });
+  }
+}
+
+function focusNode(idx) {
+  highlightNodeCard(idx);
+  if (map && mapMarkers[idx]) {
+    const marker = mapMarkers[idx];
+    map.setView(marker.getLatLng(), Math.max(map.getZoom(), 14), { animate: true });
+    marker.openPopup();
+  }
+}
+
+function highlightNodeCard(idx) {
+  document.querySelectorAll('.node-item').forEach((card, i) => {
+    card.classList.toggle('active', i === idx);
+  });
+  const activeCard = document.getElementById(`node-${idx}`);
+  if (activeCard) {
+    activeCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+function scrollToCurrentNode() {
+  const cards = document.querySelectorAll('.node-item');
+  if (cards.length > 0) {
+    focusNode(0);
+  }
+}
+
+function setViewMode(mode) {
+  currentViewMode = mode;
+  document.getElementById('btn-split').classList.toggle('active', mode === 'split');
+  document.getElementById('btn-time').classList.toggle('active', mode === 'time');
+  document.getElementById('btn-map').classList.toggle('active', mode === 'map');
+
+  const mapCard = document.getElementById('mapCard');
+  const heroCard = document.getElementById('dayHero');
+  const timelineList = document.getElementById('timelineList');
+  const mapElem = document.getElementById('map');
+
+  if (mode === 'time') {
+    mapCard.classList.add('collapsed');
+    heroCard.style.display = 'block';
+    timelineList.style.display = 'block';
+  } else if (mode === 'map') {
+    mapCard.classList.remove('collapsed');
+    heroCard.style.display = 'none';
+    timelineList.style.display = 'none';
+    mapElem.style.height = 'calc(100vh - 140px)';
+    if (map) map.invalidateSize();
+  } else {
+    // split
+    mapCard.classList.remove('collapsed');
+    heroCard.style.display = 'block';
+    timelineList.style.display = 'block';
+    mapElem.style.height = (window.innerWidth >= 640) ? '340px' : '270px';
+    if (map) map.invalidateSize();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', initApp);
+</script>
+</body>
+</html>

@@ -19,7 +19,7 @@ try {
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;700;800&family=Shippori+Mincho:wght@700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 
@@ -82,7 +82,8 @@ try {
   
   /* Font Family Stacks */
   --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;
-  --font-serif:'Shippori Mincho','Noto Serif SC','Songti SC',serif;
+  /* 展示字体：Archivo 无衬线 + 中文黑体。数字等宽，时刻对得齐 */
+  --font-serif:'Archivo','Noto Sans SC','PingFang SC',-apple-system,sans-serif;
   
   /* Clean Typographic Scale */
   --font-2xs:0.75rem;    /* 12px */
@@ -215,7 +216,7 @@ html[data-theme="dark"] .topbar {
 .topbar-content{display:flex;align-items:center;justify-content:space-between;max-width:820px;margin:0 auto;}
 .brand{display:flex;align-items:center;gap:var(--space-sm);}
 .brand-mark{
-  width:38px;height:38px;border-radius:50%;background:var(--shu);
+  width:38px;height:38px;border-radius:50%;background:var(--ai);
   display:flex;align-items:center;justify-content:center;color:var(--on-shu);
   font-family:var(--font-serif);font-weight:800;font-size:1.25rem;
   flex-shrink:0;box-shadow:0 2px 5px rgba(0,0,0,0.12);
@@ -235,7 +236,7 @@ html[data-theme="dark"] .topbar {
 .top-btn:hover,.top-btn.active{border-color:var(--ai);background:var(--ai-bg);color:var(--ai);}
 .chart-top-btn{text-decoration:none;background:var(--ai);color:var(--on-ai);border-color:var(--ai);font-weight:700;display:inline-flex;align-items:center;gap:4px;}
 .chart-top-btn:hover{background:var(--shu);border-color:var(--shu);color:#FFFFFF;}
-.companion-top-btn{text-decoration:none;background:var(--shu);color:#FFFFFF;border-color:var(--shu);font-weight:700;display:inline-flex;align-items:center;gap:4px;}
+.companion-top-btn{text-decoration:none;background:var(--ai);color:var(--on-ai);border-color:var(--ai);font-weight:700;display:inline-flex;align-items:center;gap:4px;}
 .companion-top-btn:hover{background:#a33423;border-color:#a33423;color:#FFFFFF;}
 
 /* Decision Charts Showcase Card */
@@ -244,8 +245,8 @@ html[data-theme="dark"] .topbar {
   padding:var(--space-lg);margin-bottom:var(--space-2xl);box-shadow:var(--card-shadow);
 }
 .dcc-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-xs);}
-.dcc-badge{font-size:var(--font-2xs);font-weight:800;letter-spacing:.08em;color:var(--ai);background:rgba(28,53,83,0.08);padding:3px 10px;border-radius:99px;}
-.dcc-all-link{font-size:var(--font-xs);font-weight:700;color:var(--shu);text-decoration:none;display:inline-flex;align-items:center;gap:4px;}
+.dcc-badge{font-size:var(--font-2xs);font-weight:700;letter-spacing:0;color:var(--ai);background:rgba(28,53,83,0.08);padding:3px 10px;border-radius:99px;}
+.dcc-all-link{font-size:var(--font-xs);font-weight:700;color:var(--ai);text-decoration:none;display:inline-flex;align-items:center;gap:4px;}
 .dcc-all-link:hover{text-decoration:underline;}
 .dcc-title{font-family:var(--font-serif);font-size:var(--font-h3);font-weight:800;color:var(--ink);margin-bottom:4px;}
 .dcc-desc{font-size:var(--font-sub);color:var(--ink-soft);margin-bottom:var(--space-md);line-height:1.6;}
@@ -312,9 +313,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   font-size:2.75rem;font-weight:700;color:rgba(255,255,255,.5);line-height:1.1;
   writing-mode:vertical-rl;letter-spacing:.16em;
 }
-.hero-title{font-family:var(--font-serif);font-size:var(--font-h1);font-weight:800;color:#fff;line-height:1.24;margin-bottom:8px;letter-spacing:.02em;}
+.hero-title{font-family:var(--font-serif);font-size:var(--font-h1);font-weight:800;color:#fff;line-height:1.24;margin-bottom:8px;letter-spacing:0;text-wrap:balance;}
 .hero-sub{font-size:var(--font-sub);color:rgba(255,255,255,.9);letter-spacing:.03em;font-weight:400;line-height:1.5;}
-.hero-rule{width:40px;height:3px;background:var(--shu);margin-bottom:var(--space-sm);border-radius:2px;}
+.hero-rule{width:40px;height:3px;background:var(--ai);margin-bottom:var(--space-sm);border-radius:2px;}
 
 /* Meta Strip */
 .meta-strip{
@@ -325,7 +326,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .meta-cell{min-width:0;padding:var(--space-md) var(--space-md);border-right:1px solid var(--line-soft);}
 .meta-cell:last-child{grid-column:1 / -1;border-top:1px solid var(--line-soft);border-right:none;background:var(--surface-warn);}
 .meta-cell:last-child .meta-val{color:var(--kin);}
-.meta-label{font-size:var(--font-2xs);color:var(--ink-faint);margin-bottom:4px;letter-spacing:.08em;font-weight:600;text-transform:uppercase;}
+.meta-label{font-size:var(--font-2xs);color:var(--ink-faint);margin-bottom:4px;letter-spacing:0;font-weight:600;}
 .meta-val{font-family:var(--font-serif);font-size:var(--font-meta-val);font-weight:700;color:var(--ai);}
 .meta-sub{font-size:var(--font-xs);color:var(--ink-soft);margin-top:2px;font-weight:400;line-height:1.4;}
 
@@ -333,7 +334,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .sec-head{display:flex;align-items:center;gap:var(--space-sm);margin:var(--space-2xl) 0 var(--space-md);scroll-margin-top:80px;}
 #sec-days,#sec-booking{margin-top:var(--space-3xl);}
 .sec-kanji{font-family:var(--font-serif);font-size:var(--font-h2);font-weight:700;color:var(--ai);letter-spacing:.04em;line-height:1.3;}
-.sec-en{font-family:var(--font-sans);font-size:var(--font-2xs);color:var(--ink-faint);letter-spacing:.16em;font-weight:600;text-transform:uppercase;}
+.sec-en{font-family:var(--font-sans);font-size:var(--font-2xs);color:var(--ink-faint);letter-spacing:0;font-weight:600;}
 .sec-line{flex:1;height:1px;background:var(--line);}
 
 /* Standard Content Cards */
@@ -408,7 +409,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   min-height:50px;box-shadow:0 1px 2px rgba(0,0,0,0.02);
 }
 .glance-item:hover{border-color:var(--line-info);background:var(--surface-info);transform:translateY(-1px);box-shadow:var(--card-shadow);}
-.glance-dnum{font-family:var(--font-serif);font-size:var(--font-xs);font-weight:700;color:var(--shu);letter-spacing:.02em;}
+.glance-dnum{font-family:var(--font-serif);font-size:var(--font-xs);font-weight:700;color:var(--ai);letter-spacing:.02em;}
 .glance-date{font-size:var(--font-xs);color:var(--ink-faint);font-weight:450;}
 .glance-title{font-size:var(--font-sub);font-weight:600;color:var(--ink);line-height:1.4;}
 
@@ -478,9 +479,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   display:flex;align-items:center;justify-content:center;font-size:1.05rem;margin-top:2px;
 }
 .tl-time{
-  font-family:var(--font-sans);font-size:var(--font-xs);font-weight:650;
-  color:var(--ai);letter-spacing:.02em;font-variant-numeric:tabular-nums;
-  padding:2px 8px;background:var(--ai-bg);border-radius:var(--r-sm);display:inline-block;margin-bottom:6px;
+  font-family:var(--font-serif);font-size:var(--font-h3);font-weight:700;
+  color:var(--ink);letter-spacing:-.015em;font-variant-numeric:tabular-nums;
+  padding:0;background:transparent;display:block;margin-bottom:3px;line-height:1.15;
 }
 .tl-main{
   font-size:var(--font-md);font-weight:700;line-height:1.45;color:var(--ink);
@@ -581,19 +582,19 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 
 /* Budget Box (Clean & Quiet) */
 .budget-box{padding:var(--space-md) var(--space-lg);border-top:1px solid var(--line-soft);background:var(--paper-tint);}
-.budget-title{font-family:var(--font-sans);font-size:var(--font-xs);font-weight:700;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.08em;margin-bottom:var(--space-sm);display:flex;align-items:center;gap:var(--space-xs);}
+.budget-title{font-family:var(--font-sans);font-size:var(--font-xs);font-weight:700;color:var(--ink-faint);letter-spacing:0;margin-bottom:var(--space-sm);display:flex;align-items:center;gap:var(--space-xs);}
 .b-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(0,0,0,0.03);font-size:var(--font-sub);font-weight:400;color:var(--ink-soft);}
 .b-row span:last-child{font-weight:600;color:var(--ink);}
 .b-row:last-of-type{border-bottom:none;}
 .b-total{display:flex;justify-content:space-between;align-items:center;padding:var(--space-sm) 0 0;border-top:1.5px solid var(--line);margin-top:var(--space-xs);font-weight:600;color:var(--ink);font-size:var(--font-base);}
-.b-total-val{font-family:var(--font-serif);font-size:var(--font-h3);color:var(--shu);font-weight:800;}
+.b-total-val{font-family:var(--font-serif);font-size:var(--font-h3);color:var(--ink);font-weight:800;}
 
 /* Footer */
 .footer{background:var(--footer-bg);border-radius:var(--r-lg);padding:var(--space-xl);margin-top:var(--space-2xl);position:relative;overflow:hidden;color:var(--footer-ink);box-shadow:var(--card-shadow);}
 .footer-kanji{position:absolute;top:-10px;right:14px;font-family:var(--font-serif);font-size:6rem;font-weight:800;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;}
 .footer-title{font-family:var(--font-serif);font-size:var(--font-h3);font-weight:700;color:var(--footer-ink);margin-bottom:var(--space-sm);letter-spacing:.04em;display:flex;align-items:center;gap:var(--space-xs);}
 .footer p{font-size:var(--font-sub);color:var(--footer-ink);line-height:1.8;padding:4px 0 4px 16px;position:relative;font-weight:400;opacity:.9;}
-.footer p::before{content:'';position:absolute;left:0;top:13px;width:5px;height:5px;border-radius:50%;background:var(--shu);}
+.footer p::before{content:'';position:absolute;left:0;top:13px;width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.34);}
 
 .endmark{text-align:center;margin-top:var(--space-xl);}
 .endmark span{font-family:var(--font-serif);font-size:var(--font-sm);color:var(--ink-faint);letter-spacing:.25em;font-weight:600;}
@@ -662,16 +663,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
     width:44px;height:44px;border-radius:6px;
     background-position:center;background-size:cover;background-color:var(--paper-2);
   }
-  .glance-item:nth-child(1)::before{background-image:url("asakusa.jpg");}
-  .glance-item:nth-child(2)::before{background-image:url("asakusa.jpg");}
-  .glance-item:nth-child(3)::before{background-image:url("ueno.jpg");}
-  .glance-item:nth-child(4)::before{background-image:url("fuji_hero.jpg");}
-  .glance-item:nth-child(5)::before{background-image:url("fuji_dawn.jpg");}
-  .glance-item:nth-child(6)::before{background-image:url("tokyo_tower.jpg");}
-  .glance-item:nth-child(7)::before{background-image:url("shibuya.jpg");}
-  .glance-item:nth-child(8)::before{background-image:url("yanaka.jpg");}
-  .glance-item:nth-child(9)::before{background-image:url("shibuya.jpg");}
-  .glance-item:nth-child(10)::before{background-image:url("fuji_hero.jpg");}
+  .glance-item:nth-child(1)::before{background-image:url("img/asakusa-xs.jpg");}
+  .glance-item:nth-child(2)::before{background-image:url("img/asakusa-xs.jpg");}
+  .glance-item:nth-child(3)::before{background-image:url("img/ueno-xs.jpg");}
+  .glance-item:nth-child(4)::before{background-image:url("img/fuji_hero-xs.jpg");}
+  .glance-item:nth-child(5)::before{background-image:url("img/fuji_dawn-xs.jpg");}
+  .glance-item:nth-child(6)::before{background-image:url("img/tokyo_tower-xs.jpg");}
+  .glance-item:nth-child(7)::before{background-image:url("img/shibuya-xs.jpg");}
+  .glance-item:nth-child(8)::before{background-image:url("img/yanaka-xs.jpg");}
+  .glance-item:nth-child(9)::before{background-image:url("img/shibuya-xs.jpg");}
+  .glance-item:nth-child(10)::before{background-image:url("img/fuji_hero-xs.jpg");}
   .glance-dnum{
     position:absolute;left:34px;bottom:var(--space-xs);min-width:18px;padding:1px var(--space-2xs);
     border-radius:4px 0 4px 0;background:var(--ai);color:var(--on-ai);
@@ -703,7 +704,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   .tl{padding:var(--space-sm) var(--space-sm);}
   .tl-item{gap:var(--space-xs);padding:var(--space-sm) 0;}
   .tl-icon{width:26px;height:26px;font-size:.95rem;}
-  .tl-time{font-size:var(--font-2xs);padding:1px 6px;margin-bottom:4px;}
+  .tl-time{font-size:var(--font-md);margin-bottom:2px;}
   .tl-main{font-size:var(--font-base);line-height:1.4;margin-bottom:4px;}
   .tl-desc{font-size:var(--font-sub);line-height:1.68;}
 
@@ -771,6 +772,167 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   .card, .day{border:1px solid #999 !important;box-shadow:none !important;}
   .hero{height:180px !important;}
 }
+
+/* ═══════════════════════════════════════════════════════════
+   v2 · 随身速查层 (Mobile Field-Guide Layer)
+   目标：旅行途中单手查阅。今天优先 · 密度收紧 · 表格卡片化。
+   内容一条未删，只改呈现方式。
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 今天 · 定位条 ─────────────────────────────── */
+.today-bar{
+  display:flex;align-items:center;gap:var(--space-sm);width:100%;
+  margin:0 0 var(--space-md);padding:var(--space-sm) var(--space-md);
+  border:1px solid var(--line);border-radius:var(--r-md);
+  background:var(--paper);box-shadow:var(--card-shadow);
+  font-family:var(--font-sans);color:var(--ink);text-align:left;
+  cursor:pointer;transition:border-color .18s var(--ease-out);
+}
+.today-bar:hover{border-color:var(--shu);}
+.today-bar[data-state="outside"]{cursor:default;}
+.today-bar[data-state="outside"]:hover{border-color:var(--line);}
+.today-dot{
+  width:9px;height:9px;border-radius:50%;background:var(--shu);flex-shrink:0;
+  box-shadow:0 0 0 4px var(--shu-soft);
+}
+.today-bar[data-state="outside"] .today-dot{background:var(--ink-faint);box-shadow:0 0 0 4px var(--line-soft);}
+.today-txt{flex:1;min-width:0;}
+.today-lbl{font-size:var(--font-2xs);font-weight:700;letter-spacing:0;color:var(--ink-faint);}
+.today-val{
+  font-family:var(--font-serif);font-size:var(--font-md);font-weight:700;color:var(--ink);
+  line-height:1.32;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.today-go{
+  flex-shrink:0;font-size:var(--font-xs);font-weight:700;color:var(--shu);
+  border:1px solid var(--line-highlight);background:var(--shu-bg);
+  padding:5px 11px;border-radius:99px;
+}
+.today-bar[data-state="outside"] .today-go{display:none;}
+
+/* 今天那一天的卡片 */
+.day.is-today{border-color:var(--shu);box-shadow:0 0 0 2px var(--shu-soft),var(--card-shadow);}
+.day.is-today .day-hdr{background:var(--shu-bg);}
+.day-today-tag{
+  display:none;flex-shrink:0;font-size:var(--font-2xs);font-weight:800;letter-spacing:.06em;
+  color:#fff;background:var(--shu);padding:2px 8px;border-radius:99px;line-height:1.6;
+}
+.day.is-today .day-today-tag{display:inline-block;}
+
+/* 「今天」快捷键（day-nav-bar 第一颗） */
+.day-nav-btn.today-btn{background:var(--shu);border-color:var(--shu);color:#fff;}
+.day-nav-btn.today-btn .day-sub{color:rgba(255,255,255,.88);}
+.day-nav-btn.today-btn:hover{background:#a33423;border-color:#a33423;}
+
+/* ── 精简 / 完整 模式 ──────────────────────────── */
+/* 精简：时间轴只留「几点 + 做什么」，细节收成 2 行，点一下展开。 */
+.mode-bar{
+  display:flex;align-items:center;gap:var(--space-xs);
+  margin:0 0 var(--space-sm);font-size:var(--font-xs);color:var(--ink-faint);
+}
+.mode-bar strong{font-weight:700;color:var(--ink-soft);}
+.mode-switch{
+  display:inline-flex;border:1px solid var(--line);border-radius:99px;
+  overflow:hidden;background:var(--paper);margin-left:auto;
+}
+.mode-switch button{
+  font-family:var(--font-sans);font-size:var(--font-xs);font-weight:600;
+  padding:0 13px;height:34px;border:0;background:transparent;color:var(--ink-soft);cursor:pointer;
+  transition:background-color .15s var(--ease-out),color .15s var(--ease-out);
+}
+.mode-switch button[aria-pressed="true"]{background:var(--ai);color:var(--on-ai);font-weight:700;}
+
+html[data-mode="lite"] .clampable{
+  position:relative;max-height:3.3em;overflow:hidden;cursor:pointer;
+}
+html[data-mode="lite"] .clampable.expanded,
+html[data-mode="lite"] .clampable.no-clamp{max-height:none;overflow:visible;cursor:auto;}
+html[data-mode="lite"] .clampable::after{
+  content:'⋯ 点开全部';
+  position:absolute;left:0;right:0;bottom:0;
+  padding:18px 0 1px;text-align:right;pointer-events:none;
+  font-size:var(--font-2xs);font-weight:700;color:var(--ai);letter-spacing:.02em;
+  background:linear-gradient(to bottom,transparent,var(--paper) 64%);
+}
+html[data-mode="lite"] .clampable.expanded::after,
+html[data-mode="lite"] .clampable.no-clamp::after{display:none;}
+
+/* 精简模式下收起的次要区块（每天那张小图始终保留） */
+html[data-mode="lite"] .food-meta-list{display:none;}
+html[data-mode="lite"] .decision-charts-card{padding:var(--space-sm) var(--space-md);}
+html[data-mode="lite"] .dcc-desc{display:none;}
+
+/* 备选方案图库 → 纯文字胶囊（每天只保留顶部那一张小图） */
+.bplan-img-card:not(:has(img)){
+  aspect-ratio:auto;min-height:0;border:1px solid var(--line);
+  background:var(--paper-tint);border-radius:var(--r-md);
+}
+.bplan-img-card:not(:has(img)) .bplan-img-lbl{
+  position:static;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;
+  color:var(--ink-soft);padding:var(--space-sm) var(--space-md);font-weight:600;
+}
+
+/* ── 表格 → 卡片（窄屏不再左右横滚） ──────────── */
+@media (max-width:640px){
+  .info-table.stacked{
+    display:block;width:100%;border:0;overflow:visible;margin:var(--space-xs) 0;
+  }
+  .info-table.stacked thead{display:none;}
+  .info-table.stacked tbody,
+  .info-table.stacked tr{display:block;}
+  .info-table.stacked tr{
+    border:1px solid var(--line);border-radius:var(--r-md);
+    background:var(--paper);margin-bottom:var(--space-xs);overflow:hidden;
+  }
+  .info-table.stacked td,
+  .info-table.stacked tbody th{
+    display:grid;grid-template-columns:minmax(64px,32%) 1fr;
+    gap:var(--space-sm);align-items:start;
+    min-width:0;width:100%;padding:var(--space-xs) var(--space-sm);
+    border:0;border-bottom:1px solid var(--line-soft);
+    text-align:left;font-size:.84375rem;line-height:1.55;
+  }
+  .info-table.stacked tr>*:last-child{border-bottom:0;}
+  .info-table.stacked .td-lbl{
+    display:block;font-size:var(--font-2xs);font-weight:700;color:var(--ink-faint);
+    line-height:1.5;padding-top:1px;
+  }
+  .info-table.stacked tbody th{background:var(--paper-2);}
+  .info-table.stacked tbody th .td-lbl{color:var(--ai);}
+}
+
+.td-lbl{display:none;}
+
+/* ── 小图：每天一张窄条 ───────────────────────── */
+.day-banner-wrap{aspect-ratio:auto;height:110px;max-height:110px;}
+.day-banner{object-position:center 45%;}
+@media (max-width:640px){
+  .day-banner-wrap{height:84px;max-height:84px;}
+  .hero{height:150px;}
+}
+
+/* ── 顶栏：窄屏别挤成两行 ─────────────────────── */
+@media (max-width:640px){
+  /* html 的 scroll-padding-top 已经让开顶栏，卡片自己别再加一层 */
+  .day,.sec-head{scroll-margin-top:4px;}
+  /* 随身行程 / 决策图表 底部 dock 已有入口，顶栏收起 */
+  .companion-top-btn,.chart-top-btn{display:none;}
+  #text-toggle{font-size:0;min-width:38px;padding:0 10px;}
+  #text-toggle::before{content:'Aa';font-size:.84375rem;font-weight:700;}
+  .controls{gap:6px;}
+}
+
+/* ── 密度收紧（窄屏） ─────────────────────────── */
+@media (max-width:640px){
+  .tl-item{padding:var(--space-sm) 0;gap:10px;}
+  .tl-desc{line-height:1.6;}
+  .tl-desc ol,.tl-desc ul{gap:5px;margin-top:4px;}
+  .tl-desc li{line-height:1.58;}
+  .note-box{padding:var(--space-xs) var(--space-sm);line-height:1.6;margin:var(--space-xs) 0;}
+  .food-card{padding:var(--space-sm);margin:var(--space-xs) 0;}
+  .card-lead{line-height:1.58;}
+  .today-val{font-size:var(--font-base);}
+}
+
 </style>
 </head>
 <body>
@@ -817,6 +979,25 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
     <a href="charts/index.html" class="chip" target="_blank"><span class="zh on">📊 决策图表</span><span class="en">📊 Charts</span></a>
   </nav>
   <div class="sr-only" id="filter-status" role="status" aria-live="polite"></div>
+
+  <!-- 今天 · 定位条 -->
+  <button class="today-bar" id="today-bar" data-state="outside" type="button">
+    <span class="today-dot" aria-hidden="true"></span>
+    <span class="today-txt">
+      <span class="today-lbl" id="today-lbl">行程</span>
+      <span class="today-val" id="today-val">2026年10月3–12日</span>
+    </span>
+    <span class="today-go">跳到今天</span>
+  </button>
+
+  <!-- 显示密度 -->
+  <div class="mode-bar">
+    <strong>显示</strong><span>精简＝只看时间与地点，点任意说明展开</span>
+    <span class="mode-switch" role="group" aria-label="显示密度">
+      <button type="button" data-mode="lite" aria-pressed="true">精简</button>
+      <button type="button" data-mode="full" aria-pressed="false">完整</button>
+    </span>
+  </div>
 
   <!-- Primary day retrieval -->
   <div class="day-nav-bar" role="group" aria-label="十天行程快捷导航">
@@ -868,7 +1049,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 
   <!-- Hero Banner (Real High-Res Stock Photo) -->
   <div class="hero">
-    <img src="fuji_hero.jpg" alt="河口湖远眺富士山" decoding="async" fetchpriority="high"/>
+    <img src="img/fuji_hero.jpg" alt="河口湖远眺富士山" decoding="async" fetchpriority="high"/>
     <div class="hero-kanji">東京 · 富士</div>
     <div class="hero-overlay">
       <div class="hero-rule"></div>
@@ -915,8 +1096,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   <!-- Decision Visuals Showcase Card -->
   <div class="decision-charts-card" role="region" aria-label="行程决策图表">
     <div class="dcc-header">
-      <div class="dcc-badge">✦ VISUAL DECISION SUITE</div>
-      <a href="charts/index.html" class="dcc-all-link">查看图表集总览 →</a>
+      <div class="dcc-badge">决策图表</div>
+      <a href="charts/index.html" class="dcc-all-link">查看全部图表</a>
     </div>
     <h3 class="dcc-title">
       <span class="zh on">📊 4 大行程决策图表 · 视觉化速览</span>
@@ -933,7 +1114,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
           <div class="dcc-item-title"><span class="zh on">10天体力波浪曲线</span><span class="en">10-Day Pacing Curve</span></div>
           <div class="dcc-item-sub"><span class="zh on">D7 达峰 14.1k 步与连休降载避峰</span><span class="en">D7 Peak 13.5k Steps & Holiday Rest</span></div>
         </div>
-        <span class="dcc-arrow">↗</span>
       </a>
       <a href="charts/fuji-visibility.html" class="dcc-item">
         <span class="dcc-icon">🗻</span>
@@ -941,7 +1121,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
           <div class="dcc-item-title"><span class="zh on">富士山能见度与顺光</span><span class="en">Fuji Visibility Window</span></div>
           <div class="dcc-item-sub"><span class="zh on">06:00–11:30 黄金窗 · 正午 28% 低谷</span><span class="en">06:00–11:30 Golden Driving Window</span></div>
         </div>
-        <span class="dcc-arrow">↗</span>
       </a>
       <a href="charts/haneda-options.html" class="dcc-item">
         <span class="dcc-icon">✈️</span>
@@ -949,7 +1128,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
           <div class="dcc-item-title"><span class="zh on">羽田返程 4 方案比价</span><span class="en">Haneda 4 Return Options</span></div>
           <div class="dcc-item-sub"><span class="zh on">¥1,720 直通 vs ¥14,500 深夜跳表打车</span><span class="en">¥1,720 Transit vs ¥14,500 Taxi</span></div>
         </div>
-        <span class="dcc-arrow">↗</span>
       </a>
       <a href="charts/budget-allocation.html" class="dcc-item">
         <span class="dcc-icon">💴</span>
@@ -957,7 +1135,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
           <div class="dcc-item-title"><span class="zh on">旅费 100% 百人点阵</span><span class="en">Budget 100-Dot Breakdown</span></div>
           <div class="dcc-item-sub"><span class="zh on">2人 RM 14,350 · 62点刚性已锁定</span><span class="en">RM 14,350 Total · 62% Pre-locked</span></div>
         </div>
-        <span class="dcc-arrow">↗</span>
       </a>
     </div>
   </div>
@@ -1398,7 +1575,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
         <div style="font-size:var(--font-xs);color:var(--ink-soft);margin-top:2px;"><span class="zh on">纯时间轴 + 分日 Leaflet 地图 + 一键直跳 Google Maps 导航，去除主页冗长背景，专为手机户外速查打造。</span><span class="en">Pure timeline + daily interactive map + 1-tap Google Maps navigation, built for quick mobile lookup.</span></div>
       </div>
     </div>
-    <a href="companion.html" class="top-btn" style="background:var(--shu);color:#fff;border-color:var(--shu);font-weight:700;text-decoration:none;"><span class="zh on">打开随身助手 ↗</span><span class="en">Open Companion ↗</span></a>
+    <a href="companion.html" class="top-btn" style="background:var(--shu);color:#fff;border-color:var(--shu);font-weight:700;text-decoration:none;"><span class="zh on">打开随身助手</span><span class="en">Open Companion</span></a>
   </div>
 
   <!-- DAY 1 (With 3 B-Plan Options, Numbered Lists & Plan B Table) -->
@@ -1414,7 +1591,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
     </div>
     <div class="day-body" id="body-day-1">
       <div class="day-banner-wrap">
-        <img src="asakusa.jpg" class="day-banner" alt="浅草街景" loading="lazy" decoding="async"/>
+        <img src="img/asakusa.jpg" class="day-banner" alt="浅草街景" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -1521,11 +1698,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
             </table>
             <div class="bplan-gallery" style="margin-top:12px;">
               <div class="bplan-img-card">
-                <img src="asakusa.jpg" alt="浅草寺雷门与参道" loading="lazy" decoding="async"/>
                 <div class="bplan-img-lbl">方案B1: 浅草寺夜间点灯</div>
               </div>
               <div class="bplan-img-card">
-                <img src="sento.jpg" alt="下町钱汤温泉浴场" loading="lazy" decoding="async"/>
                 <div class="bplan-img-lbl">方案B2: 下町钱汤温泉</div>
               </div>
             </div>
@@ -1555,7 +1730,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
     </div>
     <div class="day-body" id="body-day-2">
       <div class="day-banner-wrap">
-        <img src="asakusa.jpg" class="day-banner" alt="浅草寺与传统街区" loading="lazy" decoding="async"/>
+        <img src="img/asakusa.jpg" class="day-banner" alt="浅草寺与传统街区" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -1744,11 +1919,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
             <!-- Real Stock Photo Gallery for Day 2 B Plans -->
             <div class="bplan-gallery" style="margin-top:12px;">
               <div class="bplan-img-card">
-                <img src="teamlab.jpg" alt="teamLab Planets 丰洲光影实景" loading="lazy" decoding="async"/>
                 <div class="bplan-img-lbl">方案B1: teamLab 丰洲光影</div>
               </div>
               <div class="bplan-img-card">
-                <img src="asakusa_view.jpg" alt="浅草文化观光中心 8F 俯瞰实景" loading="lazy" decoding="async"/>
                 <div class="bplan-img-lbl">方案B3: 浅草文化中心俯瞰</div>
               </div>
             </div>
@@ -1778,7 +1951,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
     </div>
     <div class="day-body" id="body-day-3">
       <div class="day-banner-wrap">
-        <img src="ueno.jpg" class="day-banner" alt="上野公园与东照宫" loading="lazy" decoding="async"/>
+        <img src="img/ueno.jpg" class="day-banner" alt="上野公园与东照宫" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -1924,7 +2097,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
     </div>
     <div class="day-body" id="body-day-4">
       <div class="day-banner-wrap">
-        <img src="fuji_hero.jpg" class="day-banner" alt="河口湖与富士山" loading="lazy" decoding="async"/>
+        <img src="img/fuji_hero.jpg" class="day-banner" alt="河口湖与富士山" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -2074,7 +2247,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
             </span></div>
             <div class="bplan-gallery">
               <div class="bplan-img-card">
-                <img src="fuji_hero.jpg" alt="河口湖与富士山全景" loading="lazy" decoding="async"/>
                 <div class="bplan-img-lbl">大石公园: 富士山湖光</div>
               </div>
             </div>
@@ -2116,10 +2288,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
     <div class="day-body" id="body-day-5">
       <div class="note-box tip" style="margin-bottom:14px;">
         <strong>📊 富士观景时机决策：</strong>
-        <span>清晨 06:00–08:00 历史晴空露脸概率达 82%–88%，正午骤降至 28%。<a href="charts/fuji-visibility.html" target="_blank" style="font-weight:700;color:var(--matcha);text-decoration:underline;">查看「富士山全天能见度与自驾顺光窗口折线图」↗</a> 把握 11:30 前黄金顺光。</span>
+        <span>清晨 06:00–08:00 历史晴空露脸概率达 82%–88%，正午骤降至 28%。<a href="charts/fuji-visibility.html" target="_blank" style="font-weight:700;color:var(--matcha);text-decoration:underline;">查看「富士山全天能见度与自驾顺光窗口折线图」</a> 把握 11:30 前黄金顺光。</span>
       </div>
       <div class="day-banner-wrap">
-        <img src="fuji_dawn.jpg" class="day-banner" alt="河口湖清晨的赤富士" loading="lazy" decoding="async"/>
+        <img src="img/fuji_dawn.jpg" class="day-banner" alt="河口湖清晨的赤富士" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -2367,7 +2539,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
     </div>
     <div class="day-body" id="body-day-6">
       <div class="day-banner-wrap">
-        <img src="tokyo_tower.jpg" class="day-banner" alt="增上寺前远望东京铁塔" loading="lazy" decoding="async"/>
+        <img src="img/tokyo_tower.jpg" class="day-banner" alt="增上寺前远望东京铁塔" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -2549,10 +2721,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
     <div class="day-body" id="body-day-7">
       <div class="note-box tip" style="margin-bottom:14px;">
         <strong>📊 体力节奏决策：</strong>
-        <span>Day 7 包含明治神宫森林漫步、表参道与涩谷SKY，为全行程唯一高光步数峰值（约 13,600–14,600 步 / 14.1k，含新增表参道之丘 +449 米），前后均安排低强度休整回血。<a href="charts/pacing-curve.html" target="_blank" style="font-weight:700;color:var(--shu);text-decoration:underline;">查看「10天行程强度与避峰节奏曲线」↗</a></span>
+        <span>Day 7 包含明治神宫森林漫步、表参道与涩谷SKY，为全行程唯一高光步数峰值（约 13,600–14,600 步 / 14.1k，含新增表参道之丘 +449 米），前后均安排低强度休整回血。<a href="charts/pacing-curve.html" target="_blank" style="font-weight:700;color:var(--shu);text-decoration:underline;">查看「10天行程强度与避峰节奏曲线」</a></span>
       </div>
       <div class="day-banner-wrap">
-        <img src="shibuya.jpg" class="day-banner" alt="涩谷城市天际线" loading="lazy" decoding="async"/>
+        <img src="img/shibuya.jpg" class="day-banner" alt="涩谷城市天际线" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -2744,11 +2916,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
             </table>
             <div class="bplan-gallery" style="margin-top:12px;">
               <div class="bplan-img-card">
-                <img src="shibuya.jpg" alt="涩谷十字路口与涩谷SKY" loading="lazy" decoding="async"/>
                 <div class="bplan-img-lbl">核心体验: 涩谷SKY 360°露天高空夕阳</div>
               </div>
               <div class="bplan-img-card">
-                <img src="ueno.jpg" alt="明治神宫高耸巨木森林参道" loading="lazy" decoding="async"/>
                 <div class="bplan-img-lbl">明治神宫: 70公顷巨木森林参道</div>
               </div>
             </div>
@@ -2790,7 +2960,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
     </div>
     <div class="day-body" id="body-day-8">
       <div class="day-banner-wrap">
-        <img src="kamakura.jpg" class="day-banner" alt="镰仓高校前平交道与湘南海岸" loading="lazy" decoding="async"/>
+        <img src="img/kamakura.jpg" class="day-banner" alt="镰仓高校前平交道与湘南海岸" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -2983,7 +3153,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
     </div>
     <div class="day-body" id="body-day-9">
       <div class="day-banner-wrap">
-        <img src="ueno.jpg" class="day-banner" alt="谷中与下町风情" loading="lazy" decoding="async"/>
+        <img src="img/ueno.jpg" class="day-banner" alt="谷中与下町风情" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -3036,7 +3206,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
         </div>
         <div class="note-box tip" style="margin:12px 0 16px;">
           <strong>📊 羽田返程比价决策：</strong>
-          <span>4 大方案自 ¥1,720（草63+浅草线）到 ¥14,500（深夜跳表）。<a href="charts/haneda-options.html" target="_blank" style="font-weight:700;color:var(--ai);text-decoration:underline;">查看「羽田返程 4 方案费用与体力权衡哑铃图」↗</a> 串珠直观展现每 ¥500 差额与零阶梯路线。</span>
+          <span>4 大方案自 ¥1,720（草63+浅草线）到 ¥14,500（深夜跳表）。<a href="charts/haneda-options.html" target="_blank" style="font-weight:700;color:var(--ai);text-decoration:underline;">查看「羽田返程 4 方案费用与体力权衡哑铃图」</a> 串珠直观展现每 ¥500 差额与零阶梯路线。</span>
         </div>
         <div class="tl-item">
           <div class="tl-icon">🚇</div>
@@ -3100,7 +3270,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
     </div>
     <div class="day-body" id="body-day-10">
       <div class="day-banner-wrap">
-        <img src="fuji_hero.jpg" class="day-banner" alt="返程日回望富士山" loading="lazy" decoding="async"/>
+        <img src="img/fuji_hero.jpg" class="day-banner" alt="返程日回望富士山" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -4184,7 +4354,7 @@ window.addEventListener('DOMContentLoaded', () => {
       </div>
 
       <div>
-        <div style="font-size:var(--font-xs);font-weight:700;color:var(--shu);letter-spacing:0.04em;text-transform:uppercase;margin-bottom:var(--space-xs);">
+        <div style="font-size:var(--font-xs);font-weight:700;color:var(--shu);letter-spacing:0;margin-bottom:var(--space-xs);">
           📋 必点招牌菜品 · 直接拿手机指给店员看
         </div>
         <div style="display:flex;flex-direction:column;gap:var(--space-sm);">
@@ -4202,7 +4372,7 @@ window.addEventListener('DOMContentLoaded', () => {
       </div>
 
       <div>
-        <div style="font-size:var(--font-xs);font-weight:700;color:var(--ai);letter-spacing:0.04em;text-transform:uppercase;margin-bottom:var(--space-xs);">
+        <div style="font-size:var(--font-xs);font-weight:700;color:var(--ai);letter-spacing:0;margin-bottom:var(--space-xs);">
           💬 实用点餐与结账短语 (点击可放大)
         </div>
         <div class="quick-phrase-grid">
@@ -4234,5 +4404,220 @@ window.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeFoodDrawer();
   });
   </script>
+<script>
+
+/* ═══════════════════════════════════════════════════════════
+   v2 · 随身速查层
+   今天定位 · 精简/完整切换 · 表格卡片化
+   ═══════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+
+  var TRIP = [
+    { id: 'day-1',  date: '10/3',  dow: '六', label: '抵达 · 入住安顿' },
+    { id: 'day-2',  date: '10/4',  dow: '日', label: '浅草晨拍 · 秋叶原' },
+    { id: 'day-3',  date: '10/5',  dow: '一', label: '上野 · 日本桥' },
+    { id: 'day-4',  date: '10/6',  dow: '二', label: '→ 河口湖 · 大石公园落日' },
+    { id: 'day-5',  date: '10/7',  dow: '三', label: '富士五湖晨光 → 回东京' },
+    { id: 'day-6',  date: '10/8',  dow: '四', label: '筑地 · 银座 · 东京铁塔' },
+    { id: 'day-7',  date: '10/9',  dow: '五', label: '明治神宫 · 涩谷SKY' },
+    { id: 'day-8',  date: '10/10', dow: '六', label: '镰仓 / 谷根千（两个方案）' },
+    { id: 'day-9',  date: '10/11', dow: '日', label: '谷中祭 → 羽田深夜离境' },
+    { id: 'day-10', date: '10/12', dow: '一', label: '02:20 起飞回槟城' }
+  ];
+
+  var TRIP_START = new Date(2026, 9, 3); // 2026-10-03
+
+  function dayIndexForToday() {
+    var n = new Date();
+    var t = new Date(n.getFullYear(), n.getMonth(), n.getDate());
+    var diff = Math.round((t - TRIP_START) / 86400000);
+    return (diff >= 0 && diff <= 9) ? diff : -1;
+  }
+
+  function daysUntilStart() {
+    var n = new Date();
+    var t = new Date(n.getFullYear(), n.getMonth(), n.getDate());
+    return Math.round((TRIP_START - t) / 86400000);
+  }
+
+  /* ── 今天 ─────────────────────────────────── */
+  function initToday() {
+    var idx = dayIndexForToday();
+    var bar = document.getElementById('today-bar');
+    var val = document.getElementById('today-val');
+    var lbl = document.getElementById('today-lbl');
+    if (!bar || !val || !lbl) return;
+
+    if (idx < 0) {
+      var left = daysUntilStart();
+      bar.dataset.state = 'outside';
+      if (left > 0) {
+        lbl.textContent = '出发倒数';
+        val.textContent = '还有 ' + left + ' 天 · 10月3日 (六) 出发';
+      } else {
+        lbl.textContent = '旅程';
+        val.textContent = '已结束 · 2026年10月3–12日';
+      }
+      return;
+    }
+
+    var d = TRIP[idx];
+    bar.dataset.state = 'inside';
+    bar.dataset.target = d.id;
+    lbl.textContent = '今天 · Day ' + (idx + 1);
+    val.textContent = d.date + ' (' + d.dow + ') ' + d.label;
+
+    var card = document.getElementById(d.id);
+    if (card) {
+      card.classList.add('is-today');
+      var hdr = card.querySelector('.day-hdr');
+      if (hdr && !hdr.querySelector('.day-today-tag')) {
+        var tag = document.createElement('span');
+        tag.className = 'day-today-tag';
+        tag.textContent = '今天';
+        var info = hdr.querySelector('.day-info');
+        if (info) info.appendChild(tag); else hdr.appendChild(tag);
+      }
+    }
+
+    // 「今天」快捷键塞进 day-nav-bar 最前面
+    var nav = document.querySelector('.day-nav-bar');
+    if (nav && !nav.querySelector('.today-btn')) {
+      var btn = document.createElement('button');
+      btn.className = 'day-nav-btn today-btn';
+      btn.innerHTML = '<span>今天</span><span class="day-sub">Day ' + (idx + 1) + ' · ' + d.date + '</span>';
+      btn.addEventListener('click', function () { goToday(); });
+      nav.insertBefore(btn, nav.firstChild);
+    }
+
+    bar.addEventListener('click', goToday);
+
+    // 没有指定 hash 时，自动打开今天并滚过去
+    if (!location.hash) {
+      // 跳两次：第二次校正图片懒加载造成的位移
+      var jump = function () {
+        setTimeout(function () { goToday(true); }, 80);
+        setTimeout(function () { goToday(true); }, 500);
+      };
+      if (document.readyState === 'complete') jump();
+      else window.addEventListener('load', jump, { once: true });
+    }
+  }
+
+  function goToday(silent) {
+    var idx = dayIndexForToday();
+    if (idx < 0) return;
+    var id = TRIP[idx].id;
+    var card = document.getElementById(id);
+    if (!card) return;
+    var body = card.querySelector('.day-body');
+    if (body && !body.classList.contains('open') && typeof toggleDay === 'function') {
+      toggleDay(id, false);
+    }
+    card.scrollIntoView({
+      behavior: silent ? 'auto' : (typeof preferredScrollBehavior === 'function' ? preferredScrollBehavior() : 'smooth'),
+      block: 'start'
+    });
+    requestAnimationFrame(function () { requestAnimationFrame(refreshClamp); });
+  }
+
+  /* ── 精简 / 完整 ──────────────────────────── */
+  function applyMode(mode) {
+    document.documentElement.dataset.mode = mode;
+    try { localStorage.setItem('tokyo_mode', mode); } catch (e) {}
+    document.querySelectorAll('.mode-switch button').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.dataset.mode === mode ? 'true' : 'false');
+    });
+    if (typeof requestAnimationFrame === 'function') requestAnimationFrame(refreshClamp);
+  }
+
+  function initMode() {
+    var saved;
+    try { saved = localStorage.getItem('tokyo_mode'); } catch (e) {}
+    applyMode(saved === 'full' ? 'full' : 'lite');
+    document.querySelectorAll('.mode-switch button').forEach(function (b) {
+      b.addEventListener('click', function () { applyMode(b.dataset.mode); });
+    });
+  }
+
+  /* ── 长描述折叠：点一下展开 ───────────────── */
+  function refreshClamp() {
+    if (document.documentElement.dataset.mode !== 'lite') return;
+    document.querySelectorAll('.tl-desc.clampable').forEach(function (el) {
+      // 那一天还没展开的话量不到高度，跳过，等它展开再量
+      if (el.offsetParent === null) return;
+      el.classList.remove('no-clamp');
+      if (el.scrollHeight <= el.clientHeight + 4) el.classList.add('no-clamp');
+    });
+  }
+
+  function initClamp() {
+    document.querySelectorAll('.tl-desc').forEach(function (el) {
+      el.classList.add('clampable');
+      el.addEventListener('click', function (ev) {
+        // 点链接就别当成展开
+        if (ev.target.closest('a,button')) return;
+        if (document.documentElement.dataset.mode !== 'lite') return;
+        if (el.classList.contains('no-clamp')) return;
+        el.classList.toggle('expanded');
+      });
+    });
+    // 每天卡片展开后重新量一次
+    document.querySelectorAll('.day-hdr').forEach(function (h) {
+      h.addEventListener('click', function () {
+        requestAnimationFrame(function () { requestAnimationFrame(refreshClamp); });
+      });
+    });
+    requestAnimationFrame(refreshClamp);
+  }
+
+  /* ── 表格 → 卡片 ─────────────────────────── */
+  function initTables() {
+    document.querySelectorAll('.info-table').forEach(function (table) {
+      var headRow = table.querySelector('thead tr') || table.querySelector('tr');
+      if (!headRow) return;
+      var heads = [].slice.call(headRow.querySelectorAll('th,td'));
+      // 两栏以下本来就好读，不动
+      if (heads.length < 3) return;
+      table.classList.add('stacked');
+
+      var bodyRows = [].slice.call(table.querySelectorAll('tbody tr'));
+      if (!bodyRows.length) {
+        // 没有 thead 的表：第一行当表头
+        bodyRows = [].slice.call(table.querySelectorAll('tr')).slice(1);
+        headRow.style.display = 'none';
+      }
+
+      bodyRows.forEach(function (row) {
+        [].forEach.call(row.children, function (cell, i) {
+          if (!heads[i] || cell.querySelector('.td-lbl')) return;
+          var lbl = document.createElement('span');
+          lbl.className = 'td-lbl';
+          lbl.setAttribute('aria-hidden', 'true');
+          // 克隆表头内容，中英双语 span 一起带过来
+          [].forEach.call(heads[i].childNodes, function (n) {
+            lbl.appendChild(n.cloneNode(true));
+          });
+          cell.insertBefore(lbl, cell.firstChild);
+        });
+      });
+    });
+  }
+
+  function boot() {
+    initMode();
+    initTables();
+    initClamp();
+    initToday();
+  }
+
+  if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+</script>
 </body>
 </html>

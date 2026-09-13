@@ -933,6 +933,71 @@ html[data-mode="lite"] .dcc-desc{display:none;}
   .today-val{font-size:var(--font-base);}
 }
 
+
+/* ═══════════════════════════════════════════════════════════
+   v3 · 一次一页
+   一天就是一页。hash 路由，前进后退与书签都跟真的分页一样。
+   ═══════════════════════════════════════════════════════════ */
+
+html[data-router="on"] [data-view]:not(.view-on){display:none !important;}
+
+/* 一天一页时不需要手风琴：那一天就是整页 */
+html[data-router="on"] .day .chev{display:none;}
+html[data-router="on"] .day-hdr{cursor:default;}
+html[data-router="on"] .day{margin-bottom:var(--space-sm);}
+/* 自己就是一页，标题不必截成两行 */
+html[data-router="on"] .day-info h3{
+  display:block;-webkit-line-clamp:unset;white-space:normal;overflow:visible;text-overflow:clip;
+}
+/* 密度切换收进一行，别占位 */
+html[data-router="on"] .mode-bar{margin-bottom:var(--space-xs);font-size:var(--font-2xs);}
+html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
+
+/* 当前那一天/那一节的定位键 */
+.day-nav-btn[aria-current="page"]{
+  background:var(--ai);color:var(--on-ai);border-color:var(--ai);
+}
+.day-nav-btn[aria-current="page"] .day-sub{color:rgba(255,255,255,.85);}
+.day-nav-btn.today-btn[aria-current="page"]{background:var(--shu);border-color:var(--shu);}
+
+/* ── 上一天 / 下一天 ───────────────────────────── */
+.day-pager{
+  display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xs);
+  padding:var(--space-md);border-top:1px solid var(--line-soft);background:var(--paper-tint);
+}
+.day-pager a{
+  display:flex;flex-direction:column;justify-content:center;gap:3px;min-width:0;min-height:58px;
+  padding:var(--space-sm) var(--space-md);border:1px solid var(--line);border-radius:var(--r-md);
+  background:var(--paper);text-decoration:none;color:var(--ink);
+  transition:border-color .15s var(--ease-out),background-color .15s var(--ease-out);
+}
+.day-pager a:hover{border-color:var(--ai);background:var(--ai-bg);}
+.day-pager a.next{align-items:flex-end;text-align:right;}
+.day-pager .pg-hint{font-size:var(--font-2xs);color:var(--ink-faint);font-weight:600;}
+.day-pager .pg-name{
+  font-size:var(--font-sub);font-weight:700;line-height:1.3;color:var(--ink);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+}
+.day-pager .pg-blank{border-style:dashed;opacity:.45;pointer-events:none;}
+.day-pager .pg-blank .pg-name{color:var(--ink-faint);font-weight:500;}
+
+/* ── 资料页索引（从日程跳到参考资料） ──────────── */
+.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-xs);margin-top:var(--space-sm);}
+.info-grid a{
+  display:flex;flex-direction:column;gap:2px;min-height:62px;justify-content:center;
+  padding:var(--space-sm) var(--space-md);border:1px solid var(--line);border-radius:var(--r-md);
+  background:var(--paper);text-decoration:none;color:var(--ink);
+}
+.info-grid a:hover{border-color:var(--ai);background:var(--ai-bg);}
+.info-grid .ig-name{font-size:var(--font-sub);font-weight:700;line-height:1.3;}
+.info-grid .ig-sub{font-size:var(--font-2xs);color:var(--ink-faint);line-height:1.35;}
+
+@media (max-width:640px){
+  .day-pager{padding:var(--space-sm);}
+  .day-pager a{min-height:54px;padding:var(--space-xs) var(--space-sm);}
+  .info-grid{gap:6px;}
+}
+
 </style>
 </head>
 <body>
@@ -4493,22 +4558,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
     bar.addEventListener('click', goToday);
 
-    // 没有指定 hash 时，自动打开今天并滚过去
-    if (!location.hash) {
-      // 跳两次：第二次校正图片懒加载造成的位移
-      var jump = function () {
-        setTimeout(function () { goToday(true); }, 80);
-        setTimeout(function () { goToday(true); }, 500);
-      };
-      if (document.readyState === 'complete') jump();
-      else window.addEventListener('load', jump, { once: true });
-    }
+    // 落在今天这件事由路由层负责（见下方 v3），这里不再抢滚动
   }
 
   function goToday(silent) {
     var idx = dayIndexForToday();
     if (idx < 0) return;
     var id = TRIP[idx].id;
+    if (typeof window.tripSetView === 'function') { window.tripSetView(id); return; }
     var card = document.getElementById(id);
     if (!card) return;
     var body = card.querySelector('.day-body');
@@ -4605,6 +4662,8 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  window.refreshTripClamp = refreshClamp;
+
   function boot() {
     initMode();
     initTables();
@@ -4616,6 +4675,236 @@ window.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('DOMContentLoaded', boot);
   } else {
     boot();
+  }
+})();
+</script>
+<script>
+
+/* ═══════════════════════════════════════════════════════════
+   v3 · 一次一页路由
+   一天一页。hash 驱动，所以前进/后退/书签/分享都跟真的分页一样。
+   ═══════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+
+  var DAYS = ['day-1','day-2','day-3','day-4','day-5','day-6','day-7','day-8','day-9','day-10'];
+  var DAY_META = {
+    'day-1':  ['10/3',  '抵达 · 入住安顿'],
+    'day-2':  ['10/4',  '浅草晨拍 · 秋叶原'],
+    'day-3':  ['10/5',  '上野 · 日本桥'],
+    'day-4':  ['10/6',  '→ 河口湖 · 大石公园落日'],
+    'day-5':  ['10/7',  '富士五湖晨光 → 回东京'],
+    'day-6':  ['10/8',  '筑地 · 银座 · 东京铁塔'],
+    'day-7':  ['10/9',  '明治神宫 · 涩谷SKY'],
+    'day-8':  ['10/10', '镰仓 / 谷根千'],
+    'day-9':  ['10/11', '谷中祭 → 羽田'],
+    'day-10': ['10/12', '02:20 起飞回槟城']
+  };
+
+  var SECVIEW = {
+    'sec-overview':'overview', 'sec-flights':'flights', 'sec-hotels':'hotels',
+    'sec-transit':'transit',   'sec-days':'days',       'sec-fuji':'fuji',
+    'sec-booking':'booking',   'sec-budget':'budget',   'sec-tips':'tips'
+  };
+  var INFO_VIEWS = [
+    ['flights','航班','去程成田 · 回程羽田'],
+    ['hotels', '住宿','竜泉公寓 · SAWA'],
+    ['transit','交通','Suica · 门口巴士 · 机场'],
+    ['fuji',   '河口湖','两天一夜 · 自驾'],
+    ['booking','订票与待办','开卖时间 · 勾选清单'],
+    ['budget', '预算','固定支出 · 在地花费'],
+    ['tips',   '实用备忘','天气 · 长辈 · 保险']
+  ];
+
+  var CHROME = ['topbar','nav-chips','today-bar','mode-bar','day-nav-bar'];
+  var page, views = {}, active = null;
+
+  function isChrome(el) {
+    if (el.id === 'today-bar' || el.id === 'filter-status') return true;
+    for (var i = 0; i < CHROME.length; i++) if (el.classList.contains(CHROME[i])) return true;
+    return false;
+  }
+
+  /* ── 把扁平的 DOM 分组成「页」 ─────────────── */
+  function buildViews() {
+    page = document.querySelector('main.page');
+    if (!page) return false;
+    var current = 'overview';
+
+    [].forEach.call(page.children, function (el) {
+      if (isChrome(el)) return;
+
+      // 页脚与结束标记只挂在总览
+      if (el.classList.contains('footer') || el.classList.contains('endmark')) {
+        el.dataset.view = 'overview';
+        return;
+      }
+      // 每天自成一页
+      if (el.classList.contains('day')) {
+        current = el.id;
+        el.dataset.view = el.id;
+        return;
+      }
+      if (el.classList.contains('sec-head') && SECVIEW[el.id]) {
+        current = SECVIEW[el.id];
+      }
+      // 「日程」标题与随身促销卡挂总览：一天一页时它们是重复的
+      el.dataset.view = (current === 'days') ? 'overview' : current;
+    });
+
+    [].forEach.call(page.querySelectorAll('[data-view]'), function (el) {
+      (views[el.dataset.view] = views[el.dataset.view] || []).push(el);
+    });
+    return true;
+  }
+
+  /* ── 切页 ──────────────────────────────────── */
+  function setView(name, opts) {
+    opts = opts || {};
+    if (!views[name]) name = 'overview';
+    active = name;
+    var isDay = DAYS.indexOf(name) > -1;
+
+    [].forEach.call(page.querySelectorAll('[data-view]'), function (el) {
+      var v = el.dataset.view;
+      el.classList.toggle('view-on', v === name);
+    });
+
+    // 一天一页，内容永远展开
+    if (isDay) {
+      var body = document.getElementById('body-' + name);
+      if (body && !body.classList.contains('open')) {
+        body.classList.add('open');
+        var hdr = document.querySelector('#' + name + ' .day-hdr');
+        if (hdr) hdr.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    var bar = document.getElementById('today-bar');
+    if (bar) bar.style.display = (name === todayId()) ? 'none' : '';
+
+    syncNav(name, isDay);
+    if (!opts.silent) {
+      var want = '#' + name;
+      if (location.hash !== want) history.replaceState(null, '', want);
+    }
+    if (opts.scroll !== false) window.scrollTo(0, 0);
+    if (typeof window.refreshTripClamp === 'function') {
+      requestAnimationFrame(function () { requestAnimationFrame(window.refreshTripClamp); });
+    }
+  }
+
+  function syncNav(name, isDay) {
+    document.querySelectorAll('.day-nav-btn').forEach(function (b) {
+      var t = b.dataset.target || (b.classList.contains('today-btn') ? todayId() : null);
+      var on = t ? t === name : (name === 'overview' && !b.dataset.target && !b.classList.contains('today-btn'));
+      if (on) { b.setAttribute('aria-current', 'page'); b.classList.add('active'); }
+      else { b.removeAttribute('aria-current'); b.classList.remove('active'); }
+    });
+    var cur = document.querySelector('.day-nav-btn[aria-current="page"]');
+    if (cur && cur.scrollIntoView) cur.scrollIntoView({block:'nearest', inline:'center', behavior:'auto'});
+  }
+
+  function todayId() {
+    var start = new Date(2026, 9, 3), n = new Date();
+    var t = new Date(n.getFullYear(), n.getMonth(), n.getDate());
+    var d = Math.round((t - start) / 86400000);
+    return (d >= 0 && d <= 9) ? DAYS[d] : null;
+  }
+
+  /* ── 每天底部的「上一天 / 下一天」 ─────────── */
+  function addPagers() {
+    DAYS.forEach(function (id, i) {
+      var card = document.getElementById(id);
+      if (!card || card.querySelector('.day-pager')) return;
+      var prev = DAYS[i - 1], next = DAYS[i + 1];
+      var pager = document.createElement('nav');
+      pager.className = 'day-pager';
+      pager.setAttribute('aria-label', '换一天');
+      pager.innerHTML = cell(prev, '上一天', 'prev') + cell(next, '下一天', 'next');
+      card.appendChild(pager);
+    });
+
+    function cell(id, hint, cls) {
+      if (!id) {
+        var other = cls === 'prev' ? '行程开始' : '行程结束';
+        return '<span class="' + cls + ' pg-blank"><span class="pg-hint">' + hint +
+               '</span><span class="pg-name">' + other + '</span></span>';
+      }
+      var m = DAY_META[id];
+      return '<a class="' + cls + '" href="#' + id + '"><span class="pg-hint">' + hint + ' · ' +
+             m[0] + '</span><span class="pg-name">' + m[1] + '</span></a>';
+    }
+  }
+
+  /* ── 总览页底部：参考资料入口 ──────────────── */
+  function addInfoIndex() {
+    var anchor = (views['overview'] || []).filter(function (e) { return e.classList.contains('endmark'); })[0];
+    if (!anchor || document.querySelector('.info-grid')) return;
+    var box = document.createElement('div');
+    box.className = 'card';
+    box.dataset.view = 'overview';
+    box.innerHTML = '<h3>参考资料</h3><p class="card-lead">出门前查的东西，跟每天的行程分开放。</p>' +
+      '<div class="info-grid">' + INFO_VIEWS.map(function (v) {
+        return '<a href="#' + v[0] + '"><span class="ig-name">' + v[1] +
+               '</span><span class="ig-sub">' + v[2] + '</span></a>';
+      }).join('') + '</div>';
+    anchor.parentNode.insertBefore(box, anchor);
+    (views['overview'] = views['overview'] || []).push(box);
+  }
+
+  /* ── 接管既有导航 ──────────────────────────── */
+  function wireNav() {
+    // 日期键：原本的 jumpToDay 走的是手风琴，改成切页
+    window.jumpToDay = function (dayId) { setView(dayId === 'all' ? 'overview' : dayId); };
+
+    document.querySelectorAll('.day-nav-btn').forEach(function (b) {
+      var oc = b.getAttribute('onclick') || '';
+      var m = oc.match(/jumpToDay\('([^']+)'/);
+      if (m) b.dataset.target = (m[1] === 'all') ? '' : m[1];
+    });
+
+    // 站内 # 连结一律走路由（分类筛选键退回总览）
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (ev) {
+        var id = a.getAttribute('href').slice(1);
+        // 「日程」在旅行期间直接去今天，行程外去总览的十天速览
+        if (id === 'sec-days') { ev.preventDefault(); setView(todayId() || 'overview'); return; }
+        var target = SECVIEW[id] || (views[id] ? id : null);
+        if (!target || !views[target]) return;
+        ev.preventDefault();
+        setView(target);
+      });
+    });
+    document.querySelectorAll('.nav-chips button').forEach(function (b) {
+      b.addEventListener('click', function () { setView('overview'); });
+    });
+
+    window.addEventListener('hashchange', function () {
+      var id = location.hash.slice(1);
+      if (id && id !== active) setView(SECVIEW[id] || id, { silent: true });
+    });
+  }
+
+  window.tripSetView = function (v) { setView(v); };
+
+  function boot() {
+    if (!buildViews()) return;
+    addPagers();
+    addInfoIndex();
+    wireNav();
+    document.documentElement.dataset.router = 'on';
+
+    var start = location.hash.slice(1);
+    start = (start && (views[start] || SECVIEW[start])) ? (SECVIEW[start] || start) : (todayId() || 'overview');
+    setView(start, { silent: false });
+  }
+
+  // 等既有脚本先跑完（它也挂在 DOMContentLoaded）
+  if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', function () { setTimeout(boot, 0); });
+  } else {
+    setTimeout(boot, 0);
   }
 })();
 </script>

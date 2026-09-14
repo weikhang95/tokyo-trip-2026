@@ -246,7 +246,7 @@ html[data-theme="dark"] .topbar {
 }
 .dcc-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-xs);}
 .dcc-badge{font-size:var(--font-2xs);font-weight:700;letter-spacing:0;color:var(--ai);background:rgba(28,53,83,0.08);padding:3px 10px;border-radius:99px;}
-.dcc-all-link{font-size:var(--font-xs);font-weight:700;color:var(--ai);text-decoration:none;display:inline-flex;align-items:center;gap:4px;}
+.dcc-all-link{font-size:var(--font-xs);font-weight:700;color:var(--ai);text-decoration:none;display:inline-flex;align-items:center;gap:4px;min-height:40px;}
 .dcc-all-link:hover{text-decoration:underline;}
 .dcc-title{font-family:var(--font-serif);font-size:var(--font-h3);font-weight:800;color:var(--ink);margin-bottom:4px;}
 .dcc-desc{font-size:var(--font-sub);color:var(--ink-soft);margin-bottom:var(--space-md);line-height:1.6;}
@@ -360,8 +360,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 /* Notes (Quiet, Unobtrusive Callouts) */
 .note-box{
   border-radius:var(--r-md);padding:var(--space-sm) var(--space-md);margin:var(--space-sm) 0;font-size:var(--font-sub);line-height:1.68;
-  display:flex;gap:var(--space-sm);align-items:flex-start;font-weight:400;color:var(--ink-soft);border:1px solid var(--line-soft);
+  display:block;font-weight:400;color:var(--ink-soft);border:1px solid var(--line-soft);
 }
+.note-box>strong{margin-right:5px;}
 .note-box.warn{background:var(--surface-highlight);border-color:var(--line-highlight);}
 .note-box.warn strong{color:var(--shu);font-weight:600;}
 .note-box.tip{background:var(--surface-info);border-color:var(--line-info);}
@@ -441,6 +442,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   border-radius:var(--r-sm) 0 0 0;
 }
 .day-daynum::before{content:counter(trip-day);font-size:var(--font-2xs);}
+.day-daynum[data-n]::before{content:attr(data-n);}
 
 .day-info{flex:1;min-width:0;}
 .day-info h3{
@@ -546,7 +548,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 }
 .drawer-title{font-family:var(--font-serif);font-size:var(--font-h3);font-weight:700;color:var(--ai);}
 .drawer-close-btn{
-  width:36px;height:36px;border-radius:50%;border:1px solid var(--line-soft);
+  width:40px;height:40px;border-radius:50%;border:1px solid var(--line-soft);
   background:var(--paper-2);color:var(--ink-soft);display:flex;align-items:center;justify-content:center;
   cursor:pointer;font-size:1.1rem;transition:all .15s;
 }
@@ -584,7 +586,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .budget-box{padding:var(--space-md) var(--space-lg);border-top:1px solid var(--line-soft);background:var(--paper-tint);}
 .budget-title{font-family:var(--font-sans);font-size:var(--font-xs);font-weight:700;color:var(--ink-faint);letter-spacing:0;margin-bottom:var(--space-sm);display:flex;align-items:center;gap:var(--space-xs);}
 .b-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(0,0,0,0.03);font-size:var(--font-sub);font-weight:400;color:var(--ink-soft);}
-.b-row span:last-child{font-weight:600;color:var(--ink);}
+.b-row span:last-child{font-weight:600;color:var(--ink);white-space:nowrap;padding-left:10px;}
+.b-row span:first-child{min-width:0;}
 .b-row:last-of-type{border-bottom:none;}
 .b-total{display:flex;justify-content:space-between;align-items:center;padding:var(--space-sm) 0 0;border-top:1.5px solid var(--line);margin-top:var(--space-xs);font-weight:600;color:var(--ink);font-size:var(--font-base);}
 .b-total-val{font-family:var(--font-serif);font-size:var(--font-h3);color:var(--ink);font-weight:800;}
@@ -620,7 +623,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
   html[data-theme="dark"] .topbar{background:rgba(12,16,23,0.95);}
   .brand-mark{width:34px;height:34px;font-size:1.1rem;}
   .brand-txt{display:none;}
-  .top-btn{min-width:40px;height:38px;padding:0 var(--space-xs);font-size:.84375rem;}
+  .top-btn{min-width:42px;height:40px;padding:0 var(--space-xs);font-size:.84375rem;}
   .lang-bar{border-width:1px;}
   .lang-btn{height:38px;padding:0 var(--space-sm);font-size:.84375rem;}
 
@@ -836,18 +839,19 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 }
 .mode-switch button{
   font-family:var(--font-sans);font-size:var(--font-xs);font-weight:600;
-  padding:0 13px;height:34px;border:0;background:transparent;color:var(--ink-soft);cursor:pointer;
+  padding:0 15px;height:42px;min-width:56px;border:0;background:transparent;color:var(--ink-soft);cursor:pointer;
   transition:background-color .15s var(--ease-out),color .15s var(--ease-out);
 }
 .mode-switch button[aria-pressed="true"]{background:var(--ai);color:var(--on-ai);font-weight:700;}
 
 html[data-mode="lite"] .clampable{
-  position:relative;max-height:3.3em;overflow:hidden;cursor:pointer;
+  position:relative;max-height:5.4em;overflow:hidden;cursor:pointer;
 }
 html[data-mode="lite"] .clampable.expanded,
 html[data-mode="lite"] .clampable.no-clamp{max-height:none;overflow:visible;cursor:auto;}
+html[data-mode="lite"] .clampable[data-more]::after{content:'⋯ 展开 · 还有 ' attr(data-more) ' 条';}
 html[data-mode="lite"] .clampable::after{
-  content:'⋯ 点开全部';
+  content:'⋯ 展开全部';
   position:absolute;left:0;right:0;bottom:0;
   padding:18px 0 1px;text-align:right;pointer-events:none;
   font-size:var(--font-2xs);font-weight:700;color:var(--ai);letter-spacing:.02em;
@@ -893,14 +897,16 @@ html[data-mode="lite"] .dcc-desc{display:none;}
   }
   .info-table.stacked tr>*:last-child{border-bottom:0;}
   .info-table.stacked .td-lbl{
-    display:block;font-size:var(--font-2xs);font-weight:700;color:var(--ink-faint);
+    display:block;font-size:var(--font-xs);font-weight:700;color:var(--ink-faint);
     line-height:1.5;padding-top:1px;
   }
+  .info-table.stacked .td-val{display:block;min-width:0;}
   .info-table.stacked tbody th{background:var(--paper-2);}
   .info-table.stacked tbody th .td-lbl{color:var(--ai);}
 }
 
 .td-lbl{display:none;}
+.td-val{display:contents;}
 
 /* ── 小图：每天一张窄条 ───────────────────────── */
 .day-banner-wrap{aspect-ratio:auto;height:110px;max-height:110px;}
@@ -943,6 +949,8 @@ html[data-router="on"] [data-view]:not(.view-on){display:none !important;}
 
 /* 一天一页时不需要手风琴：那一天就是整页 */
 html[data-router="on"] .day .chev{display:none;}
+/* 内容永远是展开的，淡入动画没跑起来时会整页空白 */
+html[data-router="on"] .day-body.open{animation:none;}
 html[data-router="on"] .day-hdr{cursor:default;}
 html[data-router="on"] .day{margin-bottom:var(--space-sm);}
 /* 自己就是一页，标题不必截成两行 */
@@ -973,7 +981,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
 }
 .day-pager a:hover{border-color:var(--ai);background:var(--ai-bg);}
 .day-pager a.next{align-items:flex-end;text-align:right;}
-.day-pager .pg-hint{font-size:var(--font-2xs);color:var(--ink-faint);font-weight:600;}
+.day-pager .pg-hint{font-size:var(--font-xs);color:var(--ink-faint);font-weight:600;}
 .day-pager .pg-name{
   font-size:var(--font-sub);font-weight:700;line-height:1.3;color:var(--ink);
   display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
@@ -3008,15 +3016,6 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
     <div class="day-hdr" onclick="toggleDay('day-8')">
       <div class="day-thumb">🌊<div class="day-daynum"></div></div>
       <div class="day-info">
-        <div class="note-box" style="border-left:4px solid var(--ai);background:rgba(22,93,126,0.06);padding:10px 14px;border-radius:6px;margin-bottom:10px;">
-          <strong>💡 Day 8 候选方案（出发前可根据体力天气一键切换 · companion.html 支持实时切换）</strong>
-          <span class="zh on">
-            <br/>• <strong>【方案 A · 优先主推】</strong>：<strong>普通电车西瓜卡直通 ➔ 站前巴士大佛 ➔ 江之电看海 ➔ 藤泽顺向大环线 ★</strong> — 满足妈妈看大佛与江之电的心愿！告别加价 Green 券与打车，纯刷 Suica 进站（普通车资 ¥950，东京站始发必有座），镰仓站东口乘普通公车直达大佛门前（¥240 避开江之电长龙），午餐在长谷寺门前享用浅羽屋百年炭火鳗鱼饭，下午七里滨看浪后顺行至藤泽站坐 JR 直达回东京，零回头路！
-            <br/>• <strong>【方案 B · 第一平替】</strong>：<strong>根津神社千本鸟居 ➔ 谷中祭传统神轿 ➔ 赞岐手打乌冬 ➔ 提前回房大午睡 ★</strong> — 日本三连休绝佳下町平替！住处打车仅 8 分钟直达，漫步 300 年江户德川国宝古刹与朱红千本鸟居，偶遇一年一度谷中祭街头神轿市集，吃完热腾腾乌冬 14:30 即可回房休息，步数仅 3,800 步！
-            <br/>• <strong>【方案 C · 避连休回血】</strong>：<strong>清澄白河咖啡老街 · 水上庭园 · 门前仲町深川饭</strong> — 若前一日涩谷走累了想彻底放松，搭普通地铁（¥180）在市内悠闲漫游，步数仅 3,500 步。
-            <br/>• <strong>【方案 D · 文青备选】</strong>：<strong>吉祥寺生活街区 · 井之头公园 · 三鹰龙猫外围</strong> — 文青漫步备选（假日人潮密集，步数约 12k）。
-          </span>
-        </div>
         <h3><span class="zh on">Day 8 · 10月10日 (六) 普通电车直通 ➔ 镰仓大佛 ➔ 江之电海景 ➔ 藤泽大环线返程 ★</span><span class="en">Day 8 · Oct 10 Regular Train to Kamakura Daibutsu & Coast Loop</span></h3>
         <p><span class="zh on">纯普通电车刷西瓜卡直达 → 站前普通公车站直达大佛门前 → 长谷老街热食午餐 → 江之电海景段 → 藤泽顺向大环线 🌊</span><span class="en">Regular Transit, Kamakura Daibutsu, Hot Lunch & Coastal Rail Loop</span></p>
       </div>
@@ -3024,6 +3023,15 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
       <svg class="chev" id="chev-day-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="day-body" id="body-day-8">
+      <div class="note-box" style="border-left:4px solid var(--ai);background:rgba(22,93,126,0.06);padding:10px 14px;border-radius:6px;margin-bottom:10px;">
+        <strong>💡 Day 8 候选方案（出发前可根据体力天气一键切换 · companion.html 支持实时切换）</strong>
+        <span class="zh on">
+          <br/>• <strong>【方案 A · 优先主推】</strong>：<strong>普通电车西瓜卡直通 ➔ 站前巴士大佛 ➔ 江之电看海 ➔ 藤泽顺向大环线 ★</strong> — 满足妈妈看大佛与江之电的心愿！告别加价 Green 券与打车，纯刷 Suica 进站（普通车资 ¥950，东京站始发必有座），镰仓站东口乘普通公车直达大佛门前（¥240 避开江之电长龙），午餐在长谷寺门前享用浅羽屋百年炭火鳗鱼饭，下午七里滨看浪后顺行至藤泽站坐 JR 直达回东京，零回头路！
+          <br/>• <strong>【方案 B · 第一平替】</strong>：<strong>根津神社千本鸟居 ➔ 谷中祭传统神轿 ➔ 赞岐手打乌冬 ➔ 提前回房大午睡 ★</strong> — 日本三连休绝佳下町平替！住处打车仅 8 分钟直达，漫步 300 年江户德川国宝古刹与朱红千本鸟居，偶遇一年一度谷中祭街头神轿市集，吃完热腾腾乌冬 14:30 即可回房休息，步数仅 3,800 步！
+          <br/>• <strong>【方案 C · 避连休回血】</strong>：<strong>清澄白河咖啡老街 · 水上庭园 · 门前仲町深川饭</strong> — 若前一日涩谷走累了想彻底放松，搭普通地铁（¥180）在市内悠闲漫游，步数仅 3,500 步。
+          <br/>• <strong>【方案 D · 文青备选】</strong>：<strong>吉祥寺生活街区 · 井之头公园 · 三鹰龙猫外围</strong> — 文青漫步备选（假日人潮密集，步数约 12k）。
+        </span>
+      </div>
       <div class="day-banner-wrap">
         <img src="img/kamakura.jpg" class="day-banner" alt="镰仓高校前平交道与湘南海岸" loading="lazy" decoding="async"/>
       </div>
@@ -4605,7 +4613,14 @@ window.addEventListener('DOMContentLoaded', () => {
       // 那一天还没展开的话量不到高度，跳过，等它展开再量
       if (el.offsetParent === null) return;
       el.classList.remove('no-clamp');
-      if (el.scrollHeight <= el.clientHeight + 4) el.classList.add('no-clamp');
+      el.removeAttribute('data-more');
+      if (el.scrollHeight <= el.clientHeight + 4) { el.classList.add('no-clamp'); return; }
+      // 折叠线以下还剩几条，直接写进提示里
+      var cut = el.clientHeight - 4, hidden = 0;
+      [].forEach.call(el.querySelectorAll('li'), function (li) {
+        if (li.offsetTop >= cut) hidden++;
+      });
+      if (hidden > 0) el.setAttribute('data-more', hidden);
     });
   }
 
@@ -4656,7 +4671,12 @@ window.addEventListener('DOMContentLoaded', () => {
           [].forEach.call(heads[i].childNodes, function (n) {
             lbl.appendChild(n.cloneNode(true));
           });
-          cell.insertBefore(lbl, cell.firstChild);
+          // 内容先包成单一块，不然多段内容会各自成为格线项目、掉进标签栏
+          var val = document.createElement('span');
+          val.className = 'td-val';
+          while (cell.firstChild) val.appendChild(cell.firstChild);
+          cell.appendChild(val);
+          cell.insertBefore(lbl, val);
         });
       });
     });
@@ -4786,7 +4806,11 @@ window.addEventListener('DOMContentLoaded', () => {
     syncNav(name, isDay);
     if (!opts.silent) {
       var want = '#' + name;
-      if (location.hash !== want) history.replaceState(null, '', want);
+      if (location.hash !== want) {
+        // 用 push：手机的返回手势要能一页页退回去
+        if (opts.replace) history.replaceState(null, '', want);
+        else history.pushState(null, '', want);
+      }
     }
     if (opts.scroll !== false) window.scrollTo(0, 0);
     if (typeof window.refreshTripClamp === 'function') {
@@ -4810,6 +4834,26 @@ window.addEventListener('DOMContentLoaded', () => {
     var t = new Date(n.getFullYear(), n.getMonth(), n.getDate());
     var d = Math.round((t - start) / 86400000);
     return (d >= 0 && d <= 9) ? DAYS[d] : null;
+  }
+
+  /* 一天一页时同屏只有一天，CSS counter 数不到被隐藏的兄弟，日次会全变 1 */
+  function stampDayNumbers() {
+    DAYS.forEach(function (id, i) {
+      var n = document.querySelector('#' + id + ' .day-daynum');
+      if (n) n.setAttribute('data-n', i + 1);
+    });
+  }
+
+  /* 那一天就是整页，点标题不该把整页内容收起来 */
+  function lockAccordion() {
+    var orig = window.toggleDay;
+    window.toggleDay = function (dayId, preservePosition) {
+      if (DAYS.indexOf(dayId) > -1) {
+        if (dayId !== active) setView(dayId);
+        return;
+      }
+      if (typeof orig === 'function') orig(dayId, preservePosition);
+    };
   }
 
   /* ── 每天底部的「上一天 / 下一天」 ─────────── */
@@ -4890,6 +4934,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function boot() {
     if (!buildViews()) return;
+    stampDayNumbers();
+    lockAccordion();
     addPagers();
     addInfoIndex();
     wireNav();
@@ -4897,7 +4943,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     var start = location.hash.slice(1);
     start = (start && (views[start] || SECVIEW[start])) ? (SECVIEW[start] || start) : (todayId() || 'overview');
-    setView(start, { silent: false });
+    setView(start, { replace: true });
   }
 
   // 等既有脚本先跑完（它也挂在 DOMContentLoaded）

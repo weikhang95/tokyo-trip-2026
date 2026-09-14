@@ -2,11 +2,11 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>东京 · 随身行程与地图助手 (Tokyo Companion)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&family=Shippori+Mincho:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <style>
   :root {
@@ -51,6 +51,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
     padding: 10px 16px;
     max-width: 900px;
     margin: 0 auto;
@@ -59,6 +61,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    min-width: 0;
   }
   .back-btn {
     display: inline-flex;
@@ -71,15 +74,21 @@
     text-decoration: none;
     padding: 5px 10px;
     border-radius: 99px;
+    white-space: nowrap;
+    min-height: 40px;
   }
   .page-title {
     font-size: 15px;
     font-weight: 800;
     letter-spacing: .02em;
     color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .view-toggles {
     display: flex;
+    flex-shrink: 0;
     gap: 4px;
     background: #EFECE6;
     padding: 2px;
@@ -91,7 +100,9 @@
     font-size: 11px;
     font-weight: 700;
     color: var(--muted);
-    padding: 4px 8px;
+    padding: 0 10px;
+    min-height: 36px;
+    white-space: nowrap;
     border-radius: 99px;
     cursor: pointer;
     transition: all .15s ease;
@@ -515,19 +526,38 @@
   }
 
   /* ── Bottom Floating Quick Action ── */
+  .role-note {
+    margin: 20px 0 8px;
+    padding: 16px 18px;
+    background: var(--card-bg);
+    border: 1px solid var(--grid);
+    border-left: 3px solid var(--ai);
+    border-radius: var(--radius);
+  }
+  .role-note h2 { margin: 0 0 8px; font-size: 15px; font-weight: 800; color: var(--ink); }
+  .role-note p { margin: 0 0 8px; font-size: 13px; line-height: 1.7; color: var(--muted); }
+  .role-note p:last-of-type { margin-bottom: 12px; }
+  .role-link {
+    display: inline-flex; align-items: center; min-height: 44px;
+    padding: 0 16px; border-radius: 99px;
+    background: var(--ai); color: #fff;
+    font-size: 13px; font-weight: 700; text-decoration: none;
+  }
+
   .float-dock {
     position: fixed;
-    bottom: 16px;
+    bottom: max(16px, env(safe-area-inset-bottom, 0px));
     left: 50%;
     transform: translateX(-50%);
     background: rgba(28, 53, 83, 0.95);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: 99px;
-    padding: 6px 14px;
+    padding: 4px 12px;
+    max-width: calc(100vw - 24px);
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.22);
     z-index: 1000;
   }
@@ -535,8 +565,10 @@
     background: transparent;
     border: none;
     color: #fff;
+    min-height: 40px;
     font-size: 12px;
     font-weight: 700;
+    white-space: nowrap;
     display: flex;
     align-items: center;
     gap: 4px;
@@ -556,7 +588,7 @@
 <header class="top-bar">
   <div class="bar-main">
     <div class="brand-group">
-      <a href="index.html" class="back-btn">← 手册</a>
+      <a href="index.html" class="back-btn to-handbook">← 手册</a>
       <span class="page-title">📱 随身行程与地图</span>
     </div>
     <div class="view-toggles" role="group" aria-label="视图模式">
@@ -597,13 +629,23 @@
   <main class="timeline" id="timelineList">
     <!-- Populated by JS -->
   </main>
+
+  <!-- 两份文件的分工 -->
+  <section class="role-note">
+    <h2>这里只回答「现在往哪走」</h2>
+    <p>随身页放的是当天的时间、地点、地图与一键导航 —— 站在路口掏出手机要看的东西。</p>
+    <p><strong>为什么这样排、有哪些备选、票订了没、钱怎么花</strong>，都在手册里。手册是出发前读的，随身页是路上用的。</p>
+    <a class="role-link to-handbook" href="index.html">📖 打开这一天的手册 →</a>
+  </section>
 </div>
 
 <!-- Floating Action Bar -->
 <div class="float-dock">
-  <a href="charts/index.html" class="dock-btn">📊 决策图表</a>
+  <a href="index.html" class="dock-btn to-handbook">📖 手册</a>
   <div class="dock-sep"></div>
-  <button class="dock-btn" onclick="scrollToCurrentNode()">⏱️ 查当下</button>
+  <a href="charts/index.html" class="dock-btn">📊 图表</a>
+  <div class="dock-sep"></div>
+  <button class="dock-btn" onclick="scrollToCurrentNode()">⏱️ 第一站</button>
   <div class="dock-sep"></div>
   <button class="dock-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">⬆ 顶部</button>
 </div>
@@ -710,13 +752,13 @@ const DAY8_OPTIONS = {
   },
   nezu: {
     key: 'nezu',
-    label: '⛩️ 方案 B · 根津神社与谷中祭 (第一平替)',
+    label: '⛩️ 方案 B · 根津神社与谷中祭 (⚠️ 与 D9 重合)',
     day: 'D8',
     date: '10/10',
     weekday: '六',
     intensity: '🟢 低负荷 (下町回血) · 约 3,800 步',
     title: '根津神社千本鸟居 ➔ 谷中祭传统神轿 ➔ 米其林手打乌冬 ➔ 提前回房大午睡 ★',
-    desc: '日本三连休最佳市内平替！住处打车仅 8 分钟直达，漫步 300 年江户德川国宝古刹与朱红千本鸟居。恰逢一年一度【谷中祭】，偶遇街头传统神轿出巡与温情人情味市集，吃庭园手打乌冬面，14:30 回房泡脚大午睡，为次日羽田深夜离境储备 100% 精力！',
+    desc: '⚠️ 这三站就是 D9（10/11）的全部行程 —— 根津神社、谷中祭、根津釜竹乌冬。谷中祭 10/10–10/11 两天都办，所以今天走它不会错过祭典，但 D9 就得改走方案 C（清澄白河），否则连着两天走同一条路线。不想动 D9 的话，今天请直接选方案 C。｜住处打车仅 8 分钟直达，漫步 300 年江户德川国宝古刹与朱红千本鸟居，偶遇街头传统神轿出巡与人情味市集，吃庭园手打乌冬面，14:30 回房泡脚大午睡。',
     transit: '🚕 门口计程车 8 分钟 (约¥1,300) 直达 ➔ 谷根千漫步 ➔ 计程车直达回巢',
     routeUrl: 'https://www.google.com/maps/dir/?api=1&origin=Tokyo+Taito+Ryusen+3-10-7&destination=Nezu+Shrine&waypoints=Nezu+Kamachiku%7CYanaka+Ginza&travelmode=walking',
     nodes: [
@@ -1273,10 +1315,10 @@ const DAYS = [
       {
         time: "05:00 - 06:05",
         name: "本栖湖 · 浩庵湖畔日出 ★★",
-        sub: "日币千圆纸钞日出原型 · 05:44 平地日出 / 约05:48 跃出山脊",
+        sub: "日币千圆纸钞日出原型 · 05:44–05:46 平地日出 / 约05:51–05:53 跃出东侧山棱",
         lat: 35.4719, lng: 138.5833,
-        action: "05:00 抵达浩庵，先在车内避寒喝热茶；05:15 蓝调泛光下车；05:44 是平地日出时刻，约 05:48 太阳才越过左侧山脊真正现身，见证千圆逆富士的神圣时刻！车位距湖滩仅 5 米平地。",
-        tags: ["千圆日出原型", "约05:48跃出山脊", "暖车避寒下车5m"],
+        action: "05:00 抵达浩庵，先在车内避寒喝热茶；05:15 蓝调泛光下车；05:44–05:46 是平地日出时刻，约 05:51–05:53 太阳才越过东侧山棱真正现身（实测山棱仰角 1.3°，延迟约 7 分钟），见证千圆逆富士的神圣时刻！车位距湖滩仅 5 米平地。",
+        tags: ["千圆日出原型", "约05:52跃出山棱", "暖车避寒下车5m"],
         hero: true
       },
       {
@@ -1972,6 +2014,10 @@ function selectDay(idx, updateHash = true) {
   const routeBtn = document.getElementById('btnGmapsDayRoute');
   routeBtn.href = day.routeUrl;
 
+  // 回手册的每个入口都带上当天，落在手册的同一天而不是首页
+  const handbookHref = `index.html#day-${idx + 1}`;
+  document.querySelectorAll('.to-handbook').forEach(a => { a.href = handbookHref; });
+
   // Render Day Hero Card
   const heroCard = document.getElementById('dayHero');
   let d8SwitcherHtml = '';
@@ -1979,8 +2025,8 @@ function selectDay(idx, updateHash = true) {
     d8SwitcherHtml = `
       <div class="day8-switcher" role="group" aria-label="Day 8 方案选择">
         <button class="d8-opt-btn ${currentDay8OptionKey === 'kamakura' ? 'active' : ''}" onclick="switchDay8Option('kamakura')">🌊 方案 A: 镰仓海景大佛 (主推)</button>
-        <button class="d8-opt-btn ${currentDay8OptionKey === 'nezu' ? 'active' : ''}" onclick="switchDay8Option('nezu')">⛩️ 方案 B: 根津神社·谷中祭 (第一平替)</button>
-        <button class="d8-opt-btn ${currentDay8OptionKey === 'kiyosumi' ? 'active' : ''}" onclick="switchDay8Option('kiyosumi')">☕ 方案 C: 清澄白河 (避人潮)</button>
+        <button class="d8-opt-btn ${currentDay8OptionKey === 'nezu' ? 'active' : ''}" onclick="switchDay8Option('nezu')">⛩️ 方案 B: 根津神社·谷中祭 (⚠️ 与 D9 重合)</button>
+        <button class="d8-opt-btn ${currentDay8OptionKey === 'kiyosumi' ? 'active' : ''}" onclick="switchDay8Option('kiyosumi')">☕ 方案 C: 清澄白河 (无冲突·最省力)</button>
         <button class="d8-opt-btn ${currentDay8OptionKey === 'kichijoji' ? 'active' : ''}" onclick="switchDay8Option('kichijoji')">🛍️ 方案 D: 吉祥寺井之头</button>
       </div>
     `;

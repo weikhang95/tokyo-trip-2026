@@ -671,10 +671,10 @@ const DAY8_OPTIONS = {
     date: '10/10',
     weekday: '六',
     intensity: '🟢 轻负荷 (顺向大环线) · 约 6,000 步',
-    title: '镰仓大佛祈福 ➔ 浅羽屋炭火鳗鱼 ➔ 长谷寺看海 ➔ 顺行藤泽大环线 ★',
-    desc: '全普通电车/公车顺畅闭环！满足妈妈看大佛与搭乘复古江之电的心愿，也享受湘南海岸太平洋海景。东京站地下始发必有座，镰仓东口公车避开排队，浅羽屋享用温热软烂鳗鱼饭，下午七里滨乘江之电顺流至藤泽换乘东海道线直达东京，彻底避开返程人潮，2人交通成本仅 ¥5,488 (约 RM 143)！',
-    transit: '🚆 JR 横须贺线 (东京站始发普通车) ➔ 江之电普通巴士 ➔ 江之电下行 ➔ JR 东海道线普通车 (藤泽大环线)',
-    routeUrl: 'https://www.google.com/maps/dir/?api=1&origin=Tokyo+Station&destination=Kamakura+Daibutsu&waypoints=Hase-dera+Temple%7CShichirigahama+Station%7CFujisawa+Station&travelmode=transit',
+    title: '镰仓大佛 ➔ 长谷寺见晴台 ➔ kaedena. 海景土锅饭 ➔ 顺行藤泽 ➔ 横滨空中缆车夕阳与和牛夜景 ★',
+    desc: '全普通电车/公车顺畅闭环！满足妈妈看大佛与搭复古江之电的心愿，也享受湘南海岸太平洋海景。东京站地下始发必有座，镰仓东口公车避开江之电排队，长谷寺见晴台看海，kaedena. 现煮土锅饭配 7 道小菜，下午七里滨看浪后顺行至藤泽换 JR —— 这条线 100% 途经横滨，顺路切进港湾搭空中缆车看夕阳、红砖仓库吃和牛，最后上野东京线 0 换乘 32 分钟直达上野，20:30 前到家。',
+    transit: '🚆 JR 横须贺线 (东京站始发普通车) ➔ 镰仓东口公车直达大佛 ➔ 江之电顺行 ➔ 藤泽换 JR 东海道线切进横滨 ➔ 上野东京线 0 换乘回上野',
+    routeUrl: 'https://www.google.com/maps/dir/?api=1&origin=Kamakura+Daibutsu&destination=Yokohama+Red+Brick+Warehouse&waypoints=Hase-dera+Temple%7CShichirigahama+Station%7CFujisawa+Station%7CSakuragicho+Station&travelmode=transit',
     nodes: [
       {
         time: '08:45 - 09:40',
@@ -704,48 +704,57 @@ const DAY8_OPTIONS = {
         hero: true
       },
       {
-        time: '11:20 - 12:30',
-        name: '长谷老街 ➔ 浅羽屋炭火鳗鱼饭 / 门前热荞麦午餐 ★',
-        sub: '大佛平步 550m ➔ 镰仓百年老铺 (浅羽屋本店)',
-        lat: 35.3120, lng: 139.5340,
-        action: '长辈肠胃更爱热腾腾熟食！步行至长谷门前百年老铺「浅羽屋本店」，享用现烤软烂无刺炭火鳗鱼饭或热天妇罗荞麦面，环境古朴清幽，舒适坐下大休息。',
-        tags: ['炭火鳗鱼饭', '热腾腾和食', '老铺大卡座休息'],
+        time: '11:00 - 12:15',
+        name: '长谷老街 ➔ 长谷寺 (十一面观音 & 见晴台看海平台)',
+        sub: '大佛平走 500m · 门票 ¥400 · 见晴台树荫长椅',
+        lat: 35.3124, lng: 139.5341,
+        action: '满足妈妈心愿 2：平路 500 米（8 分钟）逛长谷门前老街，参拜 9.18 米木造十一面观音菩萨立像；走平缓坡道至「见晴台」观景平台，坐树荫长椅吹初秋海风，俯瞰相模湾开阔海景。',
+        tags: ['平走500m', '见晴台长椅看海', '门票¥400'],
         hero: false
       },
       {
-        time: '12:35 - 13:35',
-        name: '长谷寺 (十一面观音 & 见晴台相模湾看海平台)',
-        sub: '门前平路 200m ➔ 见晴台长椅吹海风 · 门票 ¥400',
-        lat: 35.3125, lng: 139.5330,
-        action: '参拜 9.18 米日本最大木造十一面观音；走平缓缓坡至「见晴台」树荫长椅，坐着吹初秋怡人海风，远眺相模湾由比ヶ浜蔚蓝海天一色！',
-        tags: ['十一面观音立像', '见晴台海风长椅', '平缓坡道'],
-        hero: false
-      },
-      {
-        time: '13:40 - 14:00',
-        name: '江之电长谷站 ➔ 七里ヶ浜站 (普通复古电车下行看海)',
-        sub: '步行 350m 平路至长谷站 ➔ 乘车 7 分钟 (¥260)',
-        lat: 35.3113, lng: 139.5356,
-        action: '满足搭乘复古江之电心愿：在长谷站搭乘下行（往藤泽方向）电车 3 站！下行方向与返程人潮逆向，车厢宽松不挤，穿梭海边民居与湘南铁道。',
-        tags: ['复古江之电', '下行车厢空', '海边铁道体验'],
-        hero: false
-      },
-      {
-        time: '14:00 - 14:45',
-        name: '七里ヶ浜海堤看浪 (漫步相模湾海岸)',
-        sub: '出站步行仅 150m 平路海堤 · 远眺江之岛与富士山',
-        lat: 35.3050, lng: 139.5100,
-        action: '漫步平坦海堤看太平洋壮阔海浪，吹微咸海风，晴朗时右侧远眺江之岛与富士山剪影。路旁 Cafe 喝热咖啡，享受纯正湘南慢调。',
-        tags: ['海堤平路散步', '太平洋海浪', '远眺富士山'],
+        time: '12:15 - 13:25',
+        name: '🏆 鎌倉土鍋ごはん kaedena. (海景电车窗景土锅饭) ★',
+        sub: '长谷寺山门 179m · Google 4.5★/622 则 · 🔴 只收现金 · 14:30 打烊',
+        lat: 35.31324, lng: 139.53507,
+        action: '全平路零台阶：山门出来 179m，饭后到长谷站 229m。全靠背椅，2F 大窗正对江之电铁道，复古绿皮电车贴窗驶过。现煮真鲷鱼/吻仔鱼鲑鱼卵土锅饭配 7 道小菜与热汤，人均 ¥2,000–2,800。🔴 三个硬限制：① 11:00–14:30 打烊、周一定休；② 只收现金，出门前确认有 ¥6,000 以上日元现钞；③ 店小会满、要在门外登记候位 —— 10/10 是三连休首日，建议 11:50 前就到门口登记。💡 另一条路线：把午餐移到下一站的鎌倉高校前【ことぶき屋】(4.8★/171、11:00–18:30 无休、可刷卡、不用排队)。',
+        tags: ['🔴只收现金', '14:30打烊', '11:50前去登记', '窗边看江之电'],
         hero: true
       },
       {
-        time: '14:45 - 16:15',
-        name: '【顺行大环线】七里滨乘江之电至藤泽 ➔ JR 东海道线普通车直达东京 ★',
-        sub: '藤泽站平地换乘 · 48分钟直达东京站 (¥1,034 · 彻底避开镰仓站返程堵塞)',
+        time: '13:35 - 15:00',
+        name: '江之电长谷站 ➔ 七里ヶ浜 (复古电车顺行看海)',
+        sub: '7 分钟 ¥260 · 出站平走 150m 到海堤',
+        lat: 35.3086, lng: 139.5133,
+        action: '往西（藤泽方向）是人潮反方向，车厢舒适。出七里ヶ浜站平走 150 米到海边，坐平整水泥长椅或防波堤石台看冲浪者与江之岛远景，可外带一杯澳白或热茶（Pacific DRIVE-IN / bills）。坚决不走回头路、不挤小町通。💡 想换成「有屋顶的看海」：再坐一站到鎌倉高校前，出站沿国道 134 号一条直路 317 米（实测 4 分钟、零转弯、净降 1.1 米）即到 ことぶき屋，靠窗坐着隔玻璃看江之电与相模湾，对长辈比站在防波堤上省力。',
+        tags: ['顺行避峰', '出站150m到海堤', '可换ことぶき屋室内看海'],
+        hero: true
+      },
+      {
+        time: '15:00 - 16:10',
+        name: '【顺行大环线】七里滨 ➔ 藤泽 ➔ JR 东海道线切进横滨 ★',
+        sub: '藤泽起点站平地换乘 · 19 分钟到横滨 (¥440) ➔ 1 站到樱木町',
         lat: 35.3389, lng: 139.4874,
-        action: '绝不走回头路！在七里滨站继续乘江之电顺行 15 分钟抵终点【藤泽站】(¥260)，站内平地直接换乘【JR 东海道线普通车】(48分钟，¥1,034) 直达东京站！彻底避开镰仓站周末傍晚人流对冲，零回头路大环线轻松返程。',
-        tags: ['顺向大环线', '藤泽平地换乘', '东海道线48分直达东京', '零回头路免挤人'],
+        action: '绝不走回头路！七里滨继续顺行 20 分钟到终点【藤泽站】，藤泽是起点站换乘极顺。⭐ 关键秘技：藤泽回东京的铁路线 100% 途经横滨 —— 搭 JR 东海道线仅 19 分钟（¥440）直抵横滨，同台转 1 站（3 分钟）到【樱木町站】，把枯燥的乘车时间换成横滨港湾最美的夕阳时段。',
+        tags: ['顺向零回头路', '藤泽起点站好换乘', '顺路切进横滨'],
+        hero: false
+      },
+      {
+        time: '16:15 - 17:30',
+        name: '⭐ YOKOHAMA AIR CABIN 空中缆车 ➔ 红砖仓库夕阳 ★',
+        sub: '樱木町站东口即是缆车站 · 0 台阶 · 单程 ¥1,000/人 · 免预约',
+        lat: 35.4540, lng: 139.6320,
+        action: '长辈零负担高空夕阳：出樱木町站东口就是缆车站，0 步台阶、全平地直通大电梯，直接进全封闭冷暖气车厢。横跨港湾运河水面（全长 630m、高 40m），5 分钟平稳滑行直达对岸新港运河公园／红砖仓库。站台直接买票，免 LINE 免预约。16:30–17:30 在红砖仓库海滨漫步，看历史红砖建筑、港湾日落与初上华灯。',
+        tags: ['0台阶全封闭车厢', '免预约站台买票', '¥1,000/人', '港湾夕阳'],
+        hero: true
+      },
+      {
+        time: '17:30 - 20:30',
+        name: '横滨和牛夜景晚餐 ➔ 上野东京线 0 换乘回巢',
+        sub: 'Sogo 10F 和牛烧肉 或 荒井屋万国桥店牛锅 ➔ 横滨 32 分直达上野',
+        lat: 35.4550, lng: 139.6380,
+        action: '选项 A 和牛烧肉：横滨站 Sogo／Sky Building 10F 餐厅街，落地窗俯瞰海湾夜景、大沙发卡座、排烟好，人均 ¥3,500–5,000。选项 B 明治百年牛锅：荒井屋 万国桥店（Tabelog 3.55★，距红砖仓库平路 550m／8 分钟），明治 28 年创立的寿喜烧发祥名店，软嫩和牛炖大葱豆腐，人均 ¥3,800–5,000。⭐ 19:15 横滨站搭 JR 上野东京线直通列车（IC ¥616），32 分钟一车直达上野，0 换乘；上野站内转日比谷线 4 分钟到三ノ輪。约 20:15–20:30 进门。',
+        tags: ['和牛夜景晚餐', '上野东京线0换乘32分', '20:30前到家'],
         hero: false
       }
     ]
@@ -1753,8 +1762,8 @@ const PREBAKED_ROUTES = {
     "encoded": "qwxxEozctYOJOHF^Jf@TfAVrANjAD\\@X?l@?h@@j@@~BBb@XA^ArBG^@T@Z@TXNHnCxAhFnCpCvARD^R`Af@RT`@R|C`BhEzB`DbBZHp@^l@Z`@\\vC|ArE`C`DdBRLLJ\\RjAbAp@h@\\T`At@tAjAtAlARNPPpAjAfA~@TPRRVTzBpBXVTYhB{B\\_@\\c@RUBEr@y@DENU`C}CNSPSj@q@nA}APSNONSDEzAyAdAeAl@m@h@i@~AaBNMNTONq@n@k@j@m@l@s@p@_A~@LPh@t@LPfBdCDF{@~@QRSTKJKTSYqBqCa@i@S[QR{BnCOPQTw@dAgAxAQREDq@z@EDQR}@dA}@dAk@p@SV]b@QRc@j@}ApBFLJL^l@xAvBDFFHpC~DFHIJm@`AEGAAkA{AiAwAAAGGr@kAHMFIZe@n@}@~@gALOZ_@NR`@j@`@f@lA|AtAtBbAtAhAlCVl@HTDXBLBVDbA@n@BxDCp@Gb@EPCNM`@XRlDpCJHTRJHhDjC`@X|@r@LJJHJH^XZVZVBBv@n@NLRNrAfAFDNLRLtAdAt@j@|ApA`Ar@n@f@b@\\JFLDL@CV?HAZALGh@AHGr@E`@Er@_@dEEZCVS|@S~@YpAGXXJpCdAbBn@@B@D@B?D?HEZ?FSjCUdCC^A`@BH@N@N?F?z@@t@@R@R@JBHDJDFLHJDb@PrAh@RFNBf@HXBTBd@FVL|A|@nAt@h@\\RJFB@S@c@@w@B}A?c@@Q@iABEHEDKDS_AIG@YAA?GHEHGJ??FKDIFI@?X@FA~@HEREJIDCDAhAAP?b@C|AAv@Ab@ARFD@S@IJkBDu@FaA^qGH]BI@IFS??"
   },
   "D8": {
-    "distance": "11.9 km",
-    "duration": "24 分钟",
+    "distance": "11.9 km（镰仓段）",
+    "duration": "24 分钟 · 横滨段为电车",
     "encoded": "{fqvEkzvrYR@BBBD?FAFA?GDK?EACAKCCL_@hB[nAAZFBi@lHW|CCZM`CC`@MtCQrAIb@Q~@Uz@s@jCERQx@[hBOlAc@tCIt@A^ErDChCxEx@@?~Cp@F@pB\\rB`@zAVb@H@@|@LXHXPLZd@tBFP|@`AfAr@d@Rt@Zb@^\\h@Kn@q@Gm@@SBG@QB[Hu@Pc@NIDYOSI_@U??g@Gk@Ku@I}AMwDW@c@}@G|@FAb@vDV|ALt@Hj@Jf@F^TRHXNHEb@Ot@QZIPCFARCl@Ap@FVDz@Ll@Dp@AbAI~AMbAIBbAGp@Gd@AHCTE^Ed@I|@HdDA]GgCH}@De@D_@BU@IFe@Fq@CcAp@IL?~@Wn@MdDu@@?`@K@?DAhASrAMj@EHfBDr@z@SdAUJCBH^|BBH@LBHTbAP^NTJHNNTJ\\Jn@J^D~@Lt@Jj@HJBLDXHdAd@xAp@rAn@dAf@JDVL^Pn@Zb@Tb@^l@r@j@`APf@VfAZvAf@jCf@zBVjAXbBLx@H|@Hz@DzA?~@AzAArAC~@Cx@G`AAHAFCXIl@CRANCNANKx@K|@G^Gl@Gd@ANAHALEd@C|@A|@?N?B?L@~@@THbB@X@pA@p@Ar@Ct@Cr@CTE`@w@xISzAKx@Oz@s@rDs@nDa@nBs@lD]jBSfAOhAO|AEn@CXMC_Di@CLEVE\\@TPEF\\h@v@DEh@j@RRXMD@@KD}@F{@@U@MBYDo@N}ANiARgA\\kBr@mD`@oBr@oDr@sDN{@Jy@R{Av@yIDa@BUBs@Bu@@s@Aq@AqAAYIcBAUA_A?M?C?O@}@B}@De@@M@I@OFe@Fm@F_@J}@Jy@@OBO@OBSHm@BY@G@IFaABy@B_A@sA@{A?_AE{AI{@I}@My@YcBWkAg@{Bg@kC[wAWgAQg@k@aAm@s@c@_@c@Uo@[_@QWMKEeAg@sAo@yAq@eAe@YIMEKCk@Iu@K_AM_@Eo@K]KUKOOKIOUQ_@UcACIAMCI_@}BCICOYwAS_AQq@a@yAOk@EKIYYgAEWAKCSMmAKBu@Lq@X[Fc@@e@?YHc@LMD]`@OHU@_AMC?c@?k@G}@\\I}@I{@G_@Ie@GWUuAWoBGo@ASCWKcAIeACu@Co@EgBCyBEsCCe@Eg@CW?CAEGg@ESAII[UaAU_AWy@Wi@g@y@e@u@CGIKOWIMGIIMMDS?GCQCq@[q@]KEi@WmAo@sAq@e@SSIWKeAm@}Aw@mDuAc@SGC@[ZoA^iBBMBOBCBCDA??"
   },
   "D9": {
@@ -1763,8 +1772,8 @@ const PREBAKED_ROUTES = {
     "encoded": "_o~xEgmetYHu@DWR@`@@TBh@Bj@HrARF@J@v@Jf@Fn@HNBPBv@Jt@HlBHZ@dBL\\BF?J@EXK`AUpBGj@CRC\\OrAe@vEC\\Gl@_@vD[tCCTAREX]|COxACTCVWvBCTCROxA]hDANK`AKjAEZANAL?LBJFNpAnBXb@^f@NPPNLFXFXBZBrCNZ@xAFP@bADj@BD?x@DtBHZBEv@AVE~@L@hETZ@dBJH@D?DkA?KQA}BMqDSe@CYCMAqBKu@Ce@CsDU]AMAuCOI?{@GYEICMCQGQMQWc@m@c@y@SUMYGUGc@GMGMGGEEMKs@m@uAy@sBqAkDuBMIMIqCgBaCyASMYS}BaBOKSOkA{@{@q@m@e@USaAq@_@Yu@i@w@m@qBaBMKOMSQ{@o@sAcAiBsASM[UkBwAuA_ASMEc@?[C_B?YAm@?M?WAaAC}A?C???UA{@AoAAkA?U?QCsA?{@AcAAkAAWgAD?PAlAZ?h@AF?Aq@?YAW?WRA|AE|AAt@?LCLEd@UdBy@r@[xAs@PITKdD}ATKNGLAJA~@@p@?`@@\\?n@?T?L?X?X?bBDbABV@N?lCHZ@dBFh@@\\BhAJRBPBlAJ|BVLBP@PBbBRv@FH@TBBc@LiB?O@K@QPkCTiD@S@MPqCNyB@M@Q@O@YBYJwAFiA@ODm@JK?TCf@IlAInAAP?BC`@ADV@fBJn@BN@J@b@BP@R@h@DN@H@L@f@BHBB?XBJBlCzAnAt@JHTLTNf@\\`BdAFDFDVPlCzBx@|@DDTVRX`BvBx@hAv@bAtAdBFFNPHLdArAx@bAFH@@`@f@VXf@l@h@p@`@^JHNHPLPJNJnAz@fAr@p@b@LHFFNHNHNJfAp@B@^T~@f@lAt@n@^HDTLNHdB|@fAn@JDTNZNVLt@`@x@b@HFRJNFr@ZBB|@ZXNFFJHBFLLbAvANRNTRXz@jAfA|AjA`BLPJPnBlCHLRXNTrAlBJNLP^h@LPLThBvDBFHPHN`AlB`@x@DHNZLXp@rAnAnCHRd@vB`@bBBN@Zb@Mf@OBAt@URG|@[lAa@b@OdA]l@STGf@EXAPHRDTBR@RA`EOXARCNELELENKFGDEDEBGDGBGDMFWDWLy@DSFQFODKFGFKHGJIJEHEFAHAFAH?H?J@LBLDPHh@Z~Az@|BpAjFjCzDlBtKrFjAj@dBz@lB`Ar@^hCvAtBnArAt@NHNHJDLBNBP@d@@bABT?ZBR@d@Hn@L|Bf@|@Rb@N^N\\NVLh@Zr@d@XVb@h@rA~AnBdCfAvA`BvB`C|Cp@v@LLLLLHJFHDJBJDN@l@Ff@FJ@JBHDHBJFHHHHLLJLdCjDnAbBRTTTnA`Ad@`@TTTRRTNPJPNXLXJVFTHZFXN~@H`@FXFRFLFPFJHPJNLNJJLLPNZRpGzEvB~A`D|BvAfARNNHHDJDHBJBJ@H@J?J?J?JAHAJCJEJEJEpAw@NKPIPGRERETAT?TApG?hE?~EGhBCZ@V?TBXBVFVFVHTH^L`@PjLvE|CnAbC`AxDnAhC`ALDLBNBN@L@P?TAVCRETGpAg@TIVIVGTEPCZCTCf@Ch@AhBAhC?pGAxEAbD?n@?\\?ZANCNCRCPGRGRIPINKNMPONONQNUP[N]L_@L[Jc@No@~Mmn@t@sDF]F]D[B[DY@[B]@]?_@?_@?]A]C]E]Ec@Ge@Ki@Ke@Ic@K]Ka@qByHI]Sw@Mo@Os@Ko@Kq@Kw@K{@Is@Em@Eq@Cq@Ai@?i@?g@?c@Be@Bc@Di@Dg@Hk@Hg@He@Jc@Ng@Ng@Pg@Re@Te@Ve@Va@V_@Za@b@e@b@c@~BoBjCuBtBmBfDuDRUROPONIPKPGPGNCPCR?P?P@RBPDPHPHNJNNPNJNNRJRNZvA`DjDzHv@fBhBlEfBpEn@hBtHtPTj@l@hAVb@j@`AxAtB|FfIlFnHb@n@`r@xaAbAvAhAvAr@f@n@r@p@l@|@v@j@`@`Al@n@Xl@Vp@Pn@LfAHT@HAb@Dr@Bz@BjA@fIC`@?Z?r@?lB@nA?dCDfC?nA?n@@~F?hC?`B?nC?dC@nF?~I@`D?jB?fC?tE@fC?v@?r@?nA@vAALFr@H|ALVBVBV@V@`DBdHJdEHXFbGAnAAx@Eh@ErAMnAOhAQfB]`B[`FgAf@KjIiB`NuCfAWbYeGfCk@rDy@t@O~Ae@tAg@bAg@v@e@l@a@l@e@h@g@p@w@t@cAp@eAz@eB`AyBpAcDjD}IdL{YnBkFhCsGrBeFjDkI`C{Fx@iBhA_Cl@oA~@}AdAaBt@eAf@eAl@w@hAwAf@k@d@k@r@s@l@i@l@g@|AmAx@q@jAw@rA}@tD}BhCaB\\UPSNWFOBMBQ@S?O?QCQGSGQIWGWCMAMAM?O@WBSDMDMDMFKJKHIVOVOZWfBoAHIbC{AFETO^UZSTO@?DEDATOVOFGTMXOl@]b@Up@c@NIPKt@e@fBeAn@_@j@e@TKPGTCZBLDLHLLJNL\\PVbA`CZj@Vh@b@fAt@pBDTBNBT?TARCPEJELIPKPKHQNa@\\MHyA~@kAt@aGxDwJfG"
   },
   "D8_kamakura": {
-    "distance": "11.9 km",
-    "duration": "24 分钟",
+    "distance": "11.9 km（镰仓段）",
+    "duration": "24 分钟 · 横滨段为电车",
     "encoded": "{fqvEkzvrYR@BBBD?FAFA?GDK?EACAKCCL_@hB[nAAZFBi@lHW|CCZM`CC`@MtCQrAIb@Q~@Uz@s@jCERQx@[hBOlAc@tCIt@A^ErDChCxEx@@?~Cp@F@pB\\rB`@zAVb@H@@|@LXHXPLZd@tBFP|@`AfAr@d@Rt@Zb@^\\h@Kn@q@Gm@@SBG@QB[Hu@Pc@NIDYOSI_@U??g@Gk@Ku@I}AMwDW@c@}@G|@FAb@vDV|ALt@Hj@Jf@F^TRHXNHEb@Ot@QZIPCFARCl@Ap@FVDz@Ll@Dp@AbAI~AMbAIBbAGp@Gd@AHCTE^Ed@I|@HdDA]GgCH}@De@D_@BU@IFe@Fq@CcAp@IL?~@Wn@MdDu@@?`@K@?DAhASrAMj@EHfBDr@z@SdAUJCBH^|BBH@LBHTbAP^NTJHNNTJ\\Jn@J^D~@Lt@Jj@HJBLDXHdAd@xAp@rAn@dAf@JDVL^Pn@Zb@Tb@^l@r@j@`APf@VfAZvAf@jCf@zBVjAXbBLx@H|@Hz@DzA?~@AzAArAC~@Cx@G`AAHAFCXIl@CRANCNANKx@K|@G^Gl@Gd@ANAHALEd@C|@A|@?N?B?L@~@@THbB@X@pA@p@Ar@Ct@Cr@CTE`@w@xISzAKx@Oz@s@rDs@nDa@nBs@lD]jBSfAOhAO|AEn@CXMC_Di@CLEVE\\@TPEF\\h@v@DEh@j@RRXMD@@KD}@F{@@U@MBYDo@N}ANiARgA\\kBr@mD`@oBr@oDr@sDN{@Jy@R{Av@yIDa@BUBs@Bu@@s@Aq@AqAAYIcBAUA_A?M?C?O@}@B}@De@@M@I@OFe@Fm@F_@J}@Jy@@OBO@OBSHm@BY@G@IFaABy@B_A@sA@{A?_AE{AI{@I}@My@YcBWkAg@{Bg@kC[wAWgAQg@k@aAm@s@c@_@c@Uo@[_@QWMKEeAg@sAo@yAq@eAe@YIMEKCk@Iu@K_AM_@Eo@K]KUKOOKIOUQ_@UcACIAMCI_@}BCICOYwAS_AQq@a@yAOk@EKIYYgAEWAKCSMmAKBu@Lq@X[Fc@@e@?YHc@LMD]`@OHU@_AMC?c@?k@G}@\\I}@I{@G_@Ie@GWUuAWoBGo@ASCWKcAIeACu@Co@EgBCyBEsCCe@Eg@CW?CAEGg@ESAII[UaAU_AWy@Wi@g@y@e@u@CGIKOWIMGIIMMDS?GCQCq@[q@]KEi@WmAo@sAq@e@SSIWKeAm@}Aw@mDuAc@SGC@[ZoA^iBBMBOBCBCDA??"
   },
   "D8_nezu": {

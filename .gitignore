@@ -20,3 +20,7 @@ certificate*
 # MCP server config — contains GOOGLE_MAPS_API_KEY in plaintext
 # glob, not the bare name: a .bak of this file was committed once by `git add -A`
 .mcp.json*
+
+# Local env vars — repo is public
+.env
+.env.*

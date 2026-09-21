@@ -1,0 +1,62 @@
+{
+  "_comment": "Resolved Google Maps identities for every waypoint used in companion.html routeUrl links. Verified against the Google Geocoding API. Pass place_id or lat/lng to map tools instead of the bare name — a bare name can silently resolve to the wrong continent (see the SAWA Hotel warning below).",
+  "verified": "2026-09-11",
+  "source": "tokyo-trip-2026/companion.html routeUrl parameters",
+  "places": [
+    { "query": "Narita Airport Terminal 2", "region": "transit", "place_id": "ChIJ4yM7gZ3zImARsGTFuKlNSQc", "lat": 35.7724143, "lng": 140.3886803, "address": "Terminal 2, Furugome, Narita, Chiba 282-0004" },
+    { "query": "Haneda Airport Terminal 3", "region": "transit", "place_id": "ChIJ01PIBVRhGGARR1RZERfkuvo", "lat": 35.543913, "lng": 139.768155, "address": "Haneda Airport Terminal 3, Hanedakuko, Ota City, Tokyo 144-0041" },
+    { "query": "Penang International Airport", "region": "transit", "place_id": "ChIJb27SAeS_SjARUoo9S2zdOys", "lat": 5.2959898, "lng": 100.2751656, "address": "Penang International Airport (PEN), 11900 Bayan Lepas, Pulau Pinang, Malaysia" },
+    { "query": "Tokyo Station", "region": "transit", "place_id": "ChIJC3Cf2PuLGGAROO00ukl8JwA", "lat": 35.6812996, "lng": 139.7670658, "address": "Tokyo Station, Marunouchi, Chiyoda City, Tokyo 100-0005" },
+
+    { "query": "Tokyo Taito Ryusen 3-10-7", "region": "lodging", "place_id": "ChIJzyjqaY2OGGAREtXjiGx-KAw", "lat": 35.7246839, "lng": 139.7919325, "address": "3-chome-10-7 Ryusen, Taito City, Tokyo 110-0012" },
+    { "query": "Sawa Hotel Fujikawaguchiko", "region": "lodging", "place_id": "ChIJcSAcBYpgGWARIdkZp44u0rY", "lat": 35.4946204, "lng": 138.7638441, "address": "2090 Funatsu, Fujikawaguchiko, Minamitsuru District, Yamanashi 401-0301", "full_name": "Kawaguchiko Business & Resort SAWA Hotel", "warning": "NEVER query as bare \"SAWA Hotel\" — that resolves to Douala, Cameroon (4.0340411, 9.6839268) with no error." },
+
+    { "query": "Kaminarimon Gate", "region": "tokyo-asakusa", "place_id": "ChIJ0YwG28aOGGARvRKAXIBWqNk", "lat": 35.7111163, "lng": 139.7963656, "address": "2-chome-3-1 Asakusa, Taito City, Tokyo 111-0032" },
+    { "query": "Matsuchiyama Shoden", "region": "tokyo-asakusa", "place_id": "ChIJS50K18KOGGARx4D8Zs9NA0Q", "lat": 35.7174872, "lng": 139.803029, "address": "7-chome-4-1 Asakusa, Taito City, Tokyo 111-0032" },
+    { "query": "Sakurabashi Bridge", "region": "tokyo-asakusa", "place_id": "ChIJ_QkWHsiPGGARzTs3Fe_iZew", "lat": 35.7173897, "lng": 139.8067113, "address": "Sakurabashi Bridge, Mukojima, Sumida City, Tokyo 131-0033" },
+    { "query": "Akihabara Electric Town", "region": "tokyo-asakusa", "place_id": "ChIJzdWdgh2MGGARh4kg2pVZL3c", "lat": 35.6996473, "lng": 139.7713703, "address": "Akihabara Electric Town, Tokyo" },
+
+    { "query": "Ueno Toshogu Shrine", "region": "tokyo-ueno-yanaka", "place_id": "ChIJP7lRfyiMGGARqb1QQhfm9EQ", "lat": 35.7153719, "lng": 139.7707328, "address": "9-88 Uenokoen, Taito City, Tokyo 110-0007" },
+    { "query": "Kiyomizu Kannon-do", "region": "tokyo-ueno-yanaka", "place_id": "ChIJ9Rg_5Z2OGGAR40HN7lsM5_U", "lat": 35.7126261, "lng": 139.7735665, "address": "Ueno Park 1-29, Taito City, Tokyo 110-0007" },
+    { "query": "Ootoya Ueno Park", "region": "tokyo-ueno-yanaka", "place_id": "ChIJlb-hK56OGGARJR-w1JQ-7F4", "lat": 35.7096676, "lng": 139.7730898, "address": "Ueno 2-12-1 Central 21 Bldg 3F, Taito City, Tokyo 110-0005" },
+    { "query": "Yanaka Ginza", "region": "tokyo-ueno-yanaka", "place_id": "ChIJPYwFnNGNGGARYEeXwiYQPe8", "lat": 35.7276965, "lng": 139.7657226, "address": "3-chome-13-1 Yanaka, Taito City, Tokyo 110-0001" },
+    { "query": "Yanaka Matsuri", "region": "tokyo-ueno-yanaka", "place_id": "ChIJSc8pmtSNGGARGYGlpGJU_GE", "lat": 35.7250389, "lng": 139.7690417, "address": "Yanaka, Taito City, Tokyo 110-0001", "precision": "coarse — resolves to the Yanaka neighbourhood centroid, not a specific venue" },
+    { "query": "Nezu Shrine", "region": "tokyo-ueno-yanaka", "place_id": "ChIJ-X4hzjKMGGARDSsGeHOACgw", "lat": 35.7201366, "lng": 139.7607695, "address": "1-chome-28-9 Nezu, Bunkyo City, Tokyo 113-0031" },
+    { "query": "Nezu Kamachiku", "region": "tokyo-ueno-yanaka", "place_id": "ChIJcRRPoS6MGGARe-LEXkndq_s", "lat": 35.7180829, "lng": 139.7669646, "address": "2-chome-14-18 Nezu, Bunkyo City, Tokyo 113-0031" },
+
+    { "query": "Koami Shrine", "region": "tokyo-nihonbashi-ginza", "place_id": "ChIJmY9L9lCJGGAR3ydy0pQ5y8A", "lat": 35.6841165, "lng": 139.780462, "address": "16-23 Nihonbashikoamicho, Chuo City, Tokyo 103-0016" },
+    { "query": "Nihombashi Mitsukoshi Main Store", "region": "tokyo-nihonbashi-ginza", "place_id": "ChIJiXTqi1WJGGAR08VFBmKoNrc", "lat": 35.6856332, "lng": 139.7734296, "address": "1-chome-4-1 Nihonbashimuromachi, Chuo City, Tokyo 103-8001" },
+    { "query": "COREDO Muromachi", "region": "tokyo-nihonbashi-ginza", "place_id": "ChIJ3wbbClWJGGARHXtIUuwJqW8", "lat": 35.6865187, "lng": 139.7740345, "address": "2-chome-2-1 Nihonbashimuromachi, Chuo City, Tokyo 103-0022" },
+    { "query": "Tsukiji Outer Market", "region": "tokyo-nihonbashi-ginza", "place_id": "ChIJW2cLzSGLGGARXAKXv6EkbqI", "lat": 35.6647703, "lng": 139.7702515, "address": "Tsukiji 4-chome-16, Chuo City, Tokyo 104-0045" },
+    { "query": "GINZA SIX", "region": "tokyo-nihonbashi-ginza", "place_id": "ChIJAQAsR--LGGAR_AmB8WMDy88", "lat": 35.6697688, "lng": 139.7641762, "address": "6-chome-10-1 Ginza, Chuo City, Tokyo 104-0061" },
+    { "query": "Tokyo Tower", "region": "tokyo-nihonbashi-ginza", "place_id": "ChIJCewJkL2LGGAR3Qmk0vCTGkg", "lat": 35.6585805, "lng": 139.7454329, "address": "4-chome-2-8 Shibakoen, Minato City, Tokyo 105-0011" },
+    { "query": "Zojoji Temple", "region": "tokyo-nihonbashi-ginza", "place_id": "ChIJC2xnkb6LGGARJL0d222opIg", "lat": 35.657479, "lng": 139.7482928, "address": "4-chome-7-35 Shibakoen, Minato City, Tokyo 105-0011" },
+
+    { "query": "Meiji Jingu", "region": "tokyo-shibuya", "place_id": "ChIJ5SZMmreMGGARcz8QSTiJyo8", "lat": 35.6763976, "lng": 139.6993259, "address": "1-1 Yoyogikamizonocho, Shibuya, Tokyo 151-8557" },
+    { "query": "Harajuku Station", "region": "tokyo-shibuya", "place_id": "ChIJ_yy1ybqMGGAR0tPR4qiHDVY", "lat": 35.6700901, "lng": 139.7024662, "address": "Harajuku Station, Jingumae, Shibuya, Tokyo 150-0001" },
+    { "query": "Shibuya Crossing", "region": "tokyo-shibuya", "place_id": "ChIJK9EM68qLGGARacmu4KJj5SA", "lat": 35.659482, "lng": 139.7005596, "address": "21 Udagawacho, Shibuya, Tokyo 150-0042" },
+    { "query": "SHIBUYA SKY", "region": "tokyo-shibuya", "place_id": "ChIJ4Rr2JWiLGGARcyRSHuZ-9G8", "lat": 35.6586719, "lng": 139.7019848, "address": "Shibuya Scramble Square 14F/45F/46F, Shibuya, Tokyo 150-6145" },
+
+    { "query": "Blue Bottle Coffee Kiyosumi", "region": "tokyo-kiyosumi", "place_id": "ChIJVVVp3BaJGGARfAgSR2yEybw", "lat": 35.6777557, "lng": 139.8005894, "address": "1-chome-4-8 Hirano, Koto City, Tokyo 135-0023" },
+    { "query": "Kiyosumi Gardens", "region": "tokyo-kiyosumi", "place_id": "ChIJ_SvuyD-JGGARUQZhJInwMIc", "lat": 35.6809021, "lng": 139.7972649, "address": "3-chome-3-9 Kiyosumi, Koto City, Tokyo 135-0024" },
+
+    { "query": "Kichijoji Station", "region": "tokyo-west", "place_id": "ChIJCalq8UfuGGARr6-Rc3R6atQ", "lat": 35.7031125, "lng": 139.5801608, "address": "Kichijoji Station, Musashino, Tokyo" },
+    { "query": "Ghibli Museum", "region": "tokyo-west", "place_id": "ChIJLYwD5TTuGGARBZKEP5BV4U0", "lat": 35.696238, "lng": 139.5704317, "address": "1-chome-1-83 Shimorenjaku, Mitaka, Tokyo 181-0013" },
+
+    { "query": "Hase-dera Temple", "region": "kamakura", "place_id": "ChIJ1SdxB_RFGGAR0a33ulBh61c", "lat": 35.3124791, "lng": 139.5331106, "address": "3-chome-11-2 Hase, Kamakura, Kanagawa 248-0016" },
+    { "query": "Kamakura Daibutsu", "region": "kamakura", "place_id": "ChIJBbxJ3_JFGGARTO9rLbCTwx4", "lat": 35.3168145, "lng": 139.5357442, "address": "4-chome-2-28 Hase, Kamakura, Kanagawa 248-0016" },
+    { "query": "Shichirigahama Station", "region": "kamakura", "place_id": "ChIJ99KENUBPGGARS5wAoUOpSbA", "lat": 35.3062403, "lng": 139.5101511, "address": "Shichirigahama Station, Kamakura, Kanagawa 248-0026" },
+    { "query": "Fujisawa Station", "region": "kamakura", "place_id": "ChIJC0kMNstPGGARmu_dZscfvjI", "lat": 35.3388984, "lng": 139.4874695, "address": "Fujisawa Station, Fujisawa, Kanagawa" },
+
+    { "query": "Kawaguchiko Station", "region": "fuji", "place_id": "ChIJMSQyt4JgGWARGxEj8inq2wc", "lat": 35.4982362, "lng": 138.7688409, "address": "Kawaguchiko Station, Funatsu, Fujikawaguchiko, Yamanashi 401-0301" },
+    { "query": "Nippon Rent-A-Car Kawaguchiko Station", "region": "fuji", "place_id": "ChIJ7UR2R51gGWARgij5uoDtsa0", "lat": 35.4985844, "lng": 138.7701277, "address": "3647-1 Funatsu, Fujikawaguchiko, Minamitsuru District, Yamanashi 401-0301" },
+    { "query": "Lawson Fujikawaguchiko Town Hall", "region": "fuji", "place_id": "ChIJT9mAeNRfGWARX5ASHpq0nxQ", "lat": 35.4985286, "lng": 138.7563694, "address": "1395-1 Funatsu, Fujikawaguchiko, Minamitsuru District, Yamanashi 401-0301" },
+    { "query": "Oshino Hakkai", "region": "fuji", "place_id": "ChIJK4SZn4VmGWARcZ-vsGukOhY", "lat": 35.4600674, "lng": 138.8324749, "address": "Shibokusa, Oshino, Minamitsuru District, Yamanashi 401-0511" },
+    { "query": "Oishi Park Kawaguchiko", "region": "fuji", "place_id": "ChIJlSsLjKZfGWARBCllOgtTLqI", "lat": 35.522904, "lng": 138.7457522, "address": "Oishi Park, Oishi, Fujikawaguchiko, Yamanashi 401-0305" },
+    { "query": "Nagasaki Park Kawaguchiko", "region": "fuji", "place_id": "ChIJAwHhLmlfGWARqOCaiWAUMpo", "lat": 35.5215516, "lng": 138.7573478, "address": "Nagasaki Park, Oishi, Fujikawaguchiko, Yamanashi 401-0305" },
+    { "query": "Fuji Yurari Onsen", "region": "fuji", "place_id": "ChIJ0-FaM23gG2ARDFben2v-Hsc", "lat": 35.4761278, "lng": 138.6915967, "address": "8532-5 Narusawa, Minamitsuru District, Yamanashi 401-0320" },
+    { "query": "Koan Camping Ground Motosuko", "region": "fuji", "place_id": "ChIJuea39RXmG2AR4z4fk_95fXc", "lat": 35.473183, "lng": 138.574764, "address": "2926 Nakanokura, Minobu, Minamikoma District, Yamanashi 409-3104", "note": "Motosuko — 1000-yen-note viewpoint trailhead" },
+    { "query": "483 Shoji Fujikawaguchiko", "region": "fuji", "place_id": "ChIJk8IpGInmG2ARwov3skqWf5s", "lat": 35.4908723, "lng": 138.6024287, "address": "483 Shoji, Fujikawaguchiko, Minamitsuru District, Yamanashi 401-0336", "note": "Street-address form of Tatego-hama (他根浜), Lake Shoji. The Japanese name 精進湖 他根浜 FAILS Geocoding — use this address, or the Places place_id ChIJ13ziPsznG2ARIqd4uJcjN0s (Tatego-Hama Beach, 35.4906841, 138.6046066)." },
+    { "query": "Saiko Nenba-hama", "region": "fuji", "place_id": "ChIJ7aN-lsnhG2ARMeszI-GzblA", "lat": 35.5006859, "lng": 138.6647507, "address": "Saiko, Fujikawaguchiko, Minamitsuru District, Yamanashi 401-0332", "precision": "coarse — resolves to the Saiko lakeside area, not the Nenba-hama point itself" }
+  ]
+}

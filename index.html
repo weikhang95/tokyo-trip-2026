@@ -497,9 +497,17 @@ html[data-theme="dark"] .bplan-img-card:has(img)::after{outline-color:oklch(1 0 
 }
 .tl-time{
   font-family:var(--font-sans);font-size:var(--font-sub);font-weight:700;
-  color:var(--ai);letter-spacing:0;font-variant-numeric:tabular-nums;
-  padding:0;background:transparent;display:block;margin-bottom:4px;line-height:1.4;
+  color:var(--ink);letter-spacing:0;font-variant-numeric:tabular-nums;
+  padding:0;background:transparent;display:block;margin-bottom:6px;line-height:1.3;
 }
+/* 时刻：开始时间最醒目（出门看这个），结束时间次之，附注另起一行 */
+.tl-clock{display:inline-flex;align-items:baseline;gap:6px;white-space:nowrap;}
+.t-start{font-size:1.375em;font-weight:700;letter-spacing:-.01em;color:var(--ink);}
+.t-sep{color:var(--ink-faint);font-weight:400;}
+.t-end{font-size:1em;font-weight:500;color:var(--ink-faint);}
+.tl-tag{display:block;margin-top:2px;font-size:var(--font-xs);font-weight:600;color:var(--ai);line-height:1.45;white-space:normal;}
+/* 非时刻的小节标签（B Plan 对比表、备案） */
+.tl-time.is-label{font-size:var(--font-xs);font-weight:700;color:var(--ink-faint);letter-spacing:.04em;margin-bottom:4px;}
 .tl-main{
   font-size:var(--font-md);font-weight:700;line-height:1.45;color:var(--ink);
   margin-bottom:6px;text-wrap:pretty;overflow-wrap:anywhere;
@@ -727,7 +735,8 @@ html[data-theme="dark"] .bplan-img-card:has(img)::after{outline-color:oklch(1 0 
 
   .tl{padding:var(--space-sm) var(--space-sm);}
   .tl-item{gap:var(--space-xs);padding:var(--space-sm) 0;}
-  .tl-time{font-size:var(--font-sub);margin-bottom:2px;}
+  .tl-time{font-size:var(--font-sub);margin-bottom:4px;}
+  .t-start{font-size:1.3em;}
   .tl-main{font-size:var(--font-base);line-height:1.4;margin-bottom:4px;}
   .tl-desc{font-size:var(--font-sub);line-height:1.68;}
 
@@ -1706,7 +1715,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🛬</div>
           <div>
-            <div class="tl-time">14:45 - 15:45</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">14:45</span><span class="t-sep">–</span><span class="t-end">15:45</span></span></div>
             <div class="tl-main"><span class="zh on">14:45 落地<a href="https://maps.google.com/?q=Narita+Airport+Terminal+2" target="_blank" rel="noopener noreferrer">成田机场 T2 (UO848)</a> · 办理入境与提取行李</span><span class="en">14:45 Touchdown NRT T2 & Customs</span></div>
             <div class="tl-desc">
               <ol>
@@ -1719,7 +1728,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🚆</div>
           <div>
-            <div class="tl-time">16:15 换票 → 16:42 黄金目标班次 Skyliner (:02 / :22 / :42 循环)</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">16:15</span></span><span class="tl-tag">换票 → 16:42 黄金目标班次 Skyliner (:02 / :22 / :42 循环)</span></div>
             <div class="tl-main"><span class="zh on">B1 <strong>空港第2ビル駅</strong> 专机扫码换票 → 搭乘 Keisei Skyliner 机场特快</span><span class="en">Exchange e-ticket at Terminal 2·3 Stn, take Skyliner</span></div>
             <div class="tl-desc">
               <ol>
@@ -1737,7 +1746,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🛟</div>
           <div>
-            <div class="tl-time">备案</div>
+            <div class="tl-time is-label">备案</div>
             <div class="tl-main"><span class="zh on">Plan B — 京成柜台大排长龙 / Skyliner 出状况</span><span class="en">Plan B — Keisei Access Express</span></div>
             <div class="tl-desc">
               <ol>
@@ -1752,7 +1761,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🏠</div>
           <div>
-            <div class="tl-time">17:30</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">17:30</span></span></div>
             <div class="tl-main"><span class="zh on">入住 <a href="https://maps.google.com/?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%AB%9C%E6%B3%893-10-7+LUXURY+STAY+HOTEL" target="_blank" rel="noopener noreferrer">LUXURY STAY HOTEL 浅草竜泉店</a> 33号房 (Yoin TOKYO · 智能锁自助手续)</span><span class="en">Check-in LUXURY STAY HOTEL Asakusa Ryusen</span></div>
             <div class="tl-desc">
               <ol>
@@ -1777,7 +1786,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🌟</div>
           <div>
-            <div class="tl-time">Day 1 晚间 3 大 B Plan 方案对比表</div>
+            <div class="tl-time is-label">Day 1 晚间 3 大 B Plan 方案对比表</div>
             <div class="tl-main"><span class="zh on">【Day 1 晚间 3 大弹性 B Plan 备选方案】</span></div>
             <table class="info-table" style="margin-top:10px;">
               <thead>
@@ -1845,7 +1854,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🚌</div>
           <div>
-            <div class="tl-time">06:30 - 07:50</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">06:30</span><span class="t-sep">–</span><span class="t-end">07:50</span></span></div>
             <div class="tl-main"><span class="zh on">【长辈省力公车直达】公寓 ➔ 门前公车 (都08/草43) ➔ <a href="https://maps.google.com/?q=Sensoji+Temple+Kaminarimon" target="_blank" rel="noopener noreferrer">浅草寺无人黄金晨拍 ★</a></span><span class="en">Bus Leg 1: Base to Sensoji & Early Morning Photography</span></div>
             <div class="tl-desc">
               <ol>
@@ -1860,7 +1869,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">☕</div>
           <div>
-            <div class="tl-time">07:55 - 09:15</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">07:55</span><span class="t-sep">–</span><span class="t-end">09:15</span></span></div>
             <div class="tl-main"><span class="zh on">【顺时针单向 0折返】<a href="https://maps.google.com/?q=FUGLEN+ASAKUSA" target="_blank" rel="noopener noreferrer">FUGLEN ASAKUSA</a> · 挪威精品咖啡与现烤华夫饼 · 2F复古皮沙发深度休整</span><span class="en">FUGLEN ASAKUSA: Nordic Coffee, Waffles & 2F Sofa Rest</span></div>
             <div class="tl-desc">
               <ol>
@@ -1874,7 +1883,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🍡</div>
           <div>
-            <div class="tl-time">09:20 - 11:30</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">09:20</span><span class="t-sep">–</span><span class="t-end">11:30</span></span></div>
             <div class="tl-main"><span class="zh on">西参道木地板街 ➔ 花月堂菠萝面包 ➔ 传法院通 <a href="https://maps.google.com/?q=Asakusa+Menchi" target="_blank" rel="noopener noreferrer">浅草メンチ炸肉饼</a> ＆ <a href="https://maps.google.com/?q=Kaminari+Issa+Denpoin" target="_blank" rel="noopener noreferrer">雷一茶特浓抹茶</a> ➔ 8F展望台歇脚 ➔ 尾张屋午餐</span><span class="en">Nishi-sando, Kagetsudo, Asakusa Menchi & Kaminari-Issa Matcha, 8F Observatory & Owariya Lunch</span></div>
             <div class="tl-desc">
               <ol>
@@ -1920,7 +1929,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🌸</div>
           <div>
-            <div class="tl-time">12:20 - 13:45</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">12:20</span><span class="t-sep">–</span><span class="t-end">13:45</span></span></div>
             <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Matsuchiyama+Shoden" target="_blank" rel="noopener noreferrer">待乳山圣天 (免费迷你小缆车)</a> ➔ <a href="https://maps.google.com/?q=Sakurabashi+Bridge" target="_blank" rel="noopener noreferrer">桜橋 (X型纯行人景观桥 · 拍晴空塔全景)</a></span><span class="en">Matsuchiyama Shoden & Sakurabashi Bridge</span></div>
             <div class="tl-desc">
               <ol>
@@ -1935,7 +1944,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🍵</div>
           <div>
-            <div class="tl-time">13:45 - 15:30</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">13:45</span><span class="t-sep">–</span><span class="t-end">15:30</span></span></div>
             <div class="tl-main"><span class="zh on">墨田区午后深度歇脚 1.5h · 【3大高分 Cafe 备选库（当天看心情选）】</span><span class="en">Afternoon Rest: 3 Famous Mukojima Tea Houses & Cafes</span></div>
             <div class="tl-desc">
               <p style="margin-top:6px;color:var(--ink-light);">下桥后不用赶路，在墨田区找一处舒适茶室坐下彻底歇腿、喝茶、充手机电，为傍晚秋叶原蓄满体力：</p>
@@ -1952,7 +1961,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">⚡</div>
           <div>
-            <div class="tl-time">15:30 - 20:30</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">15:30</span><span class="t-sep">–</span><span class="t-end">20:30</span></span></div>
             <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Akihabara+Electric+Town" target="_blank" rel="noopener noreferrer">秋叶原周日步行街 ➔ 蓝调赛博霓虹夜景 ➔ 友都八喜8F舒适晚餐 ➔ 回竜泉</a></span><span class="en">Akihabara Hokoten, Cyberpunk Neon & Yodobashi Dinner</span></div>
             <div class="tl-desc">
               <ol>
@@ -1998,7 +2007,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🌟</div>
           <div>
-            <div class="tl-time">Day 2 降雨/避挤 3 大 B Plan 方案对比表</div>
+            <div class="tl-time is-label">Day 2 降雨/避挤 3 大 B Plan 方案对比表</div>
             <div class="tl-main"><span class="zh on">【Day 2 降雨/避挤 3 大弹性 B Plan 备选方案】</span><span class="en">Day 2 Rain/Crowd Avoidance B-Plans</span></div>
             <table class="info-table" style="margin-top:10px;">
               <thead>
@@ -2067,7 +2076,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🌳</div>
           <div>
-            <div class="tl-time">08:45 - 11:00</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">08:45</span><span class="t-sep">–</span><span class="t-end">11:00</span></span></div>
             <div class="tl-main"><span class="zh on">日比谷线 4m 至上野 (Sakura Terrace直梯) · <a href="https://maps.google.com/?q=Ueno+Toshogu+Shrine" target="_blank" rel="noopener noreferrer">上野江户奇趣名胜圈 ★</a> (拒绝枯燥绕湖)</span><span class="en">Ueno Toshogu, Inari Shrine, Daibutsu & Moon Pine</span></div>
             <div class="tl-desc">
               <ol>
@@ -2085,7 +2094,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🍱</div>
           <div>
-            <div class="tl-time">11:00 - 12:15</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">11:00</span><span class="t-sep">–</span><span class="t-end">12:15</span></span></div>
             <div class="tl-main"><span class="zh on">长辈暖胃平价午餐 · <a href="https://maps.google.com/?q=Ootoya+Ueno+Park" target="_blank" rel="noopener noreferrer">【大戸屋 上野公園店】国民家常定食 ★</a> / <a href="https://maps.google.com/?q=Ichiran+Atre+Ueno" target="_blank" rel="noopener noreferrer">【一蘭 / 一風堂】尝鲜拉面</a></span><span class="en">Ootoya Teishoku or Ichiran / Ippudo Ramen</span></div>
             <div class="tl-desc">
               <ol>
@@ -2111,7 +2120,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🏛️</div>
           <div>
-            <div class="tl-time">12:35 - 16:30</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">12:35</span><span class="t-sep">–</span><span class="t-end">16:30</span></span></div>
             <div class="tl-main"><span class="zh on">银座线直达 5m · <a href="https://maps.google.com/?q=Nihombashi+Mitsukoshi+Main+Store" target="_blank" rel="noopener noreferrer">日本桥三越本店 (国指定重要文化财)</a> ★ ➔ <a href="https://maps.google.com/?q=COREDO+Muromachi" target="_blank" rel="noopener noreferrer">COREDO室町 (老铺高汤·福德神社)</a></span><span class="en">Nihombashi Mitsukoshi & COREDO Muromachi</span></div>
             <div class="tl-desc">
               <ol>
@@ -2134,7 +2143,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🌆</div>
           <div>
-            <div class="tl-time">16:30 - 19:30</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">16:30</span><span class="t-sep">–</span><span class="t-end">19:30</span></span></div>
             <div class="tl-main"><span class="zh on">悠闲早归 ➔ 银座线+日比谷线直达回公寓 ➔ 住处周边晚餐 ➔ 早睡为河口湖蓄电</span><span class="en">Gentle Return & Early Rest for Kawaguchiko</span></div>
             <div class="tl-desc">
               <ol>
@@ -2151,7 +2160,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🌟</div>
           <div>
-            <div class="tl-time">Day 3 弹性 B Plan 方案对比表</div>
+            <div class="tl-time is-label">Day 3 弹性 B Plan 方案对比表</div>
             <div class="tl-main"><span class="zh on">【Day 3 日本桥文化/避雨/提早休整备选方案对比表】</span></div>
             <table class="info-table" style="margin-top:10px;">
               <thead>
@@ -2213,7 +2222,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">⏰</div>
           <div>
-            <div class="tl-time">06:50 - 07:35</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">06:50</span><span class="t-sep">–</span><span class="t-end">07:35</span></span></div>
             <div class="tl-main"><span class="zh on">起床出门 · 前往东京站高速巴士总站 (Airbnb 竜泉 ➔ 东京站)</span><span class="en">Wake & Transit to Tokyo Station Bus Terminal</span></div>
             <div class="tl-desc">
               <ol>
@@ -2233,7 +2242,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🚌</div>
           <div>
-            <div class="tl-time">08:10 - 10:12</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">08:10</span><span class="t-sep">–</span><span class="t-end">10:12</span></span></div>
             <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Tokyo+Station+Yaesu+South+Exit" target="_blank" rel="noopener noreferrer">东京站八重洲南口</a>搭乘高速巴士 → <a href="https://maps.google.com/?q=Kawaguchiko+Station" target="_blank" rel="noopener noreferrer">河口湖站</a></span><span class="en">Highway Bus to Kawaguchiko</span></div>
             <div class="tl-desc">
               <ol>
@@ -2248,7 +2257,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🍜</div>
           <div>
-            <div class="tl-time">10:10 - 12:10</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">10:10</span><span class="t-sep">–</span><span class="t-end">12:10</span></span></div>
             <div class="tl-main"><span class="zh on">站前休整 · 享用山梨第一名物【<a href="https://maps.google.com/?q=Houtou+Fudo+Kawaguchiko+Station" target="_blank" rel="noopener noreferrer">ほうとう不動 站前店</a>】（<strong>滚烫南瓜餺飥面·11:00 开门第一批免排队</strong>）</span><span class="en">Station Break & Houtou Fudou Lunch</span></div>
             <div class="tl-desc">
               <ol>
@@ -2293,7 +2302,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🚗</div>
           <div>
-            <div class="tl-time">12:15 - 21:00 · 版本 A【租车】· 定案</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">12:15</span><span class="t-sep">–</span><span class="t-end">21:00</span></span><span class="tl-tag">版本 A【租车】· 定案</span></div>
             <div class="tl-main"><span class="zh on">12:15 提早办手续取车 → 忍野八海 → 大石公园落日 → <strong>SAWA check-in</strong> → 富士眺望之汤</span><span class="en">Car Version: Oshino, Oishi Sunset, Check-in & Yurari Onsen</span></div>
             <div class="tl-desc">
               <ol>
@@ -2326,7 +2335,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🚏</div>
           <div>
-            <div class="tl-time">13:30 - 21:00 · 版本 B【周游巴士】</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">13:30</span><span class="t-sep">–</span><span class="t-end">21:00</span></span><span class="tl-tag">版本 B【周游巴士】</span></div>
             <div class="tl-main"><span class="zh on">忍野八海 → 大石公园斜阳 (提早撤) → 回饭店与晚餐</span><span class="en">Bus Version: Earlier Departure from Oishi Park</span></div>
             <div class="tl-desc">
               <ol>
@@ -2342,7 +2351,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">⛔</div>
           <div>
-            <div class="tl-time">已删除的旧方案 (营业时间不符)</div>
+            <div class="tl-time is-label">已删除的旧方案 (营业时间不符)</div>
             <div class="tl-main"><span class="zh on">缆车与美术馆<strong>不能</strong>排在傍晚</span><span class="en">Removed: Ropeway & Museum Close at 17:00</span></div>
             <div class="tl-desc"><span class="zh on">
               <strong>富士山全景缆车 (Kachi Kachi)</strong>：08:30–17:00，<strong>末班上行 17:00 / 末班下行 17:20</strong>。<br/>
@@ -2402,7 +2411,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🚗</div>
           <div>
-            <div class="tl-time">04:30 - 05:00 · 启程</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">04:30</span><span class="t-sep">–</span><span class="t-end">05:00</span></span><span class="tl-tag">启程</span></div>
             <div class="tl-main"><span class="zh on">早起暖身 ➔ 驾车西行前往本栖湖（国道 139 号 · 车内暖气 24°C）</span><span class="en">Dawn Drive to Motosuko via Route 139</span></div>
             <div class="tl-desc">
               <ol>
@@ -2416,7 +2425,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🌅</div>
           <div>
-            <div class="tl-time">05:00 - 06:05 · 日币千圆原型</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">05:00</span><span class="t-sep">–</span><span class="t-end">06:05</span></span><span class="tl-tag">日币千圆原型</span></div>
             <div class="tl-main"><span class="zh on">【湖畔 0 爬山】📍<a href="https://maps.google.com/?q=Koan+Camping+Ground+Motosuko" target="_blank" rel="noopener noreferrer">本栖湖 浩庵湖畔 / 展望公园</a> 绝美晨曦与日出 ★★</span><span class="en">Motosuko Dawn & ¥1,000 Bill Sunrise</span></div>
             <div class="tl-desc">
               <ol>
@@ -2431,7 +2440,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">👶</div>
           <div>
-            <div class="tl-time">06:18 - 06:45 · 抱子富士</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">06:18</span><span class="t-sep">–</span><span class="t-end">06:45</span></span><span class="tl-tag">抱子富士</span></div>
             <div class="tl-main"><span class="zh on">📍<a href="https://maps.google.com/?q=Shojiko+Tatego-hama" target="_blank" rel="noopener noreferrer">精进湖 他手合滨</a>（県营停车场观「抱子富士」水面倒影）★</span><span class="en">Shojiko Lakefront "Kodaki Fuji"</span></div>
             <div class="tl-desc">
               <ol>
@@ -2445,7 +2454,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🌲</div>
           <div>
-            <div class="tl-time">06:57 - 07:15 · 集齐五湖</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">06:57</span><span class="t-sep">–</span><span class="t-end">07:15</span></span><span class="tl-tag">集齐五湖</span></div>
             <div class="tl-main"><span class="zh on">📍<a href="https://maps.google.com/?q=35.5007,138.6648" target="_blank" rel="noopener noreferrer">西湖 根场滨（西端湖岸）</a> 开阔湖景打卡</span><span class="en">Saiko Nenba-hama Lakefront</span></div>
             <div class="tl-desc">
               <ol>
@@ -2459,7 +2468,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🪞</div>
           <div>
-            <div class="tl-time">07:33 - 07:55 · 终极水镜</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">07:33</span><span class="t-sep">–</span><span class="t-end">07:55</span></span><span class="tl-tag">终极水镜</span></div>
             <div class="tl-main"><span class="zh on">📍<a href="https://maps.google.com/?q=Nagasaki+Park+Kawaguchiko" target="_blank" rel="noopener noreferrer">河口湖 长崎公园</a>（正中央顺光对称「镜面逆富士」秘境）</span><span class="en">Nagasaki Park Symmetrical Mirror Fuji</span></div>
             <div class="tl-desc">
               <ol>
@@ -2481,7 +2490,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🍳</div>
           <div>
-            <div class="tl-time">08:20 - 09:45 · 回 SAWA 暖房休整回血与退房（充裕 80 分钟）</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">08:20</span><span class="t-sep">–</span><span class="t-end">09:45</span></span><span class="tl-tag">回 SAWA 暖房休整回血与退房（充裕 80 分钟）</span></div>
             <div class="tl-main"><span class="zh on">回房洗热水澡 ➔ 微波加热热早餐 ➔ 从容收拾，09:45 优雅退房</span><span class="en">Back to SAWA: Hot Shower, Warm Breakfast & Check-out</span></div>
             <div class="tl-desc">
               <ol>
@@ -2504,7 +2513,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">⛽</div>
           <div>
-            <div class="tl-time">11:45 - 11:58 · 站前加油 ➔ 还车验车</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">11:45</span><span class="t-sep">–</span><span class="t-end">11:58</span></span><span class="tl-tag">站前加油 ➔ 还车验车</span></div>
             <div class="tl-main"><span class="zh on">ENEOS 加满油 ➔ ニッポンレンタカー 验车还车（用足24小时）</span><span class="en">Refuel & Nippon Rent-A-Car Return</span></div>
             <div class="tl-desc">
               <ol>
@@ -2519,7 +2528,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🍤</div>
           <div>
-            <div class="tl-time">12:00 - 13:10 · 站前避坑闭环：【いだ天】天妇罗现炸大餐 ＋ 专享干净洗手间</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">12:00</span><span class="t-sep">–</span><span class="t-end">13:10</span></span><span class="tl-tag">站前避坑闭环：【いだ天】天妇罗现炸大餐 ＋ 专享干净洗手间</span></div>
             <div class="tl-main"><span class="zh on">站西【天妇罗 いだ天】吃热腾腾大餐 ➔ 7-Eleven买茶 ➔ 享用专用洗手间（避开公厕长龙）</span><span class="en">Idaten Tempura Feast & Clean Restroom Break</span></div>
             <div class="tl-desc">
               <ol>
@@ -2536,7 +2545,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🍱</div>
           <div>
-            <div class="tl-time">07:30 - 13:30 · 版本 B【巴士】</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">07:30</span><span class="t-sep">–</span><span class="t-end">13:30</span></span><span class="tl-tag">版本 B【巴士】</span></div>
             <div class="tl-main"><span class="zh on">Ogino 买的早餐 · 10:00 退房寄包 · 湖畔散步 & 午餐<a href="https://maps.google.com/?q=Fuji+Tempura+Idaten" target="_blank" rel="noopener noreferrer">天妇罗 Idaten</a></span><span class="en">Bus Version: Hotel Breakfast & Lake Stroll</span></div>
             <div class="tl-desc">
               <ol>
@@ -2552,7 +2561,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🚌</div>
           <div>
-            <div class="tl-time">13:30 - 15:35</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">13:30</span><span class="t-sep">–</span><span class="t-end">15:35</span></span></div>
             <div class="tl-main"><span class="zh on">搭乘高速巴士 (约 2h5m) 直达 <a href="https://maps.google.com/?q=Tokyo+Station" target="_blank" rel="noopener noreferrer">东京站</a></span><span class="en">Highway Bus Return to Tokyo</span></div>
             <div class="tl-desc">
               <ol>
@@ -2565,7 +2574,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🏛️</div>
           <div>
-            <div class="tl-time">15:45 - 17:00 · 红砖楼 ＋ 高空看新干线</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">15:45</span><span class="t-sep">–</span><span class="t-end">17:00</span></span><span class="tl-tag">红砖楼 ＋ 高空看新干线</span></div>
             <div class="tl-main"><span class="zh on">【遗珠体验 徒步3m】<a href="https://maps.google.com/?q=Tokyo+Station+Marunouchi+Building" target="_blank" rel="noopener noreferrer">东京车站赤砖大楼</a> ➔ <a href="https://maps.google.com/?q=KITTE+Marunouchi" target="_blank" rel="noopener noreferrer">KITTE 丸之内 6F 高空屋顶展望台 ★</a></span><span class="en">Tokyo Station & KITTE 6F View</span></div>
             <div class="tl-desc">
               <ol>
@@ -2581,7 +2590,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🥩</div>
           <div>
-            <div class="tl-time">17:00 - 18:00 · 回程犒赏（同楼直下 0 步转场）</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">17:00</span><span class="t-sep">–</span><span class="t-end">18:00</span></span><span class="tl-tag">回程犒赏（同楼直下 0 步转场）</span></div>
             <div class="tl-main"><span class="zh on">KITTE B1F <a href="https://maps.google.com/?q=THE+BIFTEKI+KITTE+Marunouchi" target="_blank" rel="noopener noreferrer">THE BIFTEKI ザ・ビフテキ</a> 铁板熟成牛排 ★</span><span class="en">THE BIFTEKI (KITTE B1F) Teppan Steak</span></div>
             <div class="tl-desc">
               <ol>
@@ -2603,7 +2612,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🥖</div>
           <div>
-            <div class="tl-time">18:00 - 18:30 · 顺路闭环（0 门票）</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">18:00</span><span class="t-sep">–</span><span class="t-end">18:30</span></span><span class="tl-tag">顺路闭环（0 门票）</span></div>
             <div class="tl-main"><span class="zh on">刷 Suica 进闸 ➔ <a href="https://maps.google.com/?q=THE+STANDARD+BAKERS+TOKYO+Gransta" target="_blank" rel="noopener noreferrer">GRANSTA 1F · THE STANDARD BAKERS</a> 买好明早的面包</span><span class="en">Buy Tomorrow's Breakfast Inside the Gates</span></div>
             <div class="tl-desc">
               <ol>
@@ -2619,7 +2628,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🚃</div>
           <div>
-            <div class="tl-time">18:30 - 19:10 · 最省力返程</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">18:30</span><span class="t-sep">–</span><span class="t-end">19:10</span></span><span class="tl-tag">最省力返程</span></div>
             <div class="tl-main"><span class="zh on">JR 山手线（外回り）2 站 ➔ 秋叶原换日比谷线 ➔ 三ノ轮（两人仅 ¥648）</span><span class="en">Back to Ryusen — ¥648 for Two</span></div>
             <div class="tl-desc">
               <ol>
@@ -2637,7 +2646,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🌟</div>
           <div>
-            <div class="tl-time">Day 5 晚间弹性 B Plan 方案对比表</div>
+            <div class="tl-time is-label">Day 5 晚间弹性 B Plan 方案对比表</div>
             <div class="tl-main"><span class="zh on">【Day 5 晚间 3 大弹性 B Plan 备选方案】</span></div>
             <table class="info-table" style="margin-top:10px;">
               <thead>
@@ -2709,7 +2718,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🚇</div>
           <div>
-            <div class="tl-time">07:35 - 08:25 · 错峰早起</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">07:35</span><span class="t-sep">–</span><span class="t-end">08:25</span></span><span class="tl-tag">错峰早起</span></div>
             <div class="tl-main"><span class="zh on">公寓出发 ➔ <a href="https://maps.google.com/?q=Meiji-jingumae+Station" target="_blank" rel="noopener noreferrer">明治神宫前站</a> 2 号出口（电梯直达地面）</span><span class="en">Depart 07:35 → Meiji-jingumae Exit 2 (Elevator)</span></div>
             <div class="tl-desc">
               <ol>
@@ -2723,7 +2732,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🌲</div>
           <div>
-            <div class="tl-time">08:25 - 09:45 · 晨光大森林</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">08:25</span><span class="t-sep">–</span><span class="t-end">09:45</span></span><span class="tl-tag">晨光大森林</span></div>
             <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Meiji+Jingu" target="_blank" rel="noopener noreferrer">明治神宫</a> 巨木森林祈福（门票免费）★</span><span class="en">Meiji Jingu Sacred Forest (Free)</span></div>
             <div class="tl-desc">
               <ol>
@@ -2741,7 +2750,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">☕</div>
           <div>
-            <div class="tl-time">09:45 - 11:30 · 核心圆梦</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">09:45</span><span class="t-sep">–</span><span class="t-end">11:30</span></span><span class="tl-tag">核心圆梦</span></div>
             <div class="tl-main"><span class="zh on">千代田线 1 站跳关 ➔ <a href="https://maps.google.com/?q=Blue+Bottle+Coffee+Aoyama" target="_blank" rel="noopener noreferrer">Blue Bottle Coffee 青山店</a> 2F 绿荫露台 ★</span><span class="en">Blue Bottle Aoyama Terrace (90 min)</span></div>
             <div class="tl-desc">
               <ol>
@@ -2757,7 +2766,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🍱</div>
           <div>
-            <div class="tl-time">11:30 - 12:45 · 午餐 ➔ 建筑漫步</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">11:30</span><span class="t-sep">–</span><span class="t-end">12:45</span></span><span class="tl-tag">午餐 ➔ 建筑漫步</span></div>
             <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Aoyama+Kawakamian" target="_blank" rel="noopener noreferrer">青山 川上庵</a> 手打荞麦 ➔ <a href="https://maps.google.com/?q=Omotesando+Hills" target="_blank" rel="noopener noreferrer">表参道之丘</a>（安藤忠雄 · 螺旋坡道 0 台阶）</span><span class="en">Kawakami-an Soba Lunch ➔ Omotesando Hills</span></div>
             <div class="tl-desc">
               <ol>
@@ -2802,7 +2811,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🛋️</div>
           <div>
-            <div class="tl-time">13:00 - 15:00 · 室内深度歇脚</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">13:00</span><span class="t-sep">–</span><span class="t-end">15:00</span></span><span class="tl-tag">室内深度歇脚</span></div>
             <div class="tl-main"><span class="zh on">明治神宮前站 副都心线 2 站 ➔ <a href="https://maps.google.com/?q=Tokyu+Kabukicho+Tower" target="_blank" rel="noopener noreferrer">新宿东急歌舞伎町 Tower</a> 大堂充电 90 分钟</span><span class="en">Tokyu Kabukicho Tower — 90 min Indoor Rest</span></div>
             <div class="tl-desc">
               <ol>
@@ -2817,7 +2826,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🚌</div>
           <div>
-            <div class="tl-time">15:20 - 16:20 · 长辈坐定充电黄金期</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">15:20</span><span class="t-sep">–</span><span class="t-end">16:20</span></span><span class="tl-tag">长辈坐定充电黄金期</span></div>
             <div class="tl-main"><span class="zh on">🚌 <a href="https://maps.google.com/?q=Tokyu+Kabukicho+Tower" target="_blank" rel="noopener noreferrer">SHIBUYA STREET RIDE</a> 露天开顶双层观光巴士（60 分钟 · 含在套票内）</span><span class="en">SHIBUYA STREET RIDE Open-Top Bus (60 min)</span></div>
             <div class="tl-desc">
               <ol>
@@ -2833,7 +2842,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🌅</div>
           <div>
-            <div class="tl-time">16:35 - 18:00 · 封神时刻（换票 ➔ 登顶）</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">16:35</span><span class="t-sep">–</span><span class="t-end">18:00</span></span><span class="tl-tag">封神时刻（换票 ➔ 登顶）</span></div>
             <div class="tl-main"><span class="zh on">Fukuras 下车 ➔ 平路 462m ➔ <a href="https://maps.google.com/?q=Shibuya+Sky" target="_blank" rel="noopener noreferrer">SHIBUYA SKY</a> 落日夕阳 ＋ 百万夜景 ★（10/8 日落 17:16）</span><span class="en">Shibuya SKY Sunset & Night View (Sunset 17:16)</span></div>
             <div class="tl-desc">
               <ol>
@@ -2856,7 +2865,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🐟</div>
           <div>
-            <div class="tl-time">18:10 - 20:40 · 炭烤鱼定食 ＋ 100% 有座返程</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">18:10</span><span class="t-sep">–</span><span class="t-end">20:40</span></span><span class="tl-tag">炭烤鱼定食 ＋ 100% 有座返程</span></div>
             <div class="tl-main"><span class="zh on">🐟 <a href="https://maps.google.com/?q=Shinpachi+Shokudo+Shibuya+Meijidori" target="_blank" rel="noopener noreferrer">しんぱち食堂</a> 炭烤鱼定食 ➔ 银座线起点站直达上野</span><span class="en">Charcoal-Grilled Fish Teishoku, then Ginza Line from its Terminus</span></div>
             <div class="tl-desc">
               <ol>
@@ -2889,7 +2898,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">☔</div>
           <div>
-            <div class="tl-time">下雨怎么办 · 三档（已实查官方条款）</div>
+            <div class="tl-time is-label">下雨怎么办 · 三档（已实查官方条款）</div>
             <div class="tl-main"><span class="zh on">全天最核心的两段都在户外 —— 这一栏写死当天怎么办，不用临场纠结</span><span class="en">Rain Playbook for the Open-Top Bus &amp; SHIBUYA SKY</span></div>
             <div class="tl-desc">
               <ol>
@@ -2933,7 +2942,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🌟</div>
           <div>
-            <div class="tl-time">Day 6 弹性 B Plan 方案对比表</div>
+            <div class="tl-time is-label">Day 6 弹性 B Plan 方案对比表</div>
             <div class="tl-main"><span class="zh on">【Day 6 避雨/防风/备选方案对比表】</span></div>
             <table class="info-table" style="margin-top:10px;">
               <thead>
@@ -3013,7 +3022,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">⛩️</div>
           <div>
-            <div class="tl-time">08:20 - 09:20 · 祈财运与强运厄除</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">08:20</span><span class="t-sep">–</span><span class="t-end">09:20</span></span><span class="tl-tag">祈财运与强运厄除</span></div>
             <div class="tl-main"><span class="zh on">日比谷线直达人形町 ➔ <a href="https://maps.google.com/?q=Koami+Shrine" target="_blank" rel="noopener noreferrer">小网神社</a>（洗钱井 · 授与所 09:00 开门）</span><span class="en">Koami Shrine — Money-Washing Well</span></div>
             <div class="tl-desc">
               <ol>
@@ -3028,7 +3037,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🐟</div>
           <div>
-            <div class="tl-time">09:30 - 10:45 · 顶级海鲜早午餐</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">09:30</span><span class="t-sep">–</span><span class="t-end">10:45</span></span><span class="tl-tag">顶级海鲜早午餐</span></div>
             <div class="tl-main"><span class="zh on">日比谷线 3 站 ➔ <a href="https://maps.google.com/?q=Tsukiji+Outer+Market" target="_blank" rel="noopener noreferrer">筑地场外市场</a>（周五火力全开 · 合规坐席避坑）★</span><span class="en">Tsukiji Outer Market Seafood Brunch</span></div>
             <div class="tl-desc">
               <ol>
@@ -3044,7 +3053,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🌿</div>
           <div>
-            <div class="tl-time">11:00 - 11:45 · 屋顶空中花园</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">11:00</span><span class="t-sep">–</span><span class="t-end">11:45</span></span><span class="tl-tag">屋顶空中花园</span></div>
             <div class="tl-main"><span class="zh on">银座地下步道直结 ➔ <a href="https://maps.google.com/?q=GINZA+SIX" target="_blank" rel="noopener noreferrer">GINZA SIX</a> RF 4,000㎡ 空中花园（150+ 免费长椅）</span><span class="en">GINZA SIX Rooftop Garden</span></div>
             <div class="tl-desc">
               <ol>
@@ -3059,7 +3068,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🧥</div>
           <div>
-            <div class="tl-time">11:45 - 13:15 · 核心打卡</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">11:45</span><span class="t-sep">–</span><span class="t-end">13:15</span></span><span class="tl-tag">核心打卡</span></div>
             <div class="tl-main"><span class="zh on">⭐ <a href="https://maps.google.com/?q=UNIQLO+TOKYO+Ginza" target="_blank" rel="noopener noreferrer">UNIQLO 银座全球旗舰店</a>（12 层）＋ 12F UNIQLO COFFEE 歇脚</span><span class="en">UNIQLO Ginza Global Flagship (12F Coffee)</span></div>
             <div class="tl-desc">
               <ol>
@@ -3074,7 +3083,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">✒️</div>
           <div>
-            <div class="tl-time">13:15 - 14:15 · 银座经典</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">13:15</span><span class="t-sep">–</span><span class="t-end">14:15</span></span><span class="tl-tag">银座经典</span></div>
             <div class="tl-main"><span class="zh on">和光百货钟楼 ➔ <a href="https://maps.google.com/?q=Itoya+Ginza" target="_blank" rel="noopener noreferrer">伊东屋 Itoya</a> 12 层文具殿堂</span><span class="en">Wako Clock Tower & Itoya Stationery</span></div>
             <div class="tl-desc">
               <ol>
@@ -3089,7 +3098,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🗼</div>
           <div>
-            <div class="tl-time">14:15 - 17:15 · 古刹 ＋ 点灯</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">14:15</span><span class="t-sep">–</span><span class="t-end">17:15</span></span><span class="tl-tag">古刹 ＋ 点灯</span></div>
             <div class="tl-main"><span class="zh on">浅草线 2 站 ➔ <a href="https://maps.google.com/?q=Zojo-ji+Temple" target="_blank" rel="noopener noreferrer">增上寺</a>（铁塔同框）➔ <a href="https://maps.google.com/?q=Shiba+Park" target="_blank" rel="noopener noreferrer">芝公园</a> 长椅看约 17:14 点灯 ★</span><span class="en">Zojo-ji & Shiba Park Tokyo Tower Lighting</span></div>
             <div class="tl-desc">
               <ol>
@@ -3105,7 +3114,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🍲</div>
           <div>
-            <div class="tl-time">17:15 - 19:45 · 错峰暖胃晚餐 ＋ 早早回巢</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">17:15</span><span class="t-sep">–</span><span class="t-end">19:45</span></span><span class="tl-tag">错峰暖胃晚餐 ＋ 早早回巢</span></div>
             <div class="tl-main"><span class="zh on">大门站前 <a href="https://maps.google.com/?q=Washoku+Biyori+Osakete+Daimon+Hamamatsucho" target="_blank" rel="noopener noreferrer">和食日和 おさけと 大門浜松町</a>（步行 350m）· 相扑锅【本格焼鳥ちゃんこ 井筒】为地铁 1 站备选</span><span class="en">Dinner by Daimon (No Backtracking) & Easy Return</span></div>
             <div class="tl-desc">
               <ol>
@@ -3151,7 +3160,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🌟</div>
           <div>
-            <div class="tl-time">Day 7 弹性 B Plan 方案对比表</div>
+            <div class="tl-time is-label">Day 7 弹性 B Plan 方案对比表</div>
             <div class="tl-main"><span class="zh on">【Day 7 避雨/备选方案对比表】</span></div>
             <table class="info-table" style="margin-top:10px;">
               <thead>
@@ -3228,7 +3237,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🚆</div>
           <div>
-            <div class="tl-time">08:00 - 09:51</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">08:00</span><span class="t-sep">–</span><span class="t-end">09:51</span></span></div>
             <div class="tl-main"><span class="zh on">东京站地下 B5 始发月台 ➔ JR 横须贺线【逗子行】(纯刷 Suica ¥1,034) ➔ 直达<a href="https://maps.google.com/?q=Kamakura+Station" target="_blank" rel="noopener noreferrer">镰仓站</a> ★</span><span class="en">Regular JR Yokosuka Line from Tokyo Station B5</span></div>
             <div class="tl-desc">
               <ol>
@@ -3246,7 +3255,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🚌</div>
           <div>
-            <div class="tl-time">10:00 - 10:10</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">10:00</span><span class="t-sep">–</span><span class="t-end">10:10</span></span></div>
             <div class="tl-main"><span class="zh on">镰仓站<strong>东口 4 のりば</strong> ➔ 京急巴士【鎌36 / 鎌23 / 鎌24】(刷 Suica ¥240) ➔ 【浄明寺】下车 ★</span><span class="en">Keikyu Bus to Jomyoji (Hokokuji Gate)</span></div>
             <div class="tl-desc">
               <ol>
@@ -3260,7 +3269,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🎋</div>
           <div>
-            <div class="tl-time">10:15 - 11:15 · 花钱买一个「坐下来」</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">10:15</span><span class="t-sep">–</span><span class="t-end">11:15</span></span><span class="tl-tag">花钱买一个「坐下来」</span></div>
             <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Hokokuji+Temple+Kamakura" target="_blank" rel="noopener noreferrer">报国寺</a>「竹之寺」➔ 竹林深处【休耕庵】茶席喝抹茶 ★</span><span class="en">Hokoku-ji Bamboo Grove & Matcha in the Grove</span></div>
             <div class="tl-desc">
               <ol>
@@ -3278,7 +3287,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🛍️</div>
           <div>
-            <div class="tl-time">11:25 - 12:20 · 顺路零折返</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">11:25</span><span class="t-sep">–</span><span class="t-end">12:20</span></span><span class="tl-tag">顺路零折返</span></div>
             <div class="tl-main"><span class="zh on">浄明寺 ➔【鎌23／鎌24】<strong>提早两站在「八幡宮」下车</strong> ➔ 顺走 <a href="https://maps.google.com/?q=Komachi-dori+Kamakura" target="_blank" rel="noopener noreferrer">小町通商店街</a> 回镰仓站 ★</span><span class="en">Get Off Early at Hachimangu & Stroll Komachi-dori Back to the Station</span></div>
             <div class="tl-desc">
               <ol>
@@ -3296,7 +3305,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🗿</div>
           <div>
-            <div class="tl-time">12:22 - 13:20 · 满足妈妈心愿</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">12:22</span><span class="t-sep">–</span><span class="t-end">13:20</span></span><span class="tl-tag">满足妈妈心愿</span></div>
             <div class="tl-main"><span class="zh on">镰仓 ➔ 江之电 5 分钟 ➔ 长谷站 ➔ 平路 7 分钟 ➔ <a href="https://maps.google.com/?q=Kamakura+Daibutsu" target="_blank" rel="noopener noreferrer">高德院·镰仓大佛</a>（0 阶梯）★</span><span class="en">Enoden to Hase, Then the Great Buddha (Step-free)</span></div>
             <div class="tl-desc">
               <ol>
@@ -3314,7 +3323,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🚃</div>
           <div>
-            <div class="tl-time">13:27 - 13:52 · 江之电最美一段 · ⚠️ 多半要站</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">13:27</span><span class="t-sep">–</span><span class="t-end">13:52</span></span><span class="tl-tag">江之电最美一段 · ⚠️ 多半要站</span></div>
             <div class="tl-main"><span class="zh on">长谷站 ➔ 江之电（藤沢行）➔ <a href="https://maps.google.com/?q=Kamakurakokomae+Station" target="_blank" rel="noopener noreferrer">鎌倉高校前站</a>（15 分钟 · ¥220 · 刷 Suica）</span><span class="en">Enoden Coastal Run to Kamakurakokomae</span></div>
             <div class="tl-desc">
               <ol>
@@ -3331,7 +3340,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🐟</div>
           <div>
-            <div class="tl-time">14:00 - 14:55 · 靠窗海景午餐（✅ 定案换店）</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">14:00</span><span class="t-sep">–</span><span class="t-end">14:55</span></span><span class="tl-tag">靠窗海景午餐（✅ 定案换店）</span></div>
             <div class="tl-main"><span class="zh on">🏆 <a href="https://maps.google.com/?q=Kotobukiya+Kamakurakokomae" target="_blank" rel="noopener noreferrer">ことぶき屋 鎌倉高校前店</a> —— 隔玻璃看相模湾 ＋ 江之电贴窗驶过 ★</span><span class="en">Kotobukiya: Seaside Lunch with Enoden at the Window</span></div>
             <div class="tl-desc">
               <ol>
@@ -3380,7 +3389,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🐦</div>
           <div>
-            <div class="tl-time">15:02 - 15:22 · 出闸 10 秒 · 零走路</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">15:02</span><span class="t-sep">–</span><span class="t-end">15:22</span></span><span class="tl-tag">出闸 10 秒 · 零走路</span></div>
             <div class="tl-main"><span class="zh on">鎌倉高校前 ➔ 江之电 2 站 ➔ <a href="https://maps.google.com/?q=Enoshima+Station+Enoden" target="_blank" rel="noopener noreferrer">江ノ島站</a>站前 ➔ 拍<strong>穿手织毛衣的小鸟「江のピコ」</strong> ★</span><span class="en">Eno-Piko: The Hand-Knitted Sweater Birds at Enoshima Station</span></div>
             <div class="tl-desc">
               <ol>
@@ -3398,7 +3407,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🔄</div>
           <div>
-            <div class="tl-time">15:24 - 16:18 · 顺向大环线（零回头路）</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">15:24</span><span class="t-sep">–</span><span class="t-end">16:18</span></span><span class="tl-tag">顺向大环线（零回头路）</span></div>
             <div class="tl-main"><span class="zh on">江ノ島 ➔ <a href="https://maps.google.com/?q=Fujisawa+Station" target="_blank" rel="noopener noreferrer">藤泽站</a> ➔ 横滨 ➔ <a href="https://maps.google.com/?q=Sakuragicho+Station" target="_blank" rel="noopener noreferrer">樱木町站</a></span><span class="en">Onward to Yokohama, No Backtracking</span></div>
             <div class="tl-desc">
               <ol>
@@ -3415,7 +3424,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🚡</div>
           <div>
-            <div class="tl-time">16:15 - 17:45 · 汽車道金色时刻 ＋ 蓝调点灯</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">16:15</span><span class="t-sep">–</span><span class="t-end">17:45</span></span><span class="tl-tag">汽車道金色时刻 ＋ 蓝调点灯</span></div>
             <div class="tl-main"><span class="zh on">樱木町 ➔ <a href="https://maps.google.com/?q=Kishamichi+Promenade+Yokohama" target="_blank" rel="noopener noreferrer">汽車道</a> 或 <a href="https://maps.google.com/?q=YOKOHAMA+AIR+CABIN" target="_blank" rel="noopener noreferrer">空中缆车</a> ➔ <a href="https://maps.google.com/?q=Yokohama+Red+Brick+Warehouse" target="_blank" rel="noopener noreferrer">红砖仓库</a> 日落与点灯 ★</span><span class="en">Kishamichi Walk or Air Cabin, then Red Brick Warehouse at Dusk</span></div>
             <div class="tl-desc">
               <ol>
@@ -3437,7 +3446,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🍱</div>
           <div>
-            <div class="tl-time">17:45 - 19:10 · 晚餐降级 ➔ 带回家吃</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">17:45</span><span class="t-sep">–</span><span class="t-end">19:10</span></span><span class="tl-tag">晚餐降级 ➔ 带回家吃</span></div>
             <div class="tl-main"><span class="zh on">🍱 横滨站买 <a href="https://maps.google.com/?q=Kiyoken+Yokohama+Station" target="_blank" rel="noopener noreferrer">崎陽軒 シウマイ弁当</a> ➔ JR 上野东京线 <strong>0 换乘</strong> ➔ <strong>19:10 到家吃</strong></span><span class="en">Kiyoken Bento to Go, then Direct Line Home by 19:10</span></div>
             <div class="tl-desc">
               <ol>
@@ -3456,7 +3465,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🌟</div>
           <div>
-            <div class="tl-time">Day 8 备选平替 B–E 对比表</div>
+            <div class="tl-time is-label">Day 8 备选平替 B–E 对比表</div>
             <div class="tl-main"><span class="zh on">【Day 8 若长辈想换市内轻量慢调的 4 大备选平替 B–E】</span></div>
             <table class="info-table" style="margin-top:10px;">
               <thead>
@@ -3532,7 +3541,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🎪</div>
           <div>
-            <div class="tl-time">10:05 - 13:40</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">10:05</span><span class="t-sep">–</span><span class="t-end">13:40</span></span></div>
             <div class="tl-main"><span class="zh on">【纯公共交通 · 家门口民俗盛典】门口都08公车10m直通 ➔ <a href="https://www.city.taito.lg.jp/event/kanko/yanakamatsuri.html" target="_blank" rel="noopener noreferrer">第27回谷中祭</a> · <a href="https://maps.google.com/?q=Nezu+Shrine" target="_blank" rel="noopener noreferrer">根津神社千本鸟居</a> · <a href="https://maps.google.com/?q=Nezu+Kamachiku" target="_blank" rel="noopener noreferrer">根津釜竹乌冬</a> ★</span><span class="en">Yanaka Matsuri, Nezu Shrine & Kamachiku Udon</span></div>
             <div class="tl-desc">
               <ol>
@@ -3553,7 +3562,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🛏️</div>
           <div>
-            <div class="tl-time">14:00 - 17:30</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">14:00</span><span class="t-sep">–</span><span class="t-end">17:30</span></span></div>
             <div class="tl-main"><span class="zh on">【超级回血】重返竜泉公寓 33号房 · 彻底躺平大午睡 · 储备深夜离境体能 ★</span><span class="en">Deep Afternoon Nap & Full Rest at Base</span></div>
             <div class="tl-desc">
               <ol>
@@ -3567,7 +3576,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🛁</div>
           <div>
-            <div class="tl-time">17:30 - 20:45</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">17:30</span><span class="t-sep">–</span><span class="t-end">20:45</span></span></div>
             <div class="tl-main"><span class="zh on">重返<a href="https://maps.google.com/?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%AB%9C%E6%B3%893-10-7+LUXURY+STAY+HOTEL" target="_blank" rel="noopener noreferrer">LUXURY STAY HOTEL</a> 33号房洗澡 · 躺平小睡 · 提早封箱大行李 ★</span><span class="en">Rest, Shower & Pack Early at Base</span></div>
             <div class="tl-desc">
               <ol>
@@ -3586,7 +3595,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🚇</div>
           <div>
-            <div class="tl-time">20:40 - 22:18</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">20:40</span><span class="t-sep">–</span><span class="t-end">22:18</span></span></div>
             <div class="tl-main"><span class="zh on">【纯大众运输 · 零打车】门口公车 ➔ 浅草站 A2b 电梯 ➔ 都营浅草线 1 番線 往<a href="https://maps.google.com/?q=Haneda+Airport+Terminal+3" target="_blank" rel="noopener noreferrer">羽田机场 T3 航厦</a> ★</span><span class="en">Zero-Taxi Transit to Haneda T3</span></div>
             <div class="tl-desc">
               <ol>
@@ -3610,7 +3619,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🛟</div>
           <div>
-            <div class="tl-time">备案</div>
+            <div class="tl-time is-label">备案</div>
             <div class="tl-main"><span class="zh on">Plan B / Plan C — 叫不到车或状况不好时</span><span class="en">Plan B / C — Fallbacks</span></div>
             <div class="tl-desc">
               <ol>
@@ -3653,7 +3662,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">✈️</div>
           <div>
-            <div class="tl-time">02:20 - 15:40</div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">02:20</span><span class="t-sep">–</span><span class="t-end">15:40</span></span></div>
             <div class="tl-main"><span class="zh on">HK Express UO629 02:20 羽田 T3 起飞 → 15:40 抵槟城</span><span class="en">02:20 Flight HND T3 → 15:40 PEN Land</span></div>
             <div class="tl-desc">
               <ol>

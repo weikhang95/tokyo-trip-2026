@@ -7,7 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <style>
   :root {
     --bg: #F7F5F0;
@@ -240,31 +239,6 @@
     #map { height: 340px; }
   }
 
-  /* Leaflet custom pin markers */
-  .custom-pin {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 26px;
-    height: 26px;
-    background: var(--ai);
-    color: #FFFFFF;
-    font-weight: 800;
-    font-size: 12px;
-    border-radius: 50% 50% 50% 0;
-    transform: rotate(-45deg);
-    border: 2px solid #FFFFFF;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  }
-  .custom-pin span {
-    transform: rotate(45deg);
-  }
-  .custom-pin.hero {
-    background: var(--shu);
-  }
-  .custom-pin.nature {
-    background: var(--matcha);
-  }
 
   /* ── Day Summary Header Card ── */
   
@@ -650,8 +624,6 @@
   <button class="dock-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">⬆ 顶部</button>
 </div>
 
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 <script>
 // ══════════════════════════════════════════════════════════════════════
@@ -1846,7 +1818,7 @@ function decodePolyline(encoded) {
 
 function drawRealCurvedRoute(coords, color, isDrive) {
   // Glow casing line
-  const casing = L.polyline(coords, {
+  const casing = makePolyline(coords, {
     color: color,
     weight: isDrive ? 8 : 6,
     opacity: 0.22,
@@ -1854,7 +1826,7 @@ function drawRealCurvedRoute(coords, color, isDrive) {
     lineJoin: 'round'
   });
   // Core crisp line
-  const core = L.polyline(coords, {
+  const core = makePolyline(coords, {
     color: color,
     weight: isDrive ? 4 : 3,
     opacity: 0.9,
@@ -1882,7 +1854,7 @@ async function renderRoutePolyline(day) {
 
   if (!showRealRoadRoute) {
     // Straight line mode
-    const straightLine = L.polyline(latlngs, {
+    const straightLine = makePolyline(latlngs, {
       color: themeColor,
       weight: 3.5,
       opacity: 0.65,
@@ -1922,7 +1894,7 @@ async function renderRoutePolyline(day) {
   }
 
   // 3. Fallback transit/straight line immediately
-  const tempLine = L.polyline(latlngs, {
+  const tempLine = makePolyline(latlngs, {
     color: themeColor,
     weight: 3.5,
     opacity: 0.65,
@@ -1984,7 +1956,6 @@ function getDayIdxFromHash() {
 
 function initApp() {
   renderDayPills();
-  initMap();
   const initIdx = getDayIdxFromHash();
   selectDay(initIdx, false);
 
@@ -1996,20 +1967,70 @@ function initApp() {
   });
 }
 
+let infoWindow = null;
+
 function initMap() {
-  map = L.map('map', {
-    zoomControl: true,
-    attributionControl: false
-  }).setView([35.6895, 139.6917], 12);
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: 35.6895, lng: 139.6917 },
+    zoom: 12,
+    mapTypeControl: false,
+    streetViewControl: false,
+    clickableIcons: false
+  });
+  infoWindow = new google.maps.InfoWindow();
+  markersLayer = makeLayerGroup();
+  polylineLayer = makeLayerGroup();
+}
 
-  // CartoDB Voyager Clean Tiles (Fast, legible, elegant)
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-    maxZoom: 19,
-    subdomains: 'abcd'
-  }).addTo(map);
+// Google Maps calls this once its script has loaded (see the script tag at the end)
+function onGoogleMapsReady() {
+  initMap();
+  updateMap(DAYS[currentDayIdx]);
+}
 
-  markersLayer = L.layerGroup().addTo(map);
-  polylineLayer = L.layerGroup().addTo(map);
+// Google calls this when the key is rejected (wrong site, API not enabled, daily cap hit)
+function gm_authFailure() {
+  document.getElementById('map').innerHTML =
+    '<div style="padding:24px 16px;font-size:13px;line-height:1.6;color:var(--muted);">地图暂时载入不了。每一站的「📍 导航」按钮照样能打开 Google Maps。</div>';
+}
+
+// Small stand-in for Leaflet's layer group: holds overlays so a day switch can clear them
+function makeLayerGroup() {
+  const items = [];
+  return {
+    addLayer(o) { o.setMap(map); items.push(o); },
+    clearLayers() { items.forEach(o => o.setMap(null)); items.length = 0; }
+  };
+}
+
+// latlngs are [lat, lng] pairs; opts use the old Leaflet names (color, weight, opacity, dashArray)
+function makePolyline(latlngs, opts) {
+  const path = latlngs.map(([lat, lng]) => ({ lat, lng }));
+  if (opts.dashArray) {
+    const [dash, gap] = opts.dashArray.split(',').map(Number);
+    return new google.maps.Polyline({
+      path,
+      strokeOpacity: 0,
+      icons: [{
+        icon: { path: 'M 0,-1 0,1', strokeColor: opts.color, strokeOpacity: opts.opacity, scale: opts.weight },
+        offset: '0',
+        repeat: `${(dash + gap) * 1.5}px`
+      }]
+    });
+  }
+  return new google.maps.Polyline({
+    path,
+    strokeColor: opts.color,
+    strokeWeight: opts.weight,
+    strokeOpacity: opts.opacity
+  });
+}
+
+const PIN_PATH = 'M13 0C5.8 0 0 5.8 0 13c0 9.2 13 17 13 17s13-7.8 13-17C26 5.8 20.2 0 13 0z';
+
+function openStopInfo(marker) {
+  infoWindow.setContent(marker.popupHtml);
+  infoWindow.open({ anchor: marker, map });
 }
 
 function renderDayPills() {
@@ -2145,6 +2166,7 @@ function updateMap(day) {
   if (!map) return;
   markersLayer.clearLayers();
   polylineLayer.clearLayers();
+  infoWindow.close();
   mapMarkers = [];
 
   const latlngs = [];
@@ -2153,28 +2175,35 @@ function updateMap(day) {
     latlngs.push([node.lat, node.lng]);
 
     // Custom numbered pin
-    const pinClass = node.hero ? 'custom-pin hero' : (day.day === 'D4' || day.day === 'D5' ? 'custom-pin nature' : 'custom-pin');
-    const icon = L.divIcon({
-      className: '',
-      html: `<div class="${pinClass}"><span>${nIdx + 1}</span></div>`,
-      iconSize: [26, 26],
-      iconAnchor: [13, 26],
-      popupAnchor: [0, -26]
-    });
+    const pinColor = node.hero ? '#C2412D' : (day.day === 'D4' || day.day === 'D5' ? '#506628' : '#1C3553');
 
     const gmapsNavUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(node.name + ' ' + (node.sub || ''))}`;
 
-    const marker = L.marker([node.lat, node.lng], { icon })
-      .bindPopup(`
+    const marker = new google.maps.Marker({
+      position: { lat: node.lat, lng: node.lng },
+      label: { text: String(nIdx + 1), color: '#FFFFFF', fontSize: '12px', fontWeight: '800' },
+      icon: {
+        path: PIN_PATH,
+        fillColor: pinColor,
+        fillOpacity: 1,
+        strokeColor: '#FFFFFF',
+        strokeWeight: 2,
+        anchor: new google.maps.Point(13, 30),
+        labelOrigin: new google.maps.Point(13, 13)
+      },
+      zIndex: nIdx
+    });
+    marker.popupHtml = `
         <div style="font-family:'Inter','Noto Sans SC',sans-serif; min-width:160px;">
           <div style="font-size:11px; font-weight:800; color:var(--shu); margin-bottom:2px;">${node.time} · 第 ${nIdx + 1} 站</div>
           <div style="font-size:13.5px; font-weight:800; color:var(--ink); margin-bottom:4px;">${node.name}</div>
           <div style="font-size:11.5px; color:var(--muted); margin-bottom:8px;">${node.sub}</div>
           <a href="${gmapsNavUrl}" target="_blank" style="display:inline-block; font-size:11.5px; font-weight:700; color:#fff; background:var(--ai); text-decoration:none; padding:4px 10px; border-radius:99px;">📍 Google Maps 导航 ↗</a>
         </div>
-      `);
+      `;
 
-    marker.on('click', () => {
+    marker.addListener('click', () => {
+      openStopInfo(marker);
       highlightNodeCard(nIdx);
     });
 
@@ -2186,8 +2215,16 @@ function updateMap(day) {
   renderRoutePolyline(day);
 
   // Auto fit bounds with padding
-  if (latlngs.length > 0) {
-    map.fitBounds(L.latLngBounds(latlngs), { padding: [40, 40], maxZoom: 15 });
+  if (latlngs.length === 1) {
+    map.setCenter({ lat: latlngs[0][0], lng: latlngs[0][1] });
+    map.setZoom(15);
+  } else if (latlngs.length > 1) {
+    const bounds = new google.maps.LatLngBounds();
+    latlngs.forEach(([lat, lng]) => bounds.extend({ lat, lng }));
+    map.fitBounds(bounds, 40);
+    google.maps.event.addListenerOnce(map, 'idle', () => {
+      if (map.getZoom() > 15) map.setZoom(15);
+    });
   }
 }
 
@@ -2195,8 +2232,9 @@ function focusNode(idx) {
   highlightNodeCard(idx);
   if (map && mapMarkers[idx]) {
     const marker = mapMarkers[idx];
-    map.setView(marker.getLatLng(), Math.max(map.getZoom(), 14), { animate: true });
-    marker.openPopup();
+    map.panTo(marker.getPosition());
+    map.setZoom(Math.max(map.getZoom(), 14));
+    openStopInfo(marker);
   }
 }
 
@@ -2237,18 +2275,19 @@ function setViewMode(mode) {
     heroCard.style.display = 'none';
     timelineList.style.display = 'none';
     mapElem.style.height = 'calc(100vh - 140px)';
-    if (map) map.invalidateSize();
   } else {
     // split
     mapCard.classList.remove('collapsed');
     heroCard.style.display = 'block';
     timelineList.style.display = 'block';
     mapElem.style.height = (window.innerWidth >= 640) ? '340px' : '270px';
-    if (map) map.invalidateSize();
   }
 }
 
 document.addEventListener('DOMContentLoaded', initApp);
 </script>
+<!-- Google Maps JavaScript API. This browser key is public by design: it only works on
+     weikhang95.github.io, only for the Maps JavaScript API, and is capped at 300 map loads a day. -->
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5rs71T6Mi38Y9nAwLS6NihCBaMr5zJZs&loading=async&callback=onGoogleMapsReady&language=zh-CN&region=JP"></script>
 </body>
 </html>

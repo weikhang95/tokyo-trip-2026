@@ -84,6 +84,7 @@ html[data-theme="dark"] .tb-backdrop { background: rgba(0, 0, 0, .56); }
   transition: translate .25s var(--tb-ease);
 }
 .tb-sheet.open { translate: 0 0; }
+.tb-sheet:focus { outline: none; }
 /* 收起比打开更轻：不整页滑走，下沉一点再淡出 */
 .tb-sheet.closing { translate: 0 24px; opacity: 0; transition: translate .18s var(--tb-ease), opacity .18s var(--tb-ease); }
 .tb-backdrop[hidden], .tb-sheet[hidden] { display: none; }

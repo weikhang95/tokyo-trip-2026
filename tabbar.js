@@ -83,6 +83,7 @@
     sheet.setAttribute('role', 'dialog');
     sheet.setAttribute('aria-modal', 'true');
     sheet.setAttribute('aria-labelledby', 'tb-sheet-title');
+    sheet.tabIndex = -1;
     renderSheet();
     body.appendChild(sheet);
 
@@ -130,7 +131,9 @@
     });
   }
 
-  function openSheet() {
+  function openSheet(e) {
+    // 指点打开：焦点给抽屉本身（不出焦点框）；键盘打开：焦点给第一个链接
+    var byPointer = !!(e && e.detail > 0);
     lastFocus = document.activeElement;
     renderSheet();
     backdrop.hidden = false;
@@ -142,7 +145,7 @@
     void sheet.offsetHeight;
     backdrop.classList.add('open');
     sheet.classList.add('open');
-    var first = sheet.querySelector('a, button');
+    var first = byPointer ? sheet : sheet.querySelector('a, button');
     if (first) first.focus({ preventScroll: true });
   }
 

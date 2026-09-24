@@ -1,0 +1,133 @@
+/* ═══════════════════════════════════════════════════════════
+   底栏 · 手册 index.html 与随身 companion.html 共用
+   两页的色值变量名不同，这里统一映射一次。
+   ═══════════════════════════════════════════════════════════ */
+.tabbar, .tb-sheet, .tb-backdrop {
+  --tb-surface: var(--paper, #fff);
+  --tb-ink: var(--ink, #16202b);
+  --tb-faint: var(--ink-faint, var(--muted, #6b7480));
+  --tb-line: var(--line, var(--grid, #e2e2dd));
+  --tb-accent: var(--ai, #1c3553);
+  --tb-chip: var(--paper-2, var(--chip-bg, #f1f1ee));
+  --tb-ease: cubic-bezier(.22, 1, .36, 1);
+}
+html[data-theme="dark"] .tabbar,
+html[data-theme="dark"] .tb-sheet { --tb-surface: var(--card-bg, var(--paper)); }
+
+/* ── 底栏 ── */
+.tabbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 900;
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  padding: 0 max(4px, env(safe-area-inset-left, 0px)) env(safe-area-inset-bottom, 0px) max(4px, env(safe-area-inset-right, 0px));
+  background: color-mix(in srgb, var(--tb-surface) 92%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+  border-top: 1px solid var(--tb-line);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", sans-serif;
+}
+.tb-item {
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+  min-height: 56px; padding: 6px 0 4px;
+  border: 0; background: none; cursor: pointer;
+  color: var(--tb-faint); text-decoration: none;
+  font: inherit; font-size: 11px; font-weight: 500; line-height: 1.1; letter-spacing: 0;
+  -webkit-tap-highlight-color: transparent;
+  transition: color .15s var(--tb-ease), scale .1s var(--tb-ease);
+}
+.tb-item:active { scale: .96; }
+.tb-item:hover { color: var(--tb-ink); }
+.tb-item:focus-visible { outline: 2px solid var(--tb-accent); outline-offset: -4px; border-radius: 10px; }
+.tb-ico { width: 24px; height: 24px; flex-shrink: 0; }
+.tb-ico .tb-fill { fill: none; transition: fill .15s var(--tb-ease); }
+/* 当前页：墨色 + 实心图标 + 加粗标签（不靠动效表达状态） */
+.tb-item[aria-current="page"] { color: var(--tb-ink); font-weight: 650; }
+.tb-item[aria-current="page"] .tb-fill { fill: currentColor; }
+.tb-item[aria-current="page"] .tb-ico { color: var(--tb-accent); }
+/* 实心时，内部细节反白，免得被填色吃掉 */
+.tb-ico .tb-cut { transition: stroke .15s var(--tb-ease); }
+.tb-item[aria-current="page"] .tb-cut { stroke: var(--tb-surface); }
+
+/* 何时出现：手册只在窄屏；随身页始终显示 */
+body[data-tabbar="mobile"] .tabbar { display: none; }
+@media (max-width: 640px) {
+  body[data-tabbar="mobile"] .tabbar { display: grid; }
+  body[data-tabbar="mobile"] { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
+}
+body[data-tabbar="always"] { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+@media (min-width: 641px) {
+  body[data-tabbar="always"] .tabbar {
+    left: 50%; right: auto; width: min(520px, calc(100vw - 32px)); translate: -50% 0;
+    bottom: 16px; padding: 0 4px;
+    border: 1px solid var(--tb-line); border-radius: 18px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.08);
+  }
+}
+
+/* ── 「更多」抽屉 ── */
+.tb-backdrop {
+  position: fixed; inset: 0; z-index: 950;
+  background: rgba(0, 0, 0, .36);
+  opacity: 0; transition: opacity .25s var(--tb-ease);
+}
+.tb-backdrop.open { opacity: 1; }
+html[data-theme="dark"] .tb-backdrop { background: rgba(0, 0, 0, .56); }
+.tb-sheet {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 960;
+  max-width: 560px; margin: 0 auto; max-height: 82vh; overflow-y: auto;
+  padding: 8px 16px calc(20px + env(safe-area-inset-bottom, 0px));
+  background: var(--tb-surface); color: var(--tb-ink);
+  border: 1px solid var(--tb-line); border-bottom: 0; border-radius: 20px 20px 0 0;
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, .14);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", sans-serif;
+  translate: 0 100%;
+  transition: translate .25s var(--tb-ease);
+}
+.tb-sheet.open { translate: 0 0; }
+/* 收起比打开更轻：不整页滑走，下沉一点再淡出 */
+.tb-sheet.closing { translate: 0 24px; opacity: 0; transition: translate .18s var(--tb-ease), opacity .18s var(--tb-ease); }
+.tb-backdrop[hidden], .tb-sheet[hidden] { display: none; }
+.tb-grab { width: 36px; height: 4px; border-radius: 2px; background: var(--tb-line); margin: 2px auto 12px; }
+.tb-sheet h2 {
+  font-size: 12px; font-weight: 700; color: var(--tb-faint); letter-spacing: .04em;
+  margin: 4px 0 8px;
+}
+.tb-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 18px; }
+.tb-links a {
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px;
+  min-height: 60px; padding: 10px 12px;
+  border-radius: 12px; background: var(--tb-chip);
+  color: var(--tb-ink); text-decoration: none;
+  font-size: 14px; font-weight: 650; line-height: 1.25;
+  transition: scale .1s var(--tb-ease), background-color .15s var(--tb-ease);
+}
+.tb-links a small { font-size: 11px; font-weight: 500; color: var(--tb-faint); }
+.tb-links a:active { scale: .96; }
+.tb-settings { display: flex; gap: 8px; flex-wrap: wrap; }
+.tb-settings button {
+  flex: 1 1 0; min-width: 96px; min-height: 48px; padding: 0 14px;
+  border: 1px solid var(--tb-line); border-radius: 12px; background: none;
+  color: var(--tb-ink); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+  transition: scale .1s var(--tb-ease), border-color .15s var(--tb-ease);
+}
+.tb-settings button:active { scale: .96; }
+.tb-settings button[aria-pressed="true"] { border-color: var(--tb-accent); color: var(--tb-accent); }
+
+/* 中 / EN：两页都用 span.zh / span.en + .on 切换 */
+.tabbar .zh:not(.on), .tabbar .en:not(.on),
+.tb-sheet .zh:not(.on), .tb-sheet .en:not(.on) { display: none; }
+
+/* 长辈大字 */
+html[data-text-size="large"] .tb-item { min-height: 64px; font-size: 13px; gap: 4px; }
+html[data-text-size="large"] .tb-ico { width: 26px; height: 26px; }
+html[data-text-size="large"] .tb-links a { font-size: 16px; min-height: 68px; }
+html[data-text-size="large"] .tb-links a small { font-size: 13px; }
+html[data-text-size="large"] .tb-settings button { font-size: 16px; min-height: 52px; }
+@media (max-width: 640px) {
+  html[data-text-size="large"] body[data-tabbar="mobile"] { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tb-sheet, .tb-backdrop, .tb-item, .tb-links a, .tb-settings button { transition: none; }
+}
+@media print { .tabbar, .tb-sheet, .tb-backdrop { display: none !important; } }

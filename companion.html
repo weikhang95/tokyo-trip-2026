@@ -16,6 +16,7 @@ try {
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="tabbar.css?v=1">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -41,9 +42,6 @@ try {
     --chip-bg-2: #EAE6DE;
     --map-bg: #e5e3df;
     --bar-bg: rgba(247, 245, 240, 0.96);
-    --dock-bg: rgba(28, 53, 83, 0.95);
-    --dock-ink: #FFFFFF;
-    --dock-sep: rgba(255, 255, 255, 0.25);
     --pin-ring: #FFFFFF;
   }
   /* 深色：与手册 index.html 的深色色值一致 */
@@ -70,9 +68,6 @@ try {
     --chip-bg-2: #1c222b;
     --map-bg: #1c222b;
     --bar-bg: rgba(14, 17, 22, 0.94);
-    --dock-bg: rgba(28, 34, 43, 0.96);
-    --dock-ink: #e8ecf1;
-    --dock-sep: rgba(255, 255, 255, 0.14);
     --pin-ring: #151a21;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -81,7 +76,6 @@ try {
     font-family: 'Inter', 'Noto Sans SC', sans-serif;
     color: var(--ink);
     -webkit-font-smoothing: antialiased;
-    padding-bottom: 90px;
     transition: background-color .2s ease, color .2s ease;
   }
 
@@ -576,43 +570,6 @@ try {
     font-size: 13px; font-weight: 700; text-decoration: none;
   }
 
-  .float-dock {
-    position: fixed;
-    bottom: max(16px, env(safe-area-inset-bottom, 0px));
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--dock-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 99px;
-    padding: 4px 12px;
-    max-width: calc(100vw - 24px);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.22);
-    z-index: 1000;
-  }
-  .dock-btn {
-    background: transparent;
-    border: none;
-    color: var(--dock-ink);
-    min-height: 40px;
-    font-size: 12px;
-    font-weight: 700;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    cursor: pointer;
-    text-decoration: none;
-  }
-  .dock-sep {
-    width: 1px;
-    height: 14px;
-    background: var(--dock-sep);
-  }
-  html[data-theme="dark"] .float-dock { border: 1px solid var(--grid); }
 
   /* Google 地图弹窗：深色下跟卡片同色，否则白底上看不见浅色字 */
   html[data-theme="dark"] .gm-style .gm-style-iw-c,
@@ -621,7 +578,7 @@ try {
   html[data-theme="dark"] .gm-style .gm-ui-hover-effect > span { background-color: var(--muted) !important; }
 </style>
 </head>
-<body>
+<body data-tabbar="always" data-tab="map">
 
 <!-- ── Sticky Top Bar ── -->
 <header class="top-bar">
@@ -656,6 +613,7 @@ try {
       </div>
       <div class="map-actions">
         <button id="btnRouteToggle" class="route-toggle-btn active" onclick="toggleRouteMode()" title="切换真实路网或直连模式">🛣️ 真实路网</button>
+        <button type="button" class="route-toggle-btn" onclick="scrollToCurrentNode()">当前站</button>
         <a id="btnGmapsDayRoute" class="map-link-btn" href="#" target="_blank">Google 路线 ↗</a>
       </div>
     </div>
@@ -682,15 +640,7 @@ try {
 </div>
 
 <!-- Floating Action Bar -->
-<div class="float-dock">
-  <a href="index.html" class="dock-btn to-handbook">📖 手册</a>
-  <div class="dock-sep"></div>
-  <a href="charts/index.html" class="dock-btn">📊 图表</a>
-  <div class="dock-sep"></div>
-  <button class="dock-btn" onclick="scrollToCurrentNode()">⏱️ 第一站</button>
-  <div class="dock-sep"></div>
-  <button class="dock-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">⬆ 顶部</button>
-</div>
+
 
 
 <script>
@@ -2399,6 +2349,7 @@ document.addEventListener('DOMContentLoaded', initApp);
 </script>
 <!-- Google Maps JavaScript API. This browser key is public by design: it only works on
      weikhang95.github.io, only for the Maps JavaScript API, and is capped at 300 map loads a day. -->
+<script src="tabbar.js?v=1" defer></script>
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5rs71T6Mi38Y9nAwLS6NihCBaMr5zJZs&loading=async&callback=onGoogleMapsReady&language=zh-CN&region=JP"></script>
 </body>
 </html>

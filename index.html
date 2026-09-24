@@ -631,12 +631,12 @@ html[data-theme="dark"] .bplan-img-card:has(img)::after{outline-color:oklch(1 0 
 }
 
 /* Mobile-first compact field guide */
-.mobile-dock{display:none;}
 
 @media (max-width:640px) {
   html{scroll-padding-top:68px;scrollbar-gutter:stable;}
   body{line-height:1.6;}
-  .page{width:100%;padding:var(--space-sm) var(--space-sm) calc(84px + env(safe-area-inset-bottom, 0px));}
+  /* 底栏的让位由 tabbar.css 的 body padding 负责 */
+  .page{width:100%;padding:var(--space-sm) var(--space-sm) var(--space-lg);}
 
   .topbar{
     margin:calc(-1 * var(--space-sm)) calc(-1 * var(--space-sm)) var(--space-sm);
@@ -743,22 +743,6 @@ html[data-theme="dark"] .bplan-img-card:has(img)::after{outline-color:oklch(1 0 
   .budget-box{padding:var(--space-sm);}
   .b-row{padding:var(--space-2xs) 0;}
 
-  .mobile-dock{
-    position:fixed;z-index:var(--z-dock);left:var(--space-xs);right:var(--space-xs);
-    bottom:max(var(--space-xs),env(safe-area-inset-bottom, 0px));
-    display:grid;grid-template-columns:repeat(6,1fr);
-    border:1px solid var(--line);border-radius:var(--r-lg);
-    background:color-mix(in srgb,var(--paper) 94%,transparent);backdrop-filter:blur(14px);
-    box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.08);overflow:hidden;
-  }
-  main{padding-bottom:calc(72px + env(safe-area-inset-bottom, 0px));}
-  .mobile-dock a{
-    min-height:46px;display:flex;align-items:center;justify-content:center;
-    color:var(--ink-soft);font-size:var(--font-xs);font-weight:600;text-decoration:none;
-    border-right:1px solid var(--line-soft);
-  }
-  .mobile-dock a:last-child{border-right:0;}
-  .mobile-dock a:active,.mobile-dock a[aria-current="location"]{background:var(--surface-info);color:var(--ai);}
 }
 
 @media (max-width:640px) {
@@ -792,7 +776,6 @@ html[data-theme="dark"] .bplan-img-card:has(img)::after{outline-color:oklch(1 0 
   html[data-text-size="large"] .glance-title{font-size:1.125rem;}
   html[data-text-size="large"] .glance-date{font-size:.9375rem;}
   html[data-text-size="large"] .check-item{min-height:56px;padding:var(--space-md);}
-  html[data-text-size="large"] .mobile-dock a{font-size:1rem;}
 }
 
 /* Print & PDF Media Styles */
@@ -827,6 +810,7 @@ html[data-theme="dark"] .bplan-img-card:has(img)::after{outline-color:oklch(1 0 
 }
 .today-bar[data-state="outside"] .today-dot{background:var(--ink-faint);box-shadow:0 0 0 4px var(--line-soft);}
 .today-txt{flex:1;min-width:0;}
+.today-lbl,.today-val{display:block;} /* span 默认 inline，省略号不生效 */
 .today-lbl{font-size:var(--font-2xs);font-weight:700;letter-spacing:0;color:var(--ink-faint);}
 .today-val{
   font-family:var(--font-sans);font-size:var(--font-md);font-weight:700;color:var(--ink);
@@ -951,6 +935,8 @@ html[data-mode="lite"] .dcc-desc{display:none;}
   .day,.sec-head{scroll-margin-top:4px;}
   /* 随身行程 / 决策图表 底部 dock 已有入口，顶栏收起 */
   .companion-top-btn,.chart-top-btn{display:none;}
+  /* 中/EN 收进底栏「更多」；Aa 大字留在顶栏（长辈常用） */
+  .lang-bar{display:none;}
   #text-toggle{font-size:0;min-width:38px;padding:0 10px;}
   #text-toggle::before{content:'Aa';font-size:.84375rem;font-weight:700;}
   .controls{gap:6px;}
@@ -1058,8 +1044,9 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
 .today-bar:active,.day-pager a:active{scale:.985;}
 
 </style>
+<link rel="stylesheet" href="tabbar.css?v=1"/>
 </head>
-<body>
+<body data-tab="handbook">
 <a class="skip-link" href="#main-content">跳至主要内容</a>
 <main class="page" id="main-content">
 
@@ -4095,15 +4082,6 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
 
 </main>
 
-<nav class="mobile-dock" aria-label="手机快捷导航">
-  <a href="#sec-overview"><span class="zh on">速览</span><span class="en">Overview</span></a>
-  <a href="#sec-days"><span class="zh on">日程</span><span class="en">Days</span></a>
-  <a href="companion.html"><span class="zh on">随身</span><span class="en">Map</span></a>
-  <a href="#sec-booking"><span class="zh on">待办</span><span class="en">To-do</span></a>
-  <a href="#sec-budget"><span class="zh on">预算</span><span class="en">Budget</span></a>
-  <a href="charts/index.html"><span class="zh on">图表</span><span class="en">Charts</span></a>
-</nav>
-
 <script>
 function getStoredPreference(key) {
   try { return localStorage.getItem(key); }
@@ -4188,12 +4166,10 @@ function setLang(lang) {
   const btnZh = document.getElementById('btn-zh');
   const btnEn = document.getElementById('btn-en');
   const dayNav = document.querySelector('.day-nav-bar');
-  const mobileDock = document.querySelector('.mobile-dock');
 
   if (lang === 'en') {
     document.documentElement.lang = 'en';
     dayNav?.setAttribute('aria-label', 'Ten-day itinerary navigation');
-    mobileDock?.setAttribute('aria-label', 'Mobile quick navigation');
     zhEls.forEach(el => el.classList.remove('on'));
     enEls.forEach(el => el.classList.add('on'));
     btnZh.classList.remove('active');
@@ -4203,7 +4179,6 @@ function setLang(lang) {
   } else {
     document.documentElement.lang = 'zh-CN';
     dayNav?.setAttribute('aria-label', '十天行程快捷导航');
-    mobileDock?.setAttribute('aria-label', '手机快捷导航');
     enEls.forEach(el => el.classList.remove('on'));
     zhEls.forEach(el => el.classList.add('on'));
     btnEn.classList.remove('active');
@@ -4405,34 +4380,6 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  const dockLinks = [...document.querySelectorAll('.mobile-dock a')];
-  const dockSections = dockLinks
-    .map(link => {
-      const href = link.getAttribute('href');
-      if (href && href.startsWith('#')) {
-        try { return document.querySelector(href); } catch (e) { return null; }
-      }
-      return null;
-    })
-    .filter(Boolean);
-  if ('IntersectionObserver' in window && dockSections.length) {
-    const updateDock = entries => {
-      const visibleSection = entries
-        .filter(entry => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (!visibleSection) return;
-      dockLinks.forEach(link => {
-        const isCurrent = link.getAttribute('href') === `#${visibleSection.target.id}`;
-        if (isCurrent) link.setAttribute('aria-current', 'location');
-        else link.removeAttribute('aria-current');
-      });
-    };
-    const dockObserver = new IntersectionObserver(updateDock, {
-      rootMargin: '-20% 0px -60% 0px',
-      threshold: [0, 0.25, 0.5]
-    });
-    dockSections.forEach(section => dockObserver.observe(section));
-  }
 
   const linkedDay = /^#day-(?:10|[1-9])$/.test(location.hash)
     ? document.querySelector(location.hash + '.day')
@@ -5209,6 +5156,9 @@ window.addEventListener('DOMContentLoaded', () => {
     if (bar) bar.style.display = (name === todayId()) ? 'none' : '';
 
     syncNav(name, isDay);
+    var tab = name === 'overview' ? 'handbook' : isDay ? 'days' : name === 'booking' ? 'todo' : 'more';
+    document.body.dataset.tab = tab;
+    if (window.TabBar) window.TabBar.setActive(tab);
     if (!opts.silent) {
       var want = '#' + name;
       if (location.hash !== want) {
@@ -5367,5 +5317,6 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 })();
 </script>
+<script src="tabbar.js?v=1" defer></script>
 </body>
 </html>

@@ -4,6 +4,16 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>东京 · 随身行程与地图助手 (Tokyo Companion)</title>
+<meta name="theme-color" content="#F7F5F0" />
+<script>
+// 与手册共用 tokyo_theme：在任一页切换，另一页跟着走
+try {
+  const savedTheme = localStorage.getItem('tokyo_theme');
+  const t = savedTheme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  document.documentElement.dataset.theme = t;
+  document.querySelector('meta[name="theme-color"]').content = t === 'dark' ? '#0e1116' : '#F7F5F0';
+} catch (e) {}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -26,6 +36,44 @@
     --kin-soft: rgba(133, 94, 22, 0.08);
     --shadow: 0 4px 16px rgba(35, 31, 27, 0.06);
     --radius: 16px;
+    --on-ai: #FFFFFF;
+    --chip-bg: #EFECE6;
+    --chip-bg-2: #EAE6DE;
+    --map-bg: #e5e3df;
+    --bar-bg: rgba(247, 245, 240, 0.96);
+    --dock-bg: rgba(28, 53, 83, 0.95);
+    --dock-ink: #FFFFFF;
+    --dock-sep: rgba(255, 255, 255, 0.25);
+    --pin-ring: #FFFFFF;
+  }
+  /* 深色：与手册 index.html 的深色色值一致 */
+  html[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #0e1116;
+    --paper: #12161c;
+    --card-bg: #151a21;
+    --ink: #e8ecf1;
+    --muted: #aab4c0;
+    --faint: #8a94a1;
+    --grid: #29303a;
+    --ai: #8fb3e6;
+    --ai-soft: rgba(143, 179, 230, 0.12);
+    --shu: #f08a78;
+    --shu-soft: rgba(240, 138, 120, 0.12);
+    --matcha: #9dbf5a;
+    --matcha-soft: rgba(157, 191, 90, 0.12);
+    --kin: #d9b25c;
+    --kin-soft: rgba(217, 178, 92, 0.12);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --on-ai: #0e1116;
+    --chip-bg: #1c222b;
+    --chip-bg-2: #1c222b;
+    --map-bg: #1c222b;
+    --bar-bg: rgba(14, 17, 22, 0.94);
+    --dock-bg: rgba(28, 34, 43, 0.96);
+    --dock-ink: #e8ecf1;
+    --dock-sep: rgba(255, 255, 255, 0.14);
+    --pin-ring: #151a21;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   body {
@@ -34,6 +82,7 @@
     color: var(--ink);
     -webkit-font-smoothing: antialiased;
     padding-bottom: 90px;
+    transition: background-color .2s ease, color .2s ease;
   }
 
   /* ── Sticky Top Bar ── */
@@ -41,7 +90,7 @@
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: rgba(247, 245, 240, 0.96);
+    background: var(--bar-bg);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--grid);
@@ -89,7 +138,7 @@
     display: flex;
     flex-shrink: 0;
     gap: 4px;
-    background: #EFECE6;
+    background: var(--chip-bg);
     padding: 2px;
     border-radius: 99px;
   }
@@ -104,12 +153,23 @@
     white-space: nowrap;
     border-radius: 99px;
     cursor: pointer;
-    transition: all .15s ease;
+    transition: background-color .15s ease, color .15s ease, scale .1s ease;
   }
+  .view-btn:active, .theme-btn:active, .d8-opt-btn:active, .route-toggle-btn:active { scale: .96; }
   .view-btn.active {
     background: var(--ai);
-    color: #fff;
+    color: var(--on-ai);
   }
+  /* 昼 / 夜 切换 */
+  .bar-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .theme-btn {
+    min-width: 40px; min-height: 40px; padding: 0 10px;
+    border: 0; border-radius: 99px; background: transparent;
+    color: var(--muted); font: inherit; font-size: 13px; font-weight: 700;
+    cursor: pointer;
+    transition: background-color .15s ease, color .15s ease, scale .1s ease;
+  }
+  .theme-btn:hover { background: var(--chip-bg); color: var(--ink); }
 
   /* ── Day Selector Pills ── */
   .day-scroll {
@@ -132,7 +192,7 @@
     font-weight: 700;
     color: var(--muted);
     cursor: pointer;
-    transition: all .18s ease;
+    transition: background-color .15s ease, color .15s ease, border-color .15s ease;
     display: flex;
     align-items: center;
     gap: 4px;
@@ -144,7 +204,7 @@
   }
   .day-pill.active {
     background: var(--ai);
-    color: #fff;
+    color: var(--on-ai);
     border-color: var(--ai);
     box-shadow: 0 2px 8px rgba(28, 53, 83, 0.25);
   }
@@ -164,7 +224,6 @@
     overflow: hidden;
     margin-bottom: 16px;
     box-shadow: var(--shadow);
-    transition: all .2s ease;
   }
   .map-card.collapsed {
     display: none;
@@ -195,7 +254,6 @@
     background: var(--ai-soft);
     padding: 2px 8px;
     border-radius: 99px;
-    transition: all .2s;
   }
   .map-actions {
     display: flex;
@@ -204,18 +262,18 @@
   }
   .route-toggle-btn {
     border: 1px solid var(--grid);
-    background: #FFFFFF;
+    background: var(--card-bg);
     color: var(--muted);
     font-size: 10.5px;
     font-weight: 700;
     padding: 3px 8px;
     border-radius: 99px;
     cursor: pointer;
-    transition: all .15s ease;
+    transition: background-color .15s ease, color .15s ease, border-color .15s ease, scale .1s ease;
   }
   .route-toggle-btn.active {
     background: var(--ai);
-    color: #FFFFFF;
+    color: var(--on-ai);
     border-color: var(--ai);
   }
   .map-link-btn {
@@ -233,7 +291,7 @@
   #map {
     width: 100%;
     height: 270px;
-    background: #e5e3df;
+    background: var(--map-bg);
   }
   @media (min-width: 640px) {
     #map { height: 340px; }
@@ -246,7 +304,7 @@
   .day8-switcher {
     display: flex;
     gap: 6px;
-    background: #EAE6DE;
+    background: var(--chip-bg-2);
     padding: 3px;
     border-radius: 99px;
     margin-bottom: 12px;
@@ -264,13 +322,13 @@
     padding: 6px 12px;
     border-radius: 99px;
     cursor: pointer;
-    transition: all .18s ease;
+    transition: background-color .15s ease, color .15s ease, scale .1s ease;
     white-space: nowrap;
     text-align: center;
   }
   .d8-opt-btn.active {
     background: var(--ai);
-    color: #FFFFFF;
+    color: var(--on-ai);
     box-shadow: 0 2px 8px rgba(28, 53, 83, 0.25);
   }
 
@@ -296,14 +354,14 @@
     padding: 2px 8px;
     border-radius: 99px;
     background: var(--ai);
-    color: #fff;
+    color: var(--on-ai);
   }
   .hero-pacing {
     font-size: 11px;
     font-weight: 700;
     padding: 2px 8px;
     border-radius: 99px;
-    background: #EFECE6;
+    background: var(--chip-bg);
     color: var(--muted);
   }
   .hero-title {
@@ -343,11 +401,11 @@
     padding: 6px 12px;
     border-radius: 99px;
     margin-top: 8px;
-    transition: all .15s;
+    transition: background-color .15s ease, color .15s ease;
   }
   .hero-route-link:hover {
     background: var(--shu);
-    color: #fff;
+    color: var(--on-ai);
   }
 
   /* ── Timeline Nodes ── */
@@ -377,7 +435,7 @@
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background: #FFFFFF;
+    background: var(--card-bg);
     border: 2px solid var(--ai);
     color: var(--ai);
     font-size: 11px;
@@ -387,7 +445,7 @@
     justify-content: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     z-index: 2;
-    transition: all .2s;
+    transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
   }
   .node-item.hero .node-dot {
     border-color: var(--shu);
@@ -396,7 +454,7 @@
   .node-item.active .node-dot {
     background: var(--shu);
     border-color: var(--shu);
-    color: #FFFFFF;
+    color: var(--on-ai);
     transform: scale(1.15);
   }
 
@@ -444,7 +502,7 @@
     gap: 3px;
     font-size: 11px;
     font-weight: 700;
-    color: #FFFFFF;
+    color: var(--on-ai);
     background: var(--ai);
     text-decoration: none;
     padding: 4px 9px;
@@ -484,7 +542,7 @@
     font-weight: 700;
     padding: 2px 6px;
     border-radius: 4px;
-    background: #FAF9F6;
+    background: var(--paper);
     border: 1px solid var(--grid);
     color: var(--muted);
   }
@@ -514,7 +572,7 @@
   .role-link {
     display: inline-flex; align-items: center; min-height: 44px;
     padding: 0 16px; border-radius: 99px;
-    background: var(--ai); color: #fff;
+    background: var(--ai); color: var(--on-ai);
     font-size: 13px; font-weight: 700; text-decoration: none;
   }
 
@@ -523,7 +581,7 @@
     bottom: max(16px, env(safe-area-inset-bottom, 0px));
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(28, 53, 83, 0.95);
+    background: var(--dock-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: 99px;
@@ -538,7 +596,7 @@
   .dock-btn {
     background: transparent;
     border: none;
-    color: #fff;
+    color: var(--dock-ink);
     min-height: 40px;
     font-size: 12px;
     font-weight: 700;
@@ -552,8 +610,15 @@
   .dock-sep {
     width: 1px;
     height: 14px;
-    background: rgba(255,255,255,0.25);
+    background: var(--dock-sep);
   }
+  html[data-theme="dark"] .float-dock { border: 1px solid var(--grid); }
+
+  /* Google 地图弹窗：深色下跟卡片同色，否则白底上看不见浅色字 */
+  html[data-theme="dark"] .gm-style .gm-style-iw-c,
+  html[data-theme="dark"] .gm-style .gm-style-iw-d { background: var(--card-bg); color: var(--ink); }
+  html[data-theme="dark"] .gm-style .gm-style-iw-tc::after { background: var(--card-bg); }
+  html[data-theme="dark"] .gm-style .gm-ui-hover-effect > span { background-color: var(--muted) !important; }
 </style>
 </head>
 <body>
@@ -565,10 +630,13 @@
       <a href="index.html" class="back-btn to-handbook">← 手册</a>
       <span class="page-title">📱 随身行程与地图</span>
     </div>
-    <div class="view-toggles" role="group" aria-label="视图模式">
-      <button class="view-btn active" id="btn-split" onclick="setViewMode('split')">分屏</button>
-      <button class="view-btn" id="btn-time" onclick="setViewMode('time')">仅时间</button>
-      <button class="view-btn" id="btn-map" onclick="setViewMode('map')">仅地图</button>
+    <div class="bar-right">
+      <div class="view-toggles" role="group" aria-label="视图模式">
+        <button class="view-btn active" id="btn-split" onclick="setViewMode('split')">分屏</button>
+        <button class="view-btn" id="btn-time" onclick="setViewMode('time')">仅时间</button>
+        <button class="view-btn" id="btn-map" onclick="setViewMode('map')">仅地图</button>
+      </div>
+      <button class="theme-btn" id="theme-toggle" type="button" onclick="toggleTheme()" aria-label="切换深色模式">夜</button>
     </div>
   </div>
 
@@ -1850,7 +1918,7 @@ async function renderRoutePolyline(day) {
 
   const isDrive = (day.day === 'D4' || day.day === 'D5');
   const isNature = isDrive;
-  const themeColor = isNature ? '#506628' : (isDrive ? '#1C3553' : '#C2412D');
+  const themeColor = isNature ? cssVar('--matcha') : (isDrive ? cssVar('--ai') : cssVar('--shu'));
 
   if (!showRealRoadRoute) {
     // Straight line mode
@@ -1969,13 +2037,56 @@ function initApp() {
 
 let infoWindow = null;
 
+// ── 昼 / 夜 ──
+function cssVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+function isDark() { return document.documentElement.dataset.theme === 'dark'; }
+// 深色地图底图（Google 官方 Night 样式精简版）
+const NIGHT_MAP_STYLE = [
+  { elementType: 'geometry', stylers: [{ color: '#1c222b' }] },
+  { elementType: 'labels.text.stroke', stylers: [{ color: '#12161c' }] },
+  { elementType: 'labels.text.fill', stylers: [{ color: '#8a94a1' }] },
+  { featureType: 'administrative.locality', elementType: 'labels.text.fill', stylers: [{ color: '#aab4c0' }] },
+  { featureType: 'poi', elementType: 'labels.text.fill', stylers: [{ color: '#7d8894' }] },
+  { featureType: 'poi.park', elementType: 'geometry', stylers: [{ color: '#1d2a22' }] },
+  { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#2b333f' }] },
+  { featureType: 'road', elementType: 'geometry.stroke', stylers: [{ color: '#171c23' }] },
+  { featureType: 'road.highway', elementType: 'geometry', stylers: [{ color: '#3a4350' }] },
+  { featureType: 'road', elementType: 'labels.text.fill', stylers: [{ color: '#8a94a1' }] },
+  { featureType: 'transit', elementType: 'geometry', stylers: [{ color: '#262d37' }] },
+  { featureType: 'transit.station', elementType: 'labels.text.fill', stylers: [{ color: '#aab4c0' }] },
+  { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#0f1a26' }] },
+  { featureType: 'water', elementType: 'labels.text.fill', stylers: [{ color: '#4e6a8a' }] }
+];
+function syncThemeButton() {
+  const btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+  btn.textContent = isDark() ? '昼' : '夜';
+  btn.setAttribute('aria-label', isDark() ? '切换浅色模式' : '切换深色模式');
+}
+function toggleTheme() {
+  const next = isDark() ? 'light' : 'dark';
+  document.documentElement.dataset.theme = next;
+  try { localStorage.setItem('tokyo_theme', next); } catch (e) {}
+  document.querySelector('meta[name="theme-color"]').content = next === 'dark' ? '#0e1116' : '#F7F5F0';
+  syncThemeButton();
+  if (map) {
+    map.setOptions({ styles: isDark() ? NIGHT_MAP_STYLE : null, backgroundColor: cssVar('--map-bg') });
+    updateMap(DAYS[currentDayIdx]); // 路线与图钉按新主题重新着色
+  }
+}
+syncThemeButton();
+
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: { lat: 35.6895, lng: 139.6917 },
     zoom: 12,
     mapTypeControl: false,
     streetViewControl: false,
-    clickableIcons: false
+    clickableIcons: false,
+    backgroundColor: cssVar('--map-bg'),
+    styles: isDark() ? NIGHT_MAP_STYLE : null
   });
   infoWindow = new google.maps.InfoWindow();
   markersLayer = makeLayerGroup();
@@ -2175,18 +2286,18 @@ function updateMap(day) {
     latlngs.push([node.lat, node.lng]);
 
     // Custom numbered pin
-    const pinColor = node.hero ? '#C2412D' : (day.day === 'D4' || day.day === 'D5' ? '#506628' : '#1C3553');
+    const pinColor = node.hero ? cssVar('--shu') : (day.day === 'D4' || day.day === 'D5' ? cssVar('--matcha') : cssVar('--ai'));
 
     const gmapsNavUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(node.name + ' ' + (node.sub || ''))}`;
 
     const marker = new google.maps.Marker({
       position: { lat: node.lat, lng: node.lng },
-      label: { text: String(nIdx + 1), color: '#FFFFFF', fontSize: '12px', fontWeight: '800' },
+      label: { text: String(nIdx + 1), color: cssVar('--on-ai'), fontSize: '12px', fontWeight: '800' },
       icon: {
         path: PIN_PATH,
         fillColor: pinColor,
         fillOpacity: 1,
-        strokeColor: '#FFFFFF',
+        strokeColor: cssVar('--pin-ring'),
         strokeWeight: 2,
         anchor: new google.maps.Point(13, 30),
         labelOrigin: new google.maps.Point(13, 13)
@@ -2198,7 +2309,7 @@ function updateMap(day) {
           <div style="font-size:11px; font-weight:800; color:var(--shu); margin-bottom:2px;">${node.time} · 第 ${nIdx + 1} 站</div>
           <div style="font-size:13.5px; font-weight:800; color:var(--ink); margin-bottom:4px;">${node.name}</div>
           <div style="font-size:11.5px; color:var(--muted); margin-bottom:8px;">${node.sub}</div>
-          <a href="${gmapsNavUrl}" target="_blank" style="display:inline-block; font-size:11.5px; font-weight:700; color:#fff; background:var(--ai); text-decoration:none; padding:4px 10px; border-radius:99px;">📍 Google Maps 导航 ↗</a>
+          <a href="${gmapsNavUrl}" target="_blank" style="display:inline-block; font-size:11.5px; font-weight:700; color:var(--on-ai); background:var(--ai); text-decoration:none; padding:4px 10px; border-radius:99px;">📍 Google Maps 导航 ↗</a>
         </div>
       `;
 

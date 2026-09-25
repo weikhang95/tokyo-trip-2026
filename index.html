@@ -582,6 +582,10 @@ html[data-theme="dark"] .bplan-img-card:has(img)::after{outline-color:oklch(1 0 
   transition:border-color .15s var(--ease-out),color .15s var(--ease-out),opacity .15s var(--ease-out),scale .1s var(--ease-out);
   border:1px solid var(--line);background:var(--paper);color:var(--ink-soft);
 }
+/* 图标：Phosphor Icons (phosphoricons.com, MIT) · Regular，内联 SVG，与文字同高 */
+.ph-ico{width:1.15em;height:1.15em;flex-shrink:0;vertical-align:-.2em;}
+.tel{white-space:nowrap;}
+.tel .ph-ico{margin-right:.2em;}
 .food-btn:hover{border-color:var(--ink-faint);color:var(--ink);}
 .food-btn.primary{background:var(--ai);color:var(--on-ai);border-color:var(--ai);}
 .food-btn.primary:hover{opacity:.9;color:var(--on-ai);}
@@ -1082,7 +1086,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
 .today-bar:active,.day-pager a:active{scale:.96;}
 
 </style>
-<link rel="stylesheet" href="tabbar.css?v=2"/>
+<link rel="stylesheet" href="tabbar.css?v=3"/>
 </head>
 <body data-tab="handbook">
 <a class="skip-link" href="#main-content">跳至主要内容</a>
@@ -3013,7 +3017,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
                   <li>档 2 · 大雨整晚不停：照样上去，当成室内景点。46F 全室内，有长椅和咖啡。<strong>别等雨停等到 21:00</strong>，把妈妈拖累。反正不退款，不用纠结值不值。</li>
                   <li>档 3 · 荒天巴士停开（唯一要整段换的情况）：
                     <ul>
-                      <li>先办退款：東急バス <strong>03-3410-0181</strong>，运休公告看预订网站。</li>
+                      <li>先办退款：東急バス <strong><a class="tel" href="tel:0334100181"><svg class="ph-ico" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/></svg>03-3410-0181</a></strong>，运休公告看预订网站。</li>
                       <li>那时你们正好在歌舞伎町 Tower（13:30–15:00 本来就在那），就地改去【<a href="https://maps.google.com/?q=Tokyo+Metropolitan+Government+Building+South+Observation+Deck" target="_blank" rel="noopener noreferrer">东京都厅 南展望室</a>】：免费、室内、45 楼。Google 4.7★（3,030 则）· 09:30–21:30 · 周二休，10/8 是周四，开 · 有无障碍入口，45F 有咖啡座（6 张四人桌、6 条长椅）、纪念品店、免费 WiFi。</li>
                       <li>高度 202 m，SHIBUYA SKY 是 229 m。下雨天 SKY 露台本来就关，在室内看夜景差这 27 米没关系，而且免费。</li>
                       <li>怎么去：新宿三丁目<strong>没有</strong>大江户线。从 Tower 走到都营大江戸线新宿西口站，搭 1 站（2 分钟 · ¥178）到都庁前站，出站直通都厅。Tower 到新宿西口站有一段地面路要撑伞；雨大就打车。</li>
@@ -3191,7 +3195,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
                   <li>周五晚上班族多：<strong>17:15 进店</strong>，17:30 入座时店里最安静、服务最好，18:45 吃完。</li>
                   <li>首选【和食日和 おさけと】（Google 4.0★ · 周五 17:00–22:30）：增上寺平路 5 分钟，高汤锅物与和食定食，人均约 <strong>¥2,500–3,500</strong>，吃完直接进地铁，不回银座。</li>
                   <li>相扑锅【<a href="https://maps.google.com/?q=Chanko+Izutsu+Shinbashi" target="_blank" rel="noopener noreferrer">本格焼鳥ちゃんこ 井筒</a>】：烤鸡串居酒屋兼卖相扑锅，12:00–翌2:00，评论提到<strong>店内可吸烟</strong>、锅分量偏小、建议订位。新桥 4 丁目，离增上寺 1.5 km，不走路：走 5 分钟到大门站，浅草线 <strong>1 站到新橋</strong>（¥178），出站约 190 米／3 分钟。</li>
-                  <li>烧肉【<a href="https://maps.app.goo.gl/rC3dUwdaxpRu1f9v5" target="_blank" rel="noopener noreferrer">三幸園 麻布十番</a>】：50 多年老铺，Google 4.3★（552 则），周五开到 03:00，和牛五花、牛舌、牛尾汤收尾。<strong>周五晚务必订位</strong>（电话 03-3585-6306，17:30 入座）；人均约 ¥8,000 起（有评论点 ¥14,800 套餐）。去：芝公园走到赤羽桥站，大江户线 17:23 发 1 站到麻布十番（¥178），7 号出口 70 米。回：19:03 大江户线 2 站到大门，换浅草线到浅草 19:32（¥272），再搭都08，约 19:50 到家；最便宜是南北线→溜池山王→银座线→上野→日比谷线，19:39 到三ノ輪（¥252，换 2 次）。</li>
+                  <li>烧肉【<a href="https://maps.app.goo.gl/rC3dUwdaxpRu1f9v5" target="_blank" rel="noopener noreferrer">三幸園 麻布十番</a>】：50 多年老铺，Google 4.3★（552 则），周五开到 03:00，和牛五花、牛舌、牛尾汤收尾。<strong>周五晚务必订位</strong>（<a class="tel" href="tel:0335856306"><svg class="ph-ico" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/></svg>03-3585-6306</a>，17:30 入座）；人均约 ¥8,000 起（有评论点 ¥14,800 套餐）。去：芝公园走到赤羽桥站，大江户线 17:23 发 1 站到麻布十番（¥178），7 号出口 70 米。回：19:03 大江户线 2 站到大门，换浅草线到浅草 19:32（¥272），再搭都08，约 19:50 到家；最便宜是南北线→溜池山王→银座线→上野→日比谷线，19:39 到三ノ輪（¥252，换 2 次）。</li>
                   <li>回家：大门站搭都营浅草线 <strong>14 分钟</strong>到浅草站（¥220），A4/A5 出口平路 200 米到东武浅草站前，换【都营巴士 都08】（¥210），<strong>8 分钟停在「竜泉」站</strong>，过马路 80 米到公寓，不走大站地下换乘。</li>
                   <li>太累或下雨：芝公园／大门站叫 GO，约 8.8 km，日间约 ¥4,000–4,500。</li>
                 </ol>
@@ -3412,7 +3416,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
                 </div>
                 <div class="food-meta-item">
                   <span class="food-meta-label">长辈贴士:</span>
-                  <span>要靠窗座位 · 冷气房隔玻璃看海与江之电 · 免费 WiFi · 评论说不用排队<br/><strong>可订位</strong>（共 23 席：吧台 14＋桌 9＋露台）。有评论说<strong>靠窗看电车那几个位子要预约</strong>，想稳拿就出发前打 <strong>0467-28-8418</strong> 订 14:00 两位<br/><strong>可能要脱鞋</strong>（一则日文评论提到「靴を脱ぐタイプ」），妈妈穿好穿脱的鞋</span>
+                  <span>要靠窗座位 · 冷气房隔玻璃看海与江之电 · 免费 WiFi · 评论说不用排队<br/><strong>可订位</strong>（共 23 席：吧台 14＋桌 9＋露台）。有评论说<strong>靠窗看电车那几个位子要预约</strong>，想稳拿就出发前打 <strong><a class="tel" href="tel:0467288418"><svg class="ph-ico" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/></svg>0467-28-8418</a></strong> 订 14:00 两位<br/><strong>可能要脱鞋</strong>（一则日文评论提到「靴を脱ぐタイプ」），妈妈穿好穿脱的鞋</span>
                 </div>
                 <div class="food-meta-item">
                   <span class="food-meta-label">拍照:</span>
@@ -3421,7 +3425,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
               </div>
               <div class="food-card-actions">
                 <a href="https://maps.google.com/?q=Kotobukiya+Kamakurakokomae" target="_blank" rel="noopener noreferrer" class="food-btn">Google Maps 导航</a>
-                <a href="tel:0467288418" class="food-btn primary">电话 0467-28-8418</a>
+                <a href="tel:0467288418" class="food-btn primary"><svg class="ph-ico" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/></svg>0467-28-8418</a>
               </div>
             </div>
           </div>
@@ -3657,7 +3661,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
                   </li>
                   <li><strong>Plan D</strong> · 下雨、妈妈状况不好或电车异常
                     <ul>
-                      <li>定额计程车直达羽田：日本交通 <strong>050-3116-8217</strong>，要提前 1 小时预约。</li>
+                      <li>定额计程车直达羽田：日本交通 <strong><a class="tel" href="tel:05031168217"><svg class="ph-ico" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/></svg>050-3116-8217</a></strong>，要提前 1 小时预约。</li>
                       <li>订 20:45 出发（22:00 前下车）：定额 ¥9,100 ＋ 首都高约 ¥1,500 ＋ 迎车约 ¥500 ≈ <strong>¥11,100</strong>。</li>
                       <li>22:00 后出发：¥10,800 ＋ 高速 ＋ 迎车 ≈ ¥12,800。现场跳表叫车（无定额）深夜约 ¥13,000–15,000，最贵。</li>
                       <li>深夜割增只在上车和下车时刻都落在 22:00–05:00 才算。</li>
@@ -5288,7 +5292,7 @@ window.addEventListener('DOMContentLoaded', () => {
       var toMap = document.createElement('a');
       toMap.className = 'day-map-link';
       toMap.href = 'companion.html#D' + (i + 1);
-      toMap.innerHTML = '<span class="dm-ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg></span><span class="dm-txt">' +
+      toMap.innerHTML = '<span class="dm-ico"><svg width="22" height="22" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></svg></span><span class="dm-txt">' +
         '<span class="dm-name">在随身页看这一天的地图</span>' +
         '<span class="dm-sub">时间轴 · 每一站一键导航</span></span>';
       card.appendChild(toMap);
@@ -5385,6 +5389,6 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 })();
 </script>
-<script src="tabbar.js?v=2" defer></script>
+<script src="tabbar.js?v=3" defer></script>
 </body>
 </html>

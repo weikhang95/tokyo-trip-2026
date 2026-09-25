@@ -1,6 +1,7 @@
 /* ═══════════════════════════════════════════════════════════
    底栏 · 手册 index.html 与随身 companion.html 共用
    两页的色值变量名不同，这里统一映射一次。
+   图标：Phosphor Icons (phosphoricons.com, MIT)
    ═══════════════════════════════════════════════════════════ */
 .tabbar, .tb-sheet, .tb-backdrop {
   --tb-surface: var(--paper, #fff);
@@ -39,14 +40,12 @@ html[data-theme="dark"] .tb-sheet { --tb-surface: var(--card-bg, var(--paper)); 
 .tb-item:hover { color: var(--tb-ink); }
 .tb-item:focus-visible { outline: 2px solid var(--tb-accent); outline-offset: -4px; border-radius: 10px; }
 .tb-ico { width: 24px; height: 24px; flex-shrink: 0; }
-.tb-ico .tb-fill { fill: none; transition: fill .15s var(--tb-ease); }
-/* 当前页：墨色 + 实心图标 + 加粗标签（不靠动效表达状态） */
+/* 当前页：墨色标签加粗，图标换成 Phosphor Fill（不靠动效表达状态） */
+.tb-ico .ph-fill { display: none; }
 .tb-item[aria-current="page"] { color: var(--tb-ink); font-weight: 650; }
-.tb-item[aria-current="page"] .tb-fill { fill: currentColor; }
 .tb-item[aria-current="page"] .tb-ico { color: var(--tb-accent); }
-/* 实心时，内部细节反白，免得被填色吃掉 */
-.tb-ico .tb-cut { transition: stroke .15s var(--tb-ease); }
-.tb-item[aria-current="page"] .tb-cut { stroke: var(--tb-surface); }
+.tb-item[aria-current="page"] .ph-regular { display: none; }
+.tb-item[aria-current="page"] .ph-fill { display: inline; }
 
 /* 何时出现：手册只在窄屏；随身页始终显示 */
 body[data-tabbar="mobile"] .tabbar { display: none; }

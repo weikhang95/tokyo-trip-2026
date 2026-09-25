@@ -1154,55 +1154,84 @@ const DAYS = [
     day: "D1",
     date: "10/3",
     weekday: "六",
-    title: "落地成田 ➔ 日暮里直达公车 ➔ 竜泉入住",
+    title: "成田 ➔ Skyliner ➔ 竜泉入住",
     intensity: "低负荷 · 约 3,000 步",
-    desc: "抵达成田 T2，办妥乘车与取现，搭乘 16:42 Skyliner 极速回巢，绝不安排景点，全心安顿早睡蓄力。",
-    transit: "🚅 Skyliner 36m 直达日暮里 ➔ 都08公车 6站平路直达住处大门",
+    desc: "14:45 落地成田 T2，换票、提现、买 Suica，坐 16:42 Skyliner 和都08 公车到门口。不排景点，早睡倒时差。",
+    transit: "Skyliner 36 分钟到日暮里 ➔ 都08 公车 6 站到竜泉",
     routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Narita+Airport+Terminal+2&destination=Tokyo+Taito+Ryusen+3-10-7&travelmode=transit",
     nodes: [
       {
         time: "14:45",
         name: "成田机场 T2 (第2航厦)",
-        sub: "Narita Airport Terminal 2 · UO848 落地",
+        title: "成田 T2 落地 · 入境",
+        sub: "Narita Airport Terminal 2 · UO848",
         lat: 35.7720, lng: 140.3876,
-        action: "办入境、领行李、7-11 ATM 提现 JPY（选 Without Conversion 扣余额），B1 机台兑换 Skyliner 磁票与买 Welcome Suica 卡。",
-        tags: ["免排队券売机", "7-11 ATM", "Welcome Suica"],
+        key: ["周六入境高峰，留 45–60 分钟", "7-11 ATM 提日元", "B1 给妈妈买 Welcome Suica"],
+        more: [
+          "入境出示 Visit Japan Web 离线二维码与护照，预留 45–60 分钟过关与取大行李。",
+          "出关先带妈妈上 1F 洗手间，再到 7-11 ATM 用 Wise 提日元（选 Without Conversion，扣日元余额）。",
+          "电梯下 B1 铁道大厅：JR 红色机台买 <strong>Welcome Suica 实体卡</strong>，现金充值 ¥3,000–5,000。"
+        ],
+        tags: ["入境"],
         hero: false
       },
       {
         time: "16:42",
-        name: "Skyliner 快速特急 (黄金班次)",
-        sub: "京成电铁空港第2ビル駅 ➔ 日暮里站",
+        name: "Skyliner 空港第2ビル駅",
+        title: "Skyliner ➔ 日暮里",
+        sub: "京成 空港第2ビル駅 ➔ 日暮里站 · 17:18 到",
         lat: 35.7728, lng: 140.3882,
-        action: "36 分钟极速直达日暮里（17:18 抵）！大行李放车厢专属行李架，安静平稳坐着闭目养神。备选：16:22 极速备选（停站较多约 42 分钟，17:04 抵）；17:02 宽裕备选（17:38 抵，接不上 17:33 公车，改搭下一班 17:45 都08，17:54 到竜泉）。",
-        tags: ["36分直达", "行李架", "指定席对号"],
+        key: ["!e-ticket QR 不能直接刷闸机", "券売機 Code Exchange 换磁票", "目标 16:42 班，36 分钟"],
+        more: [
+          "票已买好 2 张单程。京成券売機按 <code>Code Exchange</code>，扫 e-ticket QR（2 人 1 码），选 2 个相邻座位出 2 张磁票。",
+          "线上票不锁班次也不锁座位。出关快就坐 16:22（停站较多约 42 分钟，17:04 到）；17:02 为宽裕备选（17:38 到，接不上 17:33 公车，改搭 17:45 都08，17:54 到竜泉）。",
+          "大行李放车厢行李架，坐着闭目养神。",
+          "15:45 券売機队伍超过 10 人，改坐京成 Access 特急直通浅草：75 分钟，免特急券，刷 Suica ¥1,276/人，浅草站 A18 有电梯，再打车 1.8km 约 ¥1,100。"
+        ],
+        tags: ["已购票"],
         hero: false
       },
       {
-        time: "17:18",
+        time: "17:33",
         name: "日暮里站东口 ②番のりば",
-        sub: "换乘都营巴士【都08】(錦糸町駅前行)",
+        title: "日暮里 ➔ 都08 公车",
+        sub: "都营巴士 都08 (錦糸町駅前行) · 6 站到「竜泉」",
         lat: 35.7278, lng: 139.7710,
-        action: "出闸乘东口电梯下站前广场，始发站空车上车，大行李推入低地板区扶稳，坐 6 站(约10分)直达「竜泉」站牌。",
-        tags: ["电梯下楼", "始发空车", "均一价¥210"],
+        key: ["东口电梯下站前广场", "始发站，空车上车", "¥210/人，刷 Suica"],
+        more: [
+          "大行李免费：三边和 ≤250cm、≤30kg 可带上车（28 寸箱约 158cm）。挑低地板无台阶区坐下，扶好箱子。",
+          "坐 6 站约 8–10 分钟到「竜泉」站牌。全程公共交通，不打车。"
+        ],
+        tags: ["公车"],
         hero: false
       },
       {
         time: "17:45",
         name: "竜泉基地 (LUXURY STAY HOTEL)",
-        sub: "東京都台東区竜泉 3-10-7 (LUXURY STAY HOTEL 浅草竜泉店 · 33号房)",
+        title: "竜泉入住 · 33 号房",
+        sub: "東京都台東区竜泉 3-10-7 LUXURY STAY HOTEL 浅草竜泉店",
         lat: 35.7247, lng: 139.7919,
-        action: "站牌下车平路步行约 90 米（约 2 分钟）进大门，智能锁自助入住，洗热水澡换装。✅ Day 1 全程公共交通，不打车。",
-        tags: ["平路约90m", "正规电梯", "2026新开业", "独立洗衣机"],
+        key: ["站牌平路约 90 米到大门", "智能锁自助入住"],
+        more: [
+          "先确认 Airbnb 电子锁密码。",
+          "放行李、洗热水澡、换便服。2026 年新开业，有电梯和独立洗衣机。"
+        ],
+        tags: ["入住"],
         hero: true
       },
       {
         time: "18:30",
-        name: "My Basket 超市 & 生活圈补给",
-        sub: "まいばすけっと 竜泉1丁目店 (营业至23:00) & 周边便利店",
+        name: "My Basket 竜泉1丁目店",
+        title: "超市补给 ➔ 21:00 熄灯",
+        sub: "まいばすけっと 竜泉1丁目店 · 营业至 23:00",
         lat: 35.7225, lng: 139.7915,
-        action: "步行约 255 米（4 分钟）到 My Basket 采买 2L 水、明治鲜奶与水果；想吃现做热食可选 Lawson（278m 街角厨房热便当炸鸡）或 Sukiya（502m 24h 热鲑鱼定食）；7-11（392m）有室内堂食座与 ATM；转角 Main Mart（74m）可买 Pelican 吐司。21:00 准时熄灯倒时差蓄力。",
-        tags: ["My Basket 255m", "Lawson 24h 278m", "7-11 堂食座 392m", "Sukiya 24h 502m"],
+        key: ["走约 4 分钟，买 2L 水、鲜奶、水果", "!21:00 熄灯，明早 06:30 出门"],
+        more: [
+          "热食：Lawson 278m（街角厨房热便当、炸鸡）或 Sukiya 502m（24h 热鲑鱼定食）。",
+          "7-11 392m 有室内堂食座和 ATM；转角 Main Mart 74m 有 Pelican 厚吐司。",
+          "精神还好才考虑：浅草寺夜间点灯、曙汤或寿汤钱汤（¥550/人）。第一天不排景点。"
+        ],
+        tags: ["补给"],
         hero: false
       }
     ]

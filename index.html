@@ -374,14 +374,15 @@ html[data-theme="dark"] .hero::after{outline-color:oklch(1 0 0 / .1);}
 .note-box{
   border-radius:var(--r-md);padding:var(--space-sm) var(--space-md);margin:var(--space-sm) 0;font-size:var(--font-sub);line-height:1.68;
   display:block;font-weight:400;color:var(--ink-soft);
-  border:0;border-left:2px solid var(--line);border-radius:0;padding-left:var(--space-md);
+  border:0;background:var(--paper-2);
 }
 .note-box>strong{margin-right:5px;}
-.note-box.warn{border-left-color:var(--shu);}
+/* 靠底色区分语气，不用侧边色条 */
+.note-box.warn{background:color-mix(in srgb,var(--shu) 6%,var(--paper));}
 .note-box.warn strong{color:var(--shu);font-weight:600;}
-.note-box.tip{border-left-color:var(--ai);}
+.note-box.tip{background:color-mix(in srgb,var(--ai) 6%,var(--paper));}
 .note-box.tip strong{color:var(--ai);font-weight:600;}
-.note-box.kin{border-left-color:var(--kin);}
+.note-box.kin{background:color-mix(in srgb,var(--kin) 6%,var(--paper));}
 /* 直接挂在 day-body 下的提示，与时间轴内容对齐，别贴卡片边 */
 .day-body>.note-box{margin:var(--space-sm) var(--space-lg) var(--space-md);}
 @media (max-width:640px){.day-body>.note-box{margin-inline:var(--space-sm);}}
@@ -521,18 +522,44 @@ html[data-theme="dark"] .bplan-img-card:has(img)::after{outline-color:oklch(1 0 
   font-size:var(--font-md);font-weight:700;line-height:1.45;color:var(--ink);
   margin-bottom:6px;text-wrap:pretty;overflow-wrap:anywhere;
 }
-.tl-desc{
+.tl-desc,.tl-detail{
   font-size:var(--font-sub);color:var(--ink-soft);line-height:1.75;font-weight:400;text-wrap:pretty;overflow-wrap:anywhere;
 }
-.tl-desc ol, .tl-desc ul{
+.tl-desc ol, .tl-desc ul, .tl-detail ol, .tl-detail ul{
   display:flex;flex-direction:column;gap:8px;margin-left:1.15rem;margin-top:6px;
 }
-.tl-desc li{
+.tl-desc li, .tl-detail li{
   font-size:var(--font-sub);color:var(--ink-soft);line-height:1.7;font-weight:400;
 }
-.tl-desc strong{font-weight:600;color:var(--ink);}
-.tl-main a,.tl-desc a{color:inherit;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--ai) 55%,transparent);}
-.tl-main a:hover,.tl-desc a:hover{color:var(--ai);text-decoration-color:currentColor;}
+.tl-desc strong, .tl-detail strong{font-weight:600;color:var(--ink);}
+.tl-main a,.tl-desc a,.tl-key a,.tl-detail a{color:inherit;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--ai) 55%,transparent);}
+.tl-main a:hover,.tl-desc a:hover,.tl-key a:hover,.tl-detail a:hover{color:var(--ai);text-decoration-color:currentColor;}
+
+/* 一站 = 标题 + 一行要点（永远看得到）+ 收起的详情。先读要点，要细节再点开 */
+.tl-key{
+  margin:0;font-size:var(--font-sub);line-height:1.65;color:var(--ink-soft);
+  text-wrap:pretty;overflow-wrap:anywhere;font-variant-numeric:tabular-nums;
+}
+.tl-key .kw{color:var(--shu);font-weight:600;}
+/* 一条要点不从中间断行：换行只发生在「·」之间 */
+.tl-key .f{display:inline-block;}
+.tl-key .sep{color:var(--ink-faint);}
+.tl-more{margin-top:2px;}
+.tl-more>summary{
+  display:inline-flex;align-items:center;gap:6px;min-height:44px;cursor:pointer;list-style:none;
+  font-size:var(--font-xs);font-weight:700;color:var(--ai);-webkit-tap-highlight-color:transparent;
+}
+.tl-more>summary::-webkit-details-marker{display:none;}
+.tl-more>summary::after{
+  content:"";width:.45em;height:.45em;border-right:2px solid;border-bottom:2px solid;
+  rotate:45deg;translate:0 -.15em;transition:rotate .15s var(--ease-out),translate .15s var(--ease-out);
+}
+.tl-more[open]>summary::after{rotate:225deg;translate:0 .15em;}
+.tl-more>summary:focus-visible{outline:2px solid var(--ai);outline-offset:2px;border-radius:4px;}
+.tl-more .tl-detail>ol,.tl-more .tl-detail>ul{margin-top:0;}
+.tl-more .tl-detail{padding-bottom:var(--space-xs);}
+.tl-item .food-card{margin-top:var(--space-sm);}
+@media (prefers-reduced-motion:reduce){.tl-more>summary::after{transition:none;}}
 
 .pill{display:inline-flex;align-items:center;gap:var(--space-2xs);font-size:var(--font-badge);padding:2px 8px;border-radius:var(--r-sm);background:var(--paper-2);border:0;color:var(--ink-soft);margin-top:var(--space-xs);font-weight:600;letter-spacing:0;}
 .must-tag{display:inline-block;font-size:var(--font-badge);padding:0;background:none;color:var(--shu);border:0;margin-top:var(--space-xs);font-weight:700;font-family:var(--font-sans);letter-spacing:0;}
@@ -1550,7 +1577,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
     <div class="note-box warn">
       <strong>🔴 住 SAWA 的四个连锁影响（行程已全部对应调整）：</strong>
       <span class="zh on">① <strong>不含早</strong> → 10/6 晚上务必先去 Ogino 买好隔天早餐，Day 5 是 04:30 出门（04:00 起床），清晨没有店开。<br/>
-      ② <strong>饭店本身没有免费接驳车</strong>（那是東横INN 的服务）→ 不租车的备案只能靠周游巴士＋站前步行。但 <strong>ゆらり 自己有河口湖站发车的免费接驳车</strong>（官网提前 1 小时预约），温泉这段无车也去得成。<br/>
+      ② <strong>饭店本身没有免费接驳车</strong>（那是東横INN 的服务）→ 已租车自驾（10/6 12:30 → 10/7 12:30），不受影响。<br/>
       ③ <strong>离湖 1.5km</strong> → 清晨看富士山一定要开车，走路到不了湖边。<br/>
       ④ <strong>退房时限 10:00（硬性）</strong> → Day 5 晨间环线预计 08:20–08:25 回到饭店，09:45 优雅退房，洗热水澡吃热食收行李充裕 75–80 分钟，从容无压力。</span>
     </div>
@@ -1759,7 +1786,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🏠</div>
           <div>
-            <div class="tl-time"><span class="tl-clock"><span class="t-start">17:30</span></span></div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">17:45</span></span></div>
             <div class="tl-main"><span class="zh on">入住 <a href="https://maps.google.com/?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%AB%9C%E6%B3%893-10-7+LUXURY+STAY+HOTEL" target="_blank" rel="noopener noreferrer">LUXURY STAY HOTEL 浅草竜泉店</a> 33号房 (Yoin TOKYO · 智能锁自助手续)</span><span class="en">Check-in LUXURY STAY HOTEL Asakusa Ryusen</span></div>
             <div class="tl-desc">
               <ol>
@@ -2122,16 +2149,16 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
             <div class="tl-main"><span class="zh on">银座线直达 5m · <a href="https://maps.google.com/?q=Nihombashi+Mitsukoshi+Main+Store" target="_blank" rel="noopener noreferrer">日本桥三越本店 (国指定重要文化财)</a> ★ ➔ <a href="https://maps.google.com/?q=COREDO+Muromachi" target="_blank" rel="noopener noreferrer">COREDO室町 (老铺高汤·福德神社)</a></span><span class="en">Nihombashi Mitsukoshi & COREDO Muromachi</span></div>
             <div class="tl-desc">
               <ol>
-                <li><strong>神速转场（地下全空调零日晒）</strong>：走出餐厅步行 3 分钟 (248m) 至上野广小路站（走 A1 出口旁垂直电梯直达 1 号站台），搭【银座线】直达仅 **3 站 5 分钟 (¥180)** 直抵【三越前站】(A4/A6出口地下通道直结三越与COREDO室町，推车轮椅无障碍)。</li>
-                <li><strong>日本桥三越本店 (13:00–14:15)</strong>：1673年开业的「日本第一家百货」（本馆被指定为<strong>国指定重要文化财</strong>）。欣赏 1~5 楼挑空中央大厅震撼的 11 米天女木雕像（まごころ像）与管风琴，乘坐大正时代复古手摇电梯，逛 B1 堪称艺术品级别的日本顶级食品街（Depachika），直达 RF「日本桥庭园」露天长椅晒太阳吹微风。</li>
-                <li><strong>COREDO 室町 1 & 2 · にんべん柴鱼高汤吧 & 福德神社 (14:15–15:30)</strong>：
+                <li><strong>神速转场（地下全空调零日晒）</strong>：走出餐厅步行 3 分钟 (248m) 至上野广小路站（走 A1 出口旁垂直电梯直达 1 号站台），搭【银座线】直达仅 <strong>3 站 5 分钟 (¥180)</strong> 直抵【三越前站】(A4/A6出口地下通道直结三越与COREDO室町，推车轮椅无障碍)。</li>
+                <li><strong>日本桥三越本店 (12:45–14:00)</strong>：1673年开业的「日本第一家百货」（本馆被指定为<strong>国指定重要文化财</strong>）。欣赏 1~5 楼挑空中央大厅震撼的 11 米天女木雕像（まごころ像）与管风琴，乘坐大正时代复古手摇电梯，逛 B1 堪称艺术品级别的日本顶级食品街（Depachika），直达 RF「日本桥庭园」露天长椅晒太阳吹微风。</li>
+                <li><strong>COREDO 室町 1 & 2 · にんべん柴鱼高汤吧 & 福德神社 (14:00–15:15)</strong>：
                   <ul>
-                    <li><strong>325年柴鱼老铺【にんべん (Ninben)】</strong>：在 1F「だし場」喝一杯现刨热柴鱼高汤（**仅 ¥100 起**），热腾腾暖胃驱寒，长辈赞不绝口！</li>
+                    <li><strong>325年柴鱼老铺【にんべん (Ninben)】</strong>：在 1F「だし場」喝一杯现刨热柴鱼高汤（<strong>仅 ¥100 起</strong>），热腾腾暖胃驱寒，长辈赞不绝口！</li>
                     <li><strong>参拜【福德神社 (芽吹神社)】</strong>：穿过都会竹林步道参拜千年古神社，祈求财运与健康长寿。</li>
                     <li><strong>匠人生活名店</strong>：逛 230 年【日本桥木屋】日本生活刀剪与金泽【箔座日本桥】金箔工艺。</li>
                   </ul>
                 </li>
-                <li><strong>COREDO 室町 3 茶房 或 室町 Terrace (15:30–16:30)</strong>：在【COREDO 室町 3】1F 享用【京菓匠 鹤屋吉信】现捏生菓子与热宇治煎茶下午茶（看职人现场现做，坐感舒适免盘腿），或在【COREDO 室町 Terrace】2F 逛【诚品生活日本桥】生活文创好物。</li>
+                <li><strong>COREDO 室町 3 茶房 或 室町 Terrace (15:15–16:15)</strong>：在【COREDO 室町 3】1F 享用【京菓匠 鹤屋吉信】现捏生菓子与热宇治煎茶下午茶（看职人现场现做，坐感舒适免盘腿），或在【COREDO 室町 Terrace】2F 逛【诚品生活日本桥】生活文创好物。</li>
               </ol>
               <span class="pill">银座线 5m · 地下直结 · 错开Day 7银座</span>
             </div>
@@ -2282,7 +2309,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
                   </div>
                   <div class="food-meta-item">
                     <span class="food-meta-label">💺 长辈贴士:</span>
-                    <span>滚烫素雅热汤面暖胃解乏；吃完 11:50 散步 2 分钟去车行取车！</span>
+                    <span>滚烫素雅热汤面暖胃解乏；12:00 吃完，12:10 散步 2 分钟到车行办手续，12:30 取车。</span>
                   </div>
                   <div class="food-meta-item">
                     <span class="food-meta-label">⚖️ 美食避重:</span>
@@ -2300,7 +2327,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🚗</div>
           <div>
-            <div class="tl-time"><span class="tl-clock"><span class="t-start">12:15</span><span class="t-sep">–</span><span class="t-end">21:00</span></span><span class="tl-tag">版本 A【租车】· 定案</span></div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">12:15</span><span class="t-sep">–</span><span class="t-end">21:00</span></span><span class="tl-tag">自驾</span></div>
             <div class="tl-main"><span class="zh on">12:15 提早办手续取车 → 忍野八海 → 大石公园落日 → <strong>SAWA check-in</strong> → 富士眺望之汤</span><span class="en">Car Version: Oshino, Oishi Sunset, Check-in & Yurari Onsen</span></div>
             <div class="tl-desc">
               <ol>
@@ -2308,7 +2335,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
                 <li><strong>12:45–13:10 【顺路打卡 · 富士山 Lawson 优雅平替】<a href="https://maps.google.com/?q=Lawson+Fujikawaguchiko+Town+Hall" target="_blank" rel="noopener noreferrer">ローソン 富士河口湖町役場前店</a></strong>：车程 <strong>约 1.5km（实测约 5 分钟）</strong>。<strong>千万不要去车站前店受罪</strong>（车站前店人挤人、保安吹哨驱赶、铁马阻隔且大马路极危险！）。这间町役场前店就在取车后开往忍野八海的必经大路上，<strong>自带超大专属免费停车场</strong>，车直接停在店门口划线车位，富士山同样端坐在蓝白招牌正上方！下车给妈妈买两瓶温热绿茶，从容悠闲拍张合照，用时 5 分钟搞定。</li>
                 <li><strong>13:30–14:30 <a href="https://maps.google.com/?q=Oshino+Hakkai" target="_blank" rel="noopener noreferrer">忍野八海</a></strong>（Lawson 13:10 出发，实测约 15.6km，<strong>车程约 21–25 分</strong> → 实际约 13:35 到）：走平坦木栈道（零台阶）看清澈涌泉游鱼；忍野屋等土产店消费满 ¥500 享免费停车，给妈妈买热草饼吃。</li>
                 <li><strong>14:30–15:30 【动态开关判定：山中湖全景台】</strong>：<br/>• <strong>若 14:30 前离开且天气极晴通透</strong>：顺路开往【山中湖全景台】短停 20 分钟，欣赏 9.1° 强逆光下照透的漫山金色芒草波浪（车位满或起云立刻撤）。⚠️ 全景台 ➔ 大石公园约 28km、<strong>49 分钟</strong>（比从忍野直达多约 20 分钟）。<br/>• <strong>若忍野八海逛得舒服不想赶，或山边起云</strong>：直接跳过，直奔大石公园。</li>
-                <li><strong>15:30/16:15–17:40 <a href="https://maps.google.com/?q=Oishi+Park+Kawaguchiko" target="_blank" rel="noopener noreferrer">大石公园</a></strong>（忍野直达约 30 分；绕全景台则约 49 分）：<strong>停专属免费停车场</strong>。**客观季节认知**：10 月初处于黄绿微带粉红的初变色过渡期，**重点赏 70°–80° 绝佳侧光下的夕照富士与湖光晚霞，不纠结火红扫帚草**。沿湖木长椅极多可坐着从容看完落日（10/6 富士河口湖町<strong>日入 17:24</strong>；⚠️ <strong>湖畔 17:00 后气温断崖骤降至 10–12°C 并伴冷风</strong>，取车后请将长辈防风外套/轻薄羽绒放在车内后座，下车看夕阳时直接披上防受寒）。</li>
+                <li><strong>15:30/16:15–17:40 <a href="https://maps.google.com/?q=Oishi+Park+Kawaguchiko" target="_blank" rel="noopener noreferrer">大石公园</a></strong>（忍野直达约 30 分；绕全景台则约 49 分）：<strong>停专属免费停车场</strong>。<strong>客观季节认知</strong>：10 月初处于黄绿微带粉红的初变色过渡期，<strong>重点赏 70°–80° 绝佳侧光下的夕照富士与湖光晚霞，不纠结火红扫帚草</strong>。沿湖木长椅极多可坐着从容看完落日（10/6 富士河口湖町<strong>日入 17:24</strong>；⚠️ <strong>湖畔 17:00 后气温断崖骤降至 10–12°C 并伴冷风</strong>，取车后请将长辈防风外套/轻薄羽绒放在车内后座，下车看夕阳时直接披上防受寒）。</li>
                 <li>🔴 <strong>18:00–18:15 回 SAWA 办入住（核心关键！）</strong>：大石公园经河口湖大桥开回 SAWA（实测 6.5km，<strong>车程仅 15 分钟</strong>）。<strong>停门前平地免费车位，先办 Check-in 拿房卡把随身背包放进房间</strong>，妈妈洗手喝热水歇息。彻底杜绝太晚入住被当成 no-show 的风险！</li>
                 <li>🔴 <strong>18:15–18:35 顺路超市采买（极度省心之策）</strong>：开车 4 分钟至大型超市【OGINO (オギノ)】（<strong>每日 09:00–21:00</strong>，已核实）。<strong>提前买好明天清晨 04:30 出门的加热饭团、三明治、热饮与水果放回房内</strong>！彻底排除晚上泡完汤超市打烊的后顾之忧。</li>
                 <li><strong>18:50–20:30 【弹性晚餐与温泉 · 三选一】</strong>：<strong>完全视长辈体力与意愿弹性决定</strong>：<br/>• <strong>A · 体力好且不排斥裸汤</strong>：去【富士眺望之汤 ゆらり (Yurari)】（车程 15 分，鸣泽村，<strong>周二营业至 21:00</strong>，已核实）泡露天温泉看富士星空，并在馆内食事処「ふじざくら」享用热腾腾和食晚餐。<br/>• <strong>B · 想泡热水但不想裸汤</strong>：18:15 在 Ogino 顺手买盒 ¥300–500 碳酸入浴剂（花王「バブ」／地球制药「温泡」），回房自制私家温泉。房内没浴缸就当买了个纪念品，回东京公寓泡（那边确定有缸）。<br/>• <strong>C · 想早歇息</strong>：就在房内享用 Ogino 超市精美便当、刺身与水果，早早洗漱泡脚。<br/>🔴 <strong>隔天 04:00 起床 —— 无论选哪个，20:30 前一定要回房。</strong></li>
@@ -2327,22 +2354,6 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
                 </span>
               </div>
               <span class="must-tag">★ 租车才看得到完整落日 + 泡得到ゆらり</span>
-            </div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-icon">🚏</div>
-          <div>
-            <div class="tl-time"><span class="tl-clock"><span class="t-start">13:30</span><span class="t-sep">–</span><span class="t-end">21:00</span></span><span class="tl-tag">版本 B【周游巴士】</span></div>
-            <div class="tl-main"><span class="zh on">忍野八海 → 大石公园斜阳 (提早撤) → 回饭店与晚餐</span><span class="en">Bus Version: Earlier Departure from Oishi Park</span></div>
-            <div class="tl-desc">
-              <ol>
-                <li><strong>13:30–15:00 忍野八海</strong>：搭周游巴士前往。</li>
-                <li><strong>15:30–16:30 大石公园</strong>：<strong>⚠️ 红线末班约 16:40 离开北岸</strong>，看斜阳与扫帚草即撤，<strong>等于丢掉 17:00–17:40 的红富士余晖</strong>。待到天光收尽红线已收班，北岸晚上叫车不易 — 天黑、10°C、湖边、带长辈。</li>
-                <li><strong>17:30 回饭店</strong>：🔴 <strong>SAWA 没有免费接驳车</strong>（那是東横INN 的服务），无车版本要从站前自行步行或叫车。SAWA 无公共大浴场，想泡温泉只能另去「ゆらり」；周游巴士到不了鸣沢村，但可改搭 <strong>ゆらり 河口湖站免费接驳车</strong>（提前 1 小时官网预约）。</li>
-                <li><strong>19:00 晚餐</strong>：饭店周边或河口湖站前（顺路在 Ogino 买好隔天早餐，<strong>SAWA 不含早</strong>），21:00 前早睡蓄力 (<strong>隔天 04:00 起床、04:30 出门</strong>)。</li>
-              </ol>
-              <span class="must-tag">⚠️ 出发前务必查 2026年10月红线时刻表 (fujikyubus.co.jp)</span>
             </div>
           </div>
         </div>
@@ -2379,9 +2390,8 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="b-row"><span>高速巴士往返车票 (2人 · 已含回程)</span><span>¥9,200</span></div>
         <div class="b-row"><span>馓子面午餐与忍野八海小吃</span><span>¥3,500</span></div>
         <div class="b-row"><span>SAWA Hotel 住宿 (Twin 21㎡ · 不含早)</span><span>约 ¥11,000 (RM 332)</span></div>
-        <div class="b-total"><span>小计 · 版本 B【巴士】另加周游巴士 2日券 ¥3,000</span><span class="b-total-val">约 ¥27,460</span></div>
-        <div class="b-row" style="margin-top:8px;"><span>版本 A【租车】compact 2 天 + 油 + 少量停车费</span><span>约 ¥15,000 – 18,000</span></div>
-        <div class="b-total"><span>小计 · 版本 A【租车，不需周游巴士券】</span><span class="b-total-val">约 ¥39,460 – 42,460</span></div>
+        <div class="b-row"><span>租车 24h (含 CDW+ECO 全险 · 油费算在 Day 5)</span><span>¥11,990</span></div>
+        <div class="b-total"><span>小计</span><span class="b-total-val">约 ¥36,450</span></div>
       </div>
     </div>
   </div>
@@ -2531,31 +2541,15 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
             <div class="tl-desc">
               <ol>
                 <li><strong>步行电子取号</strong>：步行约 5 分钟（350m）至站西侧【天妇罗 いだ天 (Idaten)】门口平板电子取号。</li>
-                <li><strong>隔壁 7-Eleven 补给</strong>：让妈妈在店门长椅稍坐，你走 1 分钟去隔壁 **7-Eleven（步行 1 分钟）** 快速买好车上喝的无糖绿茶与薄荷糖（**⚠️ 坚决不去排队 20 分钟的网红 Lawson**）。</li>
+                <li><strong>隔壁 7-Eleven 补给</strong>：让妈妈在店门长椅稍坐，你走 1 分钟去隔壁 <strong>7-Eleven（步行 1 分钟）</strong> 快速买好车上喝的无糖绿茶与薄荷糖（<strong>⚠️ 坚决不去排队 20 分钟的网红 Lawson</strong>）。</li>
                 <li><strong>吹冷气吃热食</strong>：叫号入座大桌卡座，享用热气腾腾现炸大虾天妇罗盖饭配热味噌汤，有冷气有大杯冰水，长辈肠胃极适。</li>
-                <li>🌟 <strong>核心特权（避开公厕排队）</strong>：**吃完从容使用餐厅内干净、无人排队的专用洗手间**，彻底避开河口湖车站内大排长龙的公厕！</li>
-                <li><strong>慢步登车</strong>：13:10 走出餐厅，散步 3 分钟横穿平坦广场，直接到达 **2号巴士月台**（平地 0 阶梯）。提早 10 分钟放包检票，<strong>13:30 准点发车回东京（车内大午睡 2 小时）</strong>。<br/>🔴 <strong>回程下车是「东京站日本橋口」，不是去程的八重洲南口</strong> — 走到丸之内红砖楼 426m／6 分，站内平路。</li>
+                <li>🌟 <strong>核心特权（避开公厕排队）</strong>：<strong>吃完从容使用餐厅内干净、无人排队的专用洗手间</strong>，彻底避开河口湖车站内大排长龙的公厕！</li>
+                <li><strong>慢步登车</strong>：13:10 走出餐厅，散步 3 分钟横穿平坦广场，直接到达 <strong>2号巴士月台</strong>（平地 0 阶梯）。提早 10 分钟放包检票，<strong>13:30 准点发车回东京（车内大午睡 2 小时）</strong>。<br/>🔴 <strong>回程下车是「东京站日本橋口」，不是去程的八重洲南口</strong> — 走到丸之内红砖楼 426m／6 分，站内平路。</li>
               </ol>
             </div>
           </div>
         </div>
 
-        <div class="tl-item">
-          <div class="tl-icon">🍱</div>
-          <div>
-            <div class="tl-time"><span class="tl-clock"><span class="t-start">07:30</span><span class="t-sep">–</span><span class="t-end">13:30</span></span><span class="tl-tag">版本 B【巴士】</span></div>
-            <div class="tl-main"><span class="zh on">Ogino 买的早餐 · 10:00 退房寄包 · 湖畔散步 & 午餐<a href="https://maps.google.com/?q=Fuji+Tempura+Idaten" target="_blank" rel="noopener noreferrer">天妇罗 Idaten</a></span><span class="en">Bus Version: Hotel Breakfast & Lake Stroll</span></div>
-            <div class="tl-desc">
-              <ol>
-                <li><strong>退房寄包</strong>：10:00 前办理退房，<strong>背包直接寄河口湖站置物柜</strong>（SAWA 无接驳，别寄前台）。</li>
-                <li><strong>湖畔散步与采买</strong>：漫步 <a href="https://maps.google.com/?q=Kawaguchiko+Southern+Shore" target="_blank" rel="noopener noreferrer">南岸步道 (Google 4.4★)</a>，买 <a href="https://maps.google.com/?q=Fujiyama+Cookie" target="_blank" rel="noopener noreferrer">Fujiyama Cookie 饼干 (Google 4.3★)</a>。</li>
-                <li><strong>午餐推荐</strong>：12:15 抵 <a href="https://maps.google.com/?q=Fuji+Tempura+Idaten" target="_blank" rel="noopener noreferrer">天妇罗 Idaten (Google 4.3★)</a> 享用现炸炸虾天妇罗盖饭。</li>
-                <li>🔴 <strong>取回行李</strong>：<strong>SAWA 没有接驳车</strong> — 无车版本请在 10:00 退房时就把背包<strong>寄存在河口湖站的置物柜</strong>，别放回饭店，否则午餐后还要来回跑一趟。</li>
-                <li><em>山中湖巴士班次稀疏且需转车，无车版本不建议排入。</em></li>
-              </ol>
-            </div>
-          </div>
-        </div>
         <div class="tl-item">
           <div class="tl-icon">🚌</div>
           <div>
@@ -2701,13 +2695,13 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
       <svg class="chev" id="chev-day-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="day-body" id="body-day-6">
-      <div class="note-box tip" style="margin-bottom:14px;">
-        <strong>📊 体力节奏决策：</strong>
-        <span>Day 6 是全行程唯一的步数高光峰值，已用「07:35 错峰早起 ＋ 一路顺向南下 ＋ 13:30–15:00 歌舞伎町Tower 室内歇脚 ＋ 15:20 双层巴士坐定 60 分钟」把长辈负担压到最低，前后两天均为低强度回血。<a href="charts/pacing-curve.html" target="_blank">查看「10天行程强度与避峰节奏曲线」</a></span>
+      <div class="note-box tip" style="margin-bottom:10px;">
+        <strong>今天走得最多</strong>
+        <span>中午在歌舞伎町 Tower 坐 90 分钟，下午巴士坐 60 分钟；前后两天都轻松。<a href="charts/pacing-curve.html" target="_blank">看 10 天强度曲线</a></span>
       </div>
       <div class="note-box warn" style="margin-bottom:14px;">
-        <strong>☔ 本日唯一未决项：</strong>
-        <span>开顶双层巴士与涩谷SKY 露天平台（Sky Stage）<strong>遇雨或强风都会关闭</strong>，全天最核心的一段目前没有雨天 fallback。出发前一晚看天气，若确定下雨请改走下方 B Plan（Hikarie 11F 免费室内高空 或 惠比寿花园 38F）。</span>
+        <strong>下雨也照走</strong>
+        <span>巴士关顶照开，SKY 室内照开。<a href="#day6-rain" data-jump>看「下雨怎么办」</a></span>
       </div>
       <div class="day-banner-wrap">
         <img src="img/shibuya.jpg" class="day-banner" alt="涩谷城市天际线" loading="lazy" decoding="async"/>
@@ -2716,271 +2710,245 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🚇</div>
           <div>
-            <div class="tl-time"><span class="tl-clock"><span class="t-start">07:35</span><span class="t-sep">–</span><span class="t-end">08:25</span></span><span class="tl-tag">错峰早起</span></div>
-            <div class="tl-main"><span class="zh on">公寓出发 ➔ <a href="https://maps.google.com/?q=Meiji-jingumae+Station" target="_blank" rel="noopener noreferrer">明治神宫前站</a> 2 号出口（电梯直达地面）</span><span class="en">Depart 07:35 → Meiji-jingumae Exit 2 (Elevator)</span></div>
-            <div class="tl-desc">
-              <ol>
-                <li><strong>全程电梯动线（实查约 44 分钟：例 07:51 三ノ輪发 ➔ 08:35 到，要 08:25 到就提早一班）</strong>：三ノ輪站搭【日比谷线】至<strong>日比谷站</strong>，站内换乘【千代田线】直达【明治神宮前站】。</li>
-                <li><strong>⭐ 神级出口走 2 号出口</strong>：配备直达电梯，一出地面脚下即是神宫桥与南参道大鸟居门口，<strong>步行仅 50 米（1 分钟）</strong>。</li>
-                              </ol>
-              <span class="pill">07:35 错峰 · 2号出口电梯 · 出站50米即大鸟居</span>
-            </div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">07:35</span><span class="t-sep">–</span><span class="t-end">08:25</span></span><span class="tl-tag">出发</span></div>
+            <div class="tl-main"><span class="zh on">公寓 ➔ <a href="https://maps.google.com/?q=Meiji-jingumae+Station" target="_blank" rel="noopener noreferrer">明治神宫前站</a> 2 号出口</span><span class="en">Depart 07:35 → Meiji-jingumae Exit 2 (Elevator)</span></div>
+            <p class="tl-key"><span class="f">日比谷线 ➔ 日比谷站换千代田线<span class="sep"> ·</span></span> <span class="f">约 43 分钟<span class="sep"> ·</span></span> <span class="f">2 号出口有电梯，出站 50 米就是大鸟居</span></p>
+            <details class="tl-more">
+              <summary>详情 · 2 条</summary>
+              <div class="tl-detail">
+                <ol>
+                  <li>三ノ輪站搭日比谷线到日比谷站，站内换千代田线，直达明治神宮前站，全程有电梯。实查（2026-10-08 Yahoo 乗換）：<strong>07:45 三ノ輪发 ➔ 08:28 到</strong>，43 分钟，¥252。</li>
+                  <li>2 号出口有直达电梯，出地面就是神宫桥和南参道大鸟居，步行 50 米（1 分钟）。</li>
+                </ol>
+              </div>
+            </details>
           </div>
         </div>
         <div class="tl-item">
           <div class="tl-icon">🌲</div>
           <div>
-            <div class="tl-time"><span class="tl-clock"><span class="t-start">08:25</span><span class="t-sep">–</span><span class="t-end">09:45</span></span><span class="tl-tag">晨光大森林</span></div>
-            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Meiji+Jingu" target="_blank" rel="noopener noreferrer">明治神宫</a> 巨木森林祈福（门票免费）★</span><span class="en">Meiji Jingu Sacred Forest (Free)</span></div>
-            <div class="tl-desc">
-              <ol>
-                <li><strong>全天最美时刻</strong>：单程穿行仅 <strong>852 米（平缓慢走约 12 分钟）</strong>。清晨 8 点半没有旅行团，晨光穿透参天古树，空气极甜。</li>
-                <li><strong>沿途合影（完全没有路人背景）</strong>：<strong>日本最大木造大鸟居</strong>（台湾千年扁柏）与壮观的<strong>清酒樽墙</strong>、法国葡萄酒桶。</li>
-                <li><strong>08:55 抵主殿大院 ➔ 09:00「神札・御守授与所」准点开门</strong>：成为第一批买到长寿守、开运木守与写祈愿绘马的人，<strong>完全不用排队</strong>。</li>
-                <li><strong>为妈妈祈福</strong>：摸两棵注连绳相连的<strong>「夫妇楠」神树</strong>，求全家安康长寿。</li>
-                <li><strong>路况与备援</strong>：南参道两侧全程铺有 <strong>1.5–2 米宽平整石板无障碍带</strong>，靠边走不伤膝；南鸟居旁警卫室（衛士舎）提供<strong>免费手推轮椅（无需预约）</strong>；参道中段 <strong>FOREST TERRACE</strong> 有冷气软椅、热茶与干净洗手间。</li>
-                <li>⚠️ <strong>参拜完沿南参道原路走回神宫桥</strong>（约 850m，12–15 分钟，09:30 起步）—— 西参道出口在代代木／参宫桥那一侧，离明治神宫前站约 1.3km，接不上下一程。</li>
-              </ol>
-              <span class="pill">08:25无人时段 · 09:00授与所首批 · 免费轮椅 · 走石板不伤膝</span>
-            </div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">08:25</span><span class="t-sep">–</span><span class="t-end">09:45</span></span><span class="tl-tag">神宫 · 免费</span></div>
+            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Meiji+Jingu" target="_blank" rel="noopener noreferrer">明治神宫</a> 森林参道 ★</span><span class="en">Meiji Jingu Sacred Forest (Free)</span></div>
+            <p class="tl-key"><span class="f">单程 852 米，慢走约 12 分钟<span class="sep"> ·</span></span> <span class="f">09:00 授与所开门，先买御守<span class="sep"> ·</span></span> <span class="f">有免费轮椅<span class="sep"> ·</span></span> <span class="f"><span class="kw">原路走回神宫桥</span></span></p>
+            <details class="tl-more">
+              <summary>详情 · 6 条</summary>
+              <div class="tl-detail">
+                <ol>
+                  <li>08:30 前后没有旅行团，是一天里人最少、光线最好的时候。</li>
+                  <li>沿途拍照：日本最大的木造大鸟居（台湾千年扁柏）、清酒樽墙、法国葡萄酒桶。</li>
+                  <li>08:55 到主殿，09:00「神札・御守授与所」开门：长寿守、开运木守、绘马，第一批买不用排队。</li>
+                  <li>夫妇楠：两棵用注连绳相连的神树，为妈妈祈福。</li>
+                  <li>路况：南参道两侧有 1.5–2 米宽的平整石板带，靠边走不伤膝。南鸟居旁警卫室（衛士舎）<strong>免费借轮椅，不用预约</strong>。参道中段 FOREST TERRACE 有冷气座位、热茶和洗手间。</li>
+                  <li>09:30 起沿南参道原路走回神宫桥（约 850 米，12–15 分钟）。<strong>别走西参道</strong>：出口在代代木／参宫桥那侧，离明治神宫前站约 1.3 km，接不上下一站。</li>
+                </ol>
+              </div>
+            </details>
           </div>
         </div>
         <div class="tl-item">
           <div class="tl-icon">☕</div>
           <div>
-            <div class="tl-time"><span class="tl-clock"><span class="t-start">09:45</span><span class="t-sep">–</span><span class="t-end">11:30</span></span><span class="tl-tag">核心圆梦</span></div>
-            <div class="tl-main"><span class="zh on">千代田线 1 站跳关 ➔ <a href="https://maps.google.com/?q=Blue+Bottle+Coffee+Aoyama" target="_blank" rel="noopener noreferrer">Blue Bottle Coffee 青山店</a> 2F 绿荫露台 ★</span><span class="en">Blue Bottle Aoyama Terrace (90 min)</span></div>
-            <div class="tl-desc">
-              <ol>
-                <li><strong>地铁 1 站直达（2 分钟 · ¥178/人）</strong>：【明治神宮前站】搭千代田线 1 站至【表参道站】。⭐️ <strong>关键避坑：务必走【B3 出口】！</strong> B3 配有大型升降电梯直达地面（<strong>A4 只有长楼梯、没有电梯</strong>），出站过小马路平路 <strong>150 米（2 分钟）</strong>直达蓝瓶楼下。</li>
-                <li><strong>神仙包场时段（营业 08:00–19:00）</strong>：10:00 是青山店最清幽的时刻，完全避开下午 13:00–14:00 的排队人潮。挑面向绿意树冠的 <strong>2F 露天大阳台木椅</strong>（有电梯直达 2 楼），点两杯手冲拿铁与现烤热华夫饼，坐足 <strong>90 分钟</strong>。</li>
-                <li><strong>🛍️ 现场买杯子（拒绝淘宝假货）</strong>：经典【<strong>清澄白河马克杯 Kiyosumi Mug</strong>】含税 <strong>¥2,750（约 RM 72，现场正品保真）</strong>；淘宝 30–80 元高仿有重金属与劣质釉面隐患，天猫官方旗舰店溢价至 ¥198 且转运槟城易碎。<em>（街边独立 Cafe 无法退税，税金仅约 RM 7.7。）</em></li>
-                <li><strong>⚠️ 店铺辨析（切勿跑错）</strong>：本站为正牌蓝瓶青山独立 Cafe（南青山 3-13-14 2F），整层挑高、80+ 宽敞软座与大露台。切勿与神宫前 2 丁目潮牌店内的「HUMAN MADE Cafe by Blue Bottle」混淆（几乎全为立饮吧台、全店仅 1 张小桌且无华夫饼）。</li>
-              </ol>
-              <span class="pill">B3出口才有电梯 · 上午包场 · 2F绿荫露台90分钟 · 正版马克杯¥2,750</span>
-            </div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">09:45</span><span class="t-sep">–</span><span class="t-end">11:30</span></span><span class="tl-tag">咖啡 · 坐 90 分钟</span></div>
+            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Blue+Bottle+Coffee+Aoyama" target="_blank" rel="noopener noreferrer">Blue Bottle Coffee 青山店</a> 2F 露台 ★</span><span class="en">Blue Bottle Aoyama Terrace (90 min)</span></div>
+            <p class="tl-key"><span class="f">千代田线 1 站到表参道（¥178/人）<span class="sep"> ·</span></span> <span class="f"><span class="kw">走 B3 出口，A4 没有电梯</span><span class="sep"> ·</span></span> <span class="f">出站 150 米</span></p>
+            <details class="tl-more">
+              <summary>详情 · 4 条</summary>
+              <div class="tl-detail">
+                <ol>
+                  <li>明治神宮前站搭千代田线 1 站到表参道站，约 2 分钟。B3 出口有大电梯直达地面（<strong>A4 只有长楼梯</strong>），出站过小马路，平路 150 米（2 分钟）到店楼下。</li>
+                  <li>营业 08:00–19:00。10:00 人最少，13:00–14:00 要排队。坐 2F 露天阳台（有电梯上 2 楼），点手冲拿铁和现烤华夫饼。</li>
+                  <li>马克杯：清澄白河 Kiyosumi Mug 含税 <strong>¥2,750</strong>（约 RM 72），现场买是正品。淘宝 30–80 元的仿品釉面有隐患；天猫旗舰店要 ¥198，运回槟城还容易碎。独立 Cafe 不能退税（税金约 RM 7.7）。</li>
+                  <li>别走错店：这家在南青山 3-13-14 2F，挑高、80 多个软座、大露台。神宫前 2 丁目的「HUMAN MADE Cafe by Blue Bottle」几乎只有立饮吧台，全店 1 张小桌，没有华夫饼。</li>
+                </ol>
+              </div>
+            </details>
           </div>
         </div>
         <div class="tl-item">
           <div class="tl-icon">🍱</div>
           <div>
-            <div class="tl-time"><span class="tl-clock"><span class="t-start">11:30</span><span class="t-sep">–</span><span class="t-end">12:45</span></span><span class="tl-tag">午餐 ➔ 建筑漫步</span></div>
-            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Aoyama+Kawakamian" target="_blank" rel="noopener noreferrer">青山 川上庵</a> 手打荞麦 ➔ <a href="https://maps.google.com/?q=Omotesando+Hills" target="_blank" rel="noopener noreferrer">表参道之丘</a>（安藤忠雄 · 螺旋坡道 0 台阶）</span><span class="en">Kawakami-an Soba Lunch ➔ Omotesando Hills</span></div>
-            <div class="tl-desc">
-              <ol>
-                <li><strong>顺序：先在蓝瓶旁边吃川上庵，再走去表参道之丘</strong>（不走回头路）。<strong>平路约 600 米（Google Maps 实测步行 8 分钟）</strong>：饭后出店沿青山通り往西北 <strong>145 m</strong>，在表参道交叉口右转，再沿表参道缓降 <strong>435 m</strong> 即达。</li>
-                <li><strong>📐 坡度已实测</strong>（2026-09-14 · Google Elevation API）：蓝瓶青山店 <strong>38.02 m</strong> → 表参道之丘 <strong>34.37 m</strong>，<strong>净降 3.65 m / 460 m ＝ 平均 −0.8%，是缓降不是上坡</strong>。唯一注意：出蓝瓶接上表参道交叉口那约 90 米有一小段 +4~5% 的短上坡（约 +4 m），之后一路缓降。</li>
-                <li><strong>结构对长辈极友好</strong>：安藤忠雄设计，内部是<strong>一整条连续螺旋坡道、全程 0 台阶</strong>（日文评论原话：「因为没有高低差，完全不会累」）。全室内冷气，无障碍出入口・无障碍厕所齐备。营业 <strong>11:00–20:00（每天无休）</strong>，Google 4.0★ / 8,525 则。</li>
-                <li><strong>🍱 午餐：【青山 川上庵】（Google 4.2★ · 1,275 则）</strong>——轻井泽发祥的手打荞麦名店，就在蓝瓶旁边（<strong>南青山 3-14-1</strong>），出蓝瓶直接进店，<strong>11:30 入座</strong>！挑高宽敞、舒适大沙发卡座。招牌<strong>大尾头等炸虾天妇罗荞麦（天せいろ）</strong>或温润<strong>鸭肉南蛮热汤面</strong>，长辈肠胃牙口极适，人均 <strong>¥1,800–2,500</strong>，<strong>11:00 开门免排队</strong>。</li>
-                <li><strong>👩‍🦳 分工建议</strong>：妈妈无购物兴趣——之丘这一站主要是给你的。妈妈在坡道旁座位区吹冷气、用洗手间、看安藤清水混凝土中庭；你自己逛，两边都不必将就。</li>
-                <li><strong>沿途顺看大师建筑外观</strong>：妹岛和世 SANAA【Dior 表参道】、伊东丰雄【Tod's】、赫尔佐格与德梅隆【Prada 水晶菱形大楼】。</li>
-              </ol>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">11:30</span><span class="t-sep">–</span><span class="t-end">12:45</span></span><span class="tl-tag">午餐 · 散步</span></div>
+            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Aoyama+Kawakamian" target="_blank" rel="noopener noreferrer">青山 川上庵</a> 手打荞麦 ➔ <a href="https://maps.google.com/?q=Omotesando+Hills" target="_blank" rel="noopener noreferrer">表参道之丘</a></span><span class="en">Kawakami-an Soba Lunch ➔ Omotesando Hills</span></div>
+            <p class="tl-key"><span class="f">川上庵在蓝瓶隔壁，11:30 入座<span class="sep"> ·</span></span> <span class="f">饭后平路约 600 米（8 分钟）到表参道之丘<span class="sep"> ·</span></span> <span class="f">馆内螺旋坡道，0 台阶</span></p>
+            <details class="tl-more">
+              <summary>详情 · 6 条</summary>
+              <div class="tl-detail">
+                <ol>
+                  <li>先吃川上庵，再去表参道之丘，不走回头路。路线：出店沿青山通り往西北 145 m，在表参道交叉口右转，沿表参道缓降 435 m。</li>
+                  <li>坡度实测（2026-09-14 · Google Elevation API）：蓝瓶 38.02 m ➔ 表参道之丘 34.37 m，平均 −0.8%，是缓降。只有出蓝瓶到表参道交叉口那约 90 米有一小段 +4~5% 的上坡（约 +4 m）。</li>
+                  <li>表参道之丘：安藤忠雄设计，一整条螺旋坡道，全程 0 台阶。全室内冷气，有无障碍出入口和无障碍厕所。营业 11:00–20:00，每天开。Google 4.0★（8,525 则）。</li>
+                  <li>川上庵（南青山 3-14-1 · Google 4.2★ · 1,275 则）：轻井泽发祥的手打荞麦。点天せいろ（大尾炸虾天妇罗荞麦）或鸭肉南蛮热汤面，人均 <strong>¥1,800–2,500</strong>。11:00 开门，不用排。店内挑高，有沙发卡座。</li>
+                  <li>分工：妈妈对购物没兴趣。她在坡道旁的座位区吹冷气、用洗手间、看清水混凝土中庭，你自己逛。</li>
+                  <li>顺路看建筑外观：SANAA 的 Dior 表参道、伊东丰雄的 Tod's、赫尔佐格与德梅隆的 Prada 水晶大楼。</li>
+                </ol>
+              </div>
+            </details>
 
-              <!-- Food Card: Aoyama Kawakami-an -->
-              <div class="food-card">
-                <div class="food-card-head">
-                  <div class="food-card-title">🍜 青山 川上庵 (轻井泽发祥 手打荞麦名店)</div>
-                  <div class="food-card-rating">⭐ 4.2 (1,275 则评价) · 蓝瓶旁边 · 11:00 开门免排队</div>
+            <!-- Food Card: Aoyama Kawakami-an -->
+            <div class="food-card">
+              <div class="food-card-head">
+                <div class="food-card-title">🍜 青山 川上庵 (轻井泽发祥 手打荞麦名店)</div>
+                <div class="food-card-rating">⭐ 4.2 (1,275 则评价) · 蓝瓶旁边 · 11:00 开门免排队</div>
+              </div>
+              <div class="food-meta-list">
+                <div class="food-meta-item">
+                  <span class="food-meta-label">🏷️ 必点招牌:</span>
+                  <span>天せいろ 大尾头等炸虾天妇罗荞麦 · 鸭肉南蛮热汤面 (人均 ¥1,800–2,500)</span>
                 </div>
-                <div class="food-meta-list">
-                  <div class="food-meta-item">
-                    <span class="food-meta-label">🏷️ 必点招牌:</span>
-                    <span>天せいろ 大尾头等炸虾天妇罗荞麦 · 鸭肉南蛮热汤面 (人均 ¥1,800–2,500)</span>
-                  </div>
-                  <div class="food-meta-item">
-                    <span class="food-meta-label">💺 长辈贴士:</span>
-                    <span>挑高宽敞 · 舒适大沙发卡座 · 荞麦软好嚼 · 热汤面暖胃</span>
-                  </div>
-                  <div class="food-meta-item">
-                    <span class="food-meta-label">🔄 就近备选:</span>
-                    <span>表参道之丘馆内餐厅 (0 米额外步行) · 神宫内 FOREST TERRACE 天妇罗荞麦御膳</span>
-                  </div>
+                <div class="food-meta-item">
+                  <span class="food-meta-label">💺 长辈贴士:</span>
+                  <span>挑高宽敞 · 舒适大沙发卡座 · 荞麦软好嚼 · 热汤面暖胃</span>
                 </div>
-                <div class="food-card-actions">
-                  <a href="https://maps.google.com/?q=Aoyama+Kawakamian" target="_blank" rel="noopener noreferrer" class="food-btn">📍 Google Maps 导航</a>
-                  <button type="button" onclick="openFoodDrawer('kawakamian')" class="food-btn primary">📋 点餐指路卡 (出示给店员)</button>
+                <div class="food-meta-item">
+                  <span class="food-meta-label">🔄 就近备选:</span>
+                  <span>表参道之丘馆内餐厅 (0 米额外步行) · 神宫内 FOREST TERRACE 天妇罗荞麦御膳</span>
                 </div>
               </div>
-
-              <span class="pill">先吃川上庵 · 实测约600m缓降 · 螺旋坡道0台阶</span>
+              <div class="food-card-actions">
+                <a href="https://maps.google.com/?q=Aoyama+Kawakamian" target="_blank" rel="noopener noreferrer" class="food-btn">📍 Google Maps 导航</a>
+                <button type="button" onclick="openFoodDrawer('kawakamian')" class="food-btn primary">📋 点餐指路卡 (出示给店员)</button>
+              </div>
             </div>
           </div>
         </div>
         <div class="tl-item">
           <div class="tl-icon">🛋️</div>
           <div>
-            <div class="tl-time"><span class="tl-clock"><span class="t-start">13:00</span><span class="t-sep">–</span><span class="t-end">15:00</span></span><span class="tl-tag">室内深度歇脚</span></div>
-            <div class="tl-main"><span class="zh on">明治神宮前站 副都心线 2 站 ➔ <a href="https://maps.google.com/?q=Tokyu+Kabukicho+Tower" target="_blank" rel="noopener noreferrer">新宿东急歌舞伎町 Tower</a> 大堂充电 90 分钟</span><span class="en">Tokyu Kabukicho Tower — 90 min Indoor Rest</span></div>
-            <div class="tl-desc">
-              <ol>
-                <li><strong>转场（约 20 分钟 · ¥178/人）</strong>：从表参道之丘走到【明治神宮前站】（离表参道之丘最近），搭【副都心线】<strong>2 站</strong>直达【新宿三丁目站】，走 <strong>E1 出口</strong>步行约 570 米（8 分钟，要过靖国通り）直达大楼大堂。⚠️ 表参道站没有副都心线。</li>
-                <li><strong>留足 90 分钟从容缓冲，彻底杜绝赶车惊慌</strong>：24 小时开放的新地标大楼，室内冷气强劲。在大堂舒适沙发上坐着喝水歇脚、给手机充电、使用干净豪华的洗手间。</li>
-                <li><strong>15:10 到 1F 巴士站台候车</strong>。⚠️ <strong>兑换券是上车时由工作人员发给你的，不是上车前到柜台领</strong>——15:10 到站台只是候车，带好预订确认信/QR 即可。上车选二楼<strong>【左侧观景位】</strong>。</li>
-              </ol>
-              <span class="pill">90分钟室内冷气充电 · 15:10站台候车 · 券在车上发</span>
-            </div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">13:00</span><span class="t-sep">–</span><span class="t-end">15:00</span></span><span class="tl-tag">室内歇脚 · 90 分钟</span></div>
+            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Tokyu+Kabukicho+Tower" target="_blank" rel="noopener noreferrer">新宿东急歌舞伎町 Tower</a> 大堂</span><span class="en">Tokyu Kabukicho Tower — 90 min Indoor Rest</span></div>
+            <p class="tl-key"><span class="f">副都心线 2 站到新宿三丁目（约 20 分钟 · ¥178/人）<span class="sep"> ·</span></span> <span class="f">E1 出口走 570 米<span class="sep"> ·</span></span> <span class="f"><span class="kw">15:10 到 1F 巴士站台</span></span></p>
+            <details class="tl-more">
+              <summary>详情 · 3 条</summary>
+              <div class="tl-detail">
+                <ol>
+                  <li>从表参道之丘走到明治神宮前站（最近的站），搭副都心线 2 站到新宿三丁目站，E1 出口步行约 570 米（8 分钟，要过靖国通り）。<strong>表参道站没有副都心线。</strong></li>
+                  <li>大楼 24 小时开放，冷气足。在大堂沙发坐着喝水、给手机充电、用洗手间。留 90 分钟，就不用赶车。</li>
+                  <li>15:10 到 1F 巴士站台候车，带好预订确认信／QR。<strong>SKY 兑换券上车时由工作人员发</strong>，不用先去柜台领。上车选二楼左侧座位。</li>
+                </ol>
+              </div>
+            </details>
           </div>
         </div>
         <div class="tl-item">
           <div class="tl-icon">🚌</div>
           <div>
-            <div class="tl-time"><span class="tl-clock"><span class="t-start">15:20</span><span class="t-sep">–</span><span class="t-end">16:20</span></span><span class="tl-tag">长辈坐定充电黄金期</span></div>
-            <div class="tl-main"><span class="zh on">🚌 <a href="https://maps.google.com/?q=Tokyu+Kabukicho+Tower" target="_blank" rel="noopener noreferrer">SHIBUYA STREET RIDE</a> 露天开顶双层观光巴士（60 分钟 · 含在套票内）</span><span class="en">SHIBUYA STREET RIDE Open-Top Bus (60 min)</span></div>
-            <div class="tl-desc">
-              <ol>
-                <li><strong>妈妈整整 1 小时不用走一步路，双腿充满电</strong>：坐在双层开顶敞篷吹初秋凉风，高空穿过新宿、表参道、代代木竞技场，居高临下俯瞰<strong>涩谷十字路口震撼人流</strong>。</li>
-                <li>✅ <strong>已订妥（2026-09-15）：10/8 15:20 班次「SHIBUYA SKY セット券」</strong>（每班仅 10 席，一天只有 09:40 与 15:20 两班）。带好东急巴士的预订确认信／QR。</li>
-                <li>🔴 <strong>套票的代价（必读）</strong>：套票附的 SKY 券是<strong>自由入场券，不是指定时段票</strong>（当天 10:00–21:20 最终入场随时进）。日落是全天最挤的时段，<strong>16:35 到 14F 换票时可能被分到较晚的入场时段</strong>——应对方法写在下一站。</li>
-                <li><strong>☔ 遇雨</strong>：开顶巴士雨天／强风停驶，直接跳到本日 B Plan。</li>
-              </ol>
-              <span class="must-tag">★ 每班仅10席 · 东急巴士官网订 · 券上车才发</span>
-            </div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">15:20</span><span class="t-sep">–</span><span class="t-end">16:20</span></span><span class="tl-tag">巴士 · 坐 60 分钟</span></div>
+            <div class="tl-main"><span class="zh on">🚌 <a href="https://maps.google.com/?q=Tokyu+Kabukicho+Tower" target="_blank" rel="noopener noreferrer">SHIBUYA STREET RIDE</a> 开顶双层巴士</span><span class="en">SHIBUYA STREET RIDE Open-Top Bus (60 min)</span></div>
+            <p class="tl-key"><span class="f">已订 10/8 15:20 班<span class="sep"> ·</span></span> <span class="f">带东急巴士确认信／QR<span class="sep"> ·</span></span> <span class="f"><span class="kw">SKY 券上车才发</span></span></p>
+            <details class="tl-more">
+              <summary>详情 · 4 条</summary>
+              <div class="tl-detail">
+                <ol>
+                  <li>妈妈 60 分钟坐着不用走：经过新宿、表参道、代代木竞技场，从高处看涩谷十字路口。</li>
+                  <li>已订妥（2026-09-15）：「SHIBUYA SKY セット券」，巴士和 SKY 入场券一起。每班只有 10 席，一天只有 09:40、15:20 两班。</li>
+                  <li>套票附的 SKY 券是<strong>自由入场券，不是指定时段票</strong>（当天 10:00–21:20 最终入场前都能进）。日落最挤，16:35 到 14F 换票时可能分到较晚的时段，应对见下一站。</li>
+                  <li>下雨：巴士关顶照开，免费发雨具；只有荒天才停。见下方「下雨怎么办」。</li>
+                </ol>
+              </div>
+            </details>
           </div>
         </div>
         <div class="tl-item">
           <div class="tl-icon">🌅</div>
           <div>
-            <div class="tl-time"><span class="tl-clock"><span class="t-start">16:35</span><span class="t-sep">–</span><span class="t-end">18:00</span></span><span class="tl-tag">封神时刻（换票 ➔ 登顶）</span></div>
-            <div class="tl-main"><span class="zh on">Fukuras 下车 ➔ 平路 462m ➔ <a href="https://maps.google.com/?q=Shibuya+Sky" target="_blank" rel="noopener noreferrer">SHIBUYA SKY</a> 落日夕阳 ＋ 百万夜景 ★（10/8 日落 17:16）</span><span class="en">Shibuya SKY Sunset & Night View (Sunset 17:16)</span></div>
-            <div class="tl-desc">
-              <ol>
-                <li><strong>16:20–16:35 转场</strong>：从涩谷 Fukuras 下车，走连通天桥／地下通道<strong>平路 462 米</strong>直达对面的 Shibuya Scramble Square，乘大电梯直上 <strong>14 楼售票柜台</strong>凭券入场。</li>
-                <li><strong>🎫 票务已定案</strong>：<strong>✅ 走巴士套票，10/8 15:20 班次已订妥</strong>。~~路线二（9/23 23:00 抢指定时段票）已作废~~ —— <strong>抢票闹钟请取消，再买会重复付 SKY 的钱</strong>。</li>
-                <li>🔴 <strong>自由入场券的应对（本日唯一真实风险）</strong>：16:35 到 <strong>14F 柜台</strong>换票，日落最挤，<strong>可能被分到较晚时段</strong>。
-                  <ul>
-                    <li><strong>✅ 拿到 17:00 前入场</strong> ➔ 照下面的原计划走。</li>
-                    <li><strong>✅ 被分到 17:30 之后</strong> ➔ <strong>不慌，先去しんぱち食堂吃晚餐</strong>（本来就排在 18:10，提前吃就好），<strong>18:30 再上去看纯夜景</strong>——那时人潮已散，露台反而更从容。⚠️ <strong>巴士 16:20 就下车，日落 17:16，车上看不到夕阳</strong> —— 被分到晚场 ＝ 这天只有夜景、没有夕阳，心里先有数。</li>
-                  </ul>
-                </li>
-                <li><strong>防风与寄物</strong>：给妈妈披上防风薄外套；<strong>46 楼寄放背包</strong>（备 100 日元硬币，退币式）。露天平台<strong>严禁携带包包、雨伞、帽子、围巾</strong>；<strong>相机必须有手绳／挂绳</strong>，无绳禁止上顶楼。</li>
-                <li><strong>避人潮神技</strong>：<strong>16:45–17:20</strong> 先在 46 楼室内全景落地窗长椅坐着看<strong>夕阳西下染红富士山剪影</strong>；<strong>17:30</strong> 天黑人潮散去，再踏上露天玻璃停机坪（Sky Stage），躺在草坪看全东京<strong>璀璨百万夜景与脚下流动的十字路口</strong>。</li>
-                <li><strong>保暖</strong>：229 米高空日落体感仅 12–14°C 且风大，妈妈请穿<strong>带兜帽的防风夹克／薄羽绒</strong>（帽子不能戴，但连体风帽可御寒）；起风即回 46F 室内 Sky Gallery 靠窗软沙发。</li>
-              </ol>
-              <span class="must-tag">★ 套票已订 · 自由入场券可能被排到较晚 → 就先吃饭 18:30 再上 · 穿带帽防风外套</span>
-            </div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">16:35</span><span class="t-sep">–</span><span class="t-end">18:00</span></span><span class="tl-tag">日落 · 夜景</span></div>
+            <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Shibuya+Sky" target="_blank" rel="noopener noreferrer">SHIBUYA SKY</a> 日落 17:16 ★</span><span class="en">Shibuya SKY Sunset & Night View (Sunset 17:16)</span></div>
+            <p class="tl-key"><span class="f">Fukuras 下车走平路 462 米<span class="sep"> ·</span></span> <span class="f">14F 柜台换票<span class="sep"> ·</span></span> <span class="f">带 ¥100 硬币寄包<span class="sep"> ·</span></span> <span class="f"><span class="kw">妈妈穿带帽防风外套</span></span></p>
+            <details class="tl-more">
+              <summary>详情 · 6 条</summary>
+              <div class="tl-detail">
+                <ol>
+                  <li>16:20–16:35：涩谷 Fukuras 下车，走天桥／地下通道平路 462 米到对面的 Shibuya Scramble Square，坐电梯到 14F 柜台凭券入场。</li>
+                  <li>票务已定：走巴士套票，路线二（抢指定时段票）已作废。<strong>抢票闹钟请取消</strong>，再买会重复付 SKY 的钱。</li>
+                  <li>换票时分到的时段：
+                    <ul>
+                      <li>17:00 前入场 ➔ 照下面的计划走。</li>
+                      <li>17:30 之后 ➔ 先去しんぱち食堂吃晚餐（本来排 18:10，提前就好），18:30 再上去看夜景，那时人少、露台更从容。巴士 16:20 就下车、日落 17:16，车上看不到夕阳，所以<strong>分到晚场就只有夜景</strong>。</li>
+                    </ul>
+                  </li>
+                  <li>寄物：46F 有投币寄物柜（¥100，会退）。露天平台不能带包、雨伞、帽子、围巾；<strong>相机要有挂绳</strong>，没有不能上顶楼。</li>
+                  <li>怎么看：16:45–17:20 先在 46F 室内落地窗长椅看日落和富士山剪影；17:30 天黑人散，再上露天 Sky Stage，躺草坪看夜景和脚下的十字路口。</li>
+                  <li>保暖：229 米高处日落时体感 12–14°C，风大。妈妈穿带兜帽的防风夹克或薄羽绒（帽子不能戴，连体风帽可以）。起风就回 46F Sky Gallery 靠窗沙发。</li>
+                </ol>
+              </div>
+            </details>
           </div>
         </div>
         <div class="tl-item">
           <div class="tl-icon">🐟</div>
           <div>
-            <div class="tl-time"><span class="tl-clock"><span class="t-start">18:10</span><span class="t-sep">–</span><span class="t-end">20:40</span></span><span class="tl-tag">炭烤鱼定食 ＋ 100% 有座返程</span></div>
-            <div class="tl-main"><span class="zh on">🐟 <a href="https://maps.google.com/?q=Shinpachi+Shokudo+Shibuya+Meijidori" target="_blank" rel="noopener noreferrer">しんぱち食堂</a> 炭烤鱼定食 ➔ 银座线起点站直达上野</span><span class="en">Charcoal-Grilled Fish Teishoku, then Ginza Line from its Terminus</span></div>
-            <div class="tl-desc">
-              <ol>
-                <li><span style="color:var(--shu);font-weight:700;">🔴 已换店：不吃 13F つるとんたん了</span>——实查该店<strong>不受理「只订位」，要订位只能订套餐，套餐 ¥4,500 起／人</strong>（两人 ¥9,000+）；不订就现场排（午市实测开店 30 分钟、尖峰 90 分钟）。<strong>Day 6 是全程步数最高的一天，不值得拿妈妈体力赌一个队。</strong></li>
-                <li><strong>✅ 换成【しんぱち食堂 渋谷明治通り店】</strong>（Google <strong>4.0★／293 则</strong> · <strong>每天 07:00–23:00</strong> · <strong>可刷卡／感应支付</strong>）：招牌<strong>炭烤鱼定食</strong>（鲑鱼腹／鯖鱼／赤魚）＋白饭＋味噌汤＋渍物，<strong>全热食、软、无生冷无油腻</strong>；评论一致说便宜到吃惊。<strong>电子屏自助点单</strong>，不用开口讲日文。</li>
-                <li><strong>动线与时间</strong>：18:00 从 46F 下来，出 Scramble Square 往明治通方向<strong>平路约 400 米</strong>（1F 街面店，<strong>0 阶梯</strong>）。⚠️ <strong>平日 18:00 有排队报告</strong>，所以 <strong>18:10 就去，别拖到 18:30</strong>，早 20 分钟基本免排。</li>
-                <li>🟡 <strong>不想走这 400 米的备案</strong>：Scramble Square 12F／13F 同层还有别家（12F そば【半笑】），或 ヒカリエ 8F【d47 食堂】各地定食（4.1★）。<strong>不要选 12F Moheji</strong>——那是铁板文字烧，评论「上菜等 1–1.5 小时」「限时 2 小时」「吵」，全中雷点。</li>
-                <li><strong>⭐ 返程主方案 · 100% 必定有座（¥252/人）</strong>：乘电梯下到 <strong>3F 直通【银座线·涩谷站】</strong>检票口。涩谷是银座线<strong>始发站（G01）</strong>，<strong>20:00 那班车头挂「当駅始発・浅草行」</strong>，列车清空进站任选软座。<br/><strong>实查班次</strong>：20:00 涩谷发 ➔ <strong>20:29 上野</strong>（2号月台）➔ 站内转日比谷线 ➔ <strong>20:41 三ノ輪</strong>。全程 41 分钟、1 次换乘。
-                  <ul>
-                    <li>⚠️ <strong>这条唯一的代价</strong>：上野站【银座线 ➔ 日比谷线】站内转乘长廊，Yahoo 官方给 <strong>8 分钟</strong>（20:29 到、20:37 发）。走了一整天、刚下 229 米高空之后，这是全天最后一个体力坎。</li>
-                  </ul>
-                </li>
-                <li>🟡 <strong>不想走上野长廊：坐到底改搭巴士（0 次换乘 · 下车即到家）</strong>
-                  <ul>
-                    <li><strong>同一班车不用下</strong>：20:00 涩谷上车，<strong>一路坐到终点【浅草站】约 20:35 到</strong> —— <strong>全程 0 换乘、始发保座、35 分钟坐到底，完全不碰上野长廊</strong>。</li>
-                    <li>出浅草站平路走 6 分钟到【<a href="https://maps.google.com/?q=%E6%B5%85%E8%8D%89%E9%9B%B7%E9%96%80+%E9%83%BD%E5%96%B6%E3%83%90%E3%82%B9" target="_blank" rel="noopener noreferrer">浅草雷門 · 4 のりば</a>】，搭【<strong>都营巴士 草63 · 池袋駅東口行</strong>】：<strong>20:47 发</strong> ➔ 浅草一丁目 ➔ 浅草公園六区 ➔ 西浅草三丁目 ➔ 千束 ➔ <strong>20:56【竜泉】下车</strong>，均一价 <strong>¥210</strong>，Suica 可刷。</li>
-                    <li>⭐ <strong>竜泉这根站牌就在公寓门口（步行约 2–3 分钟）</strong>，比走到三ノ輪站 1b 出口再走 6 分钟更近。</li>
-                    <li><strong>代价</strong>：约 21:00 到家，比地铁晚约 15 分钟，两人多 ¥420。<strong>换来全程有座、零长廊、下车即到家。</strong>⚠️ 只在这个时段成立，再晚一律走日比谷线（巴士收班早）。</li>
-                  </ul>
-                </li>
-                <li>🚖 <strong>应急</strong>：太累就别硬撑。<strong>浅草站前排班点 ➔ 公寓 2.15 km ≈ ¥1,100</strong>（免迎車料金）；从涩谷直接回公寓不走高速约 13 km、50 分钟上下 ≈ ¥5,500–6,000。</li>
-                <li><strong>20:50 进门</strong>（走巴士则约 21:00）洗热水澡休息，全天圆满收官。</li>
-              </ol>
-              <span class="pill">13F暖胃乌冬 · 银座线始发保座 · 累了可坐到浅草改草63巴士门口下</span>
-            </div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">18:10</span><span class="t-sep">–</span><span class="t-end">20:40</span></span><span class="tl-tag">晚餐 · 回家</span></div>
+            <div class="tl-main"><span class="zh on">🐟 <a href="https://maps.google.com/?q=Shinpachi+Shokudo+Shibuya+Meijidori" target="_blank" rel="noopener noreferrer">しんぱち食堂</a> 炭烤鱼定食 ➔ 银座线回家</span><span class="en">Charcoal-Grilled Fish Teishoku, then Ginza Line from its Terminus</span></div>
+            <p class="tl-key"><span class="f"><span class="kw">18:10 就去，18:00 后开始排队</span><span class="sep"> ·</span></span> <span class="f">可刷卡<span class="sep"> ·</span></span> <span class="f">20:00 银座线始发，一定有座（¥252/人）<span class="sep"> ·</span></span> <span class="f">20:41 到三ノ輪</span></p>
+            <details class="tl-more">
+              <summary>详情 · 7 条</summary>
+              <div class="tl-detail">
+                <ol>
+                  <li>为什么不吃 13F つるとんたん：该店不接受只订位，订位必须订 ¥4,500 起／人的套餐（两人 ¥9,000+）；不订就现场排（开店约 30 分钟，尖峰 90 分钟）。今天步数最多，不值得排。</li>
+                  <li>しんぱち食堂 渋谷明治通り店（Google 4.0★ · 293 则 · 每天 07:00–23:00 · 可刷卡／感应支付）：炭烤鱼定食（鲑鱼腹／鯖鱼／赤魚）配白饭、味噌汤、渍物，全是热食、软、不油腻，便宜。电子屏自助点单，不用讲日文。</li>
+                  <li>18:00 从 46F 下来，出 Scramble Square 往明治通方向，平路约 400 米，1F 街面店，0 阶梯。平日 18:00 有人排队，<strong>18:10 就去，别拖到 18:30</strong>。</li>
+                  <li>不想走这 400 米：Scramble Square 12F 的荞麦店【半笑】，或 ヒカリエ 8F【d47 食堂】各地定食（4.1★）。别选 12F Moheji：铁板文字烧，评论说上菜要等 1–1.5 小时、限时 2 小时、很吵。</li>
+                  <li>回家主方案（¥252/人）：电梯下到 3F，直通银座线涩谷站。涩谷是始发站（G01），20:00 那班标「当駅始発・浅草行」，<strong>一定有座</strong>。20:00 涩谷 ➔ 20:29 上野（2 号月台）➔ 站内换日比谷线 ➔ 20:41 三ノ輪，41 分钟、换乘 1 次。代价：上野站银座线换日比谷线要走一段长廊，官方给 8 分钟（20:29 到、20:37 发）。
+                  </li>
+                  <li>不想走上野长廊：同一班车坐到终点浅草站（约 20:35，0 换乘）。出站平路 6 分钟到【<a href="https://maps.google.com/?q=%E6%B5%85%E8%8D%89%E9%9B%B7%E9%96%80+%E9%83%BD%E5%96%B6%E3%83%90%E3%82%B9" target="_blank" rel="noopener noreferrer">浅草雷門 · 4 のりば</a>】，搭都营巴士 草63（池袋駅東口行）：20:47 发 ➔ 浅草一丁目 ➔ 浅草公園六区 ➔ 西浅草三丁目 ➔ 千束 ➔ 20:56 竜泉下车，¥210，可刷 Suica。竜泉站牌就在公寓门口（走 2–3 分钟），比三ノ輪站 1b 出口再走 6 分钟近。约 21:00 到家，比地铁晚约 15 分钟，两人多 ¥420。<strong>只在这个时段成立</strong>，再晚巴士收班，走日比谷线。</li>
+                  <li>太累就打车：浅草站前排班点 ➔ 公寓 2.15 km，约 ¥1,100（没有迎车费）；从涩谷直接打车回公寓，不走高速约 13 km、50 分钟，约 ¥5,500–6,000。20:50 到家（走巴士约 21:00）。</li>
+                </ol>
+              </div>
+            </details>
           </div>
         </div>
 
         <!-- Day 6 Rain Contingency -->
-        <div class="tl-item">
+        <div class="tl-item" id="day6-rain">
           <div class="tl-icon">☔</div>
           <div>
-            <div class="tl-time is-label">下雨怎么办 · 三档（已实查官方条款）</div>
-            <div class="tl-main"><span class="zh on">全天最核心的两段都在户外 —— 这一栏写死当天怎么办，不用临场纠结</span><span class="en">Rain Playbook for the Open-Top Bus &amp; SHIBUYA SKY</span></div>
-            <div class="tl-desc">
-              <ol>
-                <li><strong>先记住四条实查到的事实</strong>
-                  <ul>
-                    <li>① <strong>巴士雨天照跑</strong>：官方写「雨天時は屋根を閉めて運行する場合がありますが、ご希望の方へ<strong>雨具を無料で配布</strong>いたします」—— 只把顶篷关上，<strong>免费发雨具</strong>。</li>
-                    <li>② <strong>只有荒天才停</strong>：「荒天時は運休となる場合があります。また、天候急変時は<strong>出発間際に運休</strong>となる場合があります」。</li>
-                    <li>③ <strong>SKY 屋顶会关，室内不关，而且不退款</strong>：购票条款写明「降雨や雷、強風…により、<strong>屋上および46F屋外に入場できない場合があることを承諾します</strong>」。46F <strong>室内 SKY GALLERY 照常开</strong>。</li>
-                    <li>④ 🔴 <strong>券绑在巴士上</strong>：「入場引換券は<strong>オープントップバス乗車時のお渡し</strong>となります。<strong>降車後から当日の最終入場時間まで有効</strong>です」——<strong>巴士取消 ＝ SKY 券也拿不到</strong>。</li>
-                  </ul>
-                </li>
-                <li>⭐ <strong>从 ④ 推出来的好消息</strong>：券<strong>有效到当天最终入场 21:20</strong>，不是锁 16:35 那一场。<strong>下雨该做的是「往后挪」，不是「取消」。</strong></li>
-                <li>🟢 <strong>档 1 · 小雨到中雨（最可能）—— 行程不动，只调顺序</strong>
-                  <ul>
-                    <li>巴士照坐，上车<strong>跟工作人员要雨具（免费）</strong>；关顶后仍是双层高视角，妈妈照样坐满 60 分钟不走路。</li>
-                    <li><strong>16:35–17:00</strong> 先到 14F 柜台换票，顺口问最终入场时间。</li>
-                    <li><strong>17:00 先吃晚餐</strong>（しんぱち食堂，本来排 18:10，提前吃；该店 07:00–23:00 全天营业）。</li>
-                    <li><strong>18:30–19:30 再上去</strong>：傍晚雨常转小；就算没停，人也散了，<strong>46F 室内落地窗看雨夜霓虹一样成立</strong>。</li>
-                    <li>20:00 下楼搭银座线回家 —— <strong>回家时间跟原计划一模一样</strong>。</li>
-                  </ul>
-                </li>
-                <li>🟡 <strong>档 2 · 大雨整晚不停 —— 上去，但当成室内景点</strong>：46F 全室内、有长椅、有咖啡。<strong>当天就认了「今天没有露台」</strong>，别为了赌雨停耗到 21:00 把妈妈拖垮。⚠️ 条款写明<strong>不退款</strong>，这条写在这里就是为了当天不用再纠结值不值。</li>
-                <li>🔴 <strong>档 3 · 荒天巴士停开 —— 唯一要整段换方案的情况</strong>
-                  <ul>
-                    <li><strong>先办退款</strong>：東急バス <strong>03-3410-0181</strong>，预订网站看运休公告。</li>
-                    <li>那时你们<strong>人正好在新宿歌舞伎町 Tower</strong>（13:30–15:00 本来就在那），就地改。</li>
-                    <li>⭐ <strong>改去【<a href="https://maps.google.com/?q=Tokyo+Metropolitan+Government+Building+South+Observation+Deck" target="_blank" rel="noopener noreferrer">东京都厅 南展望室</a>】—— 免费、室内、45 楼</strong>：Google <strong>4.7★／3,030 则</strong> · <strong>09:30–21:30</strong> · <strong>周二休 ➔ 10/8 是周四，开</strong> · <strong>完全免费</strong>、无障碍入口、45F 有咖啡座（6 张四人桌 ＋ 6 条长椅）、纪念品店、免费 WiFi。</li>
-                    <li><strong>高度 202m vs SHIBUYA SKY 229m</strong> —— 下雨天 SKY 露台本来就关，<strong>室内看夜景这 27 米没有差别</strong>，而这边不花钱。</li>
-                    <li><strong>动线</strong>：⚠️ 新宿三丁目<strong>没有</strong>大江户线。从歌舞伎町 Tower 走到【都营大江戸线 新宿西口站】，搭 <strong>1 站</strong>（2 分钟 · ¥178）到【都庁前站】，出站直通都厅大楼；Tower 到新宿西口站有一段地面路要撑伞。雨大就直接打车。</li>
-                    <li>🎆 <strong>18:00–21:00 楼下有 Tokyo Night &amp; Light 免费投影秀</strong>，每 30 分钟一场，雨小可以看一场再走。晚餐：新宿站周边，或回歌舞伎町 Tower <strong>17–18F 歌舞伎横丁</strong>（全室内、多摊位、有座）。</li>
-                  </ul>
-                </li>
-                <li><strong>☔ 上午本来就不怕雨</strong>：明治神宫是<strong>树冠遮蔽的砂石参道</strong>，不积水、雨天人更少，撑伞走 852 米完全可行（换防滑鞋）；蓝瓶青山店<strong>二楼露台会湿 ➔ 直接坐室内</strong>；表参道之丘<strong>全室内零阶梯</strong>。<strong>上午整段照走，不用改。</strong></li>
-              </ol>
-              <span class="must-tag">★ 小雨=晚餐提前上楼延后 · 荒天=改去免费的都厅45F · 券只限当天有效到21:20</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Plan B Dedicated Comparison Table Day 6 -->
-        <div class="tl-item">
-          <div class="tl-icon">🌟</div>
-          <div>
-            <div class="tl-time is-label">Day 6 弹性 B Plan 方案对比表</div>
-            <div class="tl-main"><span class="zh on">【Day 6 避雨/防风/备选方案对比表】</span></div>
-            <table class="info-table" style="margin-top:10px;">
-              <thead>
-                <tr>
-                  <th>Plan B 方案</th>
-                  <th>适合场景与体验特色</th>
-                  <th>Google 评分与地图导航</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>方案 B1：Shibuya Hikarie 11F</strong></td>
-                  <td>⭐ 雨天／强风／SKY 露天平台封顶的第一顺位：免费室内高空全景落地窗俯瞰夜景，皮椅沙发舒适休息</td>
-                  <td><a href="https://maps.google.com/?q=Shibuya+Hikarie" target="_blank" rel="noopener noreferrer">Google 4.3★</a></td>
-                </tr>
-                <tr>
-                  <td><strong>方案 B2：惠比寿花园大楼 38F/39F 免费观景台</strong></td>
-                  <td>雨天备援：日比谷线直达惠比寿，Skywalk 室内步道直上，38F/39F 免费看东京铁塔夜景，全程不淋雨</td>
-                  <td><a href="https://maps.google.com/?q=Yebisu+Garden+Place+Tower" target="_blank" rel="noopener noreferrer">Google 4.4★</a></td>
-                </tr>
-                <tr>
-                  <td><strong>方案 B3：SHIBUYA STREAM</strong></td>
-                  <td>下雨天室内商场，沿着室内连廊与运河风情街吃晚餐与喝咖啡</td>
-                  <td><a href="https://maps.google.com/?q=Shibuya+Stream" target="_blank" rel="noopener noreferrer">Google 4.3★</a></td>
-                </tr>
-                <tr>
-                  <td><strong>方案 B4：明治神宫御苑</strong></td>
-                  <td>清静优雅日式庭园与清正井 (入园 ¥500)，就在早上的神宫里，不必另外转场</td>
-                  <td><a href="https://maps.google.com/?q=Meiji+Jingu+Inner+Garden" target="_blank" rel="noopener noreferrer">Google 4.4★</a></td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="bplan-gallery" style="margin-top:12px;">
-              <div class="bplan-img-card">
-                <div class="bplan-img-lbl">核心体验: 涩谷SKY 360°露天高空夕阳</div>
+            <div class="tl-time is-label">下雨怎么办（已查官方条款）</div>
+            <div class="tl-main"><span class="zh on">巴士和 SKY 都在户外，先把当天怎么办定好</span><span class="en">Rain Playbook for the Open-Top Bus &amp; SHIBUYA SKY</span></div>
+            <p class="tl-key"><span class="f">小雨：巴士照开，晚餐提前，18:30 再上 SKY<span class="sep"> ·</span></span> <span class="f">荒天：巴士停，改去免费的都厅 45F<span class="sep"> ·</span></span> <span class="f"><span class="kw">SKY 券只限当天，21:20 前有效</span></span></p>
+            <details class="tl-more">
+              <summary>详情 · 3 档 ＋ 备选</summary>
+              <div class="tl-detail">
+                <ol>
+                  <li>四条查过的事实：
+                    <ul>
+                      <li>① 巴士雨天照开：官方说下雨会关上顶篷运行，并<strong>免费发雨具</strong>。</li>
+                      <li>② 只有荒天才停，天气突变时可能在出发前才宣布停驶。</li>
+                      <li>③ SKY 遇雨、打雷、强风时，屋顶和 46F 户外区可能不开，<strong>不退款</strong>；46F 室内 SKY GALLERY 照常开。</li>
+                      <li>④ SKY 券上巴士才发，下车后到当天最终入场前有效。<strong>巴士停驶 ＝ 拿不到 SKY 券。</strong></li>
+                    </ul>
+                  </li>
+                  <li>好消息：券到当天 21:20 最终入场都有效，不是只能 16:35 用。<strong>下雨就往后挪，不用取消。</strong></li>
+                  <li>档 1 · 小雨到中雨（最可能）：行程不变，只调顺序。
+                    <ul>
+                      <li>巴士照坐，上车跟工作人员要雨具（免费）；关顶后还是双层高视角，妈妈照样坐 60 分钟。</li>
+                      <li>16:35–17:00 先到 14F 柜台换票，顺便问最终入场时间。</li>
+                      <li>17:00 先吃晚餐（しんぱち食堂，07:00–23:00 都开）。</li>
+                      <li>18:30–19:30 再上去：傍晚雨常转小；就算没停，人也散了，46F 室内看雨夜霓虹一样好看。</li>
+                      <li>20:00 下楼搭银座线，到家时间和原计划一样。</li>
+                    </ul>
+                  </li>
+                  <li>档 2 · 大雨整晚不停：照样上去，当成室内景点。46F 全室内，有长椅和咖啡。<strong>别等雨停等到 21:00</strong>，把妈妈拖累。反正不退款，不用纠结值不值。</li>
+                  <li>档 3 · 荒天巴士停开（唯一要整段换的情况）：
+                    <ul>
+                      <li>先办退款：東急バス <strong>03-3410-0181</strong>，运休公告看预订网站。</li>
+                      <li>那时你们正好在歌舞伎町 Tower（13:30–15:00 本来就在那），就地改去【<a href="https://maps.google.com/?q=Tokyo+Metropolitan+Government+Building+South+Observation+Deck" target="_blank" rel="noopener noreferrer">东京都厅 南展望室</a>】：免费、室内、45 楼。Google 4.7★（3,030 则）· 09:30–21:30 · 周二休，10/8 是周四，开 · 有无障碍入口，45F 有咖啡座（6 张四人桌、6 条长椅）、纪念品店、免费 WiFi。</li>
+                      <li>高度 202 m，SHIBUYA SKY 是 229 m。下雨天 SKY 露台本来就关，在室内看夜景差这 27 米没关系，而且免费。</li>
+                      <li>怎么去：新宿三丁目<strong>没有</strong>大江户线。从 Tower 走到都营大江戸线新宿西口站，搭 1 站（2 分钟 · ¥178）到都庁前站，出站直通都厅。Tower 到新宿西口站有一段地面路要撑伞；雨大就打车。</li>
+                      <li>18:00–21:00 楼下有 Tokyo Night &amp; Light 免费投影秀，每 30 分钟一场。晚餐在新宿站周边，或回 Tower 17–18F 歌舞伎横丁（全室内、多摊位、有座）。</li>
+                    </ul>
+                  </li>
+                  <li>上午不怕雨：明治神宫参道有树冠遮，是砂石路，不积水，下雨人更少，穿防滑鞋撑伞走 852 米没问题。蓝瓶二楼露台会湿，坐室内。表参道之丘全室内、0 台阶。上午照走。</li>
+                  <li>其他室内备选：
+                    <ul>
+                      <li><a href="https://maps.google.com/?q=Shibuya+Hikarie" target="_blank" rel="noopener noreferrer">Shibuya Hikarie 11F</a>（4.3★）：免费，落地窗看夜景，有皮沙发。雨天或强风时 SKY 露台关的首选。</li>
+                      <li><a href="https://maps.google.com/?q=Yebisu+Garden+Place+Tower" target="_blank" rel="noopener noreferrer">惠比寿花园广场 38F/39F</a>（4.4★）：日比谷线直达惠比寿，Skywalk 室内步道过去，免费看东京铁塔夜景，全程不淋雨。</li>
+                      <li><a href="https://maps.google.com/?q=Shibuya+Stream" target="_blank" rel="noopener noreferrer">SHIBUYA STREAM</a>（4.3★）：室内商场，沿连廊吃晚餐、喝咖啡。</li>
+                      <li><a href="https://maps.google.com/?q=Meiji+Jingu+Inner+Garden" target="_blank" rel="noopener noreferrer">明治神宫御苑</a>（4.4★）：日式庭园和清正井，入园 ¥500，早上就在神宫里，不用另外转场。</li>
+                    </ul>
+                  </li>
+                </ol>
               </div>
-              <div class="bplan-img-card">
-                <div class="bplan-img-lbl">明治神宫: 70公顷巨木森林参道</div>
-              </div>
-            </div>
+            </details>
           </div>
         </div>
       </div>
@@ -2989,10 +2957,10 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="b-row"><span>地铁车资 (日比谷+千代田+副都心+银座+日比谷线 2人)</span><span>¥1,600</span></div>
         <div class="b-row"><span>Blue Bottle 青山 手冲与华夫饼 (2人)</span><span>¥2,500</span></div>
         <div class="b-row"><span>青山 川上庵 手打荞麦午餐 (2人)</span><span>¥3,600 – ¥5,000</span></div>
-        <div class="b-row"><span>涩谷SKY (2人 · 日落场 ¥3,400×2；走巴士套票则含双层巴士)</span><span>¥6,800</span></div>
-        <div class="b-row"><span>しんぱち食堂 炭烤鱼定食 (2人 · 原つるとんたん ¥4,500)</span><span>¥2,000 – ¥2,600</span></div>
+        <div class="b-row"><span>SHIBUYA STREET RIDE 套票 (巴士 ＋ SKY · ¥5,400×2)</span><span>¥10,800</span></div>
+        <div class="b-row"><span>しんぱち食堂 炭烤鱼定食 (2人)</span><span>¥2,000 – ¥2,600</span></div>
         <div class="b-row"><span>清澄白河马克杯 (可选 · 现场正品)</span><span>¥2,750</span></div>
-        <div class="b-total"><span>单日小计 (不含杯子)</span><span class="b-total-val">¥16,500 – ¥18,500</span></div>
+        <div class="b-total"><span>单日小计 (不含杯子)</span><span class="b-total-val">¥20,500 – ¥22,500</span></div>
       </div>
     </div>
   </div>
@@ -3118,7 +3086,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
               <ol>
                 <li><strong>⭐ 避开周五晚（華金）狂欢人潮的核心绝招</strong>：<strong>17:15 看完点灯立刻进店</strong>，17:30 入座时上班族还没下班，店里安静、服务最好；18:45 吃完从容撤退。</li>
                 <li><strong>首选就近和食（最省腿 · 步行仅 350m）</strong>：增上寺平路漫步 5 分钟到大门站前【<strong>和食日和 おさけと 大門浜松町</strong>】或芝大门老街，热腾腾的高汤锅物与和食定食，人均约 <strong>¥2,500–3,500</strong>，吃完直接进地铁。<strong>绝不折返 3km 回银座排队。</strong></li>
-                <li><strong>相扑锅备选（地铁 1 站）</strong>：若非常想吃相扑锅【<a href="https://maps.google.com/?q=Chanko+Izutsu+Shinbashi" target="_blank" rel="noopener noreferrer">本格焼鳥ちゃんこ 井筒</a>】（⚠️ 现为<strong>烤鸡串居酒屋兼卖相扑锅</strong>，12:00–翌2:00，评论提到<strong>店内可吸烟</strong>、锅分量偏小、建议订位；新桥 4 丁目，距增上寺 1.5 km，不徒步），走 5 分钟到大门站，搭都营浅草线 <strong>1 站到新橋</strong>（¥180），出站步行<strong>约 190 米／3 分钟</strong>（Google 实测）即到。</li>
+                <li><strong>相扑锅备选（地铁 1 站）</strong>：若非常想吃相扑锅【<a href="https://maps.google.com/?q=Chanko+Izutsu+Shinbashi" target="_blank" rel="noopener noreferrer">本格焼鳥ちゃんこ 井筒</a>】（⚠️ 现为<strong>烤鸡串居酒屋兼卖相扑锅</strong>，12:00–翌2:00，评论提到<strong>店内可吸烟</strong>、锅分量偏小、建议订位；新桥 4 丁目，距增上寺 1.5 km，不徒步），走 5 分钟到大门站，搭都营浅草线 <strong>1 站到新橋</strong>（¥178），出站步行<strong>约 190 米／3 分钟</strong>（Google 实测）即到。</li>
                 <li><strong>烧肉备选（地铁 1 站 · 需订位）</strong>：【<a href="https://maps.app.goo.gl/rC3dUwdaxpRu1f9v5" target="_blank" rel="noopener noreferrer">三幸園 麻布十番</a>】50 多年老铺烧肉，Google 4.3（552 则），和牛五花、牛舌、牛尾汤收尾；可刷卡。⚠️ <strong>周五晚务必订位</strong>（☎ 03-3585-6306，17:30 入座）；⚠️ <strong>预算远高于和食</strong>：有评论点 ¥14,800 套餐，单点人均预估 ¥8,000 起。去程：芝公园走到<strong>赤羽桥站</strong>，大江户线 17:23 发 <strong>1 站</strong>到麻布十番（¥178），7 号出口走 70 米。回程首推 19:03 大江户线 2 站到大门、换浅草线直达浅草 19:32（¥272），再搭都08，约 19:50 到家；最便宜是南北线→溜池山王→银座线→上野→日比谷线，19:39 到三ノ輪（¥252，换 2 次）。</li>
                 <li><strong>19:00–19:35 最省力返程</strong>：大门站搭【都营浅草线】<strong>14 分钟</strong>直达【浅草站】(¥220)，A4/A5 出口平路 200 米在东武浅草站前换【<strong>都营巴士 都08</strong>】(¥210) 仅 <strong>8 分钟直接停在「竜泉」站门口</strong>，下车过马路 80 米即到公寓大堂，彻底省去大站地下深层换乘。</li>
                 <li><strong>19:45 进门</strong>洗热水澡泡脚、早早大休整，为次日 Day 8 镰仓大环线养足最充沛精力。<em>（应急备用：极度疲劳或下雨，芝公园／大门站可叫 GO，约 8.8 km、日间表显 ¥4,000–4,500。）</em></li>
@@ -3186,7 +3154,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
                 </tr>
                 <tr>
                   <td><strong>方案 B4：东京铁塔 FootTown 1F 室内</strong></td>
-                  <td>下雨时直接进铁塔大楼 1F 逛纪念品商店与海贼王主题街，不必在芝公园淋雨等点灯</td>
+                  <td>下雨时直接进铁塔大楼 1F 逛纪念品商店，不必在芝公园淋雨等点灯</td>
                   <td><a href="https://maps.google.com/?q=Tokyo+Tower" target="_blank" rel="noopener noreferrer">Google 4.5★</a></td>
                 </tr>
               </tbody>
@@ -3221,7 +3189,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
       <div class="note-box" style="border-left:4px solid var(--ai);background:rgba(22,93,126,0.06);padding:10px 14px;border-radius:6px;margin-bottom:10px;">
         <strong>💡 Day 8 候选方案（出发前可根据体力天气一键切换 · companion.html 支持实时切换）</strong>
         <span class="zh on">
-          <br/>• <strong>【方案 A · 优先主推】</strong>：<strong>普通电车西瓜卡直通 ➔ 站前巴士大佛 ➔ 江之电贴海段 ➔ ことぶき屋靠窗午餐 ➔ 藤泽顺行 ➔ 顺路横滨汽車道夕阳大环线 ★</strong> — 满足妈妈看大佛与江之电的心愿！告别加价 Green 券与打车，纯刷 Suica 进站（普通车资 ¥1,034；08:47 这班非东京站始发、多半有座，要保证有座改搭 09:09 东京站始发），镰仓站东口乘普通公车直达大佛门前（¥240 避开江之电长龙），江之电最美的贴海一段一趟看完（不另外下车吹风；三连休周六多半要站），午餐在鎌倉高校前【ことぶき屋 4.8★】靠窗隔玻璃看海看电车（🔴按只收现金准备、不用排队），再顺行至藤泽换 JR，<strong>顺路切进横滨</strong>走汽車道看港湾夕阳与红砖仓库蓝调点灯，横滨站买崎陽軒便当，上野东京线 0 换乘直达上野，零回头路！
+          <br/>• <strong>【方案 A · 优先主推】</strong>：<strong>普通电车西瓜卡直通 ➔ 站前巴士报国寺竹林 ➔ 小町通 ➔ 江之电到長谷看大佛 ➔ 江之电贴海段 ➔ ことぶき屋靠窗午餐 ➔ 藤泽顺行 ➔ 顺路横滨汽車道夕阳大环线 ★</strong> — 满足妈妈看大佛与江之电的心愿！告别加价 Green 券与打车，纯刷 Suica 进站（普通车资 ¥1,034；08:47 这班非东京站始发、多半有座，要保证有座改搭 09:09 东京站始发），镰仓站东口乘普通公车直达大佛门前（¥240 避开江之电长龙），江之电最美的贴海一段一趟看完（不另外下车吹风；三连休周六多半要站），午餐在鎌倉高校前【ことぶき屋 4.8★】靠窗隔玻璃看海看电车（🔴按只收现金准备、不用排队），再顺行至藤泽换 JR，<strong>顺路切进横滨</strong>走汽車道看港湾夕阳与红砖仓库蓝调点灯，横滨站买崎陽軒便当，上野东京线 0 换乘直达上野，零回头路！
           <br/>• <strong>【方案 B · ⚠️ 与 Day 9 完全重合】</strong>：<strong>根津神社千本鸟居 ➔ 谷中祭传统神轿 ➔ 赞岐手打乌冬 ➔ 提前回房大午睡</strong> — 门口都08公车到日暮里再走谷中下坡，漫步 300 年江户德川重要文化財古刹与朱红千本鸟居，偶遇一年一度谷中祭街头神轿市集，吃完热腾腾乌冬 14:30 即可回房休息，步数仅 3,800 步。<strong>但这三站就是 Day 9（10/11）的全部内容</strong>；谷中祭 10/10–10/11 两天都办，10/10 走它不会错过祭典，代价是 <strong>Day 9 必须改走方案 C</strong>。不想动 Day 9 就直接选 C。
           <br/>• <strong>【方案 C · 无冲突 · 最省力的平替】★</strong>：<strong>清澄白河咖啡老街 · 水上庭园 · 门前仲町深川饭</strong> — 若前一日涩谷走累了想彻底放松，搭普通地铁（¥180）在市内悠闲漫游，步数仅 3,500 步。<strong>和全程任何一天都不重合，想省力先看它。</strong>
           <br/>• <strong>【方案 D · 文青备选】</strong>：<strong>吉祥寺生活街区 · 井之头公园 · 三鹰龙猫外围</strong> — 文青漫步备选（假日人潮密集，步数约 12k）。
@@ -3327,7 +3295,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
               <ol>
                 <li>走回长谷站 7 分钟，搭 <strong>13:37【藤沢行】</strong>（班距约 14 分钟：13:09／13:23／<strong>13:37</strong>／13:51 …）。</li>
                 <li><span style="color:var(--shu);font-weight:700;">⚠️ 这 15 分钟大概率要站 —— 先有心理准备。</span>长谷是<strong>半途上车</strong>，车从镰仓始发过来时已经装满；实查把「下午 长谷➔江ノ島➔藤泽」列为 <strong>★★★★ 混杂段</strong>，三连休周六更挤。（官方混雑率最高的其实是<strong>反向</strong>的「和田塚➔镰仓 13:55–14:54，146%」，我们不在那一段，但西行一样挤。）</li>
-                <li>⭐ <strong>站也要站右边（靠海那侧）的车窗前</strong>：过极乐寺 ➔ 稲村ヶ崎 ➔ 七里ヶ浜 —— <strong>这一段就是江之电最著名的贴海路段</strong>，<strong>站着看也够</strong>，不用下车站在防波堤上吹风（七里滨独立停留已取消，省下 75 分钟站立时间）。有座位当然坐，<strong>但别为了抢座放过右侧窗</strong>。</li>
+                <li>⭐ <strong>站也要站右边（靠海那侧）的车窗前</strong>：过极乐寺 ➔ 稲村ヶ崎 ➔ 七里ヶ浜 —— <strong>这一段就是江之电最著名的贴海路段</strong>，<strong>站着看也够</strong>，不用下车站在防波堤上吹风。有座位当然坐，<strong>但别为了抢座放过右侧窗</strong>。</li>
                 <li>🟢 <strong>扛得住的理由</strong>：只有 15 分钟，下车就是【ことぶき屋】坐 55 分钟。撑不住就让妈妈先坐，你站。<strong>🟡 长谷站三连休可能闸口限流 —— 13:37 赶不上还有 13:51</strong>，整天尾巴钉在 17:14 日落，晚一班不影响。</li>
                 <li>⚠️ <strong>鎌倉高校前出站口那个平交道就是《灌篮高手》片头场景</strong>，三连休会挤满拍照人群 —— <strong>我们不停留</strong>，出站左转沿国道 134 号往西直走就完全避开。</li>
               </ol>
@@ -3342,11 +3310,10 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
             <div class="tl-main"><span class="zh on">🏆 <a href="https://maps.google.com/?q=Kotobukiya+Kamakurakokomae" target="_blank" rel="noopener noreferrer">ことぶき屋 鎌倉高校前店</a> —— 隔玻璃看相模湾 ＋ 江之电贴窗驶过 ★</span><span class="en">Kotobukiya: Seaside Lunch with Enoden at the Window</span></div>
             <div class="tl-desc">
               <ol>
-                <li>✅ <strong>2026-09-15 定案：由 kaedena. 换成这家</strong>。四条都赢：
+                <li>✅ <strong>2026-09-15 定案：由 kaedena. 换成这家</strong>。三条都赢：
                   <ul>
                     <li><strong>评分</strong> 4.8★／171 则 <em>vs</em> kaedena. 4.5★</li>
                     <li><strong>营业</strong> 每天 <strong>11:00–18:30 全年无休</strong> <em>vs</em> kaedena. 只到 14:30、周一定休</li>
-                    <li><strong>付款</strong> <strong>可刷卡</strong> <em>vs</em> kaedena. <strong>只收现金</strong>（要带 ¥6,000 现钞）</li>
                     <li><strong>排队</strong> 评论原文「<strong>Not crowded at all, no queuing needed</strong>」<em>vs</em> kaedena. 要在门外登记候位</li>
                   </ul>
                 </li>
@@ -3426,7 +3393,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
             <div class="tl-main"><span class="zh on">樱木町 ➔ <a href="https://maps.google.com/?q=Kishamichi+Promenade+Yokohama" target="_blank" rel="noopener noreferrer">汽車道</a> 或 <a href="https://maps.google.com/?q=YOKOHAMA+AIR+CABIN" target="_blank" rel="noopener noreferrer">空中缆车</a> ➔ <a href="https://maps.google.com/?q=Yokohama+Red+Brick+Warehouse" target="_blank" rel="noopener noreferrer">红砖仓库</a> 日落与点灯 ★</span><span class="en">Kishamichi Walk or Air Cabin, then Red Brick Warehouse at Dusk</span></div>
             <div class="tl-desc">
               <ol>
-                <li>✅ <strong>16:10 定案：走【汽車道】临海步道到红砖仓库（不坐缆车）</strong>
+                <li><strong>走【汽車道】临海步道到红砖仓库（不坐缆车）</strong>
                   <ul>
                     <li><strong>1,184 米／Google 实测 17 分钟</strong>。走的是<strong>汽車道・港三号橋梁</strong>——废弃铁道改成的临海步道，<strong>枕木与旧轨还铺在脚下</strong>，跨水而行，回头就是横滨地标塔与大摩天轮。</li>
                     <li><strong>路况已实测</strong>：海拔 <strong>7.1 ➔ 3.0 ➔ 0 ➔ 9.0 ➔ 2.2 米 ＝ 基本全平</strong>，只有桥面两端的缓坡，<strong>没有台阶</strong>。</li>
@@ -3448,11 +3415,11 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
             <div class="tl-main"><span class="zh on">🍱 横滨站买 <a href="https://maps.google.com/?q=Kiyoken+Yokohama+Station" target="_blank" rel="noopener noreferrer">崎陽軒 シウマイ弁当</a> ➔ JR 上野东京线 <strong>0 换乘</strong> ➔ <strong>19:10 到家吃</strong></span><span class="en">Kiyoken Bento to Go, then Direct Line Home by 19:10</span></div>
             <div class="tl-desc">
               <ol>
-                <li>🔴 <strong>这餐已降级（省 ¥5,000+）</strong>：原本排的是「和牛烧肉／荒井屋牛锅」，<strong>两人 ¥7,000–10,000</strong>。Day 8 是三连休首日、08:00 就出门的长日子 —— 与其 19:00 还坐在餐厅里，不如早点回房吃饱泡脚。现在<strong>两人合计约 ¥2,000–3,000</strong>。</li>
+                <li>晚餐买崎陽軒便当回房吃，<strong>两人约 ¥2,000–3,000</strong>。今天 08:00 就出门，早点回房吃饱泡脚。</li>
                 <li><strong>17:45–18:10 走到车站</strong>：红砖仓库平路步行 <strong>658 米（10 分钟，全程海滨平地）</strong>到【馬車道站】，搭みなとみらい线 3 站（5 分钟 · ¥200）到【横滨站】。<br><em>（备选：再花 ¥1,000/人 坐一趟缆车回樱木町看夜景版，然后 JR 1 站到横滨 —— 两人多 ¥2,000，省下那 658 米。）</em></li>
                 <li><strong>⭐ 18:10 买便当：崎陽軒【シウマイ弁当】约 ¥1,000–1,100/个</strong> —— 横滨百年名物。<strong>最顺路的是【崎陽軒 みなとみらい线横浜駅 南改札内店】</strong>（每天 07:00–20:00，可刷卡）：从馬車道搭过来，出闸前就能买。⚠️ JR 东海道线月台那家在 5・6 番线，回程上野东京线在 7 番线，不同月台，别指望在上车月台买。这款便当<strong>本来就是设计成常温吃的</strong>，回房不加热也好吃；想吃热的公寓有微波炉。<strong>等于用便当的钱吃到横滨的地方名物。</strong><br>备选：横滨站 Sogo 地下街熟食／崎陽軒 + Deli（横浜ジョイナス B1）／站内便利店。</li>
                 <li><strong>⭐ 18:20 神速回巢（0 次换乘）</strong>：横滨站搭 JR 东海道本线（<strong>上野东京线直通列车</strong>，IC ¥616），<strong>32 分钟一车直达上野站</strong>；上野站内转日比谷线 4 分钟到【三ノ轮站】，平路走回公寓。<br>⚠️ <strong>车上不吃便当</strong>——上野东京线是通勤线，车厢内用餐不合当地礼节，带回房间吃。</li>
-                <li><strong>19:10 到家</strong>（<strong>比原方案早 1 小时 05 分</strong>）：微波加热，边吃边泡脚。不够吃就下楼补——<strong>ローソン 台東三ノ輪一丁目店（278 米 · 24h · まちかど厨房现做热食）</strong>或<strong>すき家 下谷三丁目店（502 米 · 24h · 烤鲑鱼定食／牛丼／热猪肉味噌汤）</strong>。</li>
+                <li><strong>19:10 到家</strong>：微波加热，边吃边泡脚。不够吃就下楼补——<strong>ローソン 台東三ノ輪一丁目店（278 米 · 24h · まちかど厨房现做热食）</strong>或<strong>すき家 下谷三丁目店（502 米 · 24h · 烤鲑鱼定食／牛丼／热猪肉味噌汤）</strong>。</li>
                 <li>💡 <strong>想吃好的随时改回来</strong>：【<a href="https://maps.google.com/?q=Araiya+Bankokubashi" target="_blank" rel="noopener noreferrer">荒井屋 万国桥店 (Tabelog 3.55★)</a>】就在红砖仓库平路 550 米（8 分钟）外，明治 28 年创立的牛锅・寿喜烧发祥名店，人均 ¥3,800–5,000。当天想吃就走过去。</li>
               </ol>
               <span class="pill">省 ¥5,000+ · 崎陽軒常温也好吃 · 上野东京线0换乘 · 19:10 到家</span>
@@ -3476,7 +3443,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
               <tbody>
                 <tr style="background:rgba(194,65,45,0.04);">
                   <td><strong>方案 B（⚠️ 与 Day 9 重合 · 走了要对调）：<br>根津神社 (千本鸟居) & 谷根千老街 (谷中祭)</strong></td>
-                  <td>门口都08 ➔ 日暮里 ¥210 · 回程根津 ➔ 北千住 ➔ 三ノ輪 ¥209 · 约 5,000 步</td>
+                  <td>门口都08 ➔ 日暮里 ¥210 · 回程根津 ➔ 北千住 ➔ 三ノ輪 ¥209 · 约 3,800 步</td>
                   <td>德川 300 年重要文化財古建 + 朱红千本鸟居；恰逢 10/10 一年一度<strong>【谷中祭】</strong>神轿游行与市集！吃米其林庭园手打乌冬面，14:30 就能回公寓大睡午觉，极致回血！<br><strong style="color:var(--shu);">⚠️ 这三站就是 Day 9（10/11）的全部行程。</strong>谷中祭两天都办，10/10 走它不会错过；但 Day 9 必须改走方案 C（清澄白河），否则连着两天走同一条路线。</td>
                 </tr>
                 <tr>
@@ -3511,11 +3478,11 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="b-row"><span>横滨 樱木町➔红砖仓库 (定案走汽車道 · 累了改缆车 +¥2,000)</span><span>¥0</span></div>
         <div class="b-row"><span>馬車道 ➔ 横滨站 みなとみらい线 (2人)</span><span>¥400</span></div>
         <div class="b-row"><span>返程 JR 上野东京线 横滨 ➔ 上野 0换乘 (2人)</span><span>¥1,232</span></div>
-        <div class="b-row"><span>高德院大佛门票 (2人 · ¥300/人 · 长谷寺已砍)</span><span>¥600</span></div>
+        <div class="b-row"><span>高德院大佛门票 (2人 · ¥300/人)</span><span>¥600</span></div>
         <div class="b-row"><span>ことぶき屋 靠窗海景午餐 (2人 · 🔴 按只收现金准备)</span><span>¥3,600 – ¥5,000</span></div>
         <div class="b-row"><span>崎陽軒 シウマイ弁当 带回家吃 (2人 · 原和牛晚餐 ¥7,000–10,000)</span><span>¥2,000 – ¥3,000</span></div>
         <div class="b-row"><span>小町通商店街散策 (逛街免费 · 小吃另计)</span><span>¥0</span></div>
-        <div class="b-total"><span>单日小计 (加报国寺＋商店街＋江ノ島小鸟 · 砍长谷寺)</span><span class="b-total-val">约 ¥15,400 – ¥17,800</span></div>
+        <div class="b-total"><span>单日小计 (报国寺＋商店街＋江ノ島小鸟)</span><span class="b-total-val">约 ¥15,400 – ¥17,800</span></div>
       </div>
     </div>
   </div>
@@ -3574,13 +3541,14 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
         <div class="tl-item">
           <div class="tl-icon">🛁</div>
           <div>
-            <div class="tl-time"><span class="tl-clock"><span class="t-start">17:30</span><span class="t-sep">–</span><span class="t-end">20:45</span></span></div>
-            <div class="tl-main"><span class="zh on">重返<a href="https://maps.google.com/?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%AB%9C%E6%B3%893-10-7+LUXURY+STAY+HOTEL" target="_blank" rel="noopener noreferrer">LUXURY STAY HOTEL</a> 33号房洗澡 · 躺平小睡 · 提早封箱大行李 ★</span><span class="en">Rest, Shower & Pack Early at Base</span></div>
+            <div class="tl-time"><span class="tl-clock"><span class="t-start">17:30</span><span class="t-sep">–</span><span class="t-end">20:40</span></span></div>
+            <div class="tl-main"><span class="zh on">重返<a href="https://maps.google.com/?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%AB%9C%E6%B3%893-10-7+LUXURY+STAY+HOTEL" target="_blank" rel="noopener noreferrer">LUXURY STAY HOTEL</a> 33号房 · 洗澡 · 晚餐 · 封箱 ★</span><span class="en">Rest, Shower & Pack Early at Base</span></div>
             <div class="tl-desc">
               <ol>
-                <li><strong>保留公寓神功 (45分钟)</strong>：17:30 上飞机前徹底洗热水澡！换上宽松舒服的搭机衣服。</li>
-                <li><strong>舒适小睡 (90分钟)</strong>：在独立单人床上躺平小睡 1.5 小时，彻底恢复精力。</li>
-                <li><strong>提前封箱 (30分钟)</strong>：20:15 将换洗衣物与买到的心爱杯子（用柔软卫衣厚厚包裹防震）整齐放入行李箱，提早轻松封箱，毫无仓促感。全无繁重的人情代购负担，行李轻盈从容！</li>
+                <li><strong>17:30 洗热水澡</strong>，换上宽松舒服的搭机衣服。</li>
+                <li><strong>18:30 晚餐</strong>：住处附近便利店或小餐馆，吃温热清淡的一餐。</li>
+                <li><strong>20:15 封箱</strong>：换洗衣物与买到的杯子（用柔软卫衣包好防震）放进行李箱。</li>
+                <li><strong>20:40 出门</strong>，推箱 80 米到门口「竜泉」站牌。</li>
               </ol>
               <span class="must-tag">★ 首次赴日 提早充裕准备</span>
             </div>
@@ -3618,11 +3586,11 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
           <div class="tl-icon">🛟</div>
           <div>
             <div class="tl-time is-label">备案</div>
-            <div class="tl-main"><span class="zh on">Plan B / Plan C — 叫不到车或状况不好时</span><span class="en">Plan B / C — Fallbacks</span></div>
+            <div class="tl-main"><span class="zh on">Plan C / Plan D — 叫不到车或状况不好时</span><span class="en">Plan C / D — Fallbacks</span></div>
             <div class="tl-desc">
               <ol>
-                <li><strong>Plan B (GO / S.RIDE / DiDi 都叫不到车)</strong>：走 6 分钟到 <strong>三ノ轮站 H20</strong> (认「<strong>中目黒方面</strong>」侧电梯口，标志：清水歯科クリニック三ノ輪) → 日比谷线 10 分 → <strong>人形町 H14</strong> → 换乘专用闸口进都营浅草线 → 直通羽田 T3。共 <strong>55 分、换乘 1 次、2 人 ¥1,300</strong>。<br/>⚠️ 人形町的<strong>无障碍 (电梯) 换乘要先出地面再下去</strong>；走楼梯/电扶梯只要 2 分但有阶梯。带长辈+大箱 → 这是备案不是首选。</li>
-                <li><strong>Plan C (下雨 / 长辈状况不好 / 电车异常)</strong>：<strong>定額计程车</strong>直达羽田 — 日本交通 <strong>050-3116-8217</strong>，<strong>需 1 小时前预约</strong>。<br/>订 <strong>20:45 出发</strong> (下车在 22:00 前) → 定額 <strong>¥9,100</strong> + 首都高 ~¥1,500 + 迎車 ~¥500 ≈ <strong>¥11,100</strong>。<br/>拖到 22:00 后出发 → ¥10,800 + 高速 + 迎車 ≈ ¥12,800。现场跳表叫 (无定額) 深夜约 ¥13,000-15,000，最贵。<br/>💰 <strong>深夜割増只在「上车与下车时刻都落在 22:00-05:00」才适用。</strong></li>
+                <li><strong>Plan C (GO / S.RIDE / DiDi 都叫不到车)</strong>：走 6 分钟到 <strong>三ノ轮站 H20</strong> (认「<strong>中目黒方面</strong>」侧电梯口，标志：清水歯科クリニック三ノ輪) → 日比谷线 10 分 → <strong>人形町 H14</strong> → 换乘专用闸口进都营浅草线 → 直通羽田 T3。共 <strong>55 分、换乘 1 次、2 人 ¥1,300</strong>。<br/>⚠️ 人形町的<strong>无障碍 (电梯) 换乘要先出地面再下去</strong>；走楼梯/电扶梯只要 2 分但有阶梯。带长辈+大箱 → 这是备案不是首选。</li>
+                <li><strong>Plan D (下雨 / 长辈状况不好 / 电车异常)</strong>：<strong>定額计程车</strong>直达羽田 — 日本交通 <strong>050-3116-8217</strong>，<strong>需 1 小时前预约</strong>。<br/>订 <strong>20:45 出发</strong> (下车在 22:00 前) → 定額 <strong>¥9,100</strong> + 首都高 ~¥1,500 + 迎車 ~¥500 ≈ <strong>¥11,100</strong>。<br/>拖到 22:00 后出发 → ¥10,800 + 高速 + 迎車 ≈ ¥12,800。现场跳表叫 (无定額) 深夜约 ¥13,000-15,000，最贵。<br/>💰 <strong>深夜割増只在「上车与下车时刻都落在 22:00-05:00」才适用。</strong></li>
               </ol>
             </div>
           </div>
@@ -3664,7 +3632,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
             <div class="tl-main"><span class="zh on">HK Express UO629 02:20 羽田 T3 起飞 → 15:40 抵槟城</span><span class="en">02:20 Flight HND T3 → 15:40 PEN Land</span></div>
             <div class="tl-desc">
               <ol>
-                <li><strong>返航航班</strong>：UO629 02:20 羽田 T3 起飞 → 香港转机 → 15:40 顺利抵槟城 (PEN)。</li>
+                <li><strong>返航航班</strong>：UO629 02:20 羽田 T3 起飞 → 05:45 香港，转 UO746 11:35 起飞 → 15:40 顺利抵槟城 (PEN)。</li>
                 <li><strong>充裕缓冲</strong>：10/13 - 10/14 在家好好休息，10/15 满血开工！</li>
               </ol>
             </div>
@@ -3827,14 +3795,14 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
   <div class="card">
     <div class="note-box tip" style="margin-bottom:14px;">
       <strong>📊 预算视觉化决策：</strong>
-      <span>2 人旅费总额约 RM 14,378 – 14,418，其中约 62%（机票+住宿）出发前已提前锁定。<a href="charts/budget-allocation.html" target="_blank">查看「旅费 100% 百人点阵分解图」↗</a> 1 点 = 1% 旅费，清楚透视每笔开支占比。</span>
+      <span>2 人旅费总额约 RM 14,348，其中约 62%（机票+住宿）出发前已提前锁定。<a href="charts/budget-allocation.html" target="_blank">查看「旅费 100% 百人点阵分解图」↗</a> 1 点 = 1% 旅费，清楚透视每笔开支占比。</span>
     </div>
     <h3><span class="zh on">8.1 固定支出 (已确定 / 预估)</span><span class="en">Fixed Expenses</span></h3>
     <div class="b-row"><span>HK Express 槟城往返机票 (Essential 2人)</span><span>RM 5,208</span></div>
     <div class="b-row"><span>东京 Airbnb 9 晚住宿 (Room 33 · 已订妥)</span><span>RM 3,868</span></div>
     <div class="b-row"><span>河口湖 SAWA Hotel 1晚 + 往返高速巴士 (2人 · ¥2,300×4)</span><span>约 RM 617</span></div>
-    <div class="b-row"><span>河口湖自驾 (租车 ¥11,990 含全险 + 油 + 停车)</span><span>约 RM 380 – 420</span></div>
-    <div class="b-total"><span>固定支出小计</span><span class="b-total-val">RM 10,073 – 10,113</span></div>
+    <div class="b-row"><span>河口湖自驾 (租车 ¥11,990 含全险 + 油 + 停车)</span><span>约 RM 350</span></div>
+    <div class="b-total"><span>固定支出小计</span><span class="b-total-val">RM 10,043</span></div>
   </div>
 
   <div class="card">
@@ -3869,7 +3837,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
   <div class="card" style="border:2px solid var(--shu);">
     <div class="b-total" style="border:none;padding:0;">
       <span style="font-family:var(--font-serif);font-size:1.125rem;color:var(--ink);"><strong>预估总额 (2人总计)</strong></span>
-      <span class="b-total-val" style="font-size:1.375rem;">RM 14,378 – 14,418 (约 RM 7,189 – 7,209 / 人)</span>
+      <span class="b-total-val" style="font-size:1.375rem;">RM 14,348 (约 RM 7,174 / 人)</span>
     </div>
   </div>
 
@@ -4957,6 +4925,8 @@ window.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.mode-switch button').forEach(function (b) {
       b.setAttribute('aria-pressed', b.dataset.mode === mode ? 'true' : 'false');
     });
+    // 完整模式：每站的详情全部展开；精简模式：收起，只留要点
+    document.querySelectorAll('details.tl-more').forEach(function (d) { d.open = mode === 'full'; });
     if (typeof requestAnimationFrame === 'function') requestAnimationFrame(refreshClamp);
   }
 
@@ -4968,6 +4938,18 @@ window.addEventListener('DOMContentLoaded', () => {
       b.addEventListener('click', function () { applyMode(b.dataset.mode); });
     });
   }
+
+  /* ── 页内跳转：不改网址（网址 hash 归路由管），直接滚过去并展开详情 ── */
+  document.addEventListener('click', function (ev) {
+    var a = ev.target.closest('a[data-jump]');
+    if (!a) return;
+    var t = document.getElementById(a.getAttribute('href').slice(1));
+    if (!t) return;
+    ev.preventDefault();
+    var more = t.querySelector('details.tl-more');
+    if (more) more.open = true;
+    t.scrollIntoView({ behavior: typeof preferredScrollBehavior === 'function' ? preferredScrollBehavior() : 'auto', block: 'start' });
+  });
 
   /* ── 长描述折叠：点一下展开 ───────────────── */
   function refreshClamp() {

@@ -16,7 +16,7 @@ try {
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="tabbar.css?v=2">
+<link rel="stylesheet" href="tabbar.css?v=3">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -501,8 +501,14 @@ try {
     padding: 2px 7px;
     border-radius: 6px;
     letter-spacing: .02em;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
   }
+  .ph { width: 1.2em; height: 1.2em; flex: none; }
+  .nav-btn .ph { width: 1.25em; height: 1.25em; }
+  a.tel { display: inline-flex; align-items: center; gap: 3px; color: var(--ai); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; }
+  a.tel .ph { width: 1.1em; height: 1.1em; }
   .node-when {
     display: flex;
     flex-wrap: wrap;
@@ -738,6 +744,22 @@ try {
 
 
 <script>
+// 图标：Phosphor Icons Regular (MIT, phosphoricons.com)，内联 SVG，颜色跟文字走
+const PH = {
+  train: '<path d="M184,24H72A32,32,0,0,0,40,56V184a32,32,0,0,0,32,32h8L65.6,235.2a8,8,0,1,0,12.8,9.6L100,216h56l21.6,28.8a8,8,0,1,0,12.8-9.6L176,216h8a32,32,0,0,0,32-32V56A32,32,0,0,0,184,24ZM56,120V80h64v40Zm80-40h64v40H136ZM72,40H184a16,16,0,0,1,16,16v8H56V56A16,16,0,0,1,72,40ZM184,200H72a16,16,0,0,1-16-16V136H200v48A16,16,0,0,1,184,200ZM96,172a12,12,0,1,1-12-12A12,12,0,0,1,96,172Zm88,0a12,12,0,1,1-12-12A12,12,0,0,1,184,172Z"/>',
+  bus: '<path d="M184,32H72A32,32,0,0,0,40,64V208a16,16,0,0,0,16,16H80a16,16,0,0,0,16-16V192h64v16a16,16,0,0,0,16,16h24a16,16,0,0,0,16-16V64A32,32,0,0,0,184,32ZM56,176V120H200v56Zm0-96H200v24H56ZM72,48H184a16,16,0,0,1,16,16H56A16,16,0,0,1,72,48Zm8,160H56V192H80Zm96,0V192h24v16Zm-72-60a12,12,0,1,1-12-12A12,12,0,0,1,104,148Zm72,0a12,12,0,1,1-12-12A12,12,0,0,1,176,148Zm72-68v24a8,8,0,0,1-16,0V80a8,8,0,0,1,16,0ZM24,80v24a8,8,0,0,1-16,0V80a8,8,0,0,1,16,0Z"/>',
+  car: '<path d="M240,104H229.2L201.42,41.5A16,16,0,0,0,186.8,32H69.2a16,16,0,0,0-14.62,9.5L26.8,104H16a8,8,0,0,0,0,16h8v80a16,16,0,0,0,16,16H64a16,16,0,0,0,16-16V184h96v16a16,16,0,0,0,16,16h24a16,16,0,0,0,16-16V120h8a8,8,0,0,0,0-16ZM69.2,48H186.8l24.89,56H44.31ZM64,200H40V184H64Zm128,0V184h24v16Zm24-32H40V120H216ZM56,144a8,8,0,0,1,8-8H80a8,8,0,0,1,0,16H64A8,8,0,0,1,56,144Zm112,0a8,8,0,0,1,8-8h16a8,8,0,0,1,0,16H176A8,8,0,0,1,168,144Z"/>',
+  plane: '<path d="M185.33,114.21l29.14-27.42.17-.17a32,32,0,0,0-45.26-45.26c0,.06-.11.11-.17.17L141.79,70.67l-83-30.2a8,8,0,0,0-8.39,1.86l-24,24a8,8,0,0,0,1.22,12.31l63.89,42.59L76.69,136H56a8,8,0,0,0-5.65,2.34l-24,24A8,8,0,0,0,29,175.42l36.82,14.73,14.7,36.75.06.16a8,8,0,0,0,13.18,2.47l23.87-23.88A8,8,0,0,0,120,200V179.31l14.76-14.76,42.59,63.89a8,8,0,0,0,12.31,1.22l24-24a8,8,0,0,0,1.86-8.39Zm-.07,97.23-42.59-63.88A8,8,0,0,0,136.8,144c-.27,0-.53,0-.79,0a8,8,0,0,0-5.66,2.35l-24,24A8,8,0,0,0,104,176v20.69L90.93,209.76,79.43,181A8,8,0,0,0,75,176.57l-28.74-11.5L59.32,152H80a8,8,0,0,0,5.66-2.34l24-24a8,8,0,0,0-1.22-12.32L44.56,70.74l13.5-13.49,83.22,30.26a8,8,0,0,0,8.56-2L180.78,52.6A16,16,0,0,1,203.4,75.23l-32.87,30.93a8,8,0,0,0-2,8.56l30.26,83.22Z"/>',
+  walk: '<path d="M152,80a32,32,0,1,0-32-32A32,32,0,0,0,152,80Zm0-48a16,16,0,1,1-16,16A16,16,0,0,1,152,32Zm64,112a8,8,0,0,1-8,8c-35.31,0-52.95-17.81-67.12-32.12-2.74-2.77-5.36-5.4-8-7.84l-13.43,30.88,37.2,26.57A8,8,0,0,1,160,176v56a8,8,0,0,1-16,0V180.12l-31.07-22.2L79.34,235.19A8,8,0,0,1,72,240a7.84,7.84,0,0,1-3.19-.67,8,8,0,0,1-4.15-10.52l54.08-124.37c-9.31-1.65-20.92,1.2-34.7,8.58a163.88,163.88,0,0,0-30.57,21.77,8,8,0,0,1-10.95-11.66c2.5-2.35,61.69-57.23,98.72-25.08,3.83,3.32,7.48,7,11,10.57C166.19,122.7,179.36,136,208,136A8,8,0,0,1,216,144Z"/>',
+  nav: '<path d="M237.33,106.21,61.41,41l-.16-.05A16,16,0,0,0,40.9,61.25a1,1,0,0,0,.05.16l65.26,175.92A15.77,15.77,0,0,0,121.28,248h.3a15.77,15.77,0,0,0,15-11.29l.06-.2,21.84-78,78-21.84.2-.06a16,16,0,0,0,.62-30.38ZM149.84,144.3a8,8,0,0,0-5.54,5.54L121.3,232l-.06-.17L56,56l175.82,65.22.16.06Z"/>',
+  phone: '<path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/>',
+};
+const PH_LABEL = { train: '电车', bus: '公车', car: '开车', plane: '飞机', walk: '步行' };
+function ph(name, label) {
+  const a = label ? `role="img" aria-label="${label}"` : 'aria-hidden="true"';
+  return `<svg class="ph" viewBox="0 0 256 256" fill="currentColor" ${a}>${PH[name]}</svg>`;
+}
+
 // ══════════════════════════════════════════════════════════════════════
 // 10-Day Complete Data Structure with Exact Coordinates & Hacks
 // ══════════════════════════════════════════════════════════════════════
@@ -762,6 +784,7 @@ const DAY8_OPTIONS = {
     nodes: [
       {
         time: '08:00 - 09:51',
+        mode: "train",
         name: '东京站地下 B5 月台 ➔ JR 横须贺线【逗子行】★',
         title: "东京站 B5 ➔ JR 横须贺线 ➔ 镰仓",
         sub: '64 分钟 · IC ¥1,034/人 · 不用换乘',
@@ -779,6 +802,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '10:00 - 10:10',
+        mode: "bus",
         name: '镰仓站东口 4 のりば ➔ 京急巴士【鎌36／鎌23／鎌24】➔ 浄明寺',
         title: "镰仓站东口 ➔ 巴士到浄明寺",
         sub: '10 分钟 · ¥240/人 · 三条线都到，合计约 5 分钟一班',
@@ -844,6 +868,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '13:27 - 13:52',
+        mode: "train",
         name: '江之电长谷站 ➔ 鎌倉高校前 (贴海路段一趟看完)',
         title: "长谷 ➔ 江之电贴海段 ➔ 鎌倉高校前",
         sub: '15 分钟 · ¥220 刷Suica',
@@ -896,6 +921,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '15:24 - 16:18',
+        mode: "train",
         name: '【顺行大环线】江ノ島 ➔ 藤泽 ➔ 横滨 ➔ 樱木町',
         title: "江ノ島 ➔ 藤泽 ➔ 横滨 ➔ 樱木町",
         sub: '江之电 9 分 ¥220 ➔ JR ¥440/人 · 零回头路',
@@ -912,6 +938,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '16:15 - 17:45',
+        mode: "walk",
         name: '走汽車道临海步道 ➔ 红砖仓库日落与蓝调点灯 ★',
         title: "汽車道 ➔ 红砖仓库 日落 ★",
         sub: '走路 1,184m/17分 · 全平无台阶 · 省¥2,000 · 日落 17:14',
@@ -962,6 +989,7 @@ const DAY8_OPTIONS = {
     nodes: [
       {
         time: '09:30 - 09:45',
+        mode: "bus",
         name: '门口都08 ➔ 日暮里 ➔ 谷中下坡走到根津神社',
         title: "都08 ➔ 日暮里 ➔ 谷中下坡",
         sub: '都08 10 分钟 ¥210 · 日暮里西口出，一路缓下坡',
@@ -1137,6 +1165,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '15:30',
+        mode: "bus",
         name: '搭乘巴士直达吉祥寺站 ➔ JR 中央线返程',
         title: "巴士回吉祥寺站 ➔ JR 中央线",
         sub: '乘小田急巴士 (¥220) 跳过步行回程',
@@ -1162,6 +1191,7 @@ const DAYS = [
     nodes: [
       {
         time: "14:45",
+        mode: "plane",
         name: "成田机场 T2 (第2航厦)",
         title: "成田 T2 落地 · 入境",
         sub: "Narita Airport Terminal 2 · UO848",
@@ -1177,6 +1207,7 @@ const DAYS = [
       },
       {
         time: "16:42",
+        mode: "train",
         name: "Skyliner 空港第2ビル駅",
         title: "Skyliner ➔ 日暮里",
         sub: "京成 空港第2ビル駅 ➔ 日暮里站 · 17:18 到",
@@ -1193,6 +1224,7 @@ const DAYS = [
       },
       {
         time: "17:33",
+        mode: "bus",
         name: "日暮里站东口 ②番のりば",
         title: "日暮里 ➔ 都08 公车",
         sub: "都营巴士 都08 (錦糸町駅前行) · 6 站到「竜泉」",
@@ -1248,6 +1280,7 @@ const DAYS = [
     nodes: [
       {
         time: "06:30",
+        mode: "bus",
         name: "竜泉站牌搭公车",
         title: "门口公车 ➔ 浅草雷门",
         sub: "都08 (錦糸町行) 或 草43 (浅草寿町行)",
@@ -1421,6 +1454,7 @@ const DAYS = [
       nodes: [
         {
           time: "08:45",
+          mode: "train",
           name: "三ノ轮站搭日比谷线至上野",
           title: "三ノ輪 ➔ 日比谷线 ➔ 上野",
           sub: "日比谷线 2 站 5 分钟 · ¥178",
@@ -1506,6 +1540,7 @@ const DAYS = [
         },
         {
           time: "12:20",
+          mode: "train",
           name: "银座线 前往三越前",
           title: "前往三越前",
           sub: "乘 3 站 5 分钟 (¥178)",
@@ -1547,6 +1582,7 @@ const DAYS = [
         },
         {
           time: "16:30",
+          mode: "train",
           name: "回程 + 超市补给",
           title: "提早回程休息",
           sub: "银座线 ➔ 上野换日比谷线 ➔ 三ノ輪 · 约 20 分钟",
@@ -1574,6 +1610,7 @@ const DAYS = [
     nodes: [
       {
         time: "08:10 - 10:12",
+        mode: "bus",
         name: "东京站八重洲南口高速巴士",
         title: "八重洲南口 ➔ 高速巴士 ➔ 河口湖",
         sub: "JR 便 · 10:12 到河口湖站 2 号巴士站 · ¥2,300/人",
@@ -1608,6 +1645,7 @@ const DAYS = [
       },
       {
         time: "12:10 - 12:30",
+        mode: "car",
         name: "ニッポンレンタカー 河口湖駅前",
         title: "ニッポンレンタカー 取车",
         sub: "河口湖駅前店 · 出站右手走 2 分钟",
@@ -1727,6 +1765,7 @@ const DAYS = [
     nodes: [
       {
         time: "04:30",
+        mode: "car",
         name: "SAWA 驾车出发西行 (推迟15分避寒)",
         title: "SAWA 出发 ➔ 本栖湖",
         sub: "国道 139 号 · 车内暖气 24°C",
@@ -1829,6 +1868,7 @@ const DAYS = [
       },
       {
         time: "11:35 - 11:58",
+        mode: "car",
         name: "站前加油 ➔ ニッポンレンタカー 验车还车",
         title: "ENEOS 加满油 ➔ 还车",
         sub: "11:35 ENEOS 加满油 ➔ 11:45 进车行 · 比 12:30 截止早 32 分钟",
@@ -1861,6 +1901,7 @@ const DAYS = [
       },
       {
         time: "13:10 - 13:30",
+        mode: "bus",
         name: "河口湖站 2 号月台登车 ➔ 高速巴士返程",
         title: "河口湖站 2 号站台 ➔ 高速巴士",
         sub: "散步 3 分钟至 2 号站牌 · 13:30 准点发车",
@@ -1936,6 +1977,7 @@ const DAYS = [
     nodes: [
       {
         time: "07:35",
+        mode: "train",
         name: "公寓出发 ➔ 明治神宫前站 2 号出口",
         sub: "日比谷线→日比谷站换千代田线 · 约 43 分钟",
         lat: 35.6702, lng: 139.7060,
@@ -2010,6 +2052,7 @@ const DAYS = [
       },
       {
         time: "15:20",
+        mode: "bus",
         name: "SHIBUYA STREET RIDE 开顶双层巴士 (60 分钟)",
         sub: "歌舞伎町 Tower 15:20 发 ➔ 涩谷 Fukuras · 含在套票内",
         lat: 35.6938, lng: 139.7036,
@@ -2158,13 +2201,14 @@ const DAYS = [
           "周五晚上班族多（華金）：17:15 进店，17:30 入座时店里最安静。",
           "首选【和食日和 おさけと 大門浜松町】（Google 4.0★ · 周五 17:00–22:30）：平路 350m，人均 ¥2,500–3,500。",
           "相扑锅【本格焼鳥ちゃんこ 井筒】：烤鸡串居酒屋兼卖相扑锅，12:00–翌2:00，店内可吸烟、锅分量偏小、建议订位。大门站搭浅草线 1 站到新橋（¥178），出站走约 190 米。",
-          "烧肉【三幸園 麻布十番】（Google 4.3★ · 周五开到 03:00）：周五晚务必订位 电话 03-3585-6306，人均约 ¥8,000 起。走到赤羽桥站，大江户线 17:23 发 1 站到麻布十番（¥178），7 号出口 70 米。回程 19:03 大江户线 2 站到大门，换浅草线直达浅草 19:32（¥272），再搭都08。"
+          "烧肉【三幸園 麻布十番】（Google 4.3★ · 周五开到 03:00）：周五晚务必订位 <a class=\"tel\" href=\"tel:0335856306\">" + ph('phone') + "03-3585-6306</a>，人均约 ¥8,000 起。走到赤羽桥站，大江户线 17:23 发 1 站到麻布十番（¥178），7 号出口 70 米。回程 19:03 大江户线 2 站到大门，换浅草线直达浅草 19:32（¥272），再搭都08。"
         ],
         tags: ["点灯 · 晚餐"],
         hero: false
       },
       {
         time: "19:00",
+        mode: "train",
         name: "返程：浅草线 ➔ 都08 直停「竜泉」门口",
         title: "浅草线 ➔ 都08 回家",
         sub: "大门 ➔ 浅草 14 分钟 ¥220 ➔ 都08 8 分钟",
@@ -2192,6 +2236,7 @@ const DAYS = [
     nodes: [
       {
         time: "10:05",
+        mode: "bus",
         name: "公寓门口「竜泉」站牌 ➔ 都营公车【都08】直达日暮里",
         title: "门口都08 ➔ 日暮里",
         sub: "都营公车都08 · 6站 10分钟 · ¥210/人 · 周日 10:05／10:17／10:28 发",
@@ -2260,6 +2305,7 @@ const DAYS = [
       },
       {
         time: "13:40 前后",
+        mode: "bus",
         name: "都08公车直达公寓大门口 ➔ 准时 14:00 进门",
         title: "都08 回公寓",
         sub: "日暮里站前 ② 番乘车处 ➔ 竜泉 (10分钟 · ¥210)",
@@ -2290,6 +2336,7 @@ const DAYS = [
       },
       {
         time: "20:40",
+        mode: "bus",
         name: "出发：门口「竜泉」站牌",
         title: "出发 ➔ 门口公车到浅草",
         sub: "20:42 草63 / 20:51 草43 / 21:01 草63 (7–9分钟到浅草寿町)",
@@ -2305,6 +2352,7 @@ const DAYS = [
       },
       {
         time: "21:17 / 21:34",
+        mode: "train",
         name: "浅草线 · 往羽田方向 ★",
         title: "浅草线 往羽田 ★",
         sub: "浅草站 1 番線 · 车头写「羽田空港第1・第2ターミナル行」",
@@ -2346,6 +2394,7 @@ const DAYS = [
     nodes: [
       {
         time: "02:20",
+        mode: "plane",
         name: "羽田机场 T3",
         title: "UO629 羽田 ➔ 香港",
         sub: "HK Express · 05:45 到香港",
@@ -2357,6 +2406,7 @@ const DAYS = [
       },
       {
         time: "15:40",
+        mode: "plane",
         name: "Penang International Airport",
         title: "UO746 香港 ➔ 槟城",
         sub: "11:35 香港起飞 · 15:40 到槟城 (PEN)",
@@ -2836,8 +2886,8 @@ function renderTimeline(day) {
       <div class="node-dot">${nIdx + 1}</div>
       <div class="node-card">
         <div class="node-top">
-          <span class="node-when"><span class="time-badge">${String(node.time).replace(/\s*-\s*/, '–')}</span>${tagHtml}</span>
-          <a href="${gmapsNavUrl}" target="_blank" class="nav-btn" title="在 Google Maps 中导航">导航 ↗</a>
+          <span class="node-when"><span class="time-badge">${node.mode ? ph(node.mode, PH_LABEL[node.mode]) : ''}${String(node.time).replace(/\s*-\s*/, '–')}</span>${tagHtml}</span>
+          <a href="${gmapsNavUrl}" target="_blank" class="nav-btn" title="在 Google Maps 中导航">${ph('nav')}导航</a>
         </div>
         <h2 class="node-name">${node.title || node.name}</h2>
         <div class="node-name-sub">${String(node.sub || '').replace(/(\d{1,2}:\d{2})\s*-\s*(\d{1,2}:\d{2})/g, '$1–$2')}</div>
@@ -2996,7 +3046,7 @@ document.addEventListener('DOMContentLoaded', initApp);
 </script>
 <!-- Google Maps JavaScript API. This browser key is public by design: it only works on
      weikhang95.github.io, only for the Maps JavaScript API, and is capped at 300 map loads a day. -->
-<script src="tabbar.js?v=2" defer></script>
+<script src="tabbar.js?v=3" defer></script>
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5rs71T6Mi38Y9nAwLS6NihCBaMr5zJZs&loading=async&callback=onGoogleMapsReady&language=zh-CN&region=JP"></script>
 </body>
 </html>

@@ -106,6 +106,7 @@ try {
     min-width: 0;
   }
   .back-btn {
+    position: relative;
     display: inline-flex;
     align-items: center;
     gap: 4px;
@@ -118,7 +119,9 @@ try {
     border-radius: 99px;
     white-space: nowrap;
     min-height: 40px;
+    transition: scale .1s ease, background-color .15s ease;
   }
+  .back-btn:active { scale: .96; }
   .page-title {
     font-size: 15px;
     font-weight: 800;
@@ -137,6 +140,7 @@ try {
     border-radius: 99px;
   }
   .view-btn {
+    position: relative;
     border: none;
     background: transparent;
     font-size: 11px;
@@ -149,7 +153,7 @@ try {
     cursor: pointer;
     transition: background-color .15s ease, color .15s ease, scale .1s ease;
   }
-  .view-btn:active, .theme-btn:active, .d8-opt-btn:active, .route-toggle-btn:active { scale: .96; }
+  .view-btn:active,.theme-btn:active, .d8-opt-btn:active, .route-toggle-btn:active { scale: .96; }
   .view-btn.active {
     background: var(--ai);
     color: var(--on-ai);
@@ -157,6 +161,7 @@ try {
   /* 昼 / 夜 切换 */
   .bar-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
   .theme-btn {
+    position: relative;
     min-width: 40px; min-height: 40px; padding: 0 10px;
     border: 0; border-radius: 99px; background: transparent;
     color: var(--muted); font: inherit; font-size: 13px; font-weight: 700;
@@ -255,6 +260,7 @@ try {
     align-items: center;
   }
   .route-toggle-btn {
+    position: relative;
     border: 1px solid var(--grid);
     background: var(--card-bg);
     color: var(--muted);
@@ -271,6 +277,7 @@ try {
     border-color: var(--ai);
   }
   .map-link-btn {
+    position: relative;
     display: inline-flex;
     align-items: center;
     gap: 3px;
@@ -281,7 +288,9 @@ try {
     padding: 3px 8px;
     border-radius: 99px;
     background: var(--shu-soft);
+    transition: scale .1s ease;
   }
+  .map-link-btn:active { scale: .96; }
   #map {
     width: 100%;
     height: 270px;
@@ -308,6 +317,7 @@ try {
   .day8-switcher::-webkit-scrollbar { display: none; }
   .d8-opt-btn {
     flex: 1 0 auto;
+    min-height: 36px;
     border: none;
     background: transparent;
     font-size: 11.5px;
@@ -491,6 +501,7 @@ try {
   }
 
   .nav-btn {
+    position: relative;
     display: inline-flex;
     align-items: center;
     gap: 3px;
@@ -502,8 +513,15 @@ try {
     padding: 4px 9px;
     border-radius: 99px;
     flex-shrink: 0;
-    transition: background .15s;
+    transition: background .15s, scale .1s ease;
   }
+  .nav-btn:active { scale: .96; }
+  .back-btn::after, .view-btn::after, .theme-btn::after, .route-toggle-btn::after, .map-link-btn::after {
+    content: ""; position: absolute; inset: 50% auto auto 50%;
+    width: 44px; height: 44px; transform: translate(-50%, -50%);
+  }
+  /* 导航钮在可点的站点卡片里：只往上、左右扩，不压住下方站名（误触会跳出到 Google Maps） */
+  .nav-btn::after { content: ""; position: absolute; inset: -10px -6px 0; }
   .nav-btn:hover {
     background: var(--shu);
   }

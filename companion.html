@@ -93,9 +93,8 @@ try {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
     gap: 8px;
-    padding: 10px 16px;
+    padding: 8px 12px;
     max-width: 900px;
     margin: 0 auto;
   }
@@ -122,15 +121,6 @@ try {
     transition: scale .1s ease, background-color .15s ease;
   }
   .back-btn:active { scale: .96; }
-  .page-title {
-    font-size: 15px;
-    font-weight: 800;
-    letter-spacing: .02em;
-    color: var(--ink);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
   .view-toggles {
     display: flex;
     flex-shrink: 0;
@@ -143,10 +133,10 @@ try {
     position: relative;
     border: none;
     background: transparent;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 700;
     color: var(--muted);
-    padding: 0 10px;
+    padding: 0 12px;
     min-height: 36px;
     white-space: nowrap;
     border-radius: 99px;
@@ -207,6 +197,7 @@ try {
     border-color: var(--ai);
     box-shadow: 0 2px 8px rgba(28, 53, 83, 0.25);
   }
+  .d8-opt-btn small { font-size: 11px; font-weight: 600; }
 
   /* ── Main Layout Container ── */
   .content-wrap {
@@ -237,28 +228,15 @@ try {
     font-size: 11.5px;
     font-weight: 700;
     color: var(--muted);
-    flex-wrap: wrap;
     gap: 8px;
-  }
-  .map-title-group {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-  .route-stats-badge {
-    font-size: 10.5px;
-    font-weight: 700;
-    color: var(--ai);
-    background: var(--ai-soft);
-    padding: 2px 8px;
-    border-radius: 99px;
   }
   .map-actions {
     display: flex;
+    flex: 1;
     gap: 6px;
     align-items: center;
   }
+  .map-actions > a { margin-left: auto; }
   .route-toggle-btn {
     position: relative;
     border: 1px solid var(--grid);
@@ -309,22 +287,28 @@ try {
     gap: 6px;
     background: var(--chip-bg-2);
     padding: 3px;
-    border-radius: 99px;
+    border-radius: 17px;
     margin-bottom: 12px;
     overflow-x: auto;
     scrollbar-width: none;
   }
   .day8-switcher::-webkit-scrollbar { display: none; }
   .d8-opt-btn {
-    flex: 1 0 auto;
-    min-height: 36px;
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 44px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1px;
     border: none;
     background: transparent;
-    font-size: 11.5px;
+    font-size: 13px;
     font-weight: 700;
     color: var(--muted);
-    padding: 6px 12px;
-    border-radius: 99px;
+    padding: 5px 4px;
+    border-radius: 14px;
     cursor: pointer;
     transition: background-color .15s ease, color .15s ease, scale .1s ease;
     white-space: nowrap;
@@ -351,17 +335,8 @@ try {
     margin-bottom: 6px;
     flex-wrap: wrap;
   }
-  .hero-badge {
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: .06em;
-    padding: 2px 8px;
-    border-radius: 99px;
-    background: var(--ai);
-    color: var(--on-ai);
-  }
   .hero-pacing {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
     padding: 2px 8px;
     border-radius: 99px;
@@ -375,22 +350,51 @@ try {
     line-height: 1.35;
     margin-bottom: 6px;
   }
-  .hero-desc {
-    font-size: 12.5px;
-    color: var(--muted);
-    line-height: 1.5;
+  /* 概要默认收起：路线已在标题里，逐站细节在下面的时间轴 */
+  .hero-more > summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    margin: -6px 0 -8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ai);
+    cursor: pointer;
+    list-style: none;
   }
+  .hero-more > summary::-webkit-details-marker { display: none; }
+  .hero-more > summary::after {
+    content: "";
+    width: 6px; height: 6px;
+    border: solid currentColor;
+    border-width: 0 1.5px 1.5px 0;
+    rotate: 45deg;
+    translate: 0 -.15em;
+    transition: rotate .2s cubic-bezier(.2, 0, 0, 1), translate .2s cubic-bezier(.2, 0, 0, 1);
+  }
+  .hero-more[open] > summary::after { rotate: 225deg; translate: 0 .15em; }
+  .hero-more > summary:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; border-radius: 4px; }
+  .hero-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+    padding-bottom: 4px;
+    text-wrap: pretty;
+  }
+  @media (prefers-reduced-motion: reduce) { .hero-more > summary::after { transition: none; } }
   .hero-transit {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-size: 11.5px;
-    font-weight: 700;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.6;
     color: var(--ai);
     background: var(--ai-soft);
-    padding: 4px 10px;
-    border-radius: 8px;
-    margin-top: 8px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    margin: 4px 0 6px;
     width: 100%;
   }
   .hero-route-link {
@@ -407,6 +411,8 @@ try {
     margin-top: 8px;
     transition: background-color .15s ease, color .15s ease;
   }
+  /* 分屏时地图卡已有「Google 路线」，这里只在「行程」视图出现 */
+  body:not([data-view="time"]) .hero-route-link { display: none; }
   .hero-route-link:hover {
     background: var(--shu);
     color: var(--on-ai);
@@ -677,13 +683,12 @@ try {
   <div class="bar-main">
     <div class="brand-group">
       <a href="index.html" class="back-btn to-handbook">← 手册</a>
-      <span class="page-title">📱 随身行程与地图</span>
     </div>
     <div class="bar-right">
       <div class="view-toggles" role="group" aria-label="视图模式">
-        <button class="view-btn active" id="btn-split" onclick="setViewMode('split')">分屏</button>
-        <button class="view-btn" id="btn-time" onclick="setViewMode('time')">仅时间</button>
-        <button class="view-btn" id="btn-map" onclick="setViewMode('map')">仅地图</button>
+        <button class="view-btn active" id="btn-split" onclick="setViewMode('split')" aria-pressed="true">分屏</button>
+        <button class="view-btn" id="btn-time" onclick="setViewMode('time')" aria-pressed="false">行程</button>
+        <button class="view-btn" id="btn-map" onclick="setViewMode('map')" aria-pressed="false">地图</button>
       </div>
       <button class="theme-btn" id="theme-toggle" type="button" onclick="toggleTheme()" aria-label="切换深色模式">夜</button>
     </div>
@@ -699,10 +704,6 @@ try {
   <!-- Interactive Map -->
   <section class="map-card" id="mapCard">
     <div class="map-header">
-      <div class="map-title-group">
-        <span id="mapDayLabel">📍 今日定位点标</span>
-        <span id="mapRouteStats" class="route-stats-badge" style="display:none;"></span>
-      </div>
       <div class="map-actions">
         <button id="btnRouteToggle" class="route-toggle-btn active" onclick="toggleRouteMode()" title="切换真实路网或直连模式">🛣️ 真实路网</button>
         <button type="button" class="route-toggle-btn" onclick="scrollToCurrentNode()">当前站</button>
@@ -2113,10 +2114,8 @@ async function renderRoutePolyline(day) {
   if (!polylineLayer) return;
   polylineLayer.clearLayers();
   
-  const statsBadge = document.getElementById('mapRouteStats');
   const latlngs = day.nodes.map(n => [n.lat, n.lng]);
   if (latlngs.length < 2) {
-    if (statsBadge) statsBadge.style.display = 'none';
     return;
   }
 
@@ -2133,10 +2132,6 @@ async function renderRoutePolyline(day) {
       dashArray: '5, 8'
     });
     polylineLayer.addLayer(straightLine);
-    if (statsBadge) {
-      statsBadge.textContent = '📍 直线模式';
-      statsBadge.style.display = 'inline-block';
-    }
     return;
   }
 
@@ -2146,11 +2141,6 @@ async function renderRoutePolyline(day) {
     const data = PREBAKED_ROUTES[day.day];
     const coords = decodePolyline(data.encoded);
     drawRealCurvedRoute(coords, themeColor, isDrive);
-    if (statsBadge) {
-      const modeLabel = isDrive ? '🚗 自驾路网' : '🚶 步行动线';
-      statsBadge.textContent = `${modeLabel} 约 ${data.distance} (${data.duration})`;
-      statsBadge.style.display = 'inline-block';
-    }
     return;
   }
 
@@ -2158,10 +2148,6 @@ async function renderRoutePolyline(day) {
   if (routeCache[day.day]) {
     const data = routeCache[day.day];
     drawRealCurvedRoute(data.coords, themeColor, isDrive);
-    if (statsBadge) {
-      statsBadge.textContent = `🛣️ 路网 约 ${data.distance} (${data.duration})`;
-      statsBadge.style.display = 'inline-block';
-    }
     return;
   }
 
@@ -2173,10 +2159,6 @@ async function renderRoutePolyline(day) {
     dashArray: day.day === 'D10' ? '8, 12' : '5, 8'
   });
   polylineLayer.addLayer(tempLine);
-  if (statsBadge) {
-    statsBadge.textContent = day.day === 'D10' ? '✈️ 航线' : (day.day === 'D1' ? '🚆 铁道直通' : '🛣️ 计算中...');
-    statsBadge.style.display = 'inline-block';
-  }
 
   // For D1 (Skyliner) and D10 (Flights), transit line is optimal
   if (day.day === 'D1' || day.day === 'D10') return;
@@ -2190,16 +2172,12 @@ async function renderRoutePolyline(day) {
     if (json.code === 'Ok' && json.routes && json.routes[0]) {
       const r = json.routes[0];
       const realCoords = r.geometry.coordinates.map(c => [c[1], c[0]]);
-      const dist = (r.distance / 1000).toFixed(1) + ' km';
-      const dur = Math.round(r.duration / 60) + ' 分钟';
-      routeCache[day.day] = { coords: realCoords, distance: dist, duration: dur };
-      
+      // 只画线不报数：预存路线与 OSRM 都按车速算，公里和分钟对步行/电车日都不准
+      routeCache[day.day] = { coords: realCoords };
+
       if (DAYS[currentDayIdx].day === day.day && showRealRoadRoute) {
         polylineLayer.clearLayers();
         drawRealCurvedRoute(realCoords, themeColor, isDrive);
-        if (statsBadge) {
-          statsBadge.textContent = `${isDrive ? '🚗 自驾' : '🚶 步行'} 约 ${dist} (${dur})`;
-        }
       }
     }
   } catch (e) {
@@ -2215,9 +2193,20 @@ let markersLayer = null;
 let polylineLayer = null;
 let currentViewMode = 'split'; // 'split', 'time', 'map'
 
+// 行程当天：没带日期打开（例如底栏「地图」）就停在今天
+function isToday(day) {
+  const now = new Date();
+  const [m, d] = day.date.split('/').map(Number);
+  return now.getFullYear() === 2026 && now.getMonth() + 1 === m && now.getDate() === d;
+}
+function todayIdx() {
+  const i = DAYS.findIndex(isToday);
+  return i < 0 ? 0 : i;
+}
+
 function getDayIdxFromHash() {
   const hash = window.location.hash.toLowerCase().replace('#', '');
-  if (!hash) return 0;
+  if (!hash) return todayIdx();
   const match = hash.match(/\d+/);
   if (match) {
     const num = parseInt(match[0], 10);
@@ -2396,7 +2385,6 @@ function selectDay(idx, updateHash = true) {
   }
 
   // Update map header
-  document.getElementById('mapDayLabel').textContent = `📍 ${day.day} (${day.date} ${day.weekday}) 地图路线`;
   const routeBtn = document.getElementById('btnGmapsDayRoute');
   routeBtn.href = day.routeUrl;
 
@@ -2410,10 +2398,10 @@ function selectDay(idx, updateHash = true) {
   if (idx === 7) {
     d8SwitcherHtml = `
       <div class="day8-switcher" role="group" aria-label="Day 8 方案选择">
-        <button class="d8-opt-btn ${currentDay8OptionKey === 'kamakura' ? 'active' : ''}" onclick="switchDay8Option('kamakura')">🌊 方案 A: 镰仓海景大佛 (主推)</button>
-        <button class="d8-opt-btn ${currentDay8OptionKey === 'nezu' ? 'active' : ''}" onclick="switchDay8Option('nezu')">⛩️ 方案 B: 根津神社·谷中祭 (⚠️ 与 D9 重合)</button>
-        <button class="d8-opt-btn ${currentDay8OptionKey === 'kiyosumi' ? 'active' : ''}" onclick="switchDay8Option('kiyosumi')">☕ 方案 C: 清澄白河 (无冲突·最省力)</button>
-        <button class="d8-opt-btn ${currentDay8OptionKey === 'kichijoji' ? 'active' : ''}" onclick="switchDay8Option('kichijoji')">🛍️ 方案 D: 吉祥寺井之头</button>
+        <button class="d8-opt-btn ${currentDay8OptionKey === 'kamakura' ? 'active' : ''}" aria-pressed="${currentDay8OptionKey === 'kamakura'}" onclick="switchDay8Option('kamakura')"><b>A 镰仓</b><small>主推</small></button>
+        <button class="d8-opt-btn ${currentDay8OptionKey === 'nezu' ? 'active' : ''}" aria-pressed="${currentDay8OptionKey === 'nezu'}" onclick="switchDay8Option('nezu')"><b>B 根津</b><small>与 D9 重合</small></button>
+        <button class="d8-opt-btn ${currentDay8OptionKey === 'kiyosumi' ? 'active' : ''}" aria-pressed="${currentDay8OptionKey === 'kiyosumi'}" onclick="switchDay8Option('kiyosumi')"><b>C 清澄白河</b><small>最省力</small></button>
+        <button class="d8-opt-btn ${currentDay8OptionKey === 'kichijoji' ? 'active' : ''}" aria-pressed="${currentDay8OptionKey === 'kichijoji'}" onclick="switchDay8Option('kichijoji')"><b>D 吉祥寺</b><small>假日人多</small></button>
       </div>
     `;
   }
@@ -2421,13 +2409,11 @@ function selectDay(idx, updateHash = true) {
   heroCard.innerHTML = `
     ${d8SwitcherHtml}
     <div class="hero-meta">
-      <span class="hero-badge">${day.day} · ${day.date} (${day.weekday})</span>
       <span class="hero-pacing">${day.intensity}</span>
     </div>
     <h1 class="hero-title">${day.title}</h1>
-    <p class="hero-desc">${day.desc}</p>
-    <div class="hero-transit">🚇 ${day.transit}</div>
-    <a href="${day.routeUrl}" target="_blank" class="hero-route-link">🗺️ 打开今日完整 Google Maps 路线规划 ↗</a>
+    <details class="hero-more"><summary>今日概要 · 交通</summary><div class="hero-transit">${day.transit}</div><p class="hero-desc">${day.desc}</p></details>
+    <a href="${day.routeUrl}" target="_blank" class="hero-route-link">🗺️ 今日完整路线 · Google Maps ↗</a>
   `;
 
   // Render Timeline
@@ -2577,15 +2563,26 @@ function highlightNodeCard(idx) {
   }
 }
 
+// 「当前站」：看的是今天就按钟点找已开始的最后一站，否则第一站
 function scrollToCurrentNode() {
-  const cards = document.querySelectorAll('.node-item');
-  if (cards.length > 0) {
-    focusNode(0);
+  const day = DAYS[currentDayIdx];
+  if (!day.nodes.length) return;
+  let idx = 0;
+  if (isToday(day)) {
+    const now = new Date();
+    const mins = now.getHours() * 60 + now.getMinutes();
+    day.nodes.forEach((n, i) => {
+      const t = /^(\d{1,2}):(\d{2})/.exec(n.time);
+      if (t && +t[1] * 60 + +t[2] <= mins) idx = i;
+    });
   }
+  focusNode(idx);
 }
 
 function setViewMode(mode) {
   currentViewMode = mode;
+  document.body.dataset.view = mode;
+  ['split', 'time', 'map'].forEach(m => document.getElementById('btn-' + m).setAttribute('aria-pressed', String(m === mode)));
   document.getElementById('btn-split').classList.toggle('active', mode === 'split');
   document.getElementById('btn-time').classList.toggle('active', mode === 'time');
   document.getElementById('btn-map').classList.toggle('active', mode === 'map');

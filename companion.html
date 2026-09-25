@@ -706,7 +706,7 @@ try {
   <section class="map-card" id="mapCard">
     <div class="map-header">
       <div class="map-actions">
-        <button id="btnRouteToggle" class="route-toggle-btn active" onclick="toggleRouteMode()" title="切换真实路网或直连模式">🛣️ 真实路网</button>
+        <button id="btnRouteToggle" class="route-toggle-btn active" onclick="toggleRouteMode()" title="切换真实路网或直连模式">真实路网</button>
         <button type="button" class="route-toggle-btn" onclick="scrollToCurrentNode()">当前站</button>
         <a id="btnGmapsDayRoute" class="map-link-btn" href="#" target="_blank">Google 路线 ↗</a>
       </div>
@@ -729,7 +729,7 @@ try {
     <h2>这里只回答「现在往哪走」</h2>
     <p>随身页放的是当天的时间、地点、地图与一键导航 —— 站在路口掏出手机要看的东西。</p>
     <p><strong>为什么这样排、有哪些备选、票订了没、钱怎么花</strong>，都在手册里。手册是出发前读的，随身页是路上用的。</p>
-    <a class="role-link to-handbook" href="index.html">📖 打开这一天的手册 →</a>
+    <a class="role-link to-handbook" href="index.html">打开这一天的手册</a>
   </section>
 </div>
 
@@ -750,14 +750,14 @@ let currentDay8OptionKey = 'kamakura'; // 'kamakura', 'kiyosumi', 'kichijoji'
 const DAY8_OPTIONS = {
   kamakura: {
     key: 'kamakura',
-    label: '🌊 方案 A · 镰仓海景大佛 (普通顺行闭环)',
+    label: '方案 A · 镰仓海景大佛 (普通顺行闭环)',
     day: 'D8',
     date: '10/10',
     weekday: '六',
-    intensity: '🟢 轻负荷 (顺向大环线) · 约 7,700 步',
+    intensity: '轻负荷 (顺向大环线) · 约 7,700 步',
     title: '镰仓大佛 ➔ 江之电海景 ➔ 横滨日落 ★',
-    desc: '全普通电车/公车顺畅闭环，100% 顺向零回头路。08:00 出门，东京站地下 B5 月台搭横须贺线（08:47 非东京站始发，多半有座但不保证；要保证有座改搭 09:09 东京站始发）；先搭东口公车直抵【报国寺】竹林深处的休耕庵茶席，坐着喝抹茶抬头看竹梢；回程刻意提早两站在「八幡宮」下车，顺着往车站方向走完【小町通商店街】，零折返；江之电到长谷平路 7 分钟拜【镰仓大佛】（0 阶梯、有无障碍入口）；再坐江之电最美的贴海一段（不另外下车吹风；⚠️ 三连休周六多半要站这 15 分钟，站右边靠海窗），午餐在鎌倉高校前【ことぶき屋 4.8★】靠窗隔玻璃看海看电车（不用排队、店员会开窗让你拍）；顺路在【江ノ島站】出闸 10 秒拍穿手织毛衣的小鸟「江のピコ」（每月 1 号换装，30 年志愿者接力）；再顺行至藤泽换 JR —— 这条线 100% 途经横滨，切进港湾走汽車道看日落（累了才改坐缆车），红砖仓库等到蓝调点灯，横滨站买崎陽軒便当带回房吃，上野东京线 0 换乘 32 分钟直达上野，19:10 到家。',
-    transit: '🚆 JR 横须贺线 (普通车 · IC ¥1,034) ➔ 镰仓东口 4 のりば 鎌36/鎌23/鎌24 公车直抵报国寺 ➔ 回程八幡宮下车顺走小町通 ➔ 江之电刷 Suica 走完长谷·鎌倉高校前·江ノ島·藤泽四段（约 ¥840/人，一日券不划算） ➔ JR 藤泽 ➔ 横滨 ➔ 樱木町 ¥440 ➔ 走汽車道 ➔ JR 上野东京线 0 换乘回上野',
+    desc: '全普通电车/公车顺畅闭环，100% 顺向零回头路。08:00 出门，东京站地下 B5 月台搭横须贺线（08:47 非东京站始发，多半有座但不保证；要保证有座改搭 09:09 东京站始发）；先搭东口公车直抵【报国寺】竹林深处的休耕庵茶席，坐着喝抹茶抬头看竹梢；回程刻意提早两站在「八幡宮」下车，顺着往车站方向走完【小町通商店街】，零折返；江之电到长谷平路 7 分钟拜【镰仓大佛】（0 阶梯、有无障碍入口）；再坐江之电最美的贴海一段（不另外下车吹风；三连休周六多半要站这 15 分钟，站右边靠海窗），午餐在鎌倉高校前【ことぶき屋 4.8★】靠窗隔玻璃看海看电车（不用排队、店员会开窗让你拍）；顺路在【江ノ島站】出闸 10 秒拍穿手织毛衣的小鸟「江のピコ」（每月 1 号换装，30 年志愿者接力）；再顺行至藤泽换 JR —— 这条线 100% 途经横滨，切进港湾走汽車道看日落（累了才改坐缆车），红砖仓库等到蓝调点灯，横滨站买崎陽軒便当带回房吃，上野东京线 0 换乘 32 分钟直达上野，19:10 到家。',
+    transit: 'JR 横须贺线 (普通车 · IC ¥1,034) ➔ 镰仓东口 4 のりば 鎌36/鎌23/鎌24 公车直抵报国寺 ➔ 回程八幡宮下车顺走小町通 ➔ 江之电刷 Suica 走完长谷·鎌倉高校前·江ノ島·藤泽四段（约 ¥840/人，一日券不划算） ➔ JR 藤泽 ➔ 横滨 ➔ 樱木町 ¥440 ➔ 走汽車道 ➔ JR 上野东京线 0 换乘回上野',
     routeUrl: 'https://www.google.com/maps/dir/?api=1&origin=Hokokuji+Temple+Kamakura&destination=Yokohama+Red+Brick+Warehouse&waypoints=Komachi-dori+Kamakura%7CKamakura+Daibutsu%7CKamakurakokomae+Station%7CEnoshima+Station+Enoden&travelmode=transit',
     nodes: [
       {
@@ -794,7 +794,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '10:15 - 11:15',
-        name: '🎋 报国寺「竹之寺」＋ 休耕庵茶席 ★',
+        name: '报国寺「竹之寺」＋ 休耕庵茶席 ★',
         title: "报国寺竹林 ＋ 休耕庵茶席 ★",
         sub: '拝観¥400＋抹茶¥600 · 09:00–16:00 · 4.4★/5,579',
         lat: 35.31999, lng: 139.56924,
@@ -810,7 +810,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '11:25 - 12:20',
-        name: '🛍️ 提早两站下车 ➔ 顺走小町通商店街回车站',
+        name: '提早两站下车 ➔ 顺走小町通商店街回车站',
         title: "八幡宮下车 ➔ 小町通商店街",
         sub: '4.4★/301 则 · 全长约 360m 全平路 · 顺路零折返',
         lat: 35.32032, lng: 139.55173,
@@ -827,7 +827,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '12:22 - 13:20',
-        name: '🗿 江之电 ➔ 长谷 ➔ 高德院·镰仓大佛 (0 阶梯) ★',
+        name: '江之电 ➔ 长谷 ➔ 高德院·镰仓大佛 (0 阶梯) ★',
         title: "江之电 ➔ 长谷 ➔ 镰仓大佛 ★",
         sub: '门票 ¥300 · 08:00–17:00 · 16:45 前入场 · 4.4★/32,700 · 有无障碍入口',
         lat: 35.3168, lng: 139.5357,
@@ -861,7 +861,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '14:00 - 14:55',
-        name: '🏆 ことぶき屋 鎌倉高校前店 (靠窗海景 ＋ 江之电贴窗) ★',
+        name: 'ことぶき屋 鎌倉高校前店 (靠窗海景 ＋ 江之电贴窗) ★',
         title: "ことぶき屋 靠窗海景午餐 ★",
         sub: '4.8★/171 则 · 11:00–18:30 全年无休',
         lat: 35.30687, lng: 139.49680,
@@ -878,7 +878,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '15:02 - 15:22',
-        name: '🐦 江ノ島站前「江のピコ」—— 穿手织毛衣的小鸟 ★',
+        name: '江ノ島站前「江のピコ」—— 穿手织毛衣的小鸟 ★',
         title: "江ノ島站前「江のピコ」毛衣小鸟 ★",
         sub: '免费 · 出闸 10 秒 · 零走路 · 每月 1 号换装',
         lat: 35.31105, lng: 139.48738,
@@ -912,7 +912,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '16:15 - 17:45',
-        name: '✅ 走汽車道临海步道 ➔ 红砖仓库日落与蓝调点灯 ★',
+        name: '走汽車道临海步道 ➔ 红砖仓库日落与蓝调点灯 ★',
         title: "汽車道 ➔ 红砖仓库 日落 ★",
         sub: '走路 1,184m/17分 · 全平无台阶 · 省¥2,000 · 日落 17:14',
         lat: 35.4540, lng: 139.6320,
@@ -930,7 +930,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '17:45 - 19:10',
-        name: '🍱 横滨站买崎陽軒便当 ➔ 上野东京线 0 换乘 ➔ 19:10 到家吃',
+        name: '横滨站买崎陽軒便当 ➔ 上野东京线 0 换乘 ➔ 19:10 到家吃',
         title: "崎陽軒便当 ➔ 19:10 到家",
         sub: '馬車道站 658m ➔ 横滨站 · シウマイ弁当 ¥1,000–1,100/个',
         lat: 35.4657, lng: 139.6226,
@@ -950,14 +950,14 @@ const DAY8_OPTIONS = {
   },
   nezu: {
     key: 'nezu',
-    label: '⛩️ 方案 B · 根津神社与谷中祭 (⚠️ 与 D9 重合)',
+    label: '方案 B · 根津神社与谷中祭（与 D9 重合）',
     day: 'D8',
     date: '10/10',
     weekday: '六',
-    intensity: '🟢 低负荷 (下町回血) · 约 3,800 步',
+    intensity: '低负荷 (下町回血) · 约 3,800 步',
     title: '根津神社 ➔ 谷中祭 ➔ 釜竹乌冬 ➔ 午睡',
-    desc: '⚠️ 这三站就是 D9（10/11）的全部行程 —— 根津神社、谷中祭、根津釜竹乌冬。谷中祭 10/10–10/11 两天都办，所以今天走它不会错过祭典，但 D9 就得改走方案 C（清澄白河），否则连着两天走同一条路线。不想动 D9 的话，今天请直接选方案 C。｜门口都08公车到日暮里再走谷中下坡，漫步 300 年江户德川重要文化財古刹与朱红千本鸟居，偶遇街头传统神轿出巡与人情味市集，吃庭园手打乌冬面，14:30 回房泡脚大午睡。',
-    transit: '🚌 门口都08 ➔ 日暮里 (¥210) ➔ 谷中下坡漫步 ➔ 根津站千代田线/北千住转日比谷线回三ノ輪 (¥209)',
+    desc: '注意：这三站就是 D9（10/11）的全部行程 —— 根津神社、谷中祭、根津釜竹乌冬。谷中祭 10/10–10/11 两天都办，所以今天走它不会错过祭典，但 D9 就得改走方案 C（清澄白河），否则连着两天走同一条路线。不想动 D9 的话，今天请直接选方案 C。｜门口都08公车到日暮里再走谷中下坡，漫步 300 年江户德川重要文化財古刹与朱红千本鸟居，偶遇街头传统神轿出巡与人情味市集，吃庭园手打乌冬面，14:30 回房泡脚大午睡。',
+    transit: '门口都08 ➔ 日暮里 (¥210) ➔ 谷中下坡漫步 ➔ 根津站千代田线/北千住转日比谷线回三ノ輪 (¥209)',
     routeUrl: 'https://www.google.com/maps/dir/?api=1&origin=Tokyo+Taito+Ryusen+3-10-7&destination=Nezu+Shrine&waypoints=Nezu+Kamachiku%7CYanaka+Ginza&travelmode=walking',
     nodes: [
       {
@@ -1019,14 +1019,14 @@ const DAY8_OPTIONS = {
   },
   kiyosumi: {
     key: 'kiyosumi',
-    label: '☕ 方案 C · 清澄白河 (避连休回血)',
+    label: '方案 C · 清澄白河 (避连休回血)',
     day: 'D8',
     date: '10/10',
     weekday: '六',
-    intensity: '🟢 低负荷 (深度回血) · 约 3,500–4,000 步',
+    intensity: '低负荷 (深度回血) · 约 3,500–4,000 步',
     title: '清澄白河 ➔ 清澄庭园 ➔ 深川饭',
     desc: '日本三连休首日避开热区！上午漫步清澄庭园水上踏石，午餐在门前仲町享用热腾腾深川蛤蜊饭，下午悠闲打卡东京慢调咖啡馆，晚间早休备战羽田离境。',
-    transit: '🚇 大江户线/半藏门线直达 ➔ 傍晚步行回巢',
+    transit: '大江户线/半藏门线直达 ➔ 傍晚步行回巢',
     routeUrl: 'https://www.google.com/maps/dir/?api=1&origin=Blue+Bottle+Coffee+Kiyosumi&destination=Kiyosumi+Gardens&travelmode=walking',
     nodes: [
       {
@@ -1075,14 +1075,14 @@ const DAY8_OPTIONS = {
   },
   kichijoji: {
     key: 'kichijoji',
-    label: '🛍️ 方案 D · 吉祥寺井之头 (文青备选)',
+    label: '方案 D · 吉祥寺井之头 (文青备选)',
     day: 'D8',
     date: '10/10',
     weekday: '六',
-    intensity: '🟡 中等负荷 · 假日人潮较多宜放慢走',
+    intensity: '中等负荷 · 假日人潮较多宜放慢走',
     title: '吉祥寺 ➔ 井之头公园 ➔ 吉卜力外围',
     desc: '东京人最想居住街区！探访井之头恩赐公园水塘林荫，闲逛 Sunroad 遮雨商业街与中道通杂货铺。假日人潮密集，宜放慢脚步走走停停。',
-    transit: '🚆 JR 中央线快速 / 京王井之头线 ➔ 巴士接驳',
+    transit: 'JR 中央线快速 / 京王井之头线 ➔ 巴士接驳',
     routeUrl: 'https://www.google.com/maps/dir/?api=1&origin=Kichijoji+Station&destination=Ghibli+Museum',
     nodes: [
       {
@@ -1243,7 +1243,7 @@ const DAYS = [
     title: "浅草晨拍 ➔ 待乳山 ➔ 桜桥 ➔ 秋叶原",
     intensity: "中负荷 · 约 6,500 步",
     desc: "利用倒时差早起优势独享清空雷门，中午吃 160 年手打荞麦，午后乘免费迷你缆车赏晴空塔，傍晚抢拍周日限定秋叶原步行者天国！",
-    transit: "🚌 门口公车直达浅草雷门 ➔ 桜桥徒步 ➔ 公车/步行回浅草转银座线赴秋叶原 ➔ 日比谷线直达回竜泉",
+    transit: "门口公车直达浅草雷门 ➔ 桜桥徒步 ➔ 公车/步行回浅草转银座线赴秋叶原 ➔ 日比谷线直达回竜泉",
     routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Tokyo+Taito+Ryusen+3-10-7&destination=Akihabara+Electric+Town&waypoints=Kaminarimon+Gate%7CMatsuchiyama+Shoden%7CSakurabashi+Bridge&travelmode=walking",
     nodes: [
       {
@@ -1416,7 +1416,7 @@ const DAYS = [
       title: "上野东照宫 ➔ 日本桥三越 ➔ COREDO室町",
       intensity: "中等强度 · 约 4,500 步",
       desc: "上野公园徒步、逛百年老铺与诚品生活；傍晚适时休整。",
-      transit: "🚇 日比谷线 2站 ➔ 🚇 银座线 3站 ➔ 🚇 银座线+日比谷线回程",
+      transit: "日比谷线 2站 ➔ 银座线 3站 ➔ 银座线+日比谷线回程",
       routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Tokyo+Taito+Ryusen+3-10-7&destination=COREDO+Muromachi&waypoints=Ueno+Toshogu+Shrine%7CKiyomizu+Kannon-do%7COotoya+Ueno+Park%7CNihombashi+Mitsukoshi+Main+Store&travelmode=transit",
       nodes: [
         {
@@ -1435,7 +1435,7 @@ const DAYS = [
         },
         {
           time: "09:05",
-          name: "上野东照宫 🌟",
+          name: "上野东照宫",
           title: "上野东照宫 (重要文化财)",
           sub: "Ueno Toshogu · 09:00 开门即入",
           lat: 35.7153, lng: 139.7739,
@@ -1517,7 +1517,7 @@ const DAYS = [
         },
         {
           time: "12:45",
-          name: "日本桥三越本店 🌟",
+          name: "日本桥三越本店",
           title: "日本桥三越本店",
           sub: "1673 年开业 · 日本第一家百货",
           lat: 35.6860, lng: 139.7735,
@@ -1569,7 +1569,7 @@ const DAYS = [
     title: "巴士去河口湖 ➔ 忍野八海 ➔ 大石公园落日 ➔ 温泉",
     intensity: "中负荷 · 自驾 48 km",
     desc: "大行李留东京，08:10 高速巴士去河口湖；12:30 取车，忍野八海、大石公园看红富士余晖，入住 SAWA 后看体力泡温泉，21:00 熄灯。",
-    transit: "🚇 日比谷线＋JR 上野东京线 ➔ 🚌 08:10 高速巴士 ➔ 🚗 河口湖自驾",
+    transit: "日比谷线＋JR 上野东京线 ➔ 08:10 高速巴士 ➔ 河口湖自驾",
     routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Kawaguchiko+Station&destination=Fuji+Yurari+Onsen&waypoints=Lawson+Fujikawaguchiko+Town+Hall%7COshino+Hakkai%7COishi+Park+Kawaguchiko%7CSawa+Hotel+Fujikawaguchiko&travelmode=driving",
     nodes: [
       {
@@ -1722,7 +1722,7 @@ const DAYS = [
     title: "五湖日出 ➔ 还车 ➔ KITTE 看新干线 ➔ 牛排",
     intensity: "中负荷 · 自驾 90 km",
     desc: "清晨制霸千圆日出、精进湖子抱富士、西湖根场滨与长崎公园，08:20 回 SAWA 洗热水澡吃热食退房，11:45 还车，いだ天大餐避开排队与公厕长龙，13:30 巴士回东京！",
-    transit: "🚗 自驾五湖晨光环线 ➔ 11:45 站前还车 ➔ 高速巴士 13:30 返东京站 ➔ KITTE 露台",
+    transit: "自驾五湖晨光环线 ➔ 11:45 站前还车 ➔ 高速巴士 13:30 返东京站 ➔ KITTE 露台",
     routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Sawa+Hotel+Fujikawaguchiko&destination=Nippon+Rent-A-Car+Kawaguchiko+Station&waypoints=Koan+Camping+Ground+Motosuko%7C483+Shoji+Fujikawaguchiko%7CSaiko+Nenba-hama%7CNagasaki+Park+Kawaguchiko%7CSawa+Hotel+Fujikawaguchiko&travelmode=driving",
     nodes: [
       {
@@ -1908,7 +1908,7 @@ const DAYS = [
       },
       {
         time: "18:00",
-        name: "🥖 进闸顺路买明早面包 (GRANSTA 1F 改札内)",
+        name: "进闸顺路买明早面包 (GRANSTA 1F 改札内)",
         title: "GRANSTA 1F 买明早面包 ➔ 回家",
         sub: "THE STANDARD BAKERS · 中央通路 · 山手线月台旁",
         lat: 35.68172, lng: 139.76656,
@@ -1929,9 +1929,9 @@ const DAYS = [
     date: "10/8",
     weekday: "四",
     title: "明治神宫 ➔ 蓝瓶 ➔ 开顶巴士 ➔ 涩谷SKY ★",
-    intensity: "🔴 高负荷 (全行程唯一高光峰值) · 约 13,600 步",
+    intensity: "高负荷 (全行程唯一高光峰值) · 约 13,600 步",
     desc: "07:35 错峰出门，08:25 走进几乎无人的明治神宫巨木森林；蓝瓶青山 2F 绿荫大露台坐足 90 分钟；川上庵手打荞麦午餐；下午在歌舞伎町 Tower 室内歇脚 90 分钟，15:20 坐上开顶双层巴士一路不走路，16:40 登顶涩谷SKY 看 17:16 日落与百万夜景！",
-    transit: "🚇 日比谷线→千代田线直达明治神宫前 2 号出口 ➔ 千代田线 1 站至表参道(走 B3 出口才有电梯) ➔ 步行至明治神宫前搭副都心线 2 站至新宿三丁目 ➔ 15:20 双层巴士至涩谷 ➔ 银座线始发站坐回上野",
+    transit: "日比谷线→千代田线直达明治神宫前 2 号出口 ➔ 千代田线 1 站至表参道(走 B3 出口才有电梯) ➔ 步行至明治神宫前搭副都心线 2 站至新宿三丁目 ➔ 15:20 双层巴士至涩谷 ➔ 银座线始发站坐回上野",
     routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Meiji+Jingu&destination=SHIBUYA+SKY&waypoints=Blue+Bottle+Coffee+Aoyama%7COmotesando+Hills%7CTokyu+Kabukicho+Tower&travelmode=transit",
     nodes: [
       {
@@ -2010,7 +2010,7 @@ const DAYS = [
       },
       {
         time: "15:20",
-        name: "🚌 SHIBUYA STREET RIDE 开顶双层巴士 (60 分钟)",
+        name: "SHIBUYA STREET RIDE 开顶双层巴士 (60 分钟)",
         sub: "歌舞伎町 Tower 15:20 发 ➔ 涩谷 Fukuras · 含在套票内",
         lat: 35.6938, lng: 139.7036,
         key: ["已订 10/8 15:20 班", "带东急巴士确认信／QR", "下雨照开"],
@@ -2043,9 +2043,9 @@ const DAYS = [
       },
       {
         time: "18:10",
-        name: "🐟 炭烤鱼定食晚餐 ➔ 银座线始发站 100% 有座回巢",
+        name: "炭烤鱼定食晚餐 ➔ 银座线始发站 100% 有座回巢",
         title: "しんぱち食堂 炭烤鱼定食 ➔ 银座线回家",
-        sub: "🐟 しんぱち食堂 渋谷明治通り店 · 炭烤鱼定食 · 平路 400m",
+        sub: "しんぱち食堂 渋谷明治通り店 · 炭烤鱼定食 · 平路 400m",
         lat: 35.65737, lng: 139.70365,
         key: ["!18:10 就去，18:00 后开始排队", "20:00 银座线始发，一定有座（¥252/人）", "20:41 到三ノ輪"],
         more: [
@@ -2068,7 +2068,7 @@ const DAYS = [
     title: "小网神社 ➔ 筑地 ➔ 银座 ➔ 东京铁塔点灯",
     intensity: "中低负荷 · 约 6,000 步",
     desc: "三连休前夕的田忌赛马：把银座与铁塔排在周五白天，避开周五晚上班族狂欢人潮。拜访东京第一财运小网神社，筑地吃大腹鲔鱼早午餐，GINZA SIX 屋顶花园与 UNIQLO 银座 12F 旗舰歇脚，约 17:14 静候东京铁塔点灯，17:15 错峰在大门吃暖胃和食（相扑锅／麻布十番烧肉备选），19:45 早早回巢。",
-    transit: "🚇 日比谷线直达人形町/筑地/东银座 ➔ 银座地下步道直通 GSIX ➔ 都营浅草线 2 站至大门 ➔ 浅草线回浅草换都08 直达门口",
+    transit: "日比谷线直达人形町/筑地/东银座 ➔ 银座地下步道直通 GSIX ➔ 都营浅草线 2 站至大门 ➔ 浅草线回浅草换都08 直达门口",
     routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Koami+Shrine&destination=Zojoji+Temple&waypoints=Tsukiji+Outer+Market%7CGINZA+SIX%7CShiba+Park&travelmode=transit",
     nodes: [
       {
@@ -2158,7 +2158,7 @@ const DAYS = [
           "周五晚上班族多（華金）：17:15 进店，17:30 入座时店里最安静。",
           "首选【和食日和 おさけと 大門浜松町】（Google 4.0★ · 周五 17:00–22:30）：平路 350m，人均 ¥2,500–3,500。",
           "相扑锅【本格焼鳥ちゃんこ 井筒】：烤鸡串居酒屋兼卖相扑锅，12:00–翌2:00，店内可吸烟、锅分量偏小、建议订位。大门站搭浅草线 1 站到新橋（¥178），出站走约 190 米。",
-          "烧肉【三幸園 麻布十番】（Google 4.3★ · 周五开到 03:00）：周五晚务必订位 ☎ 03-3585-6306，人均约 ¥8,000 起。走到赤羽桥站，大江户线 17:23 发 1 站到麻布十番（¥178），7 号出口 70 米。回程 19:03 大江户线 2 站到大门，换浅草线直达浅草 19:32（¥272），再搭都08。"
+          "烧肉【三幸園 麻布十番】（Google 4.3★ · 周五开到 03:00）：周五晚务必订位 电话 03-3585-6306，人均约 ¥8,000 起。走到赤羽桥站，大江户线 17:23 发 1 站到麻布十番（¥178），7 号出口 70 米。回程 19:03 大江户线 2 站到大门，换浅草线直达浅草 19:32（¥272），再搭都08。"
         ],
         tags: ["点灯 · 晚餐"],
         hero: false
@@ -2187,7 +2187,7 @@ const DAYS = [
     title: "谷中祭 ➔ 根津神社 ➔ 午睡 ➔ 公车去羽田 ★",
     intensity: "极低负荷 · 约 4,500 步",
     desc: "门口都08公车 10 分钟到日暮里，逛台东区一年一度的谷中祭：初音の森市集、旧吉田屋江户大道艺，再走到根津神社千本鸟居，吃米其林必比登手打乌冬。14:00 回公寓午睡，17:30 洗澡收拾，晚上门口公车转浅草线去羽田。",
-    transit: "🚌 门口都08 ➔ 日暮里 ➔ 走路 ➔ 都08 回公寓 ➔ 20:40 门口草63/草43 ➔ 浅草站 1 番線 往羽田 T3",
+    transit: "门口都08 ➔ 日暮里 ➔ 走路 ➔ 都08 回公寓 ➔ 20:40 门口草63/草43 ➔ 浅草站 1 番線 往羽田 T3",
     routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Tokyo+Taito+Ryusen+3-10-7&destination=Haneda+Airport+Terminal+3&waypoints=Yanaka+Matsuri%7CNezu+Shrine%7CNezu+Kamachiku&travelmode=transit",
     nodes: [
       {
@@ -2437,7 +2437,7 @@ function toggleRouteMode() {
   const btn = document.getElementById('btnRouteToggle');
   if (btn) {
     btn.classList.toggle('active', showRealRoadRoute);
-    btn.textContent = showRealRoadRoute ? '🛣️ 真实路网' : '📍 直线';
+    btn.textContent = showRealRoadRoute ? '真实路网' : '直线';
   }
   const day = DAYS[currentDayIdx];
   renderRoutePolyline(day);
@@ -2677,7 +2677,7 @@ function onGoogleMapsReady() {
 // Google calls this when the key is rejected (wrong site, API not enabled, daily cap hit)
 function gm_authFailure() {
   document.getElementById('map').innerHTML =
-    '<div style="padding:24px 16px;font-size:13px;line-height:1.6;color:var(--muted);">地图暂时载入不了。每一站的「📍 导航」按钮照样能打开 Google Maps。</div>';
+    '<div style="padding:24px 16px;font-size:13px;line-height:1.6;color:var(--muted);">地图暂时载入不了。每一站的「导航」按钮照样能打开 Google Maps。</div>';
 }
 
 // Small stand-in for Leaflet's layer group: holds overlays so a day switch can clear them
@@ -2795,7 +2795,7 @@ function selectDay(idx, updateHash = true) {
     </div>
     <h1 class="hero-title">${day.title}</h1>
     <details class="hero-more"><summary>今日概要 · 交通</summary><div class="hero-transit">${day.transit}</div><p class="hero-desc">${day.desc}</p></details>
-    <a href="${day.routeUrl}" target="_blank" class="hero-route-link">🗺️ 今日完整路线 · Google Maps ↗</a>
+    <a href="${day.routeUrl}" target="_blank" class="hero-route-link">今日完整路线 · Google Maps ↗</a>
   `;
 
   // Render Timeline
@@ -2837,7 +2837,7 @@ function renderTimeline(day) {
       <div class="node-card">
         <div class="node-top">
           <span class="node-when"><span class="time-badge">${String(node.time).replace(/\s*-\s*/, '–')}</span>${tagHtml}</span>
-          <a href="${gmapsNavUrl}" target="_blank" class="nav-btn" title="在 Google Maps 中导航">📍 导航 ↗</a>
+          <a href="${gmapsNavUrl}" target="_blank" class="nav-btn" title="在 Google Maps 中导航">导航 ↗</a>
         </div>
         <h2 class="node-name">${node.title || node.name}</h2>
         <div class="node-name-sub">${String(node.sub || '').replace(/(\d{1,2}:\d{2})\s*-\s*(\d{1,2}:\d{2})/g, '$1–$2')}</div>
@@ -2895,7 +2895,7 @@ function updateMap(day) {
           <div style="font-size:11px; font-weight:800; color:var(--shu); margin-bottom:2px;">${node.time} · 第 ${nIdx + 1} 站</div>
           <div style="font-size:13.5px; font-weight:800; color:var(--ink); margin-bottom:4px;">${node.title || node.name}</div>
           <div style="font-size:11.5px; color:var(--muted); margin-bottom:8px;">${node.sub}</div>
-          <a href="${gmapsNavUrl}" target="_blank" style="display:inline-block; font-size:11.5px; font-weight:700; color:var(--on-ai); background:var(--ai); text-decoration:none; padding:4px 10px; border-radius:99px;">📍 Google Maps 导航 ↗</a>
+          <a href="${gmapsNavUrl}" target="_blank" style="display:inline-block; font-size:11.5px; font-weight:700; color:var(--on-ai); background:var(--ai); text-decoration:none; padding:4px 10px; border-radius:99px;">Google Maps 导航 ↗</a>
         </div>
       `;
 

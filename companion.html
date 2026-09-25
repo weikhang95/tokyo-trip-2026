@@ -495,6 +495,19 @@ try {
     letter-spacing: .02em;
     display: inline-block;
   }
+  .node-when {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 8px;
+    min-width: 0;
+  }
+  .node-tag {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--ai);
+    line-height: 1.4;
+  }
   .node-item.hero .time-badge {
     color: var(--shu);
     background: var(--shu-soft);
@@ -544,6 +557,56 @@ try {
     line-height: 1.48;
     margin-bottom: 8px;
   }
+  /* 一站 = 站名 + 一行要点（永远看得到）+ 收起的详情，同 index 的 tl-key / tl-more */
+  .node-key {
+    margin: 0 0 2px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink);
+    text-wrap: pretty;
+    overflow-wrap: anywhere;
+    font-variant-numeric: tabular-nums;
+  }
+  .node-key .f { display: inline-block; }
+  .node-key .kw { color: var(--shu); font-weight: 700; }
+  .node-key .sep { color: var(--muted); }
+  /* summary 保持 44px 触控高度，但吃掉一部分卡片内边距，免得底部空一大块 */
+  .node-more { margin: -4px 0 -10px; }
+  .node-more > summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    cursor: pointer;
+    list-style: none;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--ai);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .node-more > summary::-webkit-details-marker { display: none; }
+  .node-more > summary::after {
+    content: "";
+    width: .45em; height: .45em;
+    border-right: 2px solid; border-bottom: 2px solid;
+    rotate: 45deg; translate: 0 -.15em;
+    transition: rotate .15s, translate .15s;
+  }
+  .node-more[open] > summary::after { rotate: 225deg; translate: 0 .15em; }
+  .node-more > summary:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; border-radius: 4px; }
+  .node-more ol {
+    margin: 0 0 8px 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink);
+    text-wrap: pretty;
+    overflow-wrap: anywhere;
+  }
+  .node-more strong { font-weight: 700; }
+  @media (prefers-reduced-motion: reduce) { .node-more > summary::after { transition: none; } }
   .node-tags {
     display: flex;
     gap: 4px;
@@ -1470,28 +1533,45 @@ const DAYS = [
       {
         time: "07:35",
         name: "公寓出发 ➔ 明治神宫前站 2 号出口",
-        sub: "日比谷线→日比谷站换千代田线 · 实查约 44 分钟",
+        sub: "日比谷线→日比谷站换千代田线 · 实查约 43 分钟",
         lat: 35.6702, lng: 139.7060,
-        action: "⭐ 神级出口走【2 号出口】——配备直达电梯，一出地面脚下就是神宫桥与南参道大鸟居，步行仅 50 米。实查（10/8 Yahoo 乗換）：07:45 三ノ輪发 ➔ 08:28 到，43 分钟，¥252。",
-        tags: ["2号出口有电梯", "出站50米即大鸟居", "07:35出门"],
+        key: ["07:45 三ノ輪发 ➔ 08:28 到", "!走 2 号出口，有电梯"],
+        more: [
+          "三ノ輪站搭日比谷线到日比谷站，站内换千代田线，直达明治神宮前站。实查（10/8 Yahoo 乗換）：07:45 三ノ輪发 ➔ 08:28 到，43 分钟，¥252。",
+          "2 号出口有直达电梯，出地面就是神宫桥和南参道大鸟居，步行仅 50 米。"
+        ],
+        tags: ["出发"],
         hero: false
       },
       {
         time: "08:25",
         name: "明治神宫 (晨光巨木森林 · 门票免费)",
+        title: "明治神宫 森林参道 ★",
         sub: "单程 852 米平缓 12 分 · 09:00 授与所开门",
         lat: 35.6764, lng: 139.6993,
-        action: "全天最美时刻，没有旅行团。南参道两侧有 1.5–2 米宽平整石板无障碍带，靠边走不伤膝。08:55 抵主殿，09:00 授与所准点开门成为第一批不用排队；摸「夫妇楠」为全家祈福。累了可在南鸟居警卫室免费借轮椅，或在参道中段 FOREST TERRACE 吹冷气喝热茶。⚠️ 参拜完沿南参道原路走回神宫桥（约 850m，12–15 分钟，09:30 起步）—— 西参道出口在代代木／参宫桥那一侧，离明治神宫前站约 1.3km，接不上下一程。",
-        tags: ["08:25无人时段", "09:00授与所首批", "免费轮椅", "走石板不伤膝"],
+        key: ["先去授与所买御守", "有免费轮椅", "!原路走回神宫桥"],
+        more: [
+          "全天最美的时段，没有旅行团。08:55 到主殿，09:00 授与所开门，第一批买不用排队。摸「夫妇楠」为全家祈福。",
+          "南参道两侧有 1.5–2 米宽的平整石板无障碍带，靠边走不伤膝。南鸟居警卫室免费借轮椅；参道中段 FOREST TERRACE 有冷气和热茶。",
+          "09:30 起沿南参道原路走回神宫桥（约 850m，12–15 分钟）。<strong>别走西参道</strong>：出口在代代木／参宫桥那一侧，离明治神宫前站约 1.3km，接不上下一程。"
+        ],
+        tags: ["神宫 · 免费"],
         hero: true
       },
       {
         time: "10:00",
         name: "Blue Bottle Coffee 青山店 ★ (核心圆梦)",
-        sub: "千代田线 1 站 ¥178 · 🔴 务必走表参道站 B3 出口",
+        title: "Blue Bottle Coffee 青山店 2F 露台 ★",
+        sub: "千代田线 1 站 ¥178 · B3 出口",
         lat: 35.6652, lng: 139.7139,
-        action: "🔴 B3 出口才有大型升降电梯直达地面，A4 只有长楼梯！出站过小马路平路 150 米即到。上午 10 点是青山店最清幽的时刻（营业 08:00–19:00），坐 2F 面向绿意树冠的露天大阳台，手冲拿铁＋现烤热华夫饼，坐足 90 分钟。吧台可入手正版清澄白河马克杯（含税 ¥2,750）。⚠️ 别跑错到神宫前 2 丁目潮牌店里的 HUMAN MADE Cafe（几乎全立饮）。",
-        tags: ["🔴走B3出口有电梯", "上午包场", "2F绿荫露台90分", "正版马克杯¥2,750"],
+        key: ["!A4 只有楼梯", "出站 150 米", "2F 露台坐 90 分钟"],
+        more: [
+          "B3 出口有大型升降电梯直达地面，<strong>A4 只有长楼梯</strong>。出站过小马路，平路 150 米到店。",
+          "营业 08:00–19:00，上午 10 点人最少。坐 2F 面向树冠的露天阳台，手冲拿铁＋现烤华夫饼。",
+          "吧台有正版清澄白河马克杯，含税 ¥2,750。",
+          "别走错店：神宫前 2 丁目潮牌店里的 HUMAN MADE Cafe 几乎全是立饮。"
+        ],
+        tags: ["咖啡 · 坐 90 分钟"],
         hero: true
       },
       {
@@ -1499,17 +1579,29 @@ const DAYS = [
         name: "青山 川上庵 手打荞麦 ➔ 表参道之丘",
         sub: "先吃川上庵 ➔ 平路约 600 米 (实测 8 分) · 之丘全程 0 台阶",
         lat: 35.6673, lng: 139.7086,
-        action: "顺序：先在蓝瓶旁边吃川上庵，再走去表参道之丘（不走回头路）。🍱 午餐【青山 川上庵】(Google 4.2★/1,275 则，就在蓝瓶旁边 · 南青山 3-14-1，出蓝瓶直接进店，11:30 入座)：天せいろ 炸虾天妇罗荞麦或鸭肉南蛮热汤面，大沙发卡座，11:00 开门免排队，人均 ¥1,800–2,500。饭后沿青山通り西北 145m，表参道交叉口右转，再沿表参道缓降 435m。实测海拔 38.02m→34.37m，平均 −0.8%，是缓降不是上坡。安藤忠雄设计的螺旋坡道全程 0 台阶、全室内冷气、无障碍厕所齐备（11:00–20:00 每天无休）。",
-        tags: ["先吃川上庵", "约600m缓降", "螺旋坡道0台阶", "大沙发卡座"],
+        key: ["川上庵在蓝瓶隔壁，11:30 入座", "人均 ¥1,800–2,500"],
+        more: [
+          "先吃川上庵，再去表参道之丘，不走回头路。",
+          "川上庵（Google 4.2★ · 1,275 则 · 南青山 3-14-1）：天せいろ 炸虾天妇罗荞麦或鸭肉南蛮热汤面，大沙发卡座。11:00 开门免排队，人均 ¥1,800–2,500。",
+          "路线：出店沿青山通り往西北 145m，表参道交叉口右转，再沿表参道缓降 435m。实测海拔 38.02m ➔ 34.37m，平均 −0.8%，是缓降不是上坡。",
+          "表参道之丘：安藤忠雄设计的螺旋坡道，全程 0 台阶、全室内冷气、有无障碍厕所。11:00–20:00，每天开。"
+        ],
+        tags: ["午餐 · 散步"],
         hero: false
       },
       {
         time: "13:30",
         name: "新宿东急歌舞伎町 Tower (室内深度歇脚 90 分)",
+        title: "新宿东急歌舞伎町 Tower 大堂",
         sub: "明治神宫前站搭副都心线 2 站至新宿三丁目 E1 出口 · 约 570m 8 分",
         lat: 35.6956, lng: 139.7013,
-        action: "从表参道之丘走到【明治神宮前站】（离之丘最近）搭副都心线；⚠️ 表参道站没有副都心线。新宿三丁目 E1 出口步行约 570 米（8 分钟，要过靖国通り）到大楼。留足 90 分钟从容缓冲，彻底杜绝赶车惊慌。24 小时开放的新地标，室内冷气强劲，大堂舒适沙发上坐着喝水、充电、用干净豪华的洗手间。15:10 到 1F 巴士站台候车。⚠️ 兑换券是上车时工作人员发的，不是上车前到柜台领——带好预订确认信/QR 即可，上车选二楼【左侧观景位】。",
-        tags: ["90分钟室内充电", "15:10站台候车", "券上车才发", "选二楼左侧"],
+        key: ["大堂沙发坐 90 分钟", "!15:10 到 1F 巴士站台", "SKY 券上车才发"],
+        more: [
+          "从表参道之丘走到明治神宮前站（离之丘最近）搭副都心线。<strong>表参道站没有副都心线。</strong>新宿三丁目 E1 出口步行约 570 米（8 分钟，要过靖国通り）到大楼。",
+          "大楼 24 小时开放，冷气足。在大堂沙发坐着喝水、充电、用洗手间，留 90 分钟不赶车。",
+          "15:10 到 1F 巴士站台候车，带好预订确认信／QR。兑换券是上车时工作人员发的，不用先去柜台领。上车选二楼左侧座位。"
+        ],
+        tags: ["室内歇脚 · 90 分钟"],
         hero: false
       },
       {
@@ -1517,26 +1609,50 @@ const DAYS = [
         name: "🚌 SHIBUYA STREET RIDE 开顶双层巴士 (60 分钟)",
         sub: "歌舞伎町 Tower 15:20 发 ➔ 涩谷 Fukuras · 含在套票内",
         lat: 35.6938, lng: 139.7036,
-        action: "✅ 已订妥 10/8 15:20 班次「SHIBUYA SKY セット券」（2026-09-15），带好东急巴士预订确认信/QR。长辈坐定充电黄金期——整整 1 小时不用走一步路！开顶敞篷吹初秋凉风，高空穿过新宿、表参道、代代木竞技场，居高临下俯瞰涩谷十字路口人流。☔ 雨天关顶照开、免费发雨具，只有荒天才停。",
-        tags: ["✅套票已订15:20", "1小时不走路", "16:20下车看不到夕阳", "雨天照开"],
+        key: ["已订 10/8 15:20 班", "带东急巴士确认信／QR", "下雨照开"],
+        more: [
+          "已订妥（2026-09-15）「SHIBUYA SKY セット券」：巴士加 SKY 入场券。",
+          "妈妈整整 1 小时坐着不用走：开顶穿过新宿、表参道、代代木竞技场，从高处看涩谷十字路口。",
+          "16:20 下车，日落 17:16，车上看不到夕阳。",
+          "下雨：关顶照开、免费发雨具，只有荒天才停。"
+        ],
+        tags: ["巴士 · 坐 60 分钟"],
         hero: true
       },
       {
         time: "16:35",
         name: "SHIBUYA SKY (229m 露天全景日落) ★★",
+        title: "SHIBUYA SKY 日落 17:16 ★",
         sub: "Fukuras 下车平路 462m ➔ Scramble Square 14F 换票",
         lat: 35.6585, lng: 139.7022,
-        action: "🔴 你手上是套票附的【自由入场券】，不是指定时段票 —— 16:35 到 14F 柜台换票，日落最挤，可能被分到较晚时段。✅ 拿到 17:00 前入场就照原计划；✅ 被排到 17:30 之后不慌 —— 先去しんぱち食堂吃晚餐（本来就排 18:10，提前吃就好），18:30 再上去看纯夜景，人潮已散反而更从容。⚠️ 巴士 16:20 就下车，日落 17:16，车上看不到夕阳 —— 被分到晚场 ＝ 这天只有夜景、没有夕阳，心里先有数。10/8 日落 17:16。46F 寄放背包（备 100 円硬币，退币式）；露天平台严禁带包包/雨伞/帽子/围巾，相机必须有手绳。高空体感仅 12–14°C，穿带兜帽防风外套。☔【下雨怎么办 · 实查条款】官方写明下雨/打雷/强风时屋顶 SKY STAGE 与 46F 户外会关，46F 室内照常开，且不退款。但券「降車後から当日の最終入場時間まで有効」——有效到当天 21:20 最终入场，所以下雨的正解是往后挪：17:00 先吃晚餐，18:30–19:30 再上去，雨常转小、人也散了。🔴 荒天巴士运休 ＝ 券也拿不到（券是上车才发的），那时改去【东京都厅南展望室】：免费、45F、202m、09:30–21:30、周二休（10/8 周四开），⚠️ 新宿三丁目没有大江户线：从歌舞伎町 Tower 走到【都营大江戸線 新宿西口站】搭 1 站（2 分钟 · ¥178）到都庁前站，出站直通都厅大楼；Tower 到新宿西口站有一段地面路要撑伞，雨大就直接打车。退款专线 03-3410-0181。",
-        tags: ["日落17:16", "自由入场券要换时段", "券有效到21:20 下雨就往后挪", "荒天改去都厅45F免费"],
+        key: ["带 100 円硬币寄包", "!妈妈穿带帽防风外套"],
+        more: [
+          "手上是套票附的<strong>自由入场券，不是指定时段票</strong>。16:35 到 14F 柜台换票，日落最挤，可能分到较晚时段。",
+          "17:00 前入场 ➔ 照计划走。17:30 之后 ➔ 先去しんぱち食堂吃晚餐（把 18:10 那顿提前），18:30 再上去看夜景，人少更从容。分到晚场就只有夜景、没有夕阳。",
+          "46F 寄背包（100 円硬币，退币式）。露天平台不能带包、雨伞、帽子、围巾；相机要有手绳。",
+          "高空体感只有 12–14°C，穿带兜帽的防风外套。",
+          "下雨：屋顶 SKY STAGE 和 46F 户外会关，46F 室内照开，<strong>不退款</strong>。券「降車後から当日の最終入場時間まで有効」，有效到当天 21:20 最终入场，所以往后挪：17:00 先吃晚餐，18:30–19:30 再上去，雨常转小、人也散了。",
+          "荒天巴士停 ＝ 拿不到券（券上车才发）。改去东京都厅南展望室：免费、45F、202m、09:30–21:30、周二休（10/8 周四开）。新宿三丁目没有大江户线：从 Tower 走到都营大江戸線新宿西口站，搭 1 站（2 分钟 · ¥178）到都庁前站，出站直通都厅；中间一段地面路要撑伞，雨大就打车。退款专线 03-3410-0181。"
+        ],
+        tags: ["日落 · 夜景"],
         hero: true
       },
       {
         time: "18:10",
         name: "🐟 炭烤鱼定食晚餐 ➔ 银座线始发站 100% 有座回巢",
+        title: "しんぱち食堂 炭烤鱼定食 ➔ 银座线回家",
         sub: "🐟 しんぱち食堂 渋谷明治通り店 · 炭烤鱼定食 · 平路 400m",
         lat: 35.65737, lng: 139.70365,
-        action: "🔴 已换店（原 13F つるとんたん）：该店不受理「只订位」，要订位只能订套餐且 ¥4,500 起／人；不订就现场排（午市实测开店 30 分钟、尖峰 90 分钟）。Day 6 是全程步数最高的一天，不赌这个队。✅ 换【しんぱち食堂 渋谷明治通り店】4.0★／293 则，07:00–23:00 每天营业，招牌炭烤鱼定食（鲑鱼腹／鯖鱼／赤魚）＋白饭＋味噌汤＋渍物，全热食软嫩无生冷，电子屏自助点单不用讲日文。18:00 下楼，出 Scramble Square 往明治通平路约 400m，1F 街面 0 阶梯。⚠️ 平日 18:00 有排队报告，18:10 就去别拖到 18:30。🟡 不想走 400m 就退回 12F そば【半笑】或 ヒカリエ 8F【d47 食堂】——但别选 12F Moheji（铁板文字烧，评论上菜等 1–1.5 小时、限时 2 小时、吵）。【主方案 ¥252/人】20:00 乘电梯到 3F 直通银座线涩谷站——涩谷是始发站 G01，20:00 那班车头挂「当駅始発・浅草行」，空车进站任选软座；20:29 到上野（2 号月台），站内转日比谷线，20:41 三ノ輪。⚠️ 唯一代价：上野【银座线➔日比谷线】站内长廊 Yahoo 官方给 8 分钟，走了一整天之后这是最后一个体力坎。🟡【不想走长廊的备案 · 已实查】同一班车不用下，一路坐到终点【浅草站】约 20:35 到——全程 0 换乘、始发保座、35 分钟坐到底；出站走 6 分钟到【浅草雷門 4 のりば】搭【都营巴士 草63 · 池袋駅東口行】20:47 发，20:56【竜泉】下车，¥210 Suica 可刷，站牌就在公寓门口（步行约 2–3 分钟），比走三ノ輪站 1b 出口再走 6 分钟更近。代价：约 21:00 到家（晚约 15 分钟）、两人多 ¥420。⚠️ 只在这个时段成立，再晚一律走日比谷线。🚖 太累就打车：浅草站前排班 ➔ 公寓 2.15km 约 ¥1,100。",
-        tags: ["银座线始发100%有座", "¥252/人 20:41到", "🟡坐到浅草改草63门口下", "上野长廊8分钟是坎"],
+        key: ["!18:10 就去，18:00 后开始排队", "20:00 银座线始发，一定有座（¥252/人）", "20:41 到三ノ輪"],
+        more: [
+          "しんぱち食堂 渋谷明治通り店（4.0★／293 则 · 07:00–23:00 每天开）：炭烤鱼定食（鲑鱼腹／鯖鱼／赤魚）＋白饭＋味噌汤＋渍物，全热食、软、不生冷。电子屏自助点单，不用讲日文。",
+          "18:00 下楼，出 Scramble Square 往明治通平路约 400m，1F 街面店，0 阶梯。平日 18:00 有人排队，18:10 就去，别拖到 18:30。",
+          "不想走 400m：12F そば【半笑】或 ヒカリエ 8F【d47 食堂】。别选 12F Moheji（铁板文字烧，评论说上菜等 1–1.5 小时、限时 2 小时、吵）。",
+          "回家（¥252/人）：20:00 电梯到 3F 直通银座线涩谷站。涩谷是始发站 G01，20:00 那班「当駅始発・浅草行」一定有座。20:29 到上野（2 号月台），站内换日比谷线，20:41 三ノ輪。上野换乘长廊官方给 8 分钟，是最后一个体力坎。",
+          "不想走上野长廊：同一班车坐到终点浅草站（约 20:35，0 换乘，35 分钟坐到底），出站走 6 分钟到浅草雷門 4 のりば，搭都营巴士 草63（池袋駅東口行）20:47 发 ➔ 20:56 竜泉下车，¥210，可刷 Suica，站牌就在公寓门口（步行约 2–3 分钟）。约 21:00 到家（晚约 15 分钟），两人多 ¥420。只在这个时段成立，再晚一律走日比谷线。",
+          "太累就打车：浅草站前排班 ➔ 公寓 2.15km，约 ¥1,100。"
+        ],
+        tags: ["晚餐 · 回家"],
         hero: false
       }
     ]
@@ -2213,25 +2329,43 @@ function renderTimeline(day) {
     // Google Maps Navigation Deep Link
     const gmapsNavUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(node.name + ' ' + (node.sub || ''))}`;
 
+    // 新格式：key（要点，"!" 开头 = 警示）+ more（收起的详情）+ 最多 2 个纯文字 tag；旧格式照旧渲染 action
+    const isKeyed = Array.isArray(node.key);
+    const keyHtml = isKeyed
+      ? `<p class="node-key">${node.key.map((f, i, a) => {
+          const kw = f.startsWith('!');
+          const t = kw ? f.slice(1) : f;
+          return `<span class="f">${kw ? `<span class="kw">${t}</span>` : t}${i < a.length - 1 ? '<span class="sep"> ·</span>' : ''}</span>`;
+        }).join(' ')}</p>`
+      : `<p class="node-action">${node.action}</p>`;
+    const moreHtml = isKeyed && node.more && node.more.length
+      ? `<details class="node-more"><summary>详情 · ${node.more.length} 条</summary><ol>${node.more.map(li => `<li>${li}</li>`).join('')}</ol></details>`
+      : '';
+    const tagHtml = isKeyed
+      ? (node.tags || []).map(t => `<span class="node-tag">${t}</span>`).join('')
+      : '';
+    const oldTagsHtml = isKeyed ? '' : `<div class="node-tags">
+          ${node.tags.map(t => `<span class="ntag ${t.includes('★') || t.includes('注意') || t.includes('日出') ? 'highlight' : (t.includes('0') || t.includes('电梯') || t.includes('直达') || t.includes('省') ? 'ease' : '')}">${t}</span>`).join('')}
+        </div>`;
+
     item.innerHTML = `
       <div class="node-dot">${nIdx + 1}</div>
       <div class="node-card">
         <div class="node-top">
-          <span class="time-badge">${node.time}</span>
+          <span class="node-when"><span class="time-badge">${node.time}</span>${tagHtml}</span>
           <a href="${gmapsNavUrl}" target="_blank" class="nav-btn" title="在 Google Maps 中导航">📍 导航 ↗</a>
         </div>
-        <h2 class="node-name">${node.name}</h2>
+        <h2 class="node-name">${node.title || node.name}</h2>
         <div class="node-name-sub">${node.sub}</div>
-        <p class="node-action">${node.action}</p>
-        <div class="node-tags">
-          ${node.tags.map(t => `<span class="ntag ${t.includes('★') || t.includes('现金') || t.includes('注意') || t.includes('日出') ? 'highlight' : (t.includes('0') || t.includes('电梯') || t.includes('直达') || t.includes('省') ? 'ease' : '')}">${t}</span>`).join('')}
-        </div>
+        ${keyHtml}
+        ${moreHtml}
+        ${oldTagsHtml}
       </div>
     `;
 
     // Click card to highlight and center map
     item.onclick = (e) => {
-      if (e.target.closest('.nav-btn')) return; // Allow normal link click
+      if (e.target.closest('.nav-btn, .node-more')) return; // Allow normal link click; 详情展开不移动地图
       focusNode(nIdx);
     };
 
@@ -2275,7 +2409,7 @@ function updateMap(day) {
     marker.popupHtml = `
         <div style="font-family:'Inter','Noto Sans SC',sans-serif; min-width:160px;">
           <div style="font-size:11px; font-weight:800; color:var(--shu); margin-bottom:2px;">${node.time} · 第 ${nIdx + 1} 站</div>
-          <div style="font-size:13.5px; font-weight:800; color:var(--ink); margin-bottom:4px;">${node.name}</div>
+          <div style="font-size:13.5px; font-weight:800; color:var(--ink); margin-bottom:4px;">${node.title || node.name}</div>
           <div style="font-size:11.5px; color:var(--muted); margin-bottom:8px;">${node.sub}</div>
           <a href="${gmapsNavUrl}" target="_blank" style="display:inline-block; font-size:11.5px; font-weight:700; color:var(--on-ai); background:var(--ai); text-decoration:none; padding:4px 10px; border-radius:99px;">📍 Google Maps 导航 ↗</a>
         </div>

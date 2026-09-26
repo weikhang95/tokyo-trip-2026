@@ -29,7 +29,6 @@ try {
     --card-bg: #FFFFFF;
     --ink: #231F1B;
     --muted: #6B6255;
-    --faint: #B8B0A2;
     --grid: #E5DFC5;
     --ai: #1C3553;
     --ai-soft: rgba(28, 53, 83, 0.08);
@@ -58,7 +57,6 @@ try {
     --card-bg: #151a21;
     --ink: #e8ecf1;
     --muted: #aab4c0;
-    --faint: #8a94a1;
     --grid: #29303a;
     --ai: #8fb3e6;
     --ai-soft: rgba(143, 179, 230, 0.12);
@@ -83,6 +81,7 @@ try {
     font-family: 'Inter', 'Noto Sans SC', sans-serif;
     color: var(--ink);
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     transition: background-color .2s var(--ease), color .2s var(--ease);
   }
 
@@ -165,7 +164,7 @@ try {
     cursor: pointer;
     transition: background-color .15s var(--ease), color .15s var(--ease), scale .1s var(--ease);
   }
-  .theme-btn:hover { background: var(--chip-bg); color: var(--ink); }
+  @media (hover: hover) { .theme-btn:hover { background: var(--chip-bg); color: var(--ink); } }
 
   /* ── Day Selector Pills ── */
   .day-scroll {
@@ -194,9 +193,8 @@ try {
     gap: 4px;
   }
   .day-pill .dp-tag {
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 600;
-    opacity: 0.8;
   }
   .day-pill.active {
     background: var(--ai);
@@ -232,7 +230,7 @@ try {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 11.5px;
+    font-size: 12px;
     font-weight: 700;
     color: var(--muted);
     gap: 8px;
@@ -249,7 +247,7 @@ try {
     border: 1px solid var(--grid);
     background: var(--card-bg);
     color: var(--muted);
-    font-size: 10.5px;
+    font-size: 11px;
     font-weight: 700;
     padding: 3px 8px;
     border-radius: 99px;
@@ -356,6 +354,7 @@ try {
     color: var(--ink);
     line-height: 1.35;
     margin-bottom: 6px;
+    text-wrap: balance;
   }
   /* 下一站：卡片内边距 14px，圆角 16 - 6 ≈ 10px 保持同心 */
   .hero-next {
@@ -370,7 +369,7 @@ try {
   .hero-next:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
   .hn-when {
     display: inline-flex; align-items: center; gap: 4px;
-    font-size: 12px; font-weight: 700; color: var(--shu);
+    font-size: 12px; font-weight: 700; color: var(--shu-ink);
     font-variant-numeric: tabular-nums;
   }
   .hn-when .ph { width: 1.2em; height: 1.2em; }
@@ -410,7 +409,6 @@ try {
     padding-bottom: 4px;
     text-wrap: pretty;
   }
-  @media (prefers-reduced-motion: reduce) { .hero-more > summary::after { transition: none; } }
   .hero-transit {
     display: inline-flex;
     align-items: center;
@@ -441,9 +439,8 @@ try {
   }
   /* 分屏时地图卡已有「Google 路线」，这里只在「行程」视图出现 */
   body:not([data-view="time"]) .hero-route-link { display: none; }
-  .hero-route-link:hover {
-    background: var(--shu);
-    color: var(--on-ai);
+  @media (hover: hover) {
+    .hero-route-link:hover { background: var(--shu); color: var(--on-ai); }
   }
 
   /* ── Timeline Nodes ── */
@@ -476,8 +473,11 @@ try {
     background: var(--card-bg);
     border: 2px solid var(--ai);
     color: var(--ai);
+    padding: 0;
+    font: inherit;
     font-size: 11px;
     font-weight: 800;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -485,6 +485,7 @@ try {
     z-index: 2;
     transition: background-color .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease), transform .2s var(--ease);
   }
+  .node-dot:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
   .node-item.hero .node-dot {
     border-color: var(--shu);
     color: var(--shu);
@@ -543,7 +544,7 @@ try {
     min-width: 0;
   }
   .node-tag {
-    font-size: 11.5px;
+    font-size: 12px;
     font-weight: 700;
     color: var(--ai);
     line-height: 1.4;
@@ -575,27 +576,20 @@ try {
   }
   /* 导航钮在可点的站点卡片里：只往上、左右扩，不压住下方站名（误触会跳出到 Google Maps） */
   .nav-btn::after { content: ""; position: absolute; inset: -10px -6px 0; }
-  .nav-btn:hover {
-    background: var(--shu);
-  }
+  @media (hover: hover) { .nav-btn:hover { background: var(--shu); } }
   .node-name {
     font-size: 15px;
     font-weight: 800;
     color: var(--ink);
     line-height: 1.35;
     margin-bottom: 4px;
+    text-wrap: balance;
   }
   .node-name-sub {
-    font-size: 11.5px;
+    font-size: 12px;
     color: var(--muted);
     font-weight: 500;
     margin-bottom: 6px;
-  }
-  .node-action {
-    font-size: 12.5px;
-    color: var(--ink);
-    line-height: 1.48;
-    margin-bottom: 8px;
   }
   /* 一站 = 站名 + 几条要点（永远看得到，一条一行）+ 收起的详情 */
   .node-key,
@@ -640,7 +634,7 @@ try {
     min-height: 44px;
     cursor: pointer;
     list-style: none;
-    font-size: 11.5px;
+    font-size: 12px;
     font-weight: 700;
     color: var(--ai);
     -webkit-tap-highlight-color: transparent;
@@ -657,31 +651,6 @@ try {
   .node-more > summary:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; border-radius: 4px; }
   .node-more ul { gap: 6px; margin-bottom: 8px; }
   .node-more strong { font-weight: 700; }
-  @media (prefers-reduced-motion: reduce) { .node-more > summary::after { transition: none; } }
-  .node-tags {
-    display: flex;
-    gap: 4px;
-    flex-wrap: wrap;
-  }
-  .ntag {
-    font-size: 10.5px;
-    font-weight: 700;
-    padding: 2px 6px;
-    border-radius: 4px;
-    background: var(--paper);
-    border: 1px solid var(--grid);
-    color: var(--muted);
-  }
-  .ntag.highlight {
-    background: var(--shu-soft);
-    border-color: rgba(194, 65, 45, 0.2);
-    color: var(--shu);
-  }
-  .ntag.ease {
-    background: var(--matcha-soft);
-    border-color: rgba(80, 102, 40, 0.2);
-    color: var(--matcha);
-  }
 
   /* ── Bottom Floating Quick Action ── */
   .role-note {
@@ -701,6 +670,14 @@ try {
     font-size: 13px; font-weight: 700; text-decoration: none;
   }
 
+
+  /* 减少动态：与手册 index.html 同一条规则，过渡与动画一律瞬间完成 */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    .node-item.active .node-dot { transform: none; }
+  }
+  /* 320 宽：方案 C「清澄白河」放不下，字号退一级 */
+  @media (max-width: 359px) { .d8-opt-btn { font-size: 12px; } }
 
   /* Google 地图弹窗：深色下跟卡片同色，否则白底上看不见浅色字 */
   html[data-theme="dark"] .gm-style .gm-style-iw-c,
@@ -723,7 +700,7 @@ try {
         <button class="view-btn" id="btn-time" onclick="setViewMode('time')" aria-pressed="false">行程</button>
         <button class="view-btn" id="btn-map" onclick="setViewMode('map')" aria-pressed="false">地图</button>
       </div>
-      <button class="theme-btn" id="theme-toggle" type="button" onclick="toggleTheme()" aria-label="切换深色模式">夜</button>
+      <button class="theme-btn" id="theme-toggle" type="button" onclick="toggleTheme()" aria-label="夜 · 切换深色模式">夜</button>
     </div>
   </div>
 
@@ -733,12 +710,12 @@ try {
   </div>
 </header>
 
-<div class="content-wrap">
+<main class="content-wrap" id="main">
   <!-- Interactive Map -->
   <section class="map-card" id="mapCard">
     <div class="map-header">
       <div class="map-actions">
-        <button id="btnRouteToggle" class="route-toggle-btn active" onclick="toggleRouteMode()" title="切换真实路网或直连模式">真实路网</button>
+        <button type="button" id="btnRouteToggle" class="route-toggle-btn active" onclick="toggleRouteMode()" aria-pressed="true">真实路网</button>
         <button type="button" class="route-toggle-btn" onclick="scrollToCurrentNode()">当前站</button>
         <a id="btnGmapsDayRoute" class="map-link-btn" href="#" target="_blank">Google 路线 ↗</a>
       </div>
@@ -752,9 +729,9 @@ try {
   </section>
 
   <!-- Chronological Timeline Stream -->
-  <main class="timeline" id="timelineList">
+  <div class="timeline" id="timelineList">
     <!-- Populated by JS -->
-  </main>
+  </div>
 
   <!-- 两份文件的分工 -->
   <section class="role-note">
@@ -763,7 +740,7 @@ try {
     <p><strong>为什么这样排、有哪些备选、票订了没、钱怎么花</strong>，都在手册里。手册是出发前读的，随身页是路上用的。</p>
     <a class="role-link to-handbook" href="index.html">打开这一天的手册</a>
   </section>
-</div>
+</main>
 
 <!-- Floating Action Bar -->
 
@@ -2513,7 +2490,7 @@ function toggleRouteMode() {
   const btn = document.getElementById('btnRouteToggle');
   if (btn) {
     btn.classList.toggle('active', showRealRoadRoute);
-    btn.textContent = showRealRoadRoute ? '真实路网' : '直线';
+    btn.setAttribute('aria-pressed', String(showRealRoadRoute)); // 关掉＝直线连站
   }
   const day = DAYS[currentDayIdx];
   renderRoutePolyline(day);
@@ -2692,6 +2669,7 @@ let infoWindow = null;
 function cssVar(name) {
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 }
+function scrollBehavior() { return matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'; }
 function isDark() { return document.documentElement.dataset.theme === 'dark'; }
 // 深色地图底图（Google 官方 Night 样式精简版）
 const NIGHT_MAP_STYLE = [
@@ -2714,11 +2692,17 @@ function syncThemeButton() {
   const btn = document.getElementById('theme-toggle');
   if (!btn) return;
   btn.textContent = isDark() ? '昼' : '夜';
-  btn.setAttribute('aria-label', isDark() ? '切换浅色模式' : '切换深色模式');
+  btn.setAttribute('aria-label', isDark() ? '昼 · 切换浅色模式' : '夜 · 切换深色模式');
 }
 function toggleTheme() {
   const next = isDark() ? 'light' : 'dark';
+  // 换主题时先关掉所有过渡，整页一次切好，不让几十个元素各自淡入淡出
+  const freeze = document.createElement('style');
+  freeze.textContent = '*,*::before,*::after{transition:none !important}';
+  document.head.appendChild(freeze);
   document.documentElement.dataset.theme = next;
+  getComputedStyle(document.body).opacity;
+  requestAnimationFrame(() => freeze.remove());
   try { localStorage.setItem('tokyo_theme', next); } catch (e) {}
   document.querySelector('meta[name="theme-color"]').content = next === 'dark' ? '#0e1116' : '#F7F5F0';
   syncThemeButton();
@@ -2800,8 +2784,10 @@ function renderDayPills() {
   container.innerHTML = '';
   DAYS.forEach((d, idx) => {
     const btn = document.createElement('button');
+    btn.type = 'button';
     btn.className = `day-pill ${idx === currentDayIdx ? 'active' : ''}`;
     btn.id = `pill-${idx}`;
+    btn.setAttribute('aria-pressed', String(idx === currentDayIdx));
     btn.innerHTML = `<span>${d.day}</span><span class="dp-tag">${d.date}${d.weekday}</span>`;
     btn.onclick = () => selectDay(idx);
     container.appendChild(btn);
@@ -2836,10 +2822,11 @@ function selectDay(idx, updateHash = true) {
   // Update pills
   document.querySelectorAll('.day-pill').forEach((p, i) => {
     p.classList.toggle('active', i === idx);
+    p.setAttribute('aria-pressed', String(i === idx));
   });
   const activePill = document.getElementById(`pill-${idx}`);
   if (activePill) {
-    activePill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    activePill.scrollIntoView({ behavior: scrollBehavior(), inline: 'center', block: 'nearest' });
   }
 
   // Update map header
@@ -2896,23 +2883,15 @@ function renderTimeline(day) {
     // Google Maps Navigation Deep Link
     const gmapsNavUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(node.name + ' ' + (node.sub || ''))}`;
 
-    // 新格式：key（要点，一条一行；"!" 开头 = 警示）+ more（收起的详情）+ 最多 2 个纯文字 tag；旧格式照旧渲染 action
-    const isKeyed = Array.isArray(node.key);
-    const keyHtml = isKeyed
-      ? `<ul class="node-key">${node.key.map(f => f.startsWith('!') ? `<li class="kw">${f.slice(1)}</li>` : `<li>${f}</li>`).join('')}</ul>`
-      : `<p class="node-action">${node.action}</p>`;
-    const moreHtml = isKeyed && node.more && node.more.length
+    // key（要点，一条一行；"!" 开头 = 警示）+ more（收起的详情）+ 最多 2 个纯文字 tag
+    const keyHtml = `<ul class="node-key">${node.key.map(f => f.startsWith('!') ? `<li class="kw">${f.slice(1)}</li>` : `<li>${f}</li>`).join('')}</ul>`;
+    const moreHtml = node.more && node.more.length
       ? `<details class="node-more"><summary>详情 · ${node.more.length} 条</summary><ul>${node.more.map(li => `<li>${li}</li>`).join('')}</ul></details>`
       : '';
-    const tagHtml = isKeyed
-      ? (node.tags || []).map(t => `<span class="node-tag">${t}</span>`).join('')
-      : '';
-    const oldTagsHtml = isKeyed ? '' : `<div class="node-tags">
-          ${node.tags.map(t => `<span class="ntag ${t.includes('★') || t.includes('注意') || t.includes('日出') ? 'highlight' : (t.includes('0') || t.includes('电梯') || t.includes('直达') || t.includes('省') ? 'ease' : '')}">${t}</span>`).join('')}
-        </div>`;
+    const tagHtml = (node.tags || []).map(t => `<span class="node-tag">${t}</span>`).join('');
 
     item.innerHTML = `
-      <div class="node-dot">${nIdx + 1}</div>
+      <button type="button" class="node-dot" aria-label="在地图上看第 ${nIdx + 1} 站">${nIdx + 1}</button>
       <div class="node-card">
         <div class="node-top">
           <span class="node-when"><span class="time-badge">${node.mode ? ph(node.mode, PH_LABEL[node.mode]) : ''}${String(node.time).replace(/\s*-\s*/, '–')}</span>${tagHtml}</span>
@@ -2922,7 +2901,6 @@ function renderTimeline(day) {
         <div class="node-name-sub">${String(node.sub || '').replace(/(\d{1,2}:\d{2})\s*-\s*(\d{1,2}:\d{2})/g, '$1–$2')}</div>
         ${keyHtml}
         ${moreHtml}
-        ${oldTagsHtml}
       </div>
     `;
 
@@ -2967,14 +2945,15 @@ function updateMap(day) {
         anchor: new google.maps.Point(13, 30),
         labelOrigin: new google.maps.Point(13, 13)
       },
+      title: `${nIdx + 1} ${node.title || node.name}`,
       zIndex: nIdx
     });
     marker.popupHtml = `
         <div style="font-family:'Inter','Noto Sans SC',sans-serif; min-width:160px;">
           <div style="font-size:11px; font-weight:800; color:var(--shu); margin-bottom:2px;">${node.time} · 第 ${nIdx + 1} 站</div>
-          <div style="font-size:13.5px; font-weight:800; color:var(--ink); margin-bottom:4px;">${node.title || node.name}</div>
-          <div style="font-size:11.5px; color:var(--muted); margin-bottom:8px;">${node.sub}</div>
-          <a href="${gmapsNavUrl}" target="_blank" style="display:inline-block; font-size:11.5px; font-weight:700; color:var(--on-ai); background:var(--ai); text-decoration:none; padding:4px 10px; border-radius:99px;">Google Maps 导航 ↗</a>
+          <div style="font-size:14px; font-weight:800; color:var(--ink); margin-bottom:4px;">${node.title || node.name}</div>
+          <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">${node.sub}</div>
+          <a href="${gmapsNavUrl}" target="_blank" style="display:inline-block; font-size:12px; font-weight:700; color:var(--on-ai); background:var(--ai); text-decoration:none; padding:4px 10px; border-radius:99px;">Google Maps 导航 ↗</a>
         </div>
       `;
 
@@ -3020,7 +2999,7 @@ function highlightNodeCard(idx) {
   });
   const activeCard = document.getElementById(`node-${idx}`);
   if (activeCard) {
-    activeCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    activeCard.scrollIntoView({ behavior: scrollBehavior(), block: 'center' });
   }
 }
 
@@ -3084,7 +3063,11 @@ function setViewMode(mode) {
     mapCard.classList.remove('collapsed');
     heroCard.style.display = 'none';
     timelineList.style.display = 'none';
-    mapElem.style.height = 'calc(100vh - 140px)';
+    // 填到底栏上沿为止，不被底栏盖住
+    const bar = document.querySelector('.tabbar');
+    const covered = bar ? window.innerHeight - bar.getBoundingClientRect().top : 0;
+    const top = mapElem.getBoundingClientRect().top + window.scrollY;
+    mapElem.style.height = Math.max(270, window.innerHeight - top - covered - 12) + 'px';
   } else {
     // split
     mapCard.classList.remove('collapsed');

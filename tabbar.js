@@ -196,6 +196,16 @@
 
   window.TabBar = { setActive: setActive, open: function () { openSheet(); }, close: function () { closeSheet(); } };
 
+  // 离线缓存（sw.js）：两页都载入本文件，在这里注册一次就够。
+  // 本机预览不注册（并清掉以前注册过的），免得改了 CSS 还看到缓存里的旧版
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+    if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) {
+      navigator.serviceWorker.getRegistrations().then(function (rs) { rs.forEach(function (r) { r.unregister(); }); });
+    } else {
+      window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+    }
+  }
+
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
 })();

@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>东京 · 随身行程与地图助手 (Tokyo Companion)</title>
 <meta name="theme-color" content="#F7F5F0" />
+<link rel="manifest" href="manifest.json" />
+<link rel="apple-touch-icon" href="icons/icon-180.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="东京 2026" />
 <script>
 // 与手册共用 tokyo_theme：在任一页切换，另一页跟着走
 try {
@@ -16,7 +20,7 @@ try {
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="tabbar.css?v=3">
+<link rel="stylesheet" href="tabbar.css?v=4">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -352,6 +356,27 @@ try {
     color: var(--ink);
     line-height: 1.35;
     margin-bottom: 6px;
+  }
+  /* 下一站：卡片内边距 14px，圆角 16 - 6 ≈ 10px 保持同心 */
+  .hero-next {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+    width: 100%; min-height: 44px; margin: 4px 0 8px; padding: 8px 12px;
+    border: 0; border-radius: 10px; background: var(--chip-bg); color: var(--ink);
+    font: inherit; text-align: left; cursor: pointer;
+    transition: scale .1s var(--ease), background-color .15s var(--ease);
+  }
+  .hero-next[hidden] { display: none; }
+  .hero-next:active { scale: .98; }
+  .hero-next:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
+  .hn-when {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; font-weight: 700; color: var(--shu);
+    font-variant-numeric: tabular-nums;
+  }
+  .hn-when .ph { width: 1.2em; height: 1.2em; }
+  .hn-what {
+    font-size: 14px; font-weight: 700; line-height: 1.4;
+    font-variant-numeric: tabular-nums; text-wrap: pretty;
   }
   /* 概要默认收起：路线已在标题里，逐站细节在下面的时间轴 */
   .hero-more > summary {
@@ -2845,9 +2870,12 @@ function selectDay(idx, updateHash = true) {
       <span class="hero-pacing">${day.intensity}</span>
     </div>
     <h1 class="hero-title">${day.title}</h1>
+    <button type="button" class="hero-next" id="heroNext" hidden></button>
     <details class="hero-more"><summary>今日概要 · 交通</summary><div class="hero-transit">${day.transit}</div><p class="hero-desc">${day.desc}</p></details>
     <a href="${day.routeUrl}" target="_blank" class="hero-route-link">今日完整路线 · Google Maps ↗</a>
   `;
+
+  updateNextStop();
 
   // Render Timeline
   renderTimeline(day);
@@ -3012,6 +3040,29 @@ function scrollToCurrentNode() {
   focusNode(idx);
 }
 
+// 「下一站」：只在行程当天出现，指向下一个还没开始的站，点一下跳过去
+function nodeStartMins(n) {
+  const t = /^(\d{1,2}):(\d{2})/.exec(n.time);
+  return t ? +t[1] * 60 + +t[2] : null;
+}
+function updateNextStop() {
+  const el = document.getElementById('heroNext');
+  if (!el) return;
+  const day = DAYS[currentDayIdx];
+  const now = new Date();
+  const mins = now.getHours() * 60 + now.getMinutes();
+  const i = isToday(day) ? day.nodes.findIndex(n => nodeStartMins(n) > mins) : -1;
+  if (i < 0) { el.hidden = true; return; }
+  const n = day.nodes[i];
+  const diff = nodeStartMins(n) - mins;
+  const when = diff < 60 ? `${diff} 分钟后` : `${Math.floor(diff / 60)} 小时 ${diff % 60} 分后`;
+  el.innerHTML = `<span class="hn-when">${n.mode ? ph(n.mode, PH_LABEL[n.mode]) : ''}下一站 · ${when}</span><span class="hn-what">${n.time.slice(0, 5)} ${n.title}</span>`;
+  el.onclick = () => focusNode(i);
+  el.hidden = false;
+}
+setInterval(updateNextStop, 30000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) updateNextStop(); });
+
 function setViewMode(mode) {
   currentViewMode = mode;
   document.body.dataset.view = mode;
@@ -3047,7 +3098,7 @@ document.addEventListener('DOMContentLoaded', initApp);
 </script>
 <!-- Google Maps JavaScript API. This browser key is public by design: it only works on
      weikhang95.github.io, only for the Maps JavaScript API, and is capped at 300 map loads a day. -->
-<script src="tabbar.js?v=3" defer></script>
+<script src="tabbar.js?v=4" defer></script>
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5rs71T6Mi38Y9nAwLS6NihCBaMr5zJZs&loading=async&callback=onGoogleMapsReady&language=zh-CN&region=JP"></script>
 </body>
 </html>

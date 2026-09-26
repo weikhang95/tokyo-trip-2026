@@ -1032,7 +1032,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
 /* ── 这一天 → 随身页地图 ───────────────────────── */
 .day-map-link{
   display:flex;align-items:center;gap:var(--space-sm);min-height:56px;
-  margin:var(--space-md) var(--space-md) 0;padding:var(--space-sm) var(--space-md);
+  margin:var(--space-md);padding:var(--space-sm) var(--space-md);
   border:1px solid var(--line);border-radius:var(--r-md);
   background:var(--paper);text-decoration:none;color:var(--ink);
   transition:border-color .15s var(--ease-out),scale .1s var(--ease-out);
@@ -1080,6 +1080,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
 
 @media (max-width:640px){
   .day-pager{padding:var(--space-sm);}
+  .day-map-link{margin:var(--space-sm);}
   .day-pager a{min-height:54px;padding:var(--space-xs) var(--space-sm);}
   .info-grid{gap:6px;}
 }

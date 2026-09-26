@@ -908,7 +908,7 @@ html[data-theme="dark"] .bplan-img-card:has(img)::after{outline-color:oklch(1 0 
   padding:0 14px;height:40px;min-width:52px;border:0;background:transparent;color:var(--ink-soft);cursor:pointer;
   transition:background-color .15s var(--ease-out),color .15s var(--ease-out),scale .1s var(--ease-out);
 }
-.mode-switch button[aria-pressed="true"]{background:var(--ai);color:var(--on-ai);font-weight:700;}
+.mode-switch button[aria-pressed="true"]{background:var(--ai);color:var(--on-ai);}
 
 html[data-mode="lite"] .clampable{
   position:relative;max-height:5.4em;overflow:hidden;cursor:pointer;
@@ -1035,6 +1035,42 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
 .day-nav-btn[aria-current="page"]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--ai);}
 .day-nav-btn[aria-current="page"] .day-sub{color:var(--ink-soft);}
 .day-nav-btn.today-btn[aria-current="page"]{color:var(--shu);box-shadow:inset 0 -2px 0 var(--shu);}
+
+/* ── 动效：让「从哪到哪」看得见 ───────────────────────
+   只在 html[data-motion="ready"]（首屏画完之后）才开过渡，打开页面时不播。
+   曲线统一 cubic-bezier(.2,0,0,1)：起步快、收尾稳。 */
+
+/* 日期栏：一条下划线滑到选中的那天，而不是这格灭、那格亮 */
+.day-nav-bar{position:relative;}
+.day-nav-bar::after{
+  content:"";position:absolute;left:0;bottom:0;width:1px;height:2px;pointer-events:none;
+  background:var(--ind-c,var(--ai));transform-origin:0 0;
+  transform:translateX(var(--ind-x,0px)) scaleX(var(--ind-w,0));
+}
+html[data-motion="ready"] .day-nav-bar::after{transition:transform .32s cubic-bezier(.2,0,0,1),background-color .15s var(--ease-out);}
+html .day-nav-bar.has-ind .day-nav-btn{box-shadow:none;}
+
+/* 精简 / 完整、中文 / EN：底色是一块会滑动的滑块 */
+.mode-switch,.lang-bar{position:relative;isolation:isolate;}
+.mode-switch{display:inline-grid;grid-template-columns:1fr 1fr;}
+/* 手机上 lang-bar 收进「更多」(display:none)，只在桌面改成等宽两格 */
+@media (min-width:641px){.lang-bar{display:grid;grid-template-columns:1fr 1fr;}}
+.mode-switch::before,.lang-bar::before{
+  content:"";position:absolute;inset:0 auto 0 0;width:50%;border-radius:99px;background:var(--ai);z-index:-1;
+}
+.mode-switch:has([data-mode="full"][aria-pressed="true"])::before,
+.lang-bar:has(#btn-en[aria-pressed="true"])::before{translate:100% 0;}
+html[data-motion="ready"] .mode-switch::before,
+html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezier(.2,0,0,1);}
+.mode-switch button[aria-pressed="true"],.lang-btn.active{background:transparent;}
+
+/* 「详情」展开：内容从标题下方轻轻落下来 */
+@keyframes detail-in{from{opacity:0;translate:0 -4px;}to{opacity:1;translate:0 0;}}
+.tl-more.opening>.tl-detail{animation:detail-in .2s var(--ease-out);}
+
+/* 夜 ↔ 昼：换字时新字从模糊的小点长出来 */
+@keyframes glyph-in{from{opacity:0;scale:.25;filter:blur(4px);}to{opacity:1;scale:1;filter:blur(0);}}
+#theme-toggle.swap{animation:glyph-in .3s cubic-bezier(.2,0,0,1);}
 
 /* ── 这一天 → 随身页地图 ───────────────────────── */
 .day-map-link{
@@ -4220,6 +4256,7 @@ function toggleTheme() {
   getComputedStyle(html).opacity;
   requestAnimationFrame(() => freeze.remove());
   btn.textContent = next === 'dark' ? '昼' : '夜';
+  btn.classList.remove('swap'); void btn.offsetWidth; btn.classList.add('swap');
   btn.setAttribute('aria-label', next === 'dark' ? '切换浅色模式' : '切换深色模式');
   btn.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
   document.querySelector('meta[name="theme-color"]').setAttribute('content', next === 'dark' ? '#0e1116' : '#f7f7f5');
@@ -5299,10 +5336,23 @@ window.addEventListener('DOMContentLoaded', () => {
     // 只横向滑动日期栏把当前一天居中，不牵动整页上下滚
     var cur = document.querySelector('.day-nav-btn[aria-current="page"]');
     var strip = cur && cur.parentElement;
+    placeIndicator();
     if (strip && strip.scrollTo) {
       strip.scrollTo({ left: cur.offsetLeft - (strip.clientWidth - cur.offsetWidth) / 2,
                        behavior: smooth ? preferredScrollBehavior() : 'auto' });
     }
+  }
+
+  /* 日期栏下划线：移到当前那一格的位置和宽度（CSS 负责滑过去） */
+  function placeIndicator() {
+    var strip = document.querySelector('.day-nav-bar');
+    if (!strip) return;
+    var cur = strip.querySelector('.day-nav-btn[aria-current="page"]');
+    if (!cur) { strip.classList.remove('has-ind'); strip.style.setProperty('--ind-w', 0); return; }
+    strip.style.setProperty('--ind-x', cur.offsetLeft + 'px');
+    strip.style.setProperty('--ind-w', cur.offsetWidth);
+    strip.style.setProperty('--ind-c', cur.classList.contains('today-btn') ? 'var(--shu)' : 'var(--ai)');
+    strip.classList.add('has-ind');
   }
 
   /* 换页后的位置：还没滚过日期栏就原地不动；滚过了（例如在页底点「下一天」）
@@ -5435,6 +5485,24 @@ window.addEventListener('DOMContentLoaded', () => {
     var start = location.hash.slice(1);
     start = (start && (views[start] || SECVIEW[start])) ? (SECVIEW[start] || start) : (todayId() || 'overview');
     setView(start, { replace: true });
+
+    // 字号、语言、屏宽一变，各格宽度就变，下划线跟着重新对齐
+    if (window.ResizeObserver) {
+      var ro = new ResizeObserver(placeIndicator);
+      document.querySelectorAll('.day-nav-btn').forEach(function (b) { ro.observe(b); });
+    }
+    // 「详情」只有人手打开（或切到完整模式）时才播落下动画
+    document.querySelectorAll('details.tl-more').forEach(function (d) {
+      d.addEventListener('toggle', function () {
+        if (!d.open || document.documentElement.dataset.motion !== 'ready') return;
+        d.classList.remove('opening'); void d.offsetWidth; d.classList.add('opening');
+      });
+      d.addEventListener('animationend', function () { d.classList.remove('opening'); });
+    });
+    // 首屏画完两帧后再开过渡，打开页面时滑块、下划线不会从左边滑进来
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { document.documentElement.dataset.motion = 'ready'; });
+    });
   }
 
   // 等既有脚本先跑完（它也挂在 DOMContentLoaded）

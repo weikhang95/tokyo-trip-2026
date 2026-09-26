@@ -3077,6 +3077,13 @@ function setViewMode(mode) {
   }
 }
 
+// 转屏或窗口大小变了：地图高度按当前视图重算（地图视图要贴着底栏上沿）
+let resizeFrame = 0;
+window.addEventListener('resize', () => {
+  cancelAnimationFrame(resizeFrame);
+  resizeFrame = requestAnimationFrame(() => setViewMode(currentViewMode));
+});
+
 document.addEventListener('DOMContentLoaded', initApp);
 </script>
 <!-- Google Maps JavaScript API. This browser key is public by design: it only works on

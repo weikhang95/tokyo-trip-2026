@@ -42,6 +42,7 @@ try {
     --chip-bg: #EFECE6;
     --chip-bg-2: #EAE6DE;
     --map-bg: #e5e3df;
+    --ease: cubic-bezier(.2, 0, 0, 1);
     --bar-bg: rgba(247, 245, 240, 0.96);
     --pin-ring: #FFFFFF;
   }
@@ -78,7 +79,7 @@ try {
     font-family: 'Inter', 'Noto Sans SC', sans-serif;
     color: var(--ink);
     -webkit-font-smoothing: antialiased;
-    transition: background-color .2s ease, color .2s ease;
+    transition: background-color .2s var(--ease), color .2s var(--ease);
   }
 
   /* ── Sticky Top Bar ── */
@@ -120,7 +121,7 @@ try {
     border-radius: 99px;
     white-space: nowrap;
     min-height: 40px;
-    transition: scale .1s ease, background-color .15s ease;
+    transition: scale .1s var(--ease), background-color .15s var(--ease);
   }
   .back-btn:active { scale: .96; }
   .view-toggles {
@@ -139,11 +140,11 @@ try {
     font-weight: 700;
     color: var(--muted);
     padding: 0 12px;
-    min-height: 36px;
+    min-height: 40px;
     white-space: nowrap;
     border-radius: 99px;
     cursor: pointer;
-    transition: background-color .15s ease, color .15s ease, scale .1s ease;
+    transition: background-color .15s var(--ease), color .15s var(--ease), scale .1s var(--ease);
   }
   .view-btn:active,.theme-btn:active, .d8-opt-btn:active, .route-toggle-btn:active { scale: .96; }
   .view-btn.active {
@@ -158,7 +159,7 @@ try {
     border: 0; border-radius: 99px; background: transparent;
     color: var(--muted); font: inherit; font-size: 13px; font-weight: 700;
     cursor: pointer;
-    transition: background-color .15s ease, color .15s ease, scale .1s ease;
+    transition: background-color .15s var(--ease), color .15s var(--ease), scale .1s var(--ease);
   }
   .theme-btn:hover { background: var(--chip-bg); color: var(--ink); }
 
@@ -183,7 +184,7 @@ try {
     font-weight: 700;
     color: var(--muted);
     cursor: pointer;
-    transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+    transition: background-color .15s var(--ease), color .15s var(--ease), border-color .15s var(--ease);
     display: flex;
     align-items: center;
     gap: 4px;
@@ -249,7 +250,7 @@ try {
     padding: 3px 8px;
     border-radius: 99px;
     cursor: pointer;
-    transition: background-color .15s ease, color .15s ease, border-color .15s ease, scale .1s ease;
+    transition: background-color .15s var(--ease), color .15s var(--ease), border-color .15s var(--ease), scale .1s var(--ease);
   }
   .route-toggle-btn.active {
     background: var(--ai);
@@ -268,7 +269,7 @@ try {
     padding: 3px 8px;
     border-radius: 99px;
     background: var(--shu-soft);
-    transition: scale .1s ease;
+    transition: scale .1s var(--ease);
   }
   .map-link-btn:active { scale: .96; }
   #map {
@@ -312,7 +313,7 @@ try {
     padding: 5px 4px;
     border-radius: 14px;
     cursor: pointer;
-    transition: background-color .15s ease, color .15s ease, scale .1s ease;
+    transition: background-color .15s var(--ease), color .15s var(--ease), scale .1s var(--ease);
     white-space: nowrap;
     text-align: center;
   }
@@ -373,7 +374,7 @@ try {
     border-width: 0 1.5px 1.5px 0;
     rotate: 45deg;
     translate: 0 -.15em;
-    transition: rotate .2s cubic-bezier(.2, 0, 0, 1), translate .2s cubic-bezier(.2, 0, 0, 1);
+    transition: rotate .2s var(--ease), translate .2s var(--ease);
   }
   .hero-more[open] > summary::after { rotate: 225deg; translate: 0 .15em; }
   .hero-more > summary:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; border-radius: 4px; }
@@ -411,7 +412,7 @@ try {
     padding: 6px 12px;
     border-radius: 99px;
     margin-top: 8px;
-    transition: background-color .15s ease, color .15s ease;
+    transition: background-color .15s var(--ease), color .15s var(--ease);
   }
   /* 分屏时地图卡已有「Google 路线」，这里只在「行程」视图出现 */
   body:not([data-view="time"]) .hero-route-link { display: none; }
@@ -457,7 +458,7 @@ try {
     justify-content: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     z-index: 2;
-    transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
+    transition: background-color .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease), transform .2s var(--ease);
   }
   .node-item.hero .node-dot {
     border-color: var(--shu);
@@ -476,14 +477,14 @@ try {
     border-radius: 14px;
     padding: 12px 14px;
     box-shadow: var(--shadow);
-    transition: transform .15s, border-color .15s, box-shadow .15s;
+    transition: scale .15s var(--ease), border-color .15s var(--ease), box-shadow .15s var(--ease);
   }
   .node-item.active .node-card {
     border-color: var(--shu);
     box-shadow: 0 4px 18px rgba(194, 65, 45, 0.15);
   }
   .node-card:active {
-    transform: scale(0.99);
+    scale: .99;
   }
 
   .node-top {
@@ -540,7 +541,7 @@ try {
     padding: 4px 9px;
     border-radius: 99px;
     flex-shrink: 0;
-    transition: background .15s, scale .1s ease;
+    transition: background-color .15s var(--ease), scale .1s var(--ease);
   }
   .nav-btn:active { scale: .96; }
   .back-btn::after, .view-btn::after, .theme-btn::after, .route-toggle-btn::after, .map-link-btn::after {
@@ -625,7 +626,7 @@ try {
     width: .45em; height: .45em;
     border-right: 2px solid; border-bottom: 2px solid;
     rotate: 45deg; translate: 0 -.15em;
-    transition: rotate .15s, translate .15s;
+    transition: rotate .15s var(--ease), translate .15s var(--ease);
   }
   .node-more[open] > summary::after { rotate: 225deg; translate: 0 .15em; }
   .node-more > summary:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; border-radius: 4px; }

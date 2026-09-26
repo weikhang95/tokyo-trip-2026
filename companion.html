@@ -366,7 +366,7 @@ try {
     transition: scale .1s var(--ease), background-color .15s var(--ease);
   }
   .hero-next[hidden] { display: none; }
-  .hero-next:active { scale: .98; }
+  .hero-next:active { scale: .98; } /* 整行宽的条，.96 缩得太明显，和 .node-card 的 .99 同理 */
   .hero-next:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
   .hn-when {
     display: inline-flex; align-items: center; gap: 4px;
@@ -3055,7 +3055,7 @@ function updateNextStop() {
   if (i < 0) { el.hidden = true; return; }
   const n = day.nodes[i];
   const diff = nodeStartMins(n) - mins;
-  const when = diff < 60 ? `${diff} 分钟后` : `${Math.floor(diff / 60)} 小时 ${diff % 60} 分后`;
+  const when = diff < 60 ? `${diff} 分钟后` : (diff % 60 ? `${Math.floor(diff / 60)} 小时 ${diff % 60} 分后` : `${diff / 60} 小时后`);
   el.innerHTML = `<span class="hn-when">${n.mode ? ph(n.mode, PH_LABEL[n.mode]) : ''}下一站 · ${when}</span><span class="hn-what">${n.time.slice(0, 5)} ${n.title}</span>`;
   el.onclick = () => focusNode(i);
   el.hidden = false;

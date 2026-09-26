@@ -36,7 +36,7 @@ try {
   --paper-tint:#fafaf8;
   --ink:#16202b;            /* 墨 */
   --ink-soft:#48515d;
-  --ink-faint:#6b7480;      /* ≥4.5:1 on paper */
+  --ink-faint:#5f6874;      /* 小字灰：在 paper-2 上 ≥4.99:1，页面底 5.26:1（旧值 #6b7480 在底色上只有 4.41） */
   --line:#e2e2dd;
   --line-soft:#ecece8;
   --ai:#1c3553;             /* Serene Deep Indigo */
@@ -383,14 +383,14 @@ html[data-theme="dark"] .hero::after{outline-color:oklch(1 0 0 / .1);}
 .note-box>strong{margin-right:5px;}
 /* 靠底色区分语气，不用侧边色条 */
 .note-box.warn{background:color-mix(in srgb,var(--shu) 6%,var(--paper));}
-.note-box.warn strong{color:var(--shu);font-weight:600;}
+.note-box.warn>strong{color:var(--shu);font-weight:600;} /* 只染开头标签；正文里的加粗保持墨色 */
 .note-box.tip{background:color-mix(in srgb,var(--ai) 6%,var(--paper));}
-.note-box.tip strong{color:var(--ai);font-weight:600;}
+.note-box.tip>strong{color:var(--ai);font-weight:600;}
 .note-box.kin{background:color-mix(in srgb,var(--kin) 6%,var(--paper));}
 /* 直接挂在 day-body 下的提示，与时间轴内容对齐，别贴卡片边 */
 .day-body>.note-box{margin:var(--space-sm) var(--space-lg) var(--space-md);}
 @media (max-width:640px){.day-body>.note-box{margin-inline:var(--space-sm);}}
-.note-box.kin strong{color:var(--kin);font-weight:600;}
+.note-box.kin>strong{color:var(--kin);font-weight:600;}
 
 /* Day Navigation Bar (Modern Smooth Pills) */
 .day-nav-bar {
@@ -597,14 +597,14 @@ html[data-theme="dark"] .bplan-img-card:has(img)::after{outline-color:oklch(1 0 
 /* Bilingual Ordering Bottom Drawer */
 .food-drawer-backdrop{
   position:fixed;inset:0;background:rgba(0,0,0,0.52);backdrop-filter:blur(4px);
-  -webkit-backdrop-filter:blur(4px);z-index:500;opacity:0;visibility:hidden;
+  -webkit-backdrop-filter:blur(4px);z-index:950;opacity:0;visibility:hidden;
   transition:opacity .25s var(--ease-out),visibility .25s;
 }
 .food-drawer-backdrop.open{opacity:1;visibility:visible;}
 .food-drawer{
   position:fixed;left:0;right:0;bottom:0;max-width:680px;margin:0 auto;
   background:var(--paper);border-radius:28px 28px 0 0;box-shadow:0 -8px 32px rgba(0,0,0,.14);
-  z-index:501;max-height:85vh;display:flex;flex-direction:column;
+  z-index:960;max-height:85vh;display:flex;flex-direction:column;
   translate:0 100%;transition:translate .25s var(--ease-out);
   border:1px solid var(--line);border-bottom:none;
 }
@@ -625,7 +625,7 @@ html[data-theme="dark"] .bplan-img-card:has(img)::after{outline-color:oklch(1 0 
 .drawer-close-btn:hover{background:var(--line);color:var(--ink);}
 .drawer-body{
   padding:var(--space-md) var(--space-lg) calc(var(--space-2xl) + env(safe-area-inset-bottom, 0px));
-  overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:var(--space-md);
+  overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:var(--space-md);
 }
 .dish-card{background:var(--paper-tint);border:1px solid var(--line-soft);border-radius:var(--r-md);padding:var(--space-md);}
 .dish-jp{font-size:1.1875rem;font-weight:700;color:var(--ink);font-family:var(--font-serif);margin-bottom:3px;line-height:1.4;}
@@ -633,9 +633,14 @@ html[data-theme="dark"] .bplan-img-card:has(img)::after{outline-color:oklch(1 0 
 .dish-tip{font-size:var(--font-xs);color:var(--ai);background:var(--ai-bg);padding:2px 7px;border-radius:4px;display:inline-block;font-weight:600;}
 .quick-phrase-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--space-xs);}
 .phrase-chip{
+  display:block;width:100%;font:inherit;text-align:start;color:inherit;
   background:var(--paper-2);border:1px solid var(--line-soft);border-radius:var(--r-md);
-  padding:var(--space-sm);cursor:pointer;transition:background-color .15s,border-color .15s,scale .1s var(--ease-out);
+  padding:var(--space-sm);cursor:pointer;transition:background-color .15s var(--ease-out),border-color .15s var(--ease-out),scale .1s var(--ease-out);
 }
+/* 点一下放大给店员看，再点缩回 */
+.phrase-chip[aria-pressed="true"]{grid-column:1 / -1;background:var(--paper);border-color:var(--ai);}
+.phrase-chip[aria-pressed="true"] .phrase-jp{font-size:1.75rem;line-height:1.35;font-family:var(--font-serif);}
+.phrase-chip[aria-pressed="true"] .phrase-zh{font-size:var(--font-sm);}
 .phrase-chip:hover{background:var(--surface-info);border-color:var(--line-info);}
 .phrase-jp{font-size:.9375rem;font-weight:700;color:var(--ink);margin-bottom:2px;}
 .phrase-zh{font-size:var(--font-2xs);color:var(--ink-faint);}
@@ -942,25 +947,22 @@ html[data-mode="lite"] .dcc-desc{display:none;}
   .info-table.stacked thead{display:none;}
   .info-table.stacked tbody,
   .info-table.stacked tr{display:block;}
-  .info-table.stacked tr{
-    border:1px solid var(--line);border-radius:var(--r-md);
-    background:var(--paper);margin-bottom:var(--space-xs);overflow:hidden;
-  }
+  /* 一条记录一组：组与组之间靠留白和一条细线分开，不再在日卡片里套框 */
+  .info-table.stacked tr{padding:var(--space-sm) 0;border-top:1px solid var(--line-soft);}
+  .info-table.stacked tr:first-child{border-top:0;padding-top:0;}
   .info-table.stacked td,
   .info-table.stacked tbody th{
     display:grid;grid-template-columns:minmax(64px,32%) 1fr;
     gap:var(--space-sm);align-items:start;
-    min-width:0;width:100%;padding:var(--space-xs) var(--space-sm);
-    border:0;border-bottom:1px solid var(--line-soft);
+    min-width:0;width:100%;padding:2px 0;
+    border:0;background:none;
     text-align:left;font-size:.84375rem;line-height:1.55;
   }
-  .info-table.stacked tr>*:last-child{border-bottom:0;}
   .info-table.stacked .td-lbl{
     display:block;font-size:var(--font-xs);font-weight:700;color:var(--ink-faint);
     line-height:1.5;padding-top:1px;
   }
   .info-table.stacked .td-val{display:block;min-width:0;}
-  .info-table.stacked tbody th{background:var(--paper-2);}
   .info-table.stacked tbody th .td-lbl{color:var(--ai);}
 }
 
@@ -1254,10 +1256,10 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
       <div class="dcc-badge">决策图表</div>
       <a href="charts/index.html" class="dcc-all-link">查看全部图表</a>
     </div>
-    <h3 class="dcc-title">
+    <h2 class="dcc-title">
       <span class="zh on">四张决策图表</span>
       <span class="en">Four decision charts</span>
-    </h3>
+    </h2>
     <p class="dcc-desc">
       <span class="zh on">以单位分解与诚实契约替代文字堆叠，专为长辈同行控载与关键决策设计。点击任一图表可直接查看高清大图：</span>
       <span class="en">Intuitive, responsive decision charts designed for pacing, Fuji timing, return routes, and budget. Click any card to view:</span>
@@ -1368,10 +1370,11 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
     <div class="note-box warn" style="margin-top:16px;">
       <strong>10/10–10/12 日本三连休特别警示 (体育之日连休)：</strong>
       <span class="zh on">
-        10月10日 (六) 至 10月12日 (一) 为日本「スポーツの日」3 天连假。
-        <strong>Day 8 镰仓方案 A 采用东京站 B5 普通电车（要保座就搭 09:09 东京站始发班）、东口公车跳关与藤泽顺向大环线，彻底避开对冲人潮；若想更轻松，最省力且不与任何一天重合的是【方案 C · 清澄白河】。（【根津神社·谷中祭】虽然也很轻松，但那正是 Day 9 的全部内容，走了就得把 Day 9 换掉。）</strong>
+        10月10日 (六) 至 12日 (一) 是日本「スポーツの日」三连休，景点人多。
+        Day 8 镰仓方案 A 已按避开对冲人潮排好：东京站 B5 普通电车（要座位就搭 09:09 始发班）、东口公车跳关、藤泽顺向大环线。
+        想轻松一点，选 <strong>方案 C · 清澄白河</strong>：最省力，也不和别的天重复。方案 B（根津神社·谷中祭）正是 Day 9 的全部内容，选它就得把 Day 9 换掉。
       </span>
-      <span class="en">Sports Day 3-day weekend Oct 10–12: Kamakura Loop avoids crowds, or switch to Nezu Shrine Plan B!</span>
+      <span class="en">Sports Day long weekend, Oct 10–12. Day 8 Plan A (Kamakura) is routed to dodge the crowds. For an easier day that repeats nothing, pick Plan C (Kiyosumi-Shirakawa); Plan B (Nezu) is the whole of Day 9.</span>
     </div>
   </div>
 
@@ -1718,7 +1721,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
   </div>
 
   <!-- Companion Callout Card -->
-  <div class="card" style="border-left:4px solid var(--shu);padding:var(--space-sm) var(--space-md);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:var(--space-md);background:var(--paper);">
+  <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:var(--space-md);background:var(--paper);">
     <div style="display:flex;align-items:center;gap:12px;">
       <div>
         <div style="font-weight:700;font-size:var(--font-sm);color:var(--ink);"><span class="zh on">两份文件的分工：手册想清楚，随身页走路用</span><span class="en">How the two files divide the work</span></div>
@@ -4200,7 +4203,13 @@ function toggleTheme() {
   const current = html.getAttribute('data-theme');
   const next = current === 'dark' ? 'light' : 'dark';
   
+  // 切换瞬间关掉所有过渡，否则全页颜色一起慢慢渐变
+  const freeze = document.createElement('style');
+  freeze.textContent = '*,*::before,*::after{transition:none !important}';
+  document.head.appendChild(freeze);
   html.setAttribute('data-theme', next);
+  getComputedStyle(html).opacity;
+  requestAnimationFrame(() => freeze.remove());
   btn.textContent = next === 'dark' ? '昼' : '夜';
   btn.setAttribute('aria-label', next === 'dark' ? '切换浅色模式' : '切换深色模式');
   btn.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
@@ -4860,14 +4869,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
       <div>
         <div style="font-size:var(--font-xs);font-weight:700;color:var(--ai);letter-spacing:0;margin-bottom:var(--space-xs);">
-          实用点餐与结账短语 (点击可放大)
+          实用点餐与结账短语 · 点一下放大给店员看
         </div>
         <div class="quick-phrase-grid">
           ${data.phrases.map(p => `
-            <div class="phrase-chip" onclick="alert('${p.jp}\\n\\n中文含义：${p.zh}')">
-              <div class="phrase-jp">${p.jp}</div>
-              <div class="phrase-zh">${p.zh}</div>
-            </div>
+            <button type="button" class="phrase-chip" aria-pressed="false" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') === 'true' ? 'false' : 'true')">
+              <span class="phrase-jp" lang="ja" style="display:block">${p.jp}</span>
+              <span class="phrase-zh" style="display:block">${p.zh}</span>
+            </button>
           `).join('')}
         </div>
       </div>
@@ -4876,15 +4885,28 @@ window.addEventListener('DOMContentLoaded', () => {
     backdrop.classList.add('open');
     drawer.classList.add('open');
     document.body.style.overflow = 'hidden';
+    // 焦点移进抽屉、背景设 inert，关掉时还给原来的按钮
+    drawerReturnFocus = document.activeElement;
+    drawerBackground().forEach(el => el.inert = true);
+    drawer.querySelector('.drawer-close-btn').focus({ preventScroll: true });
+  }
+
+  let drawerReturnFocus = null;
+  function drawerBackground() {
+    return [document.getElementById('main-content'), document.querySelector('.tabbar')].filter(Boolean);
   }
 
   function closeFoodDrawer() {
     const drawer = document.getElementById('foodDrawer');
     const backdrop = document.getElementById('foodDrawerBackdrop');
     if (!drawer) return;
+    if (!drawer.classList.contains('open')) return;
     drawer.classList.remove('open');
     backdrop.classList.remove('open');
     document.body.style.overflow = '';
+    drawerBackground().forEach(el => el.inert = false);
+    if (drawerReturnFocus) drawerReturnFocus.focus({ preventScroll: true });
+    drawerReturnFocus = null;
   }
 
   document.addEventListener('keydown', (e) => {

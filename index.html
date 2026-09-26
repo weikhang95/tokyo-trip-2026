@@ -4893,7 +4893,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   let drawerReturnFocus = null;
   function drawerBackground() {
-    return [document.getElementById('main-content'), document.querySelector('.tabbar')].filter(Boolean);
+    return [document.getElementById('main-content'), document.querySelector('.tabbar'), document.querySelector('.skip-link')].filter(Boolean);
   }
 
   function closeFoodDrawer() {

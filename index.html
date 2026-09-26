@@ -1016,6 +1016,11 @@ html[data-router="on"] [data-view]:not(.view-on){display:none !important;}
 html[data-router="on"] .day .chev{display:none;}
 /* 内容永远是展开的，淡入动画没跑起来时会整页空白 */
 html[data-router="on"] .day-body.open{animation:none;}
+/* 换一天 / 换一页：新内容淡入并上浮 8px，不是硬切。首次打开不播 */
+@keyframes view-in{from{opacity:0;translate:0 8px;}to{opacity:1;translate:0 0;}}
+@keyframes view-fade{from{opacity:0;}to{opacity:1;}}
+html[data-router="on"] .view-enter{animation:view-in .24s var(--ease-out);}
+@media (prefers-reduced-motion:reduce){html[data-router="on"] .view-enter{animation-name:view-fade;}}
 html[data-router="on"] .day-hdr{cursor:default;}
 html[data-router="on"] .day{margin-bottom:var(--space-sm);}
 /* 自己就是一页，标题不必截成两行 */
@@ -4441,6 +4446,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.glance-item').forEach(link => {
     link.addEventListener('click', event => {
+      // 分页模式下由路由切页；这里再滚一次会让画面先跳再滑
+      if (document.documentElement.dataset.router === 'on') return;
       const dayId = link.getAttribute('href')?.slice(1);
       const day = dayId ? document.getElementById(dayId) : null;
       if (!day) return;
@@ -5236,12 +5243,14 @@ window.addEventListener('DOMContentLoaded', () => {
   function setView(name, opts) {
     opts = opts || {};
     if (!views[name]) name = 'overview';
+    var animate = active !== null && active !== name;
     active = name;
     var isDay = DAYS.indexOf(name) > -1;
 
     [].forEach.call(page.querySelectorAll('[data-view]'), function (el) {
       var v = el.dataset.view;
       el.classList.toggle('view-on', v === name);
+      el.classList.remove('view-enter');
     });
 
     // 一天一页，内容永远展开
@@ -5256,8 +5265,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
     var bar = document.getElementById('today-bar');
     if (bar) bar.style.display = (name === todayId()) ? 'none' : '';
+    // 放在展开内容之后：先强制排版再加动画，否则没展开的一天高度太矮，滚动位置会被夹回 0
+    if (animate) {
+      void page.offsetWidth; // 让动画从头再播一次
+      [].forEach.call(page.querySelectorAll('.view-on'), function (el) { el.classList.add('view-enter'); });
+    }
 
-    syncNav(name, isDay);
+    syncNav(name, isDay, animate);
     var tab = name === 'overview' ? 'handbook' : isDay ? 'days' : name === 'booking' ? 'todo' : 'more';
     document.body.dataset.tab = tab;
     if (window.TabBar) window.TabBar.setActive(tab);
@@ -5269,21 +5283,36 @@ window.addEventListener('DOMContentLoaded', () => {
         else history.pushState(null, '', want);
       }
     }
-    if (opts.scroll !== false) window.scrollTo(0, 0);
+    if (opts.scroll !== false) keepNavInPlace();
     if (typeof window.refreshTripClamp === 'function') {
       requestAnimationFrame(function () { requestAnimationFrame(window.refreshTripClamp); });
     }
   }
 
-  function syncNav(name, isDay) {
+  function syncNav(name, isDay, smooth) {
     document.querySelectorAll('.day-nav-btn').forEach(function (b) {
       var t = b.dataset.target || (b.classList.contains('today-btn') ? todayId() : null);
       var on = t ? t === name : (name === 'overview' && !b.dataset.target && !b.classList.contains('today-btn'));
       if (on) { b.setAttribute('aria-current', 'page'); b.classList.add('active'); }
       else { b.removeAttribute('aria-current'); b.classList.remove('active'); }
     });
+    // 只横向滑动日期栏把当前一天居中，不牵动整页上下滚
     var cur = document.querySelector('.day-nav-btn[aria-current="page"]');
-    if (cur && cur.scrollIntoView) cur.scrollIntoView({block:'nearest', inline:'center', behavior:'auto'});
+    var strip = cur && cur.parentElement;
+    if (strip && strip.scrollTo) {
+      strip.scrollTo({ left: cur.offsetLeft - (strip.clientWidth - cur.offsetWidth) / 2,
+                       behavior: smooth ? preferredScrollBehavior() : 'auto' });
+    }
+  }
+
+  /* 换页后的位置：还没滚过日期栏就原地不动；滚过了（例如在页底点「下一天」）
+     就回到日期栏刚好贴在顶栏下面，新一天从栏下开始，而不是整页弹回最顶 */
+  function keepNavInPlace() {
+    var nav = document.querySelector('.day-nav-bar');
+    if (!nav || !nav.offsetParent) { window.scrollTo(0, 0); return; }
+    var bar = document.querySelector('.topbar');
+    var top = nav.getBoundingClientRect().top + window.scrollY - (bar ? bar.offsetHeight : 0);
+    if (window.scrollY > top) window.scrollTo(0, Math.max(0, top));
   }
 
   function todayId() {

@@ -1050,14 +1050,17 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
 html[data-motion="ready"] .day-nav-bar::after{transition:transform .32s cubic-bezier(.2,0,0,1),background-color .15s var(--ease-out);}
 html .day-nav-bar.has-ind .day-nav-btn{box-shadow:none;}
 
-/* 日期栏吸在顶栏下面：滚到一天的哪里都能直接换天，不用先滚回顶部 */
-html[data-router="on"] .day-nav-bar{
-  position:sticky;top:var(--topbar-h,57px);z-index:calc(var(--z-header) - 1);
-  background:color-mix(in srgb,var(--bg-body) 90%,transparent);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+/* 日期栏搬进顶栏（boot 时移动 DOM），跟顶栏一起吸顶：滚到哪里都能直接换天。
+   只有一个吸顶元素，不用自己算偏移（iPhone 的安全区会把两层吸顶算错位） */
+html[data-router="on"] .topbar{padding-bottom:0;border-bottom:0;}
+html[data-router="on"] .topbar>.day-nav-bar{
+  margin:0 calc(-1 * var(--space-md));padding:0 var(--space-md);
 }
-/* 锚点跳转要让开顶栏 + 日期栏两层 */
-html[data-router="on"]{scroll-padding-top:calc(var(--topbar-h,57px) + var(--daynav-h,52px) + 8px);}
+@media (min-width:641px){html[data-router="on"] .topbar>.day-nav-bar{max-width:820px;margin:0 auto;padding:0;}}
+/* 手机上顶栏左右内距是 --space-sm，日期栏跟着出血到屏幕边 */
+@media (max-width:640px){html[data-router="on"] .topbar>.day-nav-bar{margin-inline:calc(-1 * var(--space-sm));padding-inline:var(--space-sm);}}
+/* 锚点跳转要让开整个顶栏（含日期栏） */
+html[data-router="on"]{scroll-padding-top:calc(var(--topbar-h,110px) + 8px);}
 
 /* 精简 / 完整、中文 / EN：底色是一块会滑动的滑块 */
 .mode-switch,.lang-bar{position:relative;isolation:isolate;}
@@ -5373,18 +5376,15 @@ window.addEventListener('DOMContentLoaded', () => {
     // 并用 offsetTop（不受淡入动画的 translate 影响）
     var y = 0, el = first;
     while (el) { y += el.offsetTop; el = el.offsetParent; }
-    var bar = document.querySelector('.topbar'), nav = document.querySelector('.day-nav-bar');
-    var cover = (bar ? bar.offsetHeight : 0) + (nav && nav.offsetParent ? nav.offsetHeight : 0);
-    var top = y - cover - 8;
+    var bar = document.querySelector('.topbar'); // 日期栏已在顶栏里
+    var top = y - (bar ? bar.offsetHeight : 0) - 8;
     if (window.scrollY > top) window.scrollTo(0, Math.max(0, top));
   }
 
-  /* 吸顶要知道顶栏和日期栏各多高（安全区、大字模式都会改高度） */
+  /* 锚点让位要知道顶栏（含日期栏）多高：安全区、大字模式都会改高度 */
   function measureChrome() {
-    var root = document.documentElement.style;
-    var bar = document.querySelector('.topbar'), nav = document.querySelector('.day-nav-bar');
-    if (bar) root.setProperty('--topbar-h', bar.offsetHeight + 'px');
-    if (nav) root.setProperty('--daynav-h', nav.offsetHeight + 'px');
+    var bar = document.querySelector('.topbar');
+    if (bar) document.documentElement.style.setProperty('--topbar-h', bar.offsetHeight + 'px');
   }
 
   function todayId() {
@@ -5502,6 +5502,8 @@ window.addEventListener('DOMContentLoaded', () => {
     addPagers();
     addInfoIndex();
     wireNav();
+    var topbar = document.querySelector('.topbar'), strip = document.querySelector('.day-nav-bar');
+    if (topbar && strip) topbar.appendChild(strip);
     document.documentElement.dataset.router = 'on';
 
     var start = location.hash.slice(1);
@@ -5514,7 +5516,7 @@ window.addEventListener('DOMContentLoaded', () => {
       var ro = new ResizeObserver(placeIndicator);
       document.querySelectorAll('.day-nav-btn').forEach(function (b) { ro.observe(b); });
       var ro2 = new ResizeObserver(measureChrome);
-      ['.topbar', '.day-nav-bar'].forEach(function (q) { var e = document.querySelector(q); if (e) ro2.observe(e); });
+      var tb = document.querySelector('.topbar'); if (tb) ro2.observe(tb);
     }
     // 「详情」只有人手打开（或切到完整模式）时才播落下动画
     document.querySelectorAll('details.tl-more').forEach(function (d) {

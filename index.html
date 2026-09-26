@@ -1063,8 +1063,7 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
   font-size:var(--font-sub);font-weight:700;line-height:1.3;color:var(--ink);
   display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
 }
-.day-pager .pg-blank{border-style:dashed;opacity:.45;pointer-events:none;}
-.day-pager .pg-blank .pg-name{color:var(--ink-faint);font-weight:500;}
+.day-pager .pg-blank{visibility:hidden;}
 
 /* ── 资料页索引（从日程跳到参考资料） ──────────── */
 .info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-xs);margin-top:var(--space-sm);}
@@ -5331,11 +5330,8 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     function cell(id, hint, cls) {
-      if (!id) {
-        var other = cls === 'prev' ? '行程开始' : '行程结束';
-        return '<span class="' + cls + ' pg-blank"><span class="pg-hint">' + hint +
-               '</span><span class="pg-name">' + other + '</span></span>';
-      }
+      // 第一天没有上一天、最后一天没有下一天：留空位，另一格保持原位
+      if (!id) return '<span class="pg-blank" aria-hidden="true"></span>';
       var m = DAY_META[id];
       return '<a class="' + cls + '" href="#' + id + '"><span class="pg-hint">' + hint + ' · ' +
              m[0] + '</span><span class="pg-name">' + m[1] + '</span></a>';

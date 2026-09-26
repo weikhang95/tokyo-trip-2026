@@ -531,6 +531,7 @@ try {
     display: inline-flex;
     align-items: center;
     gap: 4px;
+    font-variant-numeric: tabular-nums;
   }
   .ph { width: 1.2em; height: 1.2em; flex: none; }
   .nav-btn .ph { width: 1.25em; height: 1.25em; }
@@ -590,6 +591,8 @@ try {
     color: var(--muted);
     font-weight: 500;
     margin-bottom: 6px;
+    text-wrap: pretty;
+    font-variant-numeric: tabular-nums;
   }
   /* 一站 = 站名 + 几条要点（永远看得到，一条一行）+ 收起的详情 */
   .node-key,
@@ -660,8 +663,8 @@ try {
     border: 1px solid var(--grid);
     border-radius: var(--radius);
   }
-  .role-note h2 { margin: 0 0 8px; font-size: 15px; font-weight: 800; color: var(--ink); }
-  .role-note p { margin: 0 0 8px; font-size: 13px; line-height: 1.7; color: var(--muted); }
+  .role-note h2 { margin: 0 0 8px; font-size: 15px; font-weight: 800; color: var(--ink); text-wrap: balance; }
+  .role-note p { margin: 0 0 8px; font-size: 13px; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
   .role-note p:last-of-type { margin-bottom: 12px; }
   .role-link {
     display: inline-flex; align-items: center; min-height: 44px;
@@ -2950,10 +2953,10 @@ function updateMap(day) {
     });
     marker.popupHtml = `
         <div style="font-family:'Inter','Noto Sans SC',sans-serif; min-width:160px;">
-          <div style="font-size:11px; font-weight:800; color:var(--shu); margin-bottom:2px;">${node.time} · 第 ${nIdx + 1} 站</div>
+          <div style="font-size:11px; font-weight:800; color:var(--shu); margin-bottom:2px; font-variant-numeric:tabular-nums;">${String(node.time).replace(/\s*-\s*/, '–')} · 第 ${nIdx + 1} 站</div>
           <div style="font-size:14px; font-weight:800; color:var(--ink); margin-bottom:4px;">${node.title || node.name}</div>
-          <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">${node.sub}</div>
-          <a href="${gmapsNavUrl}" target="_blank" style="display:inline-block; font-size:12px; font-weight:700; color:var(--on-ai); background:var(--ai); text-decoration:none; padding:4px 10px; border-radius:99px;">Google Maps 导航 ↗</a>
+          <div style="font-size:12px; color:var(--muted); margin-bottom:6px; font-variant-numeric:tabular-nums;">${node.sub}</div>
+          <a href="${gmapsNavUrl}" target="_blank" style="display:inline-flex; align-items:center; min-height:44px; font-size:12px; font-weight:700; color:var(--on-ai); background:var(--ai); text-decoration:none; padding:0 14px; border-radius:99px;">Google Maps 导航 ↗</a>
         </div>
       `;
 

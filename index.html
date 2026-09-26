@@ -1050,6 +1050,15 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
 html[data-motion="ready"] .day-nav-bar::after{transition:transform .32s cubic-bezier(.2,0,0,1),background-color .15s var(--ease-out);}
 html .day-nav-bar.has-ind .day-nav-btn{box-shadow:none;}
 
+/* 日期栏吸在顶栏下面：滚到一天的哪里都能直接换天，不用先滚回顶部 */
+html[data-router="on"] .day-nav-bar{
+  position:sticky;top:var(--topbar-h,57px);z-index:calc(var(--z-header) - 1);
+  background:color-mix(in srgb,var(--bg-body) 90%,transparent);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+}
+/* 锚点跳转要让开顶栏 + 日期栏两层 */
+html[data-router="on"]{scroll-padding-top:calc(var(--topbar-h,57px) + var(--daynav-h,52px) + 8px);}
+
 /* 精简 / 完整、中文 / EN：底色是一块会滑动的滑块 */
 .mode-switch,.lang-bar{position:relative;isolation:isolate;}
 .mode-switch{display:inline-grid;grid-template-columns:1fr 1fr;}
@@ -5358,11 +5367,24 @@ window.addEventListener('DOMContentLoaded', () => {
   /* 换页后的位置：还没滚过日期栏就原地不动；滚过了（例如在页底点「下一天」）
      就回到日期栏刚好贴在顶栏下面，新一天从栏下开始，而不是整页弹回最顶 */
   function keepNavInPlace() {
-    var nav = document.querySelector('.day-nav-bar');
-    if (!nav || !nav.offsetParent) { window.scrollTo(0, 0); return; }
-    var bar = document.querySelector('.topbar');
-    var top = nav.getBoundingClientRect().top + window.scrollY - (bar ? bar.offsetHeight : 0);
+    var first = page.querySelector('.view-on');
+    if (!first) { window.scrollTo(0, 0); return; }
+    // 日期栏是吸顶的，量它自己会量到吸住后的位置；改量新页第一块内容，
+    // 并用 offsetTop（不受淡入动画的 translate 影响）
+    var y = 0, el = first;
+    while (el) { y += el.offsetTop; el = el.offsetParent; }
+    var bar = document.querySelector('.topbar'), nav = document.querySelector('.day-nav-bar');
+    var cover = (bar ? bar.offsetHeight : 0) + (nav && nav.offsetParent ? nav.offsetHeight : 0);
+    var top = y - cover - 8;
     if (window.scrollY > top) window.scrollTo(0, Math.max(0, top));
+  }
+
+  /* 吸顶要知道顶栏和日期栏各多高（安全区、大字模式都会改高度） */
+  function measureChrome() {
+    var root = document.documentElement.style;
+    var bar = document.querySelector('.topbar'), nav = document.querySelector('.day-nav-bar');
+    if (bar) root.setProperty('--topbar-h', bar.offsetHeight + 'px');
+    if (nav) root.setProperty('--daynav-h', nav.offsetHeight + 'px');
   }
 
   function todayId() {
@@ -5487,9 +5509,12 @@ window.addEventListener('DOMContentLoaded', () => {
     setView(start, { replace: true });
 
     // 字号、语言、屏宽一变，各格宽度就变，下划线跟着重新对齐
+    measureChrome();
     if (window.ResizeObserver) {
       var ro = new ResizeObserver(placeIndicator);
       document.querySelectorAll('.day-nav-btn').forEach(function (b) { ro.observe(b); });
+      var ro2 = new ResizeObserver(measureChrome);
+      ['.topbar', '.day-nav-bar'].forEach(function (q) { var e = document.querySelector(q); if (e) ro2.observe(e); });
     }
     // 「详情」只有人手打开（或切到完整模式）时才播落下动画
     document.querySelectorAll('details.tl-more').forEach(function (d) {

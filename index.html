@@ -901,11 +901,11 @@ html[data-theme="dark"] .bplan-img-card:has(img)::after{outline-color:oklch(1 0 
 .status-row>.mode-bar{margin:0 0 0 auto;flex-shrink:0;}
 .mode-switch{
   display:inline-flex;border:1px solid var(--line);border-radius:99px;
-  overflow:hidden;background:var(--paper);margin-left:auto;
+  background:var(--paper);margin-left:auto;
 }
 .mode-switch button{
   font-family:var(--font-sans);font-size:var(--font-xs);font-weight:600;
-  padding:0 14px;height:40px;min-width:52px;border:0;background:transparent;color:var(--ink-soft);cursor:pointer;
+  padding:0 14px;height:40px;min-width:52px;border:0;border-radius:99px;background:transparent;color:var(--ink-soft);cursor:pointer;
   transition:background-color .15s var(--ease-out),color .15s var(--ease-out),scale .1s var(--ease-out);
 }
 .mode-switch button[aria-pressed="true"]{background:var(--ai);color:var(--on-ai);}
@@ -1049,6 +1049,12 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
 }
 html[data-motion="ready"] .day-nav-bar::after{transition:transform .32s cubic-bezier(.2,0,0,1),background-color .15s var(--ease-out);}
 html .day-nav-bar.has-ind .day-nav-btn{box-shadow:none;}
+/* 日期栏是横向滚动容器，会裁掉按钮外面的焦点框：改画在按钮里面 */
+.day-nav-bar .day-nav-btn:focus-visible{outline-offset:-3px;}
+/* 换页后程序把焦点放到新页标题上（读屏会念出来），标题本身不画框 */
+html[data-router="on"] [data-focus-target]:focus{outline:none;}
+/* 键盘 Tab 到页底时，让开底栏，焦点不被盖住 */
+@media (max-width:640px){html[data-router="on"]{scroll-padding-bottom:calc(64px + env(safe-area-inset-bottom, 0px) + 8px);}}
 
 /* 日期栏搬进顶栏（boot 时移动 DOM），跟顶栏一起吸顶：滚到哪里都能直接换天。
    只有一个吸顶元素，不用自己算偏移（iPhone 的安全区会把两层吸顶算错位） */
@@ -1171,7 +1177,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
         <!-- Large Text Mode Toggle (For Mum) -->
         <button class="top-btn" id="text-toggle" onclick="toggleTextSize()" title="切换长辈大字模式" aria-pressed="false">Aa 大字</button>
         <!-- Dark Mode Toggle -->
-        <button class="top-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="切换深色模式" aria-pressed="false">夜</button>
+        <button class="top-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="深色模式" aria-pressed="false">夜</button>
         <!-- Language Switcher -->
         <div class="lang-bar" role="group" aria-label="语言">
           <button class="lang-btn active" id="btn-zh" aria-pressed="true" onclick="setLang('zh')">中文</button>
@@ -4270,7 +4276,6 @@ function toggleTheme() {
   requestAnimationFrame(() => freeze.remove());
   btn.textContent = next === 'dark' ? '昼' : '夜';
   btn.classList.remove('swap'); void btn.offsetWidth; btn.classList.add('swap');
-  btn.setAttribute('aria-label', next === 'dark' ? '切换浅色模式' : '切换深色模式');
   btn.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
   document.querySelector('meta[name="theme-color"]').setAttribute('content', next === 'dark' ? '#0e1116' : '#f7f7f5');
   setStoredPreference('tokyo_theme', next);
@@ -4283,7 +4288,6 @@ function loadTheme() {
     document.documentElement.setAttribute('data-theme', theme);
     const btn = document.getElementById('theme-toggle');
     btn.textContent = theme === 'dark' ? '昼' : '夜';
-    btn.setAttribute('aria-label', theme === 'dark' ? '切换浅色模式' : '切换深色模式');
     btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
     document.querySelector('meta[name="theme-color"]').setAttribute('content', theme === 'dark' ? '#0e1116' : '#f7f7f5');
   }
@@ -5334,6 +5338,7 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     }
     if (opts.scroll !== false) keepNavInPlace();
+    if (animate) moveFocusIfLost(name, isDay);
     if (typeof window.refreshTripClamp === 'function') {
       requestAnimationFrame(function () { requestAnimationFrame(window.refreshTripClamp); });
     }
@@ -5343,6 +5348,7 @@ window.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.day-nav-btn').forEach(function (b) {
       var t = b.dataset.target || (b.classList.contains('today-btn') ? todayId() : null);
       var on = t ? t === name : (name === 'overview' && !b.dataset.target && !b.classList.contains('today-btn'));
+      b.removeAttribute('aria-pressed'); // 旧版手风琴留下的，状态以 aria-current 为准
       if (on) { b.setAttribute('aria-current', 'page'); b.classList.add('active'); }
       else { b.removeAttribute('aria-current'); b.classList.remove('active'); }
     });
@@ -5354,6 +5360,20 @@ window.addEventListener('DOMContentLoaded', () => {
       strip.scrollTo({ left: cur.offsetLeft - (strip.clientWidth - cur.offsetWidth) / 2,
                        behavior: smooth ? preferredScrollBehavior() : 'auto' });
     }
+  }
+
+  /* 点「下一天」、首页列表、资料入口时，被点的链接随旧页一起隐藏，焦点会掉回页首。
+     这时把焦点放到新页的标题上：键盘从这里继续，读屏也会念出到了哪一页。
+     焦点还在看得见的地方（例如日期栏）就不动它。 */
+  function moveFocusIfLost(name, isDay) {
+    var ae = document.activeElement;
+    if (ae && ae !== document.body && ae.offsetParent !== null) return;
+    var h = isDay ? document.querySelector('#' + name + ' .day-info h3')
+                  : page.querySelector('.view-on h2, .view-on h3');
+    if (!h) return;
+    h.setAttribute('tabindex', '-1');
+    h.setAttribute('data-focus-target', '');
+    h.focus({ preventScroll: true });
   }
 
   /* 日期栏下划线：移到当前那一格的位置和宽度（CSS 负责滑过去） */

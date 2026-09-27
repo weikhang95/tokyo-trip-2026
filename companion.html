@@ -1438,8 +1438,8 @@ const DAYS = [
       title: "上野东照宫 → 日本桥三越 → COREDO室町",
       intensity: "中等强度 · 约 4,500 步",
       desc: "上野公园徒步、逛百年老铺与诚品生活；傍晚适时休整。",
-      transit: "日比谷线 2站 → 银座线 2站到神田 → 银座线 1站到三越前 → 银座线+日比谷线回程",
-      routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Tokyo+Taito+Ryusen+3-10-7&destination=COREDO+Muromachi&waypoints=Ueno+Toshogu+Shrine%7CKiyomizu+Kannon-do%7CUmi+no+Sachi+Sho+Kanda%7CNihombashi+Mitsukoshi+Main+Store&travelmode=transit",
+      transit: "日比谷线 2站 → 银座线 3站 → 银座线+日比谷线回程",
+      routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Tokyo+Taito+Ryusen+3-10-7&destination=COREDO+Muromachi&waypoints=Ueno+Toshogu+Shrine%7CKiyomizu+Kannon-do%7CIzuei+Honten+Ueno%7CNihombashi+Mitsukoshi+Main+Store&travelmode=transit",
       nodes: [
         {
           time: "08:45",
@@ -1515,34 +1515,34 @@ const DAYS = [
         },
         {
           time: "11:00",
-          name: "海の幸 翔 (神田 海鲜丼)",
-          title: "银座线 2 站到神田 → 海の幸 翔 海鲜丼 ★",
-          sub: "神田東松下町 12 宮川ビル東棟 102 · Google 4.4★",
-          lat: 35.6937, lng: 139.77446,
-          key: ["11:30 前到门口排队", "!只开平日，一碗约 ¥4,000–7,000"],
+          name: "伊豆荣 本店 (炭烤鳗鱼饭)",
+          title: "伊豆荣 本店 炭烤鳗鱼饭 ★",
+          sub: "不忍池对面 · 约 300 年鳗鱼老铺 · Google 4.1★",
+          lat: 35.709671, lng: 139.7726906,
+          key: ["11:00 开门就进", "全熟，妈妈能吃 · 可刷卡"],
           more: [
-            "11:00 交通：不忍池南边走 7 分钟（约 550m）到上野广小路站 (G15)，银座线 2 站到神田站 (G13)，出站往北口方向，平路 5 分钟（约 370m）到店。",
-            "11:30 排队：11:45 开门，老板娘会在门外先点单，入座时丼已经上桌。排队的有上班族也有游客，一般等 20 分钟内。",
-            "点单：菜单每天按进货换，只有日文，先开 Google 翻译拍照。点一碗豪华海鲜丼加一碗便宜点的鲔鱼丼，两人分着吃两种（小店多半一人一份，不要只点一碗）。10 月不是海胆旺季，选大腹、蟹、鲑鱼卵为主的那碗，鲑鱼卵正当季。",
-            "营业：周一至周五 11:45–14:00 午餐、18:00–23:00 晚餐，周六日休息。分量很大，吃不完不要勉强。"
+            "11:00 进店：不忍池南边、清水观音堂下来就到。每天 11:00–21:00。午餐常排 30–45 分钟，开门就进最稳；可以先在官网或打电话订位。",
+            "点单：鳗重（うな重）或「伊豆荣午餐」（半条鳗鱼配几只天妇罗、饭、味噌汤），有英文菜单。江户风酱汁不太甜，炭烤现做要等约 20 分钟。两人约 ¥7,000–9,000。套餐里如果有刺身，跟店员说换掉或给你吃。",
+            "楼上靠窗座位看得到上野公园，入座时可以问有没有窗边位。",
+            "备选：大户屋 上野公园店（烤鱼定食，一人 ¥950–1,200）；海の幸 翔（神田，Google 4.4★）是生鱼海鲜丼专门店，午餐没有熟食，只适合你一个人想吃生的时候；只开平日 11:45–14:00，门口白板点单。"
           ],
-          tags: ["海鲜丼"],
+          tags: ["鳗鱼饭"],
           hero: true
         },
         {
-          time: "12:50",
+          time: "12:20",
           mode: "train",
-          name: "银座线 神田 → 三越前",
-          title: "神田 → 三越前",
-          sub: "银座线 1 站 2 分钟 (¥178)",
-          lat: 35.6918, lng: 139.7709,
-          key: ["走回神田站 (G13)", "A4/A6 出口 (G12) 即是三越"],
+          name: "银座线 前往三越前",
+          title: "前往三越前",
+          sub: "乘 3 站 5 分钟 (¥178)",
+          lat: 35.7078, lng: 139.7725,
+          key: ["上野广小路 A1 出口旁电梯直达月台", "A4/A6 出口 (G12) 即是三越"],
           more: [],
-          tags: ["1 站直达"],
+          tags: ["5分钟直达"],
           hero: false
         },
         {
-          time: "13:05",
+          time: "12:45",
           name: "日本桥三越本店",
           title: "日本桥三越本店",
           sub: "1673 年开业 · 日本第一家百货",
@@ -1736,7 +1736,7 @@ const DAYS = [
         more: [
           "A 体力好、不排斥裸汤：ゆらり 泡露天温泉看富士星空，馆内食事処「ふじざくら」吃和食晚餐。",
           "B 想泡热水但不想裸汤：在 Ogino 买 ¥300–500 碳酸入浴剂（花王「バブ」／地球制药「温泡」）回房泡；没浴缸就带回东京公寓。",
-          "C 想早休息：房里吃 Ogino 便当、刺身和水果。",
+          "C 想早休息：房里吃 Ogino 熟食便当和水果（妈妈不吃生，刺身只买你的份）。",
           "20:30 从ゆらり出发，约 20:43 到 SAWA，门口平地停车。21:00 熄灯，睡足 7 小时到 04:00。"
         ],
         tags: ["温泉", "早睡"],
@@ -2101,7 +2101,7 @@ const DAYS = [
     weekday: "五",
     title: "筑地吃几家小的 → 银座 → 东京铁塔点灯",
     intensity: "中低负荷 · 约 6,000 步",
-    desc: "三连休前夕的田忌赛马：把银座与铁塔排在周五白天，避开周五晚上班族狂欢人潮。睡饱再出门，筑地吃鲔鱼脸颊丼、大腹寿司和玉子烧，GINZA SIX 屋顶花园与 UNIQLO 银座 12F 旗舰歇脚，约 17:14 静候东京铁塔点灯，17:15 错峰在大门吃暖胃和食（相扑锅／麻布十番烧肉备选），19:45 早早回巢。",
+    desc: "三连休前夕的田忌赛马：把银座与铁塔排在周五白天，避开周五晚上班族狂欢人潮。睡饱再出门，筑地吃炭烤鲔鱼脸颊丼和玉子烧（大腹寿司只你吃），GINZA SIX 屋顶花园与 UNIQLO 银座 12F 旗舰歇脚，约 17:14 静候东京铁塔点灯，17:15 错峰在大门吃暖胃和食（相扑锅／麻布十番烧肉备选），19:45 早早回巢。",
     transit: "日比谷线直达筑地/东银座 → 银座地下步道直通 GSIX → 都营浅草线 2 站至大门 → 浅草线回浅草换都08 直达门口",
     routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Tsukiji+Outer+Market&destination=Zojoji+Temple&waypoints=GINZA+SIX%7CShiba+Park&travelmode=transit",
     nodes: [
@@ -2114,9 +2114,9 @@ const DAYS = [
         key: ["09:00 先去どんぶり市場", "!只点标价的，不能边走边吃"],
         more: [
           "08:30 交通：睡到自然醒，三ノ輪搭日比谷线直达筑地，不用换车。筑地站 1 号站台直通 1 号电梯出口，出站就是筑地本愿寺，平路 3 分钟。",
-          "09:00 築地どんぶり市場（Google 4.1★ · 08:00–14:00，周三休）：招牌炭烤鲔鱼脸颊肉丼一天只做约 20 碗，先来这里。两人分一碗脸颊肉丼、一碗三色鲔鱼丼，户外吧台坐着吃。",
-          "09:40 まぐろや黒銀（4.5★ · 07:30–13:00）：两人分 2–3 贯大腹寿司，明码标价、可刷卡，店前站着吃。再去丸武（4.1★）买两串玉子烧当甜点，一串约 ¥100–200。",
-          "可选 · 还饿或想坐冷气：築地魚河岸 小田原橋棟 3F 小田保（4.0★ · 周四至周六 07:00–14:00）点一份炸牡蛎或炸竹荚鱼。3F 食堂不能带外面摊位的食物进去占座，点了现做主食才能坐，或带到 3F 户外木栈道长椅吃。",
+          "09:00 築地どんぶり市場（Google 4.1★ · 08:00–14:00，周三休）：招牌炭烤鲔鱼脸颊肉丼一天只做约 20 碗，先来这里。炭烤脸颊肉丼是熟的，妈妈吃这碗；你想吃生的再加一碗三色鲔鱼丼。户外吧台坐着吃。",
+          "09:40 まぐろや黒銀（4.5★ · 07:30–13:00）：你一个人吃 2–3 贯大腹寿司（妈妈不吃生），明码标价、可刷卡，店前站着吃。再去丸武（4.1★）买两串玉子烧，一串约 ¥100–200，妈妈也能吃。",
+          "可选 · 还饿或想坐冷气：築地魚河岸 小田原橋棟 3F 小田保（4.0★ · 周四至周六 07:00–14:00）给妈妈点一份炸牡蛎或炸竹荚鱼定食。3F 食堂不能带外面摊位的食物进去占座，点了现做主食才能坐，或带到 3F 户外木栈道长椅吃。",
           "避开游客价：海胆、和牛、扇贝串烧一串 ¥1,500–3,000，不值；写「時価」的先问价；门口拉客、菜单没标价的海鲜丼跳过。周五货源最全（筑地周三、周日休市）。"
         ],
         tags: ["早午餐", "逛市场"],
@@ -2418,9 +2418,9 @@ const PREBAKED_ROUTES = {
     "encoded": "gb`yEo{etY?YAW?WRA|AE|AAt@?LCLEd@UdBy@r@[xAs@PITKdD}ATKNGLAJA~@@p@?`@@\\?n@?T?L?X?X?bBDbABV@N?lCHZ@dBFh@@\\BhAJRBPBlAJ|BVLBP@PBbBRv@FH@TBBc@LiB?O@K@QPkCTiD@SIAs@I@KPqCH?NsC??OrCh@HH?L?QrCANMCIAs@IIAk@G[Gc@Gg@GCLc@xBYS_AMM@C?SBcBPw@H_@BiAPYFBdA@dAGjAIx@APh@@\\BhAJRBPBlAJ|BVLBP@PBBS@KNqAF]Fi@NiAFa@Hm@Hq@Fi@NgA@Ic@Gg@GSC@KHiAFy@\\BVBD?B?XB`@B^BTBH?h@HH?NyB@M@Q@O@YBYJwAFiA@ODm@JK?TCf@IlAInA??APCd@AD?FAJATQdCQrCANL@r@Fb@DALKbBCZCZARCRAJCb@Gp@GfAAHzAZhAVjAVLBN_APoADa@Jy@J_ALwA?GD[@WVyCPkB@QB]@U@Ga@c@Y]u@s@c@a@UMIGsCaBMGYQKIUQg@_@{BgB}BkBIGIGIM}@cAi@m@cCqCGGMO]Yo@i@c@]w@o@a@]]WKIYWQWS[MKGGkA_A[Ww@q@i@c@WSOOoAeA[Ui@a@ECm@QOEKAQCG?kCSk@CKAYC{AKg@CAJA|@AFCpA?HjAn@z@`@fAf@LL@@@?LN~BgB|ByAFEHMZTnAdANNVRh@b@v@p@ZVjA~@FFLJh@b@FYBKFO^u@nG}LRe@N]Zw@To@BGLUNa@QYmB_DaA_BEKKJw@v@YVEDEHaA~AQ\\CPGTCFOReAiAmEeEwBmBqAaAIGm@c@_BeA]Sm@UICQGUIaAQy@Og@IyAWeB[gDs@a@I{@WiEu@[?WC]GkBW{@KkBOC?GA{Fa@OCMEMEMKMQIOGQEUAQAU@[h@kG?GBO@O\\Dn@FzAPRBR?XAJ?JAZ?V?rCFP@F?D@j@BJBPBPDDBVHZNfEvBhB~@^TD@@@FBZPrHzDh@ZBBzA`A?MGc@G_@d@Iv@OJEFAN`AKTQ^On@VRFDJDAP?RCz@?L@NFRHNJHHH~AdAl@b@HFpA`AvBlBlEdEdAhApFrFbAhAfGtGb@b@TTJHDDPHRFF@TFp@RHBJBP@GVI`@CNAN?T?PBPBNFNHN\\`@|A|AfAdAn@p@NPIPEJ{CpGS`@ADGVCHEZ^P~BvA\\TNJHFJHb@\\hAfAHFX\\FDB@`@`@lCzAnAt@JHTLTNf@\\`BdAFDFDVPlCzBx@|@DDTVRX`BvBx@hAv@bAtAdBFFNPHLdArAx@bAFH@@`@f@VXf@l@h@p@`@^JHNHPLPJA^A\\K~@Kx@?DEVCR@d@?n@HtEB|@?b@?RCb@E~@APCXCh@SlDCXAVSbEIbA?PALEbAGfAAPCb@Cz@CZANAXE~@I|BEx@AN?VC`AGbBIjCElAA\\AXARIbCCjAAXCp@CXC|@IbCAJATLA`ACP?`@Ax@CVAXAz@EtACt@Dn@Bn@Bx@FXBL@P@RChBL@Q?E"
   },
   "D3": {
-    "distance": "15.9 km",
-    "duration": "30 分钟",
-    "encoded": "oz}xEgtbtYt@ZhAf@LFFBETEf@CJANCHEFIBg@Hi@H]F_ANo@LKB_@J[La@ROHQHWNWLQJOHIFqAr@{BvAk@\\KHKLCFEHI^WtA]~AENADEFKLmB`@I@k@JUB_@@EA_AE_@Ek@IGAi@BG?[HMBEMWs@Sk@CGIAM?E@OHaA|@aA`AoBrBCBC?CCcB_DCAC?ODESe@eCYuAEQNEHGJMlBsDbAsBn@oAFKHHLL`@\\rAlAZL\\JxCd@p@yB@CFQDIDE@AJMHEDAb@M??c@LE@IDKLA@EDEHGPABq@xByCe@]K[MsAmAa@]MMIIGJo@nAcArBmBrDKLIFODDPXtAd@dCDRNEB?B@bB~CBBB?BCnBsB`AaA`A}@NIDAL?H@BFRj@Vr@DLLCZIF?h@CF@j@H^D~@DD@^ATCj@KHAlBa@JMDG@EDO\\_BVuAH_@DIBGJMJIj@]zBwApAs@HGNIEGIEUAm@DE?c@YKQGGMKA?CCCAG@M@IDOFA?[RC@IDGDG@G@]FK@QD[BE@K?Q?EDAL@JHHFHDJ`AlBFFHAt@]HCDDDFzBwApAs@HGNIPKVMVOPINI`@SZM^KJCn@M~@O\\Gh@If@IHCDGBI@OBKDg@ICMGcAe@uAq@KIIKIMGOAGAKa@OyAk@k@[GTSn@??CCEARo@FUHDj@ZxAj@`@N@U?ABi@FeABk@@GBa@F_BAe@AUCUESKUc@m@c@y@Aa@Sa@AGAI@G@EDELMpAnBXb@^f@NPPNLFXFXBZBrCNZ@xAFP@bADj@BD?x@DtBHZBb@Bz@DtBJdAFv@DR@H@x@DjAFdADL@nAHR@J@d@B|AFvAHz@FP@N@L@rBJ|@F`CH|@DN?zADZ@~@?`@@b@?D?dA?T?z@?v@@L?P?vA@^Br@?V@pABr@D^BxALF?ZBV@Z@lAFj@B|@F\\@^D~BRr@Fd@D|BPZBNJ`@LVBd@FFZc@@}@Eu@EaBOeBM{@GAJPjAFd@BJZlB@Fh@QXIDA`A[HC`@Mj@QPx@\\pBBHBHF^Jj@XtAXrA?FDLBTm@PGBUFA?QFIHo@PC@sAb@@FTNVLRJpBr@HBTHnA`@CNu@Vm@RIBBJPjAx@U~Ae@t@Ub@MDCREH@Pj@BDPZV`@FHPXBDRX|@tAZb@BFR\\PO^W^[r@k@vCiC`@]PUFIRWVQt@a@dB}@|D}ADC^MQGAIaAaFESCQk@uCS_ACMGYUFGBuAd@qBp@E@QFODGBu@TGWa@gBq@wCCEz@YFAJELEbA[z@YBHFXVlABFHd@`@fBDVqBp@E@QFODGBu@TaBf@KB[JKe@EOUiAi@kCESEOI_@k@kCCOIUUw@MUEOc@iB_@_BEQsAyCk@iAGMMYQ[e@cA{@aBGKIQGOoB_EKUMOQWKOOUwAsBEGQUSYyB{CKQMQcAwAGIcBaCKOKOSWMSOS{@iAIMSYOKOKOI{@]k@WKEOGUMqBeAGEQK]OYQu@a@qBeAKGQKUMeAk@SM{CeBw@i@KE]UMISM}DgCIEOKIGGEOK[SWUUSkA}AUWk@u@aBwB]a@EIKKMQ_AkAeAsAOSwAkBu@eAIKSYWYCE{@}@uBcBQOEEOKMKkCcBGEUOSMmAw@q@a@_By@IE_@YARAT?HQzBI|@KrAAJCTCZUfCMdAIn@CPSrAEZ[bCETCLALGAICQEwA[o@OeAW}@UGCq@M[EKAoAO{AOOAOC_CWmAOQAUCgAKWAi@CqACU?oBG{@EO?UAoACaACs@AY?M?UAE?i@?gA?u@?m@@G?I@G@a@PaDvAQHSJk@V{At@gBx@s@ZMBKBeABqAB{ABS?@V@jAG?i@@"
+    "distance": "15.0 km",
+    "duration": "28 分钟",
+    "encoded": "oz}xEgtbtYt@ZhAf@LFFBETEf@CJANCHEFIBg@Hi@H]F_ANo@LKB_@J[La@ROHQHWNWLQJOHIFqAr@{BvAk@\\KHKLCFEHI^WtA]~AENADEFKLmB`@I@k@JUB_@@EA_AE_@Ek@IGAi@BG?[HMBEMWs@Sk@CGIAM?E@OHaA|@aA`AoBrBCBC?CCcB_DCAC?ODESe@eCYuAEQNEHGJMlBsDbAsBn@oAFKHHLL`@\\rAlAZL\\JxCd@p@yB@CFQDIDE@AJMHEDAb@M??c@LE@IDKLA@EDEHGPABq@xByCe@]K[MsAmAa@]MMIIGJo@nAcArBmBrDKLIFODDPXtAd@dCDRNEB?B@bB~CBBB?BCnBsB`AaA`A}@NIDAL?H@BFRj@Vr@DLLCZIF?h@CF@j@H^D~@DD@^ATCj@KHAlBa@JMDG@EDO\\_BVuAH_@DIBGJMJIj@]zBwApAs@HGNIEGIEUAm@DE?c@YKQGGMKA?CCCAG@M@IDOFA?[RC@IDGDG@G@]FK@QD[BE@K?Q?EDAL@JHHFHDJ`AlBFFHAt@]HCDDDFzBwApAs@HGNIPKVMVOPINI`@SZM^KJCn@M~@O\\Gh@If@IHCDGBI@OBKDg@ICMGcAe@uAq@KIIKIMGOAGAKa@OyAk@k@[GTSn@??CCEARo@FUHDj@ZxAj@`@N@U?ABi@FeABk@@GBa@RDC^Gv@C^Cb@Ej@?D?JBJBJBDFHHHJFfAd@hAf@LFFBVH~@^PFRD\\FEb@C\\C`@Gx@?L@H?B\\jCHv@L|@PE`AQDAn@CLAf@CbAE@?F?PA?SH}AD{@N@`@Bx@F@f@f@AD?JBJDzBLH@N@B{@B[vB~@NDdBHP@N?hAFZ@P@xBN\\BlBLT@N@T@bBJtAFhAFP@L@jAFtDPf@BF@^@VBt@BtBLH?F@L?N@n@D`ADB?f@DPDZHd@Nl@Pf@Nx@T|Ad@HBZJVFZJl@PJBH?HC~@YvAc@HCRGNEpAa@t@Uh@OHCVIRGPGxAc@FCd@MNGLENEVIv@WlBk@FAXKTId@M`A[l@QTGFCTGJEz@WfA]l@QHCb@EZKJC`Bg@t@UFCNEPGDApBq@tAe@FCTGRIFCzAe@ZILENE~Ac@HCFCl@IKn@CNu@`FG`@]LeCv@ODCQk@uCS_ACMGYUFGBuAd@qBp@E@QFODGBu@TGWa@gBq@wCCEz@YFAJELEbA[z@YBHFXVlABFHd@`@fBDVqBp@E@QFODGBu@TaBf@KB[JKe@EOUiAi@kCESEOI_@k@kCCOIUUw@MUEOc@iB_@_BEQsAyCk@iAGMMYQ[e@cA{@aBGKIQGOoB_EKUMOQWKOOUwAsBEGQUSYyB{CKQMQcAwAGIcBaCKOKOSWMSOS{@iAIMSYOKOKOI{@]k@WKEOGUMqBeAGEQK]OYQu@a@qBeAKGQKUMeAk@SM{CeBw@i@KE]UMISM}DgCIEOKIGGEOK[SWUUSkA}AUWk@u@aBwB]a@EIKKMQ_AkAeAsAOSwAkBu@eAIKSYWYCE{@}@uBcBQOEEOKMKkCcBGEUOSMmAw@q@a@_By@IE_@YARAT?HQzBI|@KrAAJCTCZUfCMdAIn@CPSrAEZ[bCETCLALGAICQEwA[o@OeAW}@UGCq@M[EKAoAO{AOOAOC_CWmAOQAUCgAKWAi@CqACU?oBG{@EO?UAoACaACs@AY?M?UAE?i@?gA?u@?m@@G?I@G@a@PaDvAQHSJk@V{At@gBx@s@ZMBKBeABqAB{ABS?@V@jAG?i@@"
   },
   "D4": {
     "distance": "154.4 km",

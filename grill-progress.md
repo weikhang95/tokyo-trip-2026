@@ -40,11 +40,26 @@ Companion is mirrored up to 7c4bc77.
 
 Day 2 and Day 3 in index.html and companion.html were rewritten to match Q11–Q17.
 
+## Open question (asked 2026-09-28, not answered)
+
+**Q18: 10/6 morning, 10:12 arrival at 河口湖站 until the 11:00 ほうとう不動 lunch (45 min).** The handbook now says 站前休整 (toilets, station photo, souvenir shop), which is weak. The car is only available from 12:30, so this slot is on foot.
+- A. Keep it as is.
+- B. Walk to the lake and ride the Kachi Kachi ropeway (Mt. Fuji Panoramic Ropeway, 4.4★ / 11,093). Several reviews report 50–60 min queues at 10:20–11:00, which would push lunch to about 12:15 and the car pickup to about 12:45.
+- **C (recommended).** Walk 961 m / 13 min, nearly flat (858 m → 852 m), to the 河口湖 shore to see Fuji across the lake, then back for lunch at about 11:05.
+- Follow-up already flagged: replace the flexible 14:30–15:30 山中湖全景台 stop with the ropeway in the afternoon (a review says there is no queue near sunset; last ascent 17:00 per the handbook). Ask that as Q19.
+
+## Loose ends found during the grill
+
+- Wake-up time for 10/6 disagrees: Day 3 says 明早 06:30 起床, Day 4 says 06:50 起床, 07:00 出门. Settle it in the Day 4 grill.
+- Sakura Terrace lift (Day 3, 上野) morning hours are unconfirmed: the building opens at 11:00 and no source gives elevator hours (UENO3153 is the same). The handbook flags it. Could ask them by phone (03-6240-1161).
+- Day 4 still carries process words (实查, 已核实) and payment notes (刷卡付款, 只收现金); clean them when Day 4 is rewritten.
+- Day 2 step count (约 6,500 步) was not updated after the river walk was added.
+
 ## Still to grill
 
 - Days 4–5 (10/6–7): Fuji stops (忍野八海, 山中湖 viewpoint, 大石公园, the five-lake dawn loop); KITTE shinkansen viewing
 - Day 6 (10/8): 明治神宫, Blue Bottle, 歌舞伎町 Tower lobby, open-top bus, SHIBUYA SKY. This is a high-intensity day, so check the pacing
 - Day 7 (10/9): GINZA SIX rooftop, UNIQLO, 增上寺
 - Day 8 (10/10): the full Kamakura / Enoden / Yokohama chain
-- Day 9 (10/11): the no-nap version is still undecided (proposal: 谷中銀座 + 猫衛門, home at 16:25 to shower and pack, 浅草 night view + farewell dinner, leave at 20:40). Dinner venues and 浅草寺 illumination hours are not yet verified
+- Day 9 (10/11): the Asakusa night view moved to Day 3 (Q17), so the Day 9 evening is free for something else. The no-nap version is still undecided (proposal: 谷中銀座 + 猫衛門, home at 16:25 to shower and pack, 浅草 night view + farewell dinner, leave at 20:40). Dinner venues are not yet verified; the handbook says 浅草寺 is lit until 23:00, not re-checked
 - Temple count: about 8. Decide which ones really carry the atmosphere

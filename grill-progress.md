@@ -26,13 +26,13 @@ Hand-off note for continuing on another machine. Started 2026-09-27. Each stop i
 
 Companion is mirrored up to 7c4bc77.
 
-## Open question (awaiting answer)
+## Decided 2026-09-28, not yet written into the handbook
 
-**Q11. Can Mom browse Yodobashi Akiba on her own for about 1h15 (17:00–18:15) while I go to Animate?**
-- Proposal: 16:15–17:00 walk the pedestrian street together. 17:00–18:15 split up: I go to Animate Akihabara (4.2★, anime goods; no figures, so drop Radio会館 and the gachapon shops); Mom tries appliances, beauty gadgets and the massage chairs. Meet at 18:15 at the 8F restaurant floor.
-- Optional: the GiGO collab café, if October's featured title is one I like. The lineup is announced about a week before.
-- Recommended: yes, as long as her phone has data. Fallback: browse Yodobashi together, then Animate together for 40 minutes.
-- Once answered, update the Day 2 15:30 Akihabara node in index, then ask the companion session to mirror it.
+| Q | Decision |
+|---|---|
+| 11 | 10/4 Akihabara: ask Mom first. Plan A (preferred): 17:00–18:15 split, Mom at Yodobashi Akiba, me at Animate + a walk through GiGO 3号館 (arcade only, no collab café, no spending); meet 18:15 at the 8F restaurant floor. Plan B: take turns together, Yodobashi 45 min then Animate 40 min. Animate ↔ Yodobashi is 471 m / 7 min |
+| 12 | 10/4 待乳山圣天: keep as is (cable car, daikon offerings, garden) |
+| 13 | 10/4 afternoon: 桜橋 photo, cross to the Sumida side, walk south through 隅田公園 (stay on the upper park path, not the river terrace) past 東京ミズマチ, cross back on すみだリバーウォーク (ramps at both ends), tea at Belle & Emma 浅草 (soufflé pancake ¥1,200, Sun 11–17, book on Hotpepper) around 14:00, then Ginza Line from Asakusa to 末広町 at about 15:00. Drops 長命寺/言問団子 and the 草39 bus. 浅草茶房 is closed all of October (Hotpepper calendar), KOTI Finland Cafe was the earlier pick but sits off this route |
 
 ## Still to grill
 

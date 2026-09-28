@@ -34,10 +34,11 @@ Companion is mirrored up to 7c4bc77.
 | 12 | 10/4 待乳山圣天: keep as is (cable car, daikon offerings, garden) |
 | 13 | 10/4 afternoon: 桜橋 photo, cross to the Sumida side, walk south through 隅田公園 (stay on the upper park path, not the river terrace) past 東京ミズマチ, cross back on すみだリバーウォーク (ramps at both ends), tea at Belle & Emma 浅草 (soufflé pancake ¥1,200, Sun 11–17, book on Hotpepper) around 14:00, then Ginza Line from Asakusa to 末広町 at about 15:00. Drops 長命寺/言問団子 and the 草39 bus. 浅草茶房 is closed all of October (Hotpepper calendar), KOTI Finland Cafe was the earlier pick but sits off this route |
 | 14 | 10/5 morning: leave 08:50, 上野东照宫 09:10 for 30 min, 花园稻荷 & 五条天神 09:45 for 20 min (torii entrance photos, health omamori; added back for the photos), back up to the Sakura Terrace lift, アメ横 about 45 min (drugstores, snacks, tomorrow's bus breakfast), 伊豆荣 11:00. Drop 大佛, 清水观音堂 and the 不忍池 stroll (lotus is past its best in October). Monday: museums and the zoo are closed |
-| 15 | 10/5 afternoon, keep until 16:30: 三越本店 12:45–14:00 → COREDO 室町 (にんべん dashi, 茅乃舎 only) → 日本桥 bridge (道路元標, kirin statues) → 日本桥高岛屋 本馆 15:00–16:15 (Important Cultural Property, attended lifts, rooftop, depachika) → home. Drop 箔座, 木屋, COREDO 3 and 诚品. Both department stores stay; skim if Mom loses interest |
+| 15 | 10/5 afternoon until 16:45: 三越本店 12:45–14:15 → COREDO 室町 (にんべん dashi, 茅乃舎 only) → 日本桥 bridge (道路元標, kirin statues) → 日本桥高岛屋 本馆 15:15–16:45 (Important Cultural Property, attended lifts, rooftop, depachika) → home. Drop 箔座, 木屋, COREDO 3 and 诚品. Both department stores stay; skim if Mom loses interest |
 | 16 | 10/4 UNIQLO (coat, HEATTECH, socks before Fuji): Yodobashi Akiba 7F (daily 09:30–22:00, 4.3★). Mom pre-selects during the 17:00 split; the meeting point moves from 8F to **7F UNIQLO at 18:15**, try on and pay, dinner on 8F at 18:45. Backup: UNIQLO Okachimachi (10:00–21:00) at the south end of アメ横 on 10/5. Prices are basically the same as Ginza (UNIQLO FAQ), so no Ginza trip just to shop |
+| 17 | 10/5 evening: 16:50 Ginza Line from 日本桥 straight to 浅草 (14 min, no change) → 釜めし むつみ at 17:30 (浅草 3-32-4, 4.3★, Mon 17:15–22:00; closed Wed and the 2nd/4th Tue; kamameshi fully cooked, skip the raw-uni one; book and ask for テーブル席; about ¥5,000–7,000 for two) → 浅草寺 lit up at night 18:45 → walk home about 20:00 → lights out 21:30. Packing is only a day bag, so no long packing slot. Replaces the supermarket dinner. Because the Asakusa night view now happens on Day 3, the Day 9 evening is free for something else |
 
-Day 2 and Day 3 in index.html and companion.html were rewritten to match Q11–Q16.
+Day 2 and Day 3 in index.html and companion.html were rewritten to match Q11–Q17.
 
 ## Still to grill
 

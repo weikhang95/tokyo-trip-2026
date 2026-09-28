@@ -1487,12 +1487,12 @@ const DAYS = [
       weekday: "一",
       title: "上野东照宫 → 阿美横 → 日本桥三越 → 高岛屋",
       intensity: "中等强度 · 约 4,500 步",
-      desc: "东照宫金色唐门，阿美横逛药妆零食、买明天巴士早餐，伊豆荣鳗鱼饭；下午三越天女像、にんべん现削高汤、日本桥、高岛屋专人电梯，16:15 回家收河口湖行李。",
+      desc: "东照宫金色唐门，花园稻荷红鸟居拍照，阿美横逛药妆零食、买明天巴士早餐，伊豆荣鳗鱼饭；下午三越天女像、にんべん现削高汤、日本桥、高岛屋专人电梯，16:15 回家收河口湖行李。",
       transit: "日比谷线 2站 → 银座线 3站 → 日本桥站银座线＋日比谷线回程",
-      routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Tokyo+Taito+Ryusen+3-10-7&destination=Nihombashi+Takashimaya+Shopping+Center&waypoints=Ueno+Toshogu+Shrine%7CAmeyoko+Shopping+District%7CIzuei+Honten+Ueno%7CNihombashi+Mitsukoshi+Main+Store%7CCOREDO+Muromachi%7CNihonbashi+Bridge&travelmode=transit",
+      routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Tokyo+Taito+Ryusen+3-10-7&destination=Nihombashi+Takashimaya+Shopping+Center&waypoints=Ueno+Toshogu+Shrine%7CHanazono+Inari+Gojoten+Shrine%7CAmeyoko+Shopping+District%7CIzuei+Honten+Ueno%7CNihombashi+Mitsukoshi+Main+Store%7CCOREDO+Muromachi%7CNihonbashi+Bridge&travelmode=transit",
       nodes: [
         {
-          time: "09:15",
+          time: "08:50",
           mode: "train",
           name: "三ノ轮站搭日比谷线至上野",
           title: "三ノ輪 → 日比谷线 → 上野",
@@ -1507,18 +1507,33 @@ const DAYS = [
           hero: false
         },
         {
-          time: "09:35",
+          time: "09:10",
           name: "上野东照宫",
           title: "上野东照宫 (重要文化财)",
-          sub: "Ueno Toshogu · 逛 30 分钟",
+          sub: "Ueno Toshogu · 09:00 开门 · 逛 30 分钟",
           lat: 35.7153, lng: 139.7739,
           key: ["金色唐门 · 约 200 座石灯笼", "1651 年社殿，平路无台阶"],
           more: [
             "唐门是重要文化财，参道石灯笼是大名奉纳的。",
-            "10:05 原路走回 Sakura Terrace（681 米、9 分钟），搭电梯下到马路，不走公园台阶。"
+            "09:40 走动物园通り下坡 425 米、6 分钟到花园稻荷。"
           ],
           tags: ["重要文化财"],
           hero: true
+        },
+        {
+          time: "09:45",
+          name: "花园稻荷神社 & 五条天神社",
+          title: "花园稻荷红鸟居 · 五条天神",
+          sub: "同一个院子 · 06:00–17:00 · 约 20 分钟",
+          lat: 35.7137, lng: 139.7723,
+          key: ["红鸟居隧道拍照", "!鸟居深处台阶多，入口拍完就走"],
+          more: [
+            "Google 4.3★／2,153 则，看得到不忍池。五条天神供奉医药之神，给妈妈买健康御守。",
+            "从东照宫过来的下坡是斜坡还是台阶没查到，慢慢走。",
+            "10:06 走回 Sakura Terrace（369 米、5 分钟），搭电梯下到马路，不走公园台阶。"
+          ],
+          tags: ["拍照", "健康守"],
+          hero: false
         },
         {
           time: "10:15",

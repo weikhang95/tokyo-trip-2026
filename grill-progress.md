@@ -36,7 +36,6 @@ Companion is mirrored up to 7c4bc77.
 
 ## Still to grill
 
-- Day 2 (10/4): 待乳山 cable car, 向岛 tea break
 - Day 3 (10/5): the three Ueno stops (东照宫, 花园稻荷/五条天神, 大佛); COREDO shops
 - Days 4–5 (10/6–7): Fuji stops (忍野八海, 山中湖 viewpoint, 大石公园, the five-lake dawn loop); KITTE shinkansen viewing
 - Day 6 (10/8): 明治神宫, Blue Bottle, 歌舞伎町 Tower lobby, open-top bus, SHIBUYA SKY. This is a high-intensity day, so check the pacing

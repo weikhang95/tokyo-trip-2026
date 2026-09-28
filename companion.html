@@ -50,6 +50,8 @@ try {
     --pin-ring: #FFFFFF;
   }
   /* 深色：与手册 index.html 的深色色值一致 */
+  /* 底栏一直盖在页底（手机 57px；宽屏浮起 16px）：键盘 Tab 到页底的站点时让开它 */
+  html { scroll-padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px) + 8px); }
   html[data-theme="dark"] {
     color-scheme: dark;
     --bg: #0e1116;
@@ -192,6 +194,10 @@ try {
     align-items: center;
     gap: 4px;
   }
+  /* 胶囊 30px 高：点击区只上下扩到 44px（左右扩会压住隔壁那天）。
+     上 7px / 下 9px（从 1px 边框里面算）刚好落在日期栏的内边距里，不会让它多出竖向滚动 */
+  .day-pill { position: relative; }
+  .day-pill::after { content: ""; position: absolute; inset: -7px 0 -9px; }
   .day-pill .dp-tag {
     font-size: 11px;
     font-weight: 600;
@@ -486,6 +492,8 @@ try {
     transition: background-color .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease), transform .2s var(--ease);
   }
   .node-dot:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
+  /* 圆点 24px：点击区扩到 44px，右边压进卡片 6px 无妨，点卡片也是「在地图上看这一站」 */
+  .node-dot::after { content: ""; position: absolute; inset: 50% auto auto 50%; width: 44px; height: 44px; transform: translate(-50%, -50%); }
   .node-item.hero .node-dot {
     border-color: var(--shu);
     color: var(--shu);
@@ -575,8 +583,9 @@ try {
     content: ""; position: absolute; inset: 50% auto auto 50%;
     width: 44px; height: 44px; transform: translate(-50%, -50%);
   }
-  /* 导航钮在可点的站点卡片里：只往上、左右扩，不压住下方站名（误触会跳出到 Google Maps） */
-  .nav-btn::after { content: ""; position: absolute; inset: -10px -6px 0; }
+  /* 导航钮在可点的站点卡片里：只往上、左右扩，不压住下方站名（误触会跳出到 Google Maps）。
+     往上 20px 凑满 44px 高：会伸出卡片顶 7px，落在两张卡片之间的空隙里 */
+  .nav-btn::after { content: ""; position: absolute; inset: -20px -6px 0; }
   @media (hover: hover) { .nav-btn:hover { background: var(--shu); } }
   .node-name {
     font-size: 15px;

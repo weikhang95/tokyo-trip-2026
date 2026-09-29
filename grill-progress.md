@@ -45,7 +45,7 @@ Day 2 and Day 3 in index.html and companion.html were rewritten to match Q11–Q
 
 ## Q18 decided (2026-09-29)
 
-10/6 10:12–10:55: carry the backpack (no locker) and walk 11 min / 850 m to the 船津浜 lakeside for the first Fuji view, then back for ほうとう不動 at 11:00. If it's cloudy, stay at the station and queue early. Written into the handbook. **Next: Q19, whether to swap the flexible 14:30 山中湖全景台 stop for the Kachi Kachi ropeway in the afternoon.**
+10/6 10:12–10:55: carry the backpack (no locker) and walk 11 min / 850 m to the 船津浜 lakeside for the first Fuji view, then back for ほうとう不動 at 11:00. If it's cloudy, stay at the station and queue early. Written into the handbook. Q19 decided: no Kachi Kachi ropeway at all; the driving loop matters more. No handbook change needed (it was already dropped).
 
 ## Loose ends found during the grill
 

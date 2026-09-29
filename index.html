@@ -875,6 +875,18 @@ html[data-theme="dark"] .bplan-img-card:has(img)::after{outline-color:oklch(1 0 
 }
 .today-bar[data-state="outside"] .today-go{display:none;}
 
+/* 出发倒数：天数用宋体大字；天数一变，数字像里程表一样上下滚（只由 JS 在首屏之后触发） */
+.cd-num{
+  font-family:var(--font-serif);font-size:1.4em;font-weight:700;line-height:1.15;
+  font-variant-numeric:tabular-nums;color:var(--ink);margin:0 .16em;
+}
+html[lang="en"] .cd-num{margin-left:0;}
+.cd-col{display:inline-block;position:relative;}
+.cd-col.rolling{clip-path:inset(0 -.1em);}
+.cd-col.rolling>.cd-hold{visibility:hidden;}
+.cd-strip{position:absolute;top:0;left:0;right:0;display:flex;flex-direction:column;}
+.cd-row{display:block;height:1.15em;text-align:center;}
+
 /* 今天那一天的卡片 */
 .day.is-today{border-color:var(--shu);}
 .day.is-today .day-daynum{color:var(--shu);}
@@ -4994,8 +5006,7 @@ window.addEventListener('DOMContentLoaded', () => {
       var left = daysUntilStart();
       bar.dataset.state = 'outside';
       if (left > 0) {
-        lbl.textContent = '出发倒数';
-        val.textContent = '还有 ' + left + ' 天 · 10月3日 (六) 出发';
+        initCountdown(lbl, val, left);
       } else {
         lbl.textContent = '旅程';
         val.textContent = '已结束 · 2026年10月3–12日';
@@ -5035,6 +5046,146 @@ window.addEventListener('DOMContentLoaded', () => {
     bar.addEventListener('click', goToday);
 
     // 落在今天这件事由路由层负责（见下方 v3），这里不再抢滚动
+  }
+
+  /* ── 出发倒数 · 里程表 ───────────────────────
+     首屏只静态画数字。上次看到的天数存在 localStorage，
+     再打开时若天数变少，等 data-motion=ready 后从旧数滚到新数，只滚一次。
+     页面开着跨过午夜、或切回前台时也会滚。 */
+  var CD_KEY = 'tokyo_countdown_seen';
+  var cd = null; // { num, sr, en, shown }
+
+  function initCountdown(lbl, val, left) {
+    var en = document.documentElement.lang === 'en';
+    var zhOn = en ? '' : ' on', enOn = en ? ' on' : '';
+    lbl.innerHTML = '<span class="zh' + zhOn + '">出发倒数 · 10月3日 (六)</span><span class="en' + enOn + '">Countdown · Sat 3 Oct</span>';
+    val.innerHTML =
+      '<span class="zh' + zhOn + '">还有</span>' +
+      '<span class="cd-num" aria-hidden="true"></span><span class="sr-only"></span>' +
+      '<span class="zh' + zhOn + '">天出发</span>' +
+      '<span class="en' + enOn + '"></span>';
+    cd = {
+      num: val.querySelector('.cd-num'),
+      sr: val.querySelector('.sr-only'),
+      en: val.querySelector('span.en'),
+      shown: null
+    };
+
+    var seen = parseInt(getStoredPreference(CD_KEY), 10);
+    setStoredPreference(CD_KEY, String(left));
+    if (seen > left) {
+      cdStatic(seen);
+      whenMotionReady(function () {
+        // 后台打开的页面先不滚，切回前台时由 visibilitychange 接手
+        if (!document.hidden) setTimeout(function () { cdRoll(left); }, 400);
+      });
+    } else {
+      cdStatic(left);
+    }
+
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) cdTick(); });
+    cdScheduleMidnight();
+  }
+
+  function whenMotionReady(cb) {
+    var root = document.documentElement;
+    if (root.dataset.motion === 'ready') { cb(); return; }
+    var done = false, mo = null;
+    function fire() { if (done) return; done = true; if (mo) mo.disconnect(); cb(); }
+    if (window.MutationObserver) {
+      mo = new MutationObserver(function () { if (root.dataset.motion === 'ready') fire(); });
+      mo.observe(root, { attributes: true, attributeFilter: ['data-motion'] });
+    }
+    setTimeout(fire, 1500); // 路由层没开时的兜底
+  }
+
+  function cdCols(str) {
+    return str.split('').map(function (ch) {
+      var col = document.createElement('span');
+      col.className = 'cd-col';
+      var hold = document.createElement('span');
+      hold.className = 'cd-hold';
+      hold.textContent = ch;
+      col.appendChild(hold);
+      return col;
+    });
+  }
+
+  function cdText(n) {
+    cd.shown = n;
+    cd.sr.textContent = n;
+    cd.en.textContent = n === 1 ? 'day to go' : 'days to go';
+  }
+
+  function cdStatic(n) {
+    cd.num.textContent = '';
+    cdCols(String(n)).forEach(function (c) { cd.num.appendChild(c); });
+    cdText(n);
+  }
+
+  function cdRoll(to) {
+    var from = cd.shown;
+    if (from === to) return;
+    setStoredPreference(CD_KEY, String(to));
+    if (from == null || document.documentElement.dataset.motion !== 'ready' || !Element.prototype.animate) {
+      cdStatic(to);
+      return;
+    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      cdStatic(to);
+      cd.num.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: 'ease-out' });
+      return;
+    }
+
+    // 右对齐补位：10 → 9 时十位的 1 滚走，结束后再收掉空位
+    var len = Math.max(String(from).length, String(to).length);
+    var a = String(from).padStart(len, ' '), b = String(to).padStart(len, ' ');
+    var down = to < from; // 倒数：新数从上方落下
+    cd.num.textContent = '';
+    cdText(to);
+    var runs = [];
+    for (var i = 0; i < len; i++) {
+      var col = cdCols(b[i] !== ' ' ? b[i] : a[i])[0];
+      cd.num.appendChild(col);
+      if (a[i] === b[i]) continue;
+      col.classList.add('rolling');
+      var strip = document.createElement('span');
+      strip.className = 'cd-strip';
+      (down ? [b[i], a[i]] : [a[i], b[i]]).forEach(function (ch) {
+        var row = document.createElement('span');
+        row.className = 'cd-row';
+        row.textContent = ch === ' ' ? ' ' : ch;
+        strip.appendChild(row);
+      });
+      col.appendChild(strip);
+      var frames = [{ transform: 'translateY(-50%)' }, { transform: 'translateY(0)' }];
+      runs.push(strip.animate(down ? frames : frames.reverse(), {
+        duration: 560, delay: (len - 1 - i) * 70, // 个位先动
+        easing: 'cubic-bezier(.2,0,0,1)', fill: 'both'
+      }).finished);
+    }
+    Promise.all(runs).then(function () { if (cd.shown === to) cdStatic(to); }, function () {});
+  }
+
+  function cdTick() {
+    if (!cd || cd.shown == null) return;
+    if (dayIndexForToday() >= 0 || daysUntilStart() <= 0) {
+      // 跨进出发日：交回原本的「今天」逻辑
+      cd.shown = null;
+      initToday();
+      return;
+    }
+    // 后台打开的页面切回前台时，首屏的 motion 开关可能还没开，等它
+    whenMotionReady(function () { cdRoll(daysUntilStart()); });
+  }
+
+  function cdScheduleMidnight() {
+    var n = new Date();
+    var next = new Date(n.getFullYear(), n.getMonth(), n.getDate() + 1, 0, 0, 1);
+    setTimeout(function () {
+      cdTick();
+      if (cd && cd.shown != null) cdScheduleMidnight();
+    }, next - n);
   }
 
   function goToday(silent) {

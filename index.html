@@ -1150,10 +1150,80 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
 }
 
 
+/* ── 集章：每个景点／饭点右上角一个印框，逛完点一下盖「到」 ──────
+   印色只有 --stamp 一个变量，想换朱印就改成 var(--shu)。
+   盖章动画只在 html[data-motion="ready"] 且由点击触发（.just-stamped）时播；读存档恢复时不播。 */
+:root{--stamp:var(--ai);}
+.tl-item[data-stamp]>div:last-child{position:relative;}
+.tl-item[data-stamp] .tl-time{padding-right:48px;min-height:36px;}
+.stamp{
+  position:absolute;top:-4px;right:-4px;width:44px;height:44px;padding:0;margin:0;
+  border:0;border-radius:50%;background:none;color:var(--stamp);cursor:pointer;
+  display:grid;place-items:center;-webkit-tap-highlight-color:transparent;
+  transition:scale .1s var(--ease-out);
+}
+.stamp>span{grid-area:1/1;}
+.stamp:focus-visible{outline:2px solid var(--ai);outline-offset:-2px;}
+.stamp-slot,.stamp-ink{
+  width:36px;height:36px;border-radius:50%;display:grid;place-items:center;
+  font-family:var(--font-serif);font-weight:700;line-height:1;
+}
+/* 空印框：虚线圈 + 淡「印」字，看得出是「这里可以盖」 */
+.stamp-slot{
+  border:1.5px dashed color-mix(in srgb,var(--ink-faint) 70%,transparent);
+  color:color-mix(in srgb,var(--ink-faint) 70%,transparent);font-size:14px;
+}
+@media (hover:hover){.stamp:hover .stamp-slot{border-color:var(--stamp);color:var(--stamp);}}
+/* 印：外粗内细双圈，淡墨底，墨边经 SVG 滤镜轻微毛边；每个章的歪斜角度由 JS 按 key 固定 */
+.stamp-ink{
+  position:relative;font-size:18px;font-weight:900;
+  border:2px solid currentColor;
+  box-shadow:inset 0 0 0 2px var(--paper),inset 0 0 0 3px currentColor;
+  background:color-mix(in srgb,currentColor 8%,transparent);
+  rotate:var(--tilt,-8deg);filter:url(#stamp-ink);opacity:0;
+}
+.stamp-ink::after{
+  content:"";position:absolute;inset:-2px;border-radius:50%;
+  border:2px solid currentColor;opacity:0;pointer-events:none;
+}
+.stamp[aria-pressed="true"] .stamp-slot{opacity:0;}
+.stamp[aria-pressed="true"] .stamp-ink{opacity:.92;}
+html[data-motion="ready"] .stamp-slot,
+html[data-motion="ready"] .stamp-ink{transition:opacity .15s var(--ease-out),border-color .15s var(--ease-out),color .15s var(--ease-out);}
+/* 盖下去：从高处放大、偏一点角度落下，着纸时微微压扁再回正；落定瞬间墨圈往外晕一下 */
+@keyframes stamp-press{
+  0%{scale:1.3;rotate:calc(var(--tilt,-8deg) - 10deg);animation-timing-function:cubic-bezier(.55,0,1,.45);}
+  60%{scale:.94;rotate:var(--tilt,-8deg);animation-timing-function:cubic-bezier(.2,0,0,1);}
+  100%{scale:1;rotate:var(--tilt,-8deg);}
+}
+@keyframes stamp-bleed{from{opacity:.35;scale:1;}to{opacity:0;scale:1.28;}}
+@keyframes stamp-fade{from{opacity:0;}to{opacity:.92;}}
+html[data-motion="ready"] .just-stamped .stamp-ink{animation:stamp-press .26s both,stamp-fade .1s var(--ease-out) both;}
+html[data-motion="ready"] .just-stamped .stamp-ink::after{animation:stamp-bleed .3s var(--ease-out) .15s;}
+
+/* 一天的章集满：在日序大数字右下角压一枚小「制霸」印 */
+.day-daynum{position:relative;}
+.day-done{
+  position:absolute;left:45%;top:50%;width:32px;height:32px;border-radius:50%;
+  display:none;place-items:center;pointer-events:none;
+  color:var(--stamp);border:1.5px solid currentColor;
+  font-family:var(--font-serif);font-size:11px;font-weight:900;line-height:1;letter-spacing:0;
+  rotate:-12deg;filter:url(#stamp-ink);opacity:.92;
+}
+.day-done .en{font-family:var(--font-sans);font-size:7.5px;letter-spacing:.04em;}
+.day.all-stamped .day-done{display:grid;}
+html[data-motion="ready"] .day-done.just-stamped{--tilt:-12deg;animation:stamp-press .3s .12s both,stamp-fade .1s .12s var(--ease-out) both;}
+
+@media (prefers-reduced-motion:reduce){
+  html[data-motion="ready"] .just-stamped .stamp-ink,
+  html[data-motion="ready"] .day-done.just-stamped{animation:stamp-fade .12s both;}
+  html[data-motion="ready"] .just-stamped .stamp-ink::after{animation:none;}
+}
+
 /* 按下反馈：统一 0.96 */
 .top-btn:active,.lang-btn:active,.mode-switch button:active,.food-btn:active,
 .drawer-close-btn:active,.phrase-chip:active,.day-map-link:active,.info-grid a:active,
-.today-bar:active,.day-pager a:active{scale:.96;}
+.today-bar:active,.day-pager a:active,.stamp:active{scale:.96;}
 
 </style>
 <link rel="stylesheet" href="tabbar.css?v=4"/>
@@ -1902,7 +1972,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="first-dinner">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">18:30</span><span class="t-sep">–</span><span class="t-end">21:00</span></span><span class="tl-tag">补给 · 晚餐</span></div>
@@ -1950,7 +2020,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
         <img src="img/asakusa.jpg" class="day-banner" alt="浅草寺与传统街区" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="sensoji-dawn">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">06:30</span><span class="t-sep">–</span><span class="t-end">07:50</span></span><span class="tl-tag">出发 · 晨拍</span></div>
@@ -1968,7 +2038,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="fuglen">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">07:55</span><span class="t-sep">–</span><span class="t-end">09:15</span></span><span class="tl-tag">早餐</span></div>
@@ -1985,7 +2055,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="nakamise-snacks">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">09:20</span><span class="t-sep">–</span><span class="t-end">11:30</span></span><span class="tl-tag">小吃 · 午餐</span></div>
@@ -2033,7 +2103,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </div>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="matsuchiyama">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">12:20</span><span class="t-sep">–</span><span class="t-end">13:15</span></span><span class="tl-tag">寺 · 桥</span></div>
@@ -2050,7 +2120,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="sumida-cafe">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">13:15</span><span class="t-sep">–</span><span class="t-end">15:00</span></span><span class="tl-tag">河边 · 茶歇</span></div>
@@ -2068,7 +2138,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="akihabara">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">15:00</span><span class="t-sep">–</span><span class="t-end">20:30</span></span><span class="tl-tag">步行街 · 购物 · 晚餐</span></div>
@@ -2149,7 +2219,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
           <img src="img/ueno.jpg" class="day-banner" alt="上野东照宫" loading="lazy" decoding="async"/>
         </div>
         <div class="tl">
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="ueno-toshogu">
             <div class="tl-icon">上野</div>
             <div>
               <div class="tl-time"><span class="tl-clock"><span class="t-start">08:50</span><span class="t-sep">-</span><span class="t-end">11:00</span></span><span class="tl-tag">神社 · 逛街</span></div>
@@ -2169,7 +2239,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
               </details>
             </div>
           </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="izuei-unagi">
             <div class="tl-icon">午餐</div>
             <div>
               <div class="tl-time"><span class="tl-clock"><span class="t-start">11:00</span><span class="t-sep">-</span><span class="t-end">12:20</span></span><span class="tl-tag">鳗鱼饭</span></div>
@@ -2188,7 +2258,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
               </details>
             </div>
           </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="nihonbashi-stores">
             <div class="tl-icon">日本桥</div>
             <div>
               <div class="tl-time"><span class="tl-clock"><span class="t-start">12:45</span><span class="t-sep">-</span><span class="t-end">16:45</span></span></div>
@@ -2208,7 +2278,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
               </details>
             </div>
           </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="kamameshi-sensoji-night">
             <div class="tl-icon">晚餐</div>
             <div>
               <div class="tl-time"><span class="tl-clock"><span class="t-start">16:50</span><span class="t-sep">-</span><span class="t-end">21:30</span></span></div>
@@ -2321,7 +2391,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="houtou-lunch">
           <div class="tl-icon">午餐</div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">10:12</span><span class="t-sep">–</span><span class="t-end">12:10</span></span><span class="tl-tag">午餐</span></div>
@@ -2384,7 +2454,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="lawson-fuji">
           <div class="tl-icon">Lawson</div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">12:45</span><span class="t-sep">–</span><span class="t-end">13:10</span></span><span class="tl-tag">顺路拍照</span></div>
@@ -2402,7 +2472,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="oshino-hakkai">
           <div class="tl-icon">忍野</div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">13:30</span><span class="t-sep">–</span><span class="t-end">14:15</span></span><span class="tl-tag">涌泉 · 木栈道</span></div>
@@ -2419,7 +2489,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="yamanakako-panorama">
           <div class="tl-icon">全景台</div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">14:40</span><span class="t-sep">–</span><span class="t-end">15:20</span></span><span class="tl-tag">芒草 · 富士</span></div>
@@ -2437,7 +2507,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="oishi-park">
           <div class="tl-icon">落日</div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">16:10</span><span class="t-sep">–</span><span class="t-end">17:40</span></span><span class="tl-tag">落日 · 红富士</span></div>
@@ -2474,7 +2544,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="onsen-dinner">
           <div class="tl-icon">温泉</div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">18:50</span><span class="t-sep">–</span><span class="t-end">20:30</span></span><span class="tl-tag">看体力三选一</span></div>
@@ -2578,7 +2648,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="motosu-sunrise">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">05:00</span><span class="t-sep">–</span><span class="t-end">06:05</span></span><span class="tl-tag">日出</span></div>
@@ -2596,7 +2666,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="shoji-reflection">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">06:18</span><span class="t-sep">–</span><span class="t-end">06:45</span></span><span class="tl-tag">倒影</span></div>
@@ -2613,7 +2683,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="saiko-nenba">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">06:57</span><span class="t-sep">–</span><span class="t-end">07:15</span></span><span class="tl-tag">五湖</span></div>
@@ -2630,7 +2700,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="nagasaki-park">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">07:33</span><span class="t-sep">–</span><span class="t-end">07:55</span></span><span class="tl-tag">顺光</span></div>
@@ -2664,7 +2734,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="lakeside-morning">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">09:45</span><span class="t-sep">–</span><span class="t-end">11:35</span></span><span class="tl-tag">还车前两个方案</span></div>
@@ -2700,7 +2770,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="idaten-tempura">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">12:00</span><span class="t-sep">–</span><span class="t-end">13:10</span></span><span class="tl-tag">午餐</span></div>
@@ -2737,7 +2807,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="tokyo-station-kitte">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">15:45</span><span class="t-sep">–</span><span class="t-end">17:00</span></span><span class="tl-tag">看新干线</span></div>
@@ -2756,7 +2826,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="bifteki-dinner">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">17:00</span><span class="t-sep">–</span><span class="t-end">18:00</span></span><span class="tl-tag">晚餐</span></div>
@@ -2881,7 +2951,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="meiji-jingu">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">08:25</span><span class="t-sep">–</span><span class="t-end">09:45</span></span><span class="tl-tag">神宫 · 免费</span></div>
@@ -2902,7 +2972,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="blue-bottle">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">09:45</span><span class="t-sep">–</span><span class="t-end">11:30</span></span><span class="tl-tag">咖啡 · 坐 90 分钟</span></div>
@@ -2921,7 +2991,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="kawakamian-omotesando">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">11:30</span><span class="t-sep">–</span><span class="t-end">12:45</span></span><span class="tl-tag">午餐 · 散步</span></div>
@@ -2968,7 +3038,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </div>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="kabukicho-tower">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">13:00</span><span class="t-sep">–</span><span class="t-end">15:00</span></span><span class="tl-tag">室内歇脚 · 90 分钟</span></div>
@@ -2986,7 +3056,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="street-ride">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">15:20</span><span class="t-sep">–</span><span class="t-end">16:20</span></span><span class="tl-tag">巴士 · 坐 60 分钟</span></div>
@@ -3005,7 +3075,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="shibuya-sky">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">16:35</span><span class="t-sep">–</span><span class="t-end">18:00</span></span><span class="tl-tag">日落 · 夜景</span></div>
@@ -3030,7 +3100,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="shinpachi-dinner">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">18:10</span><span class="t-sep">–</span><span class="t-end">20:40</span></span><span class="tl-tag">晚餐 · 回家</span></div>
@@ -3140,7 +3210,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
         <img src="img/tokyo_tower.jpg" class="day-banner" alt="增上寺前远望东京铁塔" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="tsukiji">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">08:30</span><span class="t-sep">–</span><span class="t-end">11:15</span></span><span class="tl-tag">早午餐 · 逛市场</span></div>
@@ -3160,7 +3230,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="ginza-six-roof">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">11:30</span><span class="t-sep">–</span><span class="t-end">12:15</span></span><span class="tl-tag">屋顶花园</span></div>
@@ -3178,7 +3248,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="uniqlo-ginza">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">12:15</span><span class="t-sep">–</span><span class="t-end">13:30</span></span><span class="tl-tag">购物 · 歇脚</span></div>
@@ -3196,7 +3266,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="ginza-bar-tea">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">13:30</span><span class="t-sep">–</span><span class="t-end">14:35</span></span><span class="tl-tag">银座 · 啤酒 · 下午茶</span></div>
@@ -3215,7 +3285,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="zojoji-tower">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">14:35</span><span class="t-sep">–</span><span class="t-end">17:15</span></span><span class="tl-tag">古刹 · 点灯</span></div>
@@ -3234,7 +3304,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="daimon-dinner">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">17:15</span><span class="t-sep">–</span><span class="t-end">19:45</span></span><span class="tl-tag">晚餐 · 回家</span></div>
@@ -3360,7 +3430,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="hokokuji">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">10:15</span><span class="t-sep">–</span><span class="t-end">11:15</span></span><span class="tl-tag">竹林 · 抹茶</span></div>
@@ -3379,7 +3449,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="komachi-dori">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">11:25</span><span class="t-sep">–</span><span class="t-end">12:20</span></span><span class="tl-tag">顺路零折返</span></div>
@@ -3399,7 +3469,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="daibutsu">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">12:22</span><span class="t-sep">–</span><span class="t-end">13:20</span></span><span class="tl-tag">大佛</span></div>
@@ -3439,7 +3509,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="kotobukiya-lunch">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">14:00</span><span class="t-sep">–</span><span class="t-end">14:55</span></span><span class="tl-tag">午餐 · 看海</span></div>
@@ -3503,7 +3573,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="red-brick-sunset">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">16:15</span><span class="t-sep">–</span><span class="t-end">17:45</span></span><span class="tl-tag">日落 · 散步</span></div>
@@ -3524,7 +3594,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="kiyoken-dinner">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">17:45</span><span class="t-sep">–</span><span class="t-end">19:10</span></span><span class="tl-tag">晚餐 · 回家</span></div>
@@ -3582,7 +3652,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
         <img src="img/ueno.jpg" class="day-banner" alt="谷中与下町风情" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
-        <div class="tl-item">
+        <div class="tl-item" data-stamp="yanaka-nezu">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">10:05</span><span class="t-sep">–</span><span class="t-end">13:40</span></span><span class="tl-tag">祭典 · 午餐</span></div>
@@ -5528,6 +5598,111 @@ window.addEventListener('DOMContentLoaded', () => {
   } else {
     setTimeout(boot, 0);
   }
+})();
+</script>
+<script>
+/* 集章：带 data-stamp 的每一站右上角一个印框，点一下盖「到」，再点取消。
+   存档键 = 日 id + '/' + data-stamp，改时间、调顺序都不丢章；
+   一天的章全盖满，日序数字上压一枚「制霸」。 */
+(function () {
+  'use strict';
+  var KEY = 'tokyo_stamps';
+  var got = {};
+  try { got = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { got = {}; }
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(got)); } catch (e) { /* 这次访问里照样能盖，只是不记住 */ }
+  }
+  function bilingual(zh, en) {
+    var isEn = document.documentElement.lang === 'en';
+    return '<span class="zh' + (isEn ? '' : ' on') + '">' + zh + '</span><span class="en' + (isEn ? ' on' : '') + '">' + en + '</span>';
+  }
+  function motionReady() { return document.documentElement.dataset.motion === 'ready'; }
+  // 同一枚章每次打开都歪同一个角度（-14° 到 +4°），像手盖的
+  function tilt(s) {
+    var h = 0;
+    for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
+    return (Math.abs(h) % 19) - 14;
+  }
+  function replay(el) { el.classList.remove('just-stamped'); void el.offsetWidth; el.classList.add('just-stamped'); }
+  // 压下、淡入、墨晕几段长短不一，全部播完才摘掉触发类
+  function settle(el) {
+    el.addEventListener('animationend', function () {
+      var busy = el.getAnimations({ subtree: true }).some(function (a) { return a.playState === 'running'; });
+      if (!busy) el.classList.remove('just-stamped');
+    });
+  }
+
+  // 墨边毛刺滤镜，全页共用一个
+  document.body.insertAdjacentHTML('beforeend',
+    '<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">' +
+    '<filter id="stamp-ink" x="-10%" y="-10%" width="120%" height="120%">' +
+    '<feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="n"/>' +
+    '<feDisplacementMap in="SourceGraphic" in2="n" scale="1.6" xChannelSelector="R" yChannelSelector="G"/>' +
+    '</filter></svg>');
+
+  function refreshDay(day, animate) {
+    var full = true;
+    day.querySelectorAll('.stamp').forEach(function (b) {
+      if (b.getAttribute('aria-pressed') !== 'true') full = false;
+    });
+    var was = day.classList.contains('all-stamped');
+    day.classList.toggle('all-stamped', full);
+    var mark = day.querySelector('.day-done');
+    if (!mark) return;
+    if (full && !was && animate) replay(mark);
+    if (!full) mark.classList.remove('just-stamped');
+  }
+
+  var n = 0;
+  document.querySelectorAll('.day').forEach(function (day) {
+    var items = day.querySelectorAll('.tl-item[data-stamp]');
+    if (!items.length) return;
+
+    items.forEach(function (item) {
+      var id = day.id + '/' + item.dataset.stamp;
+      var body = item.lastElementChild;
+      var main = body && body.querySelector('.tl-main');
+      if (!main) return;
+      n++;
+      if (!main.id) main.id = 'stamp-main-' + n;
+
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'stamp';
+      b.setAttribute('aria-pressed', got[id] ? 'true' : 'false');
+      // 读屏念「盖章：浅草寺…」，状态由 aria-pressed 给
+      b.setAttribute('aria-labelledby', 'stamp-lbl-' + n + ' ' + main.id);
+      b.style.setProperty('--tilt', tilt(id) + 'deg');
+      b.innerHTML = '<span class="sr-only" id="stamp-lbl-' + n + '">' + bilingual('盖章：', 'Stamp: ') + '</span>' +
+        '<span class="stamp-slot" aria-hidden="true">印</span>' +
+        '<span class="stamp-ink" aria-hidden="true">到</span>';
+
+      b.addEventListener('click', function () {
+        var on = b.getAttribute('aria-pressed') !== 'true';
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        if (on) {
+          got[id] = 1;
+          if (motionReady()) replay(b);
+        } else {
+          delete got[id];
+          b.classList.remove('just-stamped'); // 取消：不播动画，透明度过渡淡掉
+        }
+        save();
+        refreshDay(day, motionReady());
+      });
+      settle(b);
+      body.insertBefore(b, main.nextSibling);
+    });
+
+    var num = day.querySelector('.day-daynum');
+    if (num && !num.querySelector('.day-done')) {
+      num.insertAdjacentHTML('beforeend',
+        '<span class="day-done"><span aria-hidden="true">' + bilingual('制霸', 'DONE') + '</span>' +
+        '<span class="sr-only">' + bilingual('已集满', 'All stamped') + '</span></span>');
+      settle(num.querySelector('.day-done'));
+    }
+    refreshDay(day, false);
+  });
 })();
 </script>
 <script src="tabbar.js?v=4" defer></script>

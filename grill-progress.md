@@ -51,6 +51,10 @@ Q25 decided: 10/6 忍野八海 is cut to 40 min (13:35–14:15). 山中湖全景
 
 Q26 decided: keep the full 10/7 five-lake dawn loop from 04:30 as written. Mom is the one who wants the early start; I go along with it. No handbook change.
 
+**Open, Q27 (asked 2026-09-29):** keep the 10/7 evening in Tokyo (15:45 红砖站舍 → KITTE 6F rooftop to watch shinkansen, sit down → 17:00 THE BIFTEKI steak → station bakery → home 18:30)? Recommendation: keep all of it. It's on the way, mostly seated, and free except dinner. If the bus arrives after 16:30, skip 红砖/rooftop and go straight to the steak.
+**Open, Q23:** 10/11 sit-down lunch outside 根津 (no festival stalls), and confirm はん亭 17:30 for dinner.
+**Still to grill after Q27:** Day 6 (10/8) pacing, Day 7 afternoon (GSIX, UNIQLO Ginza vs Q16 "no Ginza trip just to shop", 增上寺), Day 8 Kamakura chain, temple count.
+
 ## Loose ends found during the grill
 
 - Wake-up time for 10/6 disagrees: Day 3 says 明早 06:30 起床, Day 4 says 06:50 起床, 07:00 出门. Settle it in the Day 4 grill.

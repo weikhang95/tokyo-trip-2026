@@ -537,6 +537,14 @@ html[data-theme="dark"] .bplan-img-card:has(img)::after{outline-color:oklch(1 0 
   font-size:var(--font-sub);color:var(--ink-soft);line-height:1.7;font-weight:400;
 }
 .tl-desc strong, .tl-detail strong{font-weight:600;color:var(--ink);}
+/* 分点：一条粗体主句 + 短横线子点。路上扫一眼就找到要的那行，不用读整段 */
+.tl-detail li>ul,.pts li>ul{gap:2px;margin:3px 0 0;padding:0;list-style:none;}
+.tl-detail li>ul>li,.pts li>ul>li{position:relative;padding-left:.95em;}
+.tl-detail li>ul>li::before,.pts li>ul>li::before{
+  content:"";position:absolute;left:0;top:.85em;width:.45em;height:1px;background:currentColor;opacity:.55;
+}
+.note-box .pts{display:flex;flex-direction:column;gap:6px;margin:6px 0 2px 1.15rem;padding:0;}
+.note-box .pts>li{line-height:1.65;}
 .tl-main a,.tl-desc a,.tl-key a,.tl-detail a{color:inherit;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--ai) 55%,transparent);}
 @media (hover:hover){.tl-main a:hover,.tl-desc a:hover,.tl-key a:hover,.tl-detail a:hover{color:var(--ai);text-decoration-color:currentColor;}}
 
@@ -545,7 +553,12 @@ html[data-theme="dark"] .bplan-img-card:has(img)::after{outline-color:oklch(1 0 
   margin:0;font-size:var(--font-sub);line-height:1.65;color:var(--ink-soft);
   text-wrap:pretty;overflow-wrap:anywhere;font-variant-numeric:tabular-nums;
 }
-.tl-key .kw{color:var(--shu);font-weight:600;}
+/* 注意事项：墨色粗体 + 金色荧光笔底线，像在纸本上划重点。红色只留给「今天」和「必看」 */
+.tl-key .kw{
+  color:var(--ink);font-weight:600;
+  background:linear-gradient(transparent 58%,color-mix(in srgb,var(--kin) 26%,transparent) 0);
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;
+}
 /* 一条要点不从中间断行：换行只发生在「·」之间 */
 .tl-key .f{display:inline-block;}
 .tl-key .sep{color:var(--ink-faint);}
@@ -1062,6 +1075,10 @@ html[data-router="on"] .mode-bar span:not(.mode-switch){display:none;}
 }
 html[data-motion="ready"] .day-nav-bar::after{transition:transform .32s cubic-bezier(.2,0,0,1),background-color .15s var(--ease-out);}
 html .day-nav-bar.has-ind .day-nav-btn{box-shadow:none;}
+/* 还能横滑的那一端淡出（JS 标 data-more-l / data-more-r） */
+.day-nav-bar[data-more-r]{-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 36px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 36px),transparent);}
+.day-nav-bar[data-more-l]{-webkit-mask-image:linear-gradient(to right,transparent,#000 36px);mask-image:linear-gradient(to right,transparent,#000 36px);}
+.day-nav-bar[data-more-l][data-more-r]{-webkit-mask-image:linear-gradient(to right,transparent,#000 36px,#000 calc(100% - 36px),transparent);mask-image:linear-gradient(to right,transparent,#000 36px,#000 calc(100% - 36px),transparent);}
 /* 日期栏是横向滚动容器，会裁掉按钮外面的焦点框：改画在按钮里面 */
 .day-nav-bar .day-nav-btn:focus-visible{outline-offset:-3px;}
 /* 换页后程序把焦点放到新页标题上（读屏会念出来），标题本身不画框 */
@@ -2374,11 +2391,41 @@ html[data-motion="ready"] .day-done.just-stamped{--tilt:-12deg;animation:stamp-p
               <summary>详情 · 5 条</summary>
               <div class="tl-detail">
                 <ol>
-                  <li><strong>06:50 起床，07:00 出门</strong>：前一晚在超市备好早餐（饭团／三明治／温饮），路上吃。大行李箱锁在竜泉公寓，每人只背 1 个随身小包。</li>
-                  <li><strong>07:00 交通</strong>：平路走 7 分钟（550m）到 <a href="https://maps.google.com/?q=%E4%B8%89%E3%83%8E%E8%BC%AA%E9%A7%85" target="_blank" rel="noopener noreferrer">三ノ輪站</a> 1b 入口（有手扶梯和电梯），日比谷线（中目黑方向）2 站 4 分钟到上野。站内换 <strong>JR 上野东京线</strong>：认准橘色「JU」标志的高崎线或宇都宫线，中间不停站，5 分钟直达东京；别坐每站都停的浅蓝色京滨东北线。07:11 三ノ輪发 → 07:15 上野 → 07:24 发 → 07:30 东京（2026-10-06 Yahoo 乘换实查）。</li>
-                  <li><strong>认清出口</strong>：东京车站登记地号是 <code>1 Chome-9-1 Marunouchi, Chiyoda City, Tokyo 100-0005</code>（千代田区丸之内1丁目9-1），但河口湖高速巴士在东侧「八重洲南口」一楼地面。下车只看黄色标牌「八重洲南口」出闸，正前方就是 9 号站台，0 阶梯。</li>
-                  <li><strong>07:35 到站台</strong>：离 08:10 发车留 35 分钟缓冲。站台后方有洗手间和 NewDays 便利店（热饮、现烤早餐）。08:00 开始排队检票，08:05 上车。</li>
-                  <li><strong>乘车处看票面</strong>：绝大多数班次（含 08:10）在八重洲南口 9 号站台；若票面写「鉄鋼ビル」，则在八重洲北口方向，要多走 6–8 分钟。</li>
+                  <li><strong>06:50 起床，07:00 出门</strong>
+                    <ul>
+                      <li>早餐：前一晚在超市备好饭团／三明治／温饮，路上吃</li>
+                      <li>大行李箱锁在竜泉公寓，每人只背 1 个随身小包</li>
+                    </ul>
+                  </li>
+                  <li><strong>07:00 交通</strong>（2026-10-06 Yahoo 乘换实查）
+                    <ul>
+                      <li>平路走 7 分钟（550m）到 <a href="https://maps.google.com/?q=%E4%B8%89%E3%83%8E%E8%BC%AA%E9%A7%85" target="_blank" rel="noopener noreferrer">三ノ輪站</a> 1b 入口，有手扶梯和电梯</li>
+                      <li>日比谷线（中目黑方向）2 站 4 分钟到上野</li>
+                      <li>站内换 <strong>JR 上野东京线</strong>：认准橘色「JU」标志的高崎线或宇都宫线，中间不停站，5 分钟直达东京</li>
+                      <li>别坐每站都停的浅蓝色京滨东北线</li>
+                      <li>07:11 三ノ輪发 → 07:15 上野 → 07:24 发 → 07:30 东京</li>
+                    </ul>
+                  </li>
+                  <li><strong>认清出口</strong>
+                    <ul>
+                      <li>河口湖高速巴士在东侧「八重洲南口」一楼地面</li>
+                      <li>下车只看黄色标牌「八重洲南口」出闸，正前方就是 9 号站台，0 阶梯</li>
+                      <li>东京车站登记地址是丸之内（<code>1 Chome-9-1 Marunouchi, Chiyoda City, Tokyo 100-0005</code>），别被地址带去丸之内口</li>
+                    </ul>
+                  </li>
+                  <li><strong>07:35 到站台</strong>
+                    <ul>
+                      <li>离 08:10 发车留 35 分钟缓冲</li>
+                      <li>站台后方有洗手间和 NewDays 便利店（热饮、现烤早餐）</li>
+                      <li>08:00 开始排队检票，08:05 上车</li>
+                    </ul>
+                  </li>
+                  <li><strong>乘车处看票面</strong>
+                    <ul>
+                      <li>绝大多数班次（含 08:10）：八重洲南口 9 号站台</li>
+                      <li>票面写「鉄鋼ビル」：在八重洲北口方向，要多走 6–8 分钟</li>
+                    </ul>
+                  </li>
                 </ol>
               </div>
             </details>
@@ -2395,7 +2442,14 @@ html[data-motion="ready"] .day-done.just-stamped{--tilt:-12deg;animation:stamp-p
               <div class="tl-detail">
                 <ol>
                   <li>大行李留在东京公寓，只带随身小背包。全席指定，对号入座补眠约 2 小时。</li>
-                  <li><strong>没有 08:00 这班</strong>，实际班次是 06:20／06:50／07:20／07:40／<strong>08:10</strong>／08:40。实价 ¥2,300（线上与现场同价，2026-09-09 订票页确认）；9月5日 日本 10:00 ＝ 大马 09:00 开卖（乗車日 10/6 的「1ヶ月1日前」）。2026 年 10 月时刻表约在乘车前 1 个月才定案，以官网为准。</li>
+                  <li><strong>没有 08:00 这班</strong>
+                    <ul>
+                      <li>实际班次：06:20／06:50／07:20／07:40／<strong>08:10</strong>／08:40</li>
+                      <li>实价 ¥2,300，线上与现场同价（2026-09-09 订票页确认）</li>
+                      <li>9月5日 日本 10:00 ＝ 大马 09:00 开卖（乗車日 10/6 的「1ヶ月1日前」）</li>
+                      <li>2026 年 10 月时刻表约在乘车前 1 个月才定案，以官网为准</li>
+                    </ul>
+                  </li>
                   <li>选星期二平日出发，避开周末塞车。</li>
                   <li>下车就是平坦柏油广场，抬头能看到富士山和复古车站同框。</li>
                 </ol>
@@ -2413,10 +2467,36 @@ html[data-motion="ready"] .day-done.just-stamped{--tilt:-12deg;animation:stamp-p
               <summary>详情 · 4 条</summary>
               <div class="tl-detail">
                 <ol>
-                  <li><strong>10:12–10:55 走到湖边</strong>：车站上完洗手间，背着背包走 11 分钟（约 850m，平路）到<a href="https://maps.google.com/?q=Funatsuhama+Lake+Kawaguchi" target="_blank" rel="noopener noreferrer">船津浜</a>湖边，第一次近看河口湖和富士山（早上云少，看到的机会比下午大），10:45 慢慢走回车站。不用投币柜、不去饭店寄包，12:30 取车后背包直接放后备箱。阴天看不到山，就留在站前逛伴手礼店，早点到店门口排队。</li>
-                  <li><a href="https://maps.google.com/?q=Fujiyama+Cookie" target="_blank" rel="noopener noreferrer">Fujiyama Cookie</a> 本店在缆车站旁、离车站约 2.4km，Google 显示周二公休，今天不去，Day 5 再买。</li>
-                  <li><strong>11:00 开门进店</strong>：大铁锅南瓜山野菜粗宽面，坐 2 小时巴士后喝热汤暖胃，下午开车有体力。今天吃热汤面，明天还车后吃いだ天现炸天妇罗，两天不重样。12:00 吃完，12:10 走 2 分钟到车行。</li>
-                  <li><strong>早饿备选（09:00 开门）</strong>：10:12 下车就饿、不想等到 11:00，出站正对面有【平井売店】（Google 3.9★ · 09:00–17:00）或站内【Fujiyama Cafe】，吃热荞麦面／亲子丼。</li>
+                  <li><strong>10:12–10:55 走到湖边</strong>
+                    <ul>
+                      <li>车站上完洗手间，背着背包走 11 分钟（约 850m，平路）到<a href="https://maps.google.com/?q=Funatsuhama+Lake+Kawaguchi" target="_blank" rel="noopener noreferrer">船津浜</a>湖边</li>
+                      <li>第一次近看河口湖和富士山：早上云少，看到的机会比下午大</li>
+                      <li>10:45 慢慢走回车站</li>
+                      <li>不用投币柜、不去饭店寄包：12:30 取车后背包直接放后备箱</li>
+                      <li>阴天看不到山：留在站前逛伴手礼店，早点到店门口排队</li>
+                    </ul>
+                  </li>
+                  <li><a href="https://maps.google.com/?q=Fujiyama+Cookie" target="_blank" rel="noopener noreferrer">Fujiyama Cookie</a> 今天不去
+                    <ul>
+                      <li>本店在缆车站旁，离车站约 2.4km</li>
+                      <li>Google 显示周二公休，Day 5 再买</li>
+                    </ul>
+                  </li>
+                  <li><strong>11:00 开门进店</strong>
+                    <ul>
+                      <li>大铁锅南瓜山野菜粗宽面</li>
+                      <li>坐 2 小时巴士后喝热汤暖胃，下午开车有体力</li>
+                      <li>今天吃热汤面，明天还车后吃いだ天现炸天妇罗，两天不重样</li>
+                      <li>12:00 吃完，12:10 走 2 分钟到车行</li>
+                    </ul>
+                  </li>
+                  <li><strong>早饿备选（09:00 开门）</strong>：10:12 下车就饿、不想等到 11:00
+                    <ul>
+                      <li>出站正对面【平井売店】（Google 3.9★ · 09:00–17:00）</li>
+                      <li>或站内【Fujiyama Cafe】</li>
+                      <li>吃热荞麦面／亲子丼</li>
+                    </ul>
+                  </li>
                 </ol>
               </div>
             </details>
@@ -2455,12 +2535,40 @@ html[data-motion="ready"] .day-done.just-stamped{--tilt:-12deg;animation:stamp-p
               <summary>详情 · 6 条</summary>
               <div class="tl-detail">
                 <ol>
-                  <li><strong>12:10 进店</strong>：核对护照、大马正本驾照和 IDP 小册子，刷卡付款，和店员绕车查划痕、熟悉车机导航。约 10–15 分钟，背包放后备箱，12:30 开出。</li>
-                  <li><strong>已订 10/6 12:30 取 → 10/7 12:30 还 ＝ 24 小时整</strong>：¥11,990（含 CDW+ECO 全险，2026-09-10 已预订并付清）。日本租车以 24 小时为一个费率级距；若订 12:00 取车，等于白付 30 分钟。</li>
-                  <li><strong>还车也订满 12:30，不要订 12:00</strong>：23.5 小时与 24 小时同价。Day 5 方案二实测验车完成约 11:58–12:03，对 12:00 是卡点，对 12:30 有 27–32 分钟余裕。</li>
-                  <li><strong>已否决 26 小时档（12:00 取 → 14:00 还）</strong>：¥16,390，多 ¥4,400（约 RM135，跨档超时费＋第 2 天保险），还得改搭 14:30 巴士（16:35 到东京，天黑又撞晚高峰）。五湖在 Day 5 10:55（方案二）或 11:00（方案一）就已走完，多花不值得。</li>
+                  <li><strong>12:10 进店</strong>，约 10–15 分钟
+                    <ul>
+                      <li>核对护照、大马正本驾照和 IDP 小册子</li>
+                      <li>刷卡付款，和店员绕车查划痕、熟悉车机导航</li>
+                      <li>背包放后备箱，12:30 开出</li>
+                    </ul>
+                  </li>
+                  <li><strong>已订 10/6 12:30 取 → 10/7 12:30 还 ＝ 24 小时整</strong>
+                    <ul>
+                      <li>¥11,990，含 CDW+ECO 全险，2026-09-10 已预订并付清</li>
+                      <li>日本租车以 24 小时为一个费率级距：若订 12:00 取车，等于白付 30 分钟</li>
+                    </ul>
+                  </li>
+                  <li><strong>还车也订满 12:30，不要订 12:00</strong>
+                    <ul>
+                      <li>23.5 小时与 24 小时同价</li>
+                      <li>Day 5 方案二实测验车完成约 11:58–12:03</li>
+                      <li>对 12:00 是卡点，对 12:30 有 27–32 分钟余裕</li>
+                    </ul>
+                  </li>
+                  <li><strong>已否决 26 小时档（12:00 取 → 14:00 还）</strong>
+                    <ul>
+                      <li>¥16,390，多 ¥4,400（约 RM135，跨档超时费＋第 2 天保险）</li>
+                      <li>还得改搭 14:30 巴士：16:35 到东京，天黑又撞晚高峰</li>
+                      <li>五湖在 Day 5 10:55（方案二）或 11:00（方案一）就已走完，多花不值得</li>
+                    </ul>
+                  </li>
                   <li><strong>保险</strong>：订单含 CDW + ECO，自负额为 0（免責額ゼロ）；取车时再向柜台确认一次。</li>
-                  <li><strong>为什么选这家</strong>：ニッポン 营业 08:00–19:00、车站走 2 分钟；トヨタ 09:00–18:00、要走 4 分钟。</li>
+                  <li><strong>为什么选这家</strong>
+                    <ul>
+                      <li>ニッポン：营业 08:00–19:00，车站走 2 分钟</li>
+                      <li>トヨタ：09:00–18:00，要走 4 分钟</li>
+                    </ul>
+                  </li>
                 </ol>
               </div>
             </details>
@@ -2471,7 +2579,7 @@ html[data-motion="ready"] .day-done.just-stamped{--tilt:-12deg;animation:stamp-p
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">12:45</span><span class="t-sep">–</span><span class="t-end">13:10</span></span><span class="tl-tag">顺路拍照</span></div>
             <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Lawson+Fujikawaguchiko+Town+Hall" target="_blank" rel="noopener noreferrer">ローソン 富士河口湖町役場前店</a> 富士山同框</span><span class="en">Fuji-view Lawson (Town Hall Branch)</span></div>
-            <p class="tl-key"><span class="f">开 1.5km，约 5 分钟<span class="sep"> ·</span></span> <span class="f">自带大停车场<span class="sep"> ·</span></span> <span class="f"><span class="kw">不去车站前店</span></span></p>
+            <p class="tl-key"><span class="f">开 1.5km，约 5 分钟<span class="sep"> ·</span></span> <span class="f">自带大停车场<span class="sep"> ·</span></span> <span class="f">不去车站前店</span></p>
             <details class="tl-more">
               <summary>详情 · 3 条</summary>
               <div class="tl-detail">
@@ -2494,7 +2602,13 @@ html[data-motion="ready"] .day-done.just-stamped{--tilt:-12deg;animation:stamp-p
               <summary>详情 · 2 条</summary>
               <div class="tl-detail">
                 <ol>
-                  <li>13:10 从 Lawson 出发。走平坦木栈道绕主池一圈，看清澈涌泉和游鱼，约 40 分钟。旅行团多、拍照要排，不用待满，14:15 开车走。</li>
+                  <li><strong>绕主池一圈，约 40 分钟</strong>
+                    <ul>
+                      <li>13:10 从 Lawson 出发</li>
+                      <li>走平坦木栈道，看清澈涌泉和游鱼</li>
+                      <li>旅行团多、拍照要排：不用待满，14:15 开车走</li>
+                    </ul>
+                  </li>
                   <li>在忍野屋等土产店消费满 ¥500 就免费停车，顺便给妈妈买热草饼。</li>
                 </ol>
               </div>
@@ -2506,14 +2620,19 @@ html[data-motion="ready"] .day-done.just-stamped{--tilt:-12deg;animation:stamp-p
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">14:40</span><span class="t-sep">–</span><span class="t-end">15:20</span></span><span class="tl-tag">芒草 · 富士</span></div>
             <div class="tl-main"><span class="zh on">山中湖全景台 金色芒草</span><span class="en">Yamanakako Panorama Deck</span></div>
-            <p class="tl-key"><span class="f">忍野开 22 分钟（13.6km）<span class="sep"> ·</span></span> <span class="f">停 40 分钟<span class="sep"> ·</span></span> <span class="f"><span class="kw">起云就拍一张早点走</span></span></p>
+            <p class="tl-key"><span class="f">忍野开 22 分钟（13.6km）<span class="sep"> ·</span></span> <span class="f">停 40 分钟<span class="sep"> ·</span></span> <span class="f">起云就拍一张早点走</span></p>
             <details class="tl-more">
               <summary>详情 · 3 条</summary>
               <div class="tl-detail">
                 <ol>
                   <li>太阳与富士山夹角只有 9.1°，强逆光照透漫山金色芒草。停车免费。</li>
                   <li>全景台 → 大石公园约 28km、49 分钟，比从忍野直达多约 20 分钟。</li>
-                  <li>山边起云、看不到富士山：拍一张就走，早点到大石公园找长椅。车位满就在附近路边等 5 分钟，再不行直接去大石公园。</li>
+                  <li><strong>看不到山或车位满</strong>
+                    <ul>
+                      <li>山边起云、看不到富士山：拍一张就走，早点到大石公园找长椅</li>
+                      <li>车位满：在附近路边等 5 分钟，再不行直接去大石公园</li>
+                    </ul>
+                  </li>
                 </ol>
               </div>
             </details>
@@ -2530,10 +2649,27 @@ html[data-motion="ready"] .day-done.just-stamped{--tilt:-12deg;animation:stamp-p
               <div class="tl-detail">
                 <ol>
                   <li>15:20 从全景台出发，约 26km、41–49 分钟，16:10 前后到，停公园专属免费停车场。</li>
-                  <li>10 月初扫帚草才黄绿微带粉，看点是 70°–80° 侧光下的夕照富士和湖面晚霞，不看红扫帚草。沿湖平路，木长椅多，坐着看。</li>
-                  <li>10/6 富士河口湖町平地日入 17:24，但在这里看不到太阳落地平线：富士山在正南 186.9°，太阳落在 264.5°（西偏南），差 77.6°；西边御坂山地仰角约 4–5°，太阳约 17:00–17:10 就沉进山棱（山棱仰角按已知山高估算，未用高程数据验证）。</li>
-                  <li>太阳藏进西山后，3,776m 的富士山顶还被照着，17:00–17:40 是红富士余晖，坐着别急着走。</li>
-                  <li>湖畔 17:00 后气温降到 10–12°C 并有冷风。取车后就把外套／轻羽绒放在后座，下车看夕阳直接披上。</li>
+                  <li><strong>今天看什么</strong>
+                    <ul>
+                      <li>看点：70°–80° 侧光下的夕照富士和湖面晚霞</li>
+                      <li>10 月初扫帚草才黄绿微带粉，不看红扫帚草</li>
+                      <li>沿湖平路，木长椅多，坐着看</li>
+                    </ul>
+                  </li>
+                  <li><strong>太阳约 17:00–17:10 就沉进西山</strong>
+                    <ul>
+                      <li>平地日入 17:24（10/6 富士河口湖町），但在这里看不到太阳落地平线</li>
+                      <li>富士山在正南 186.9°，太阳落在 264.5°（西偏南），差 77.6°</li>
+                      <li>西边御坂山地仰角约 4–5°（按已知山高估算，未用高程数据验证）</li>
+                    </ul>
+                  </li>
+                  <li><strong>17:00–17:40 红富士余晖</strong>：太阳藏进西山后，3,776m 的富士山顶还被照着，坐着别急着走。</li>
+                  <li><strong>17:00 后降到 10–12°C，有冷风</strong>
+                    <ul>
+                      <li>取车后就把外套／轻羽绒放在后座</li>
+                      <li>下车看夕阳直接披上</li>
+                    </ul>
+                  </li>
                 </ol>
               </div>
             </details>
@@ -2544,13 +2680,25 @@ html[data-motion="ready"] .day-done.just-stamped{--tilt:-12deg;animation:stamp-p
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">18:00</span><span class="t-sep">–</span><span class="t-end">18:35</span></span><span class="tl-tag">入住 · 超市</span></div>
             <div class="tl-main"><span class="zh on">回 SAWA 入住 → Ogino 超市买明早早餐</span><span class="en">SAWA Check-in & Ogino Supermarket</span></div>
-            <p class="tl-key"><span class="f">经河口湖大桥 6.5km · 15 分钟<span class="sep"> ·</span></span> <span class="f"><span class="kw">先入住，免得被当 no-show</span><span class="sep"> ·</span></span> <span class="f">Ogino 开到 21:00</span></p>
+            <p class="tl-key"><span class="f">经河口湖大桥 6.5km · 15 分钟<span class="sep"> ·</span></span> <span class="f">先入住，免得被当 no-show<span class="sep"> ·</span></span> <span class="f">Ogino 开到 21:00</span></p>
             <details class="tl-more">
               <summary>详情 · 2 条</summary>
               <div class="tl-detail">
                 <ol>
-                  <li><strong>18:00–18:15</strong>：停门前平地免费车位，先 check-in 拿房卡、把背包放进房间，妈妈洗手喝热水歇一下。</li>
-                  <li><strong>18:15–18:35</strong>：开车 4 分钟（1.4km）到大型超市 OGINO（オギノ，每日 09:00–21:00，已核实），买明早 04:30 出门前吃的饭团、三明治、热饮和水果，放回房里。泡完汤回来超市就关了。</li>
+                  <li><strong>18:00–18:15 入住</strong>
+                    <ul>
+                      <li>停门前平地免费车位</li>
+                      <li>先 check-in 拿房卡、把背包放进房间</li>
+                      <li>妈妈洗手喝热水歇一下</li>
+                    </ul>
+                  </li>
+                  <li><strong>18:15–18:35 超市</strong>
+                    <ul>
+                      <li>开车 4 分钟（1.4km）到大型超市 OGINO（オギノ，每日 09:00–21:00，已核实）</li>
+                      <li>买明早 04:30 出门前吃的饭团、三明治、热饮和水果，放回房里</li>
+                      <li>泡完汤回来超市就关了，现在就买</li>
+                    </ul>
+                  </li>
                 </ol>
               </div>
             </details>
@@ -2566,9 +2714,26 @@ html[data-motion="ready"] .day-done.just-stamped{--tilt:-12deg;animation:stamp-p
               <summary>详情 · 3 档</summary>
               <div class="tl-detail">
                 <ol>
-                  <li><strong>A · 体力好、不排斥裸汤</strong>：去【富士眺望之汤 ゆらり (Yurari)】（鸣泽村，周二营业至 21:00，已核实），泡露天温泉看富士星空，在馆内食事処「ふじざくら」吃热和食晚餐。</li>
-                  <li><strong>B · 想泡热水但不想裸汤</strong>：18:15 在 Ogino 顺手买一盒 ¥300–500 的碳酸入浴剂（花王「バブ」／地球制药「温泡」），回房自制温泉。房里没浴缸就带回东京公寓泡（那边确定有缸）。</li>
-                  <li><strong>C · 想早休息</strong>：在房里吃 Ogino 的熟食便当和水果（妈妈不吃生，刺身只买你的份），早点洗漱泡脚。</li>
+                  <li><strong>A · 体力好、不排斥裸汤</strong>
+                    <ul>
+                      <li>去【富士眺望之汤 ゆらり (Yurari)】（鸣泽村，周二营业至 21:00，已核实）</li>
+                      <li>泡露天温泉看富士星空</li>
+                      <li>在馆内食事処「ふじざくら」吃热和食晚餐</li>
+                    </ul>
+                  </li>
+                  <li><strong>B · 想泡热水但不想裸汤</strong>
+                    <ul>
+                      <li>18:15 在 Ogino 顺手买一盒 ¥300–500 的碳酸入浴剂（花王「バブ」／地球制药「温泡」）</li>
+                      <li>回房自制温泉</li>
+                      <li>房里没浴缸：带回东京公寓泡（那边确定有缸）</li>
+                    </ul>
+                  </li>
+                  <li><strong>C · 想早休息</strong>
+                    <ul>
+                      <li>在房里吃 Ogino 的熟食便当和水果（妈妈不吃生，刺身只买你的份）</li>
+                      <li>早点洗漱泡脚</li>
+                    </ul>
+                  </li>
                 </ol>
               </div>
             </details>
@@ -2587,13 +2752,24 @@ html[data-motion="ready"] .day-done.just-stamped{--tilt:-12deg;animation:stamp-p
           <div>
             <div class="tl-time is-label">营业时间不符，不排</div>
             <div class="tl-main"><span class="zh on">缆车与美术馆不能排在傍晚</span><span class="en">Removed: Ropeway & Museums</span></div>
-            <p class="tl-key"><span class="f">缆车末班上行 17:00<span class="sep"> ·</span></span> <span class="f"><span class="kw">两家美术馆周二・周三闭馆</span></span></p>
+            <p class="tl-key"><span class="f">缆车末班上行 17:00<span class="sep"> ·</span></span> <span class="f">两家美术馆周二・周三闭馆</span></p>
             <details class="tl-more">
               <summary>详情 · 3 条</summary>
               <div class="tl-detail">
                 <ol>
-                  <li><strong>富士山全景缆车 (Kachi Kachi)</strong>：08:30–17:00，末班上行 17:00／末班下行 17:20。旧版排在 18:30–21:00，那时早已关门。想坐只能改到 Day 4 下午，和忍野八海／大石公园二选一。</li>
-                  <li><strong>河口湖音乐与森林美术馆（オルゴールの森）</strong>：周二・周三固定闭馆（Google 营业时间已核实）。10/6 是周二、10/7 是周三，两天都进不去，别开车过去。</li>
+                  <li><strong>富士山全景缆车 (Kachi Kachi)</strong>
+                    <ul>
+                      <li>08:30–17:00，末班上行 17:00／末班下行 17:20</li>
+                      <li>旧版排在 18:30–21:00，那时早已关门</li>
+                      <li>想坐只能改到 Day 4 下午，和忍野八海／大石公园二选一</li>
+                    </ul>
+                  </li>
+                  <li><strong>河口湖音乐与森林美术馆（オルゴールの森）</strong>
+                    <ul>
+                      <li>周二・周三固定闭馆（Google 营业时间已核实）</li>
+                      <li>10/6 是周二、10/7 是周三，两天都进不去，别开车过去</li>
+                    </ul>
+                  </li>
                   <li><strong>久保田一竹美术馆</strong>：同样周二・周三闭馆。河口湖的美术馆多半在周二三休馆。</li>
                 </ol>
               </div>
@@ -2603,13 +2779,27 @@ html[data-motion="ready"] .day-done.just-stamped{--tilt:-12deg;animation:stamp-p
       </div>
       <div class="note-box kin">
         <strong>下雨照走，不改行程</strong>
-        <span class="zh on">已决定不按天气取消，巴士和饭店照订照走。下雨只换内容：<br/>
-        · <strong>ゆらり 露天温泉</strong>：下雨泡汤反而更好，周二营业至 21:00，馆内有晚餐。<br/>
-        · <strong>山梨县立富士山世界遗产中心</strong>（<a href="https://maps.google.com/?q=Fujisan+World+Heritage+Center+Fujikawaguchiko" target="_blank" rel="noopener noreferrer">地图</a>）：雨天首选，已核实。全年无休 09:00–17:00（周二周三照开），免费入场、免费停车，离 SAWA 1.4 km／车程 3 分钟。全室内，无障碍出入口、厕所、车位齐全，有咖啡厅和纪念品店；四季富士投影＋熔岩实物＋英文影片。<br/>
-        · <strong>ほうとう不動</strong>：室内热食，铁锅味噌宽面。<br/>
-        · 不考虑音乐与森林美术馆、久保田一竹美术馆，两馆周二・周三闭馆。<br/>
-        真正会失去的只有「落日」和「红富士」两个画面，而且有两次机会：Day 4 傍晚＋Day 5 清晨，隔一夜天气常不同，清晨能见度通常更高。10 月本就是富士山能见度较好的季节。<br/>
-        <strong>唯一例外是台风</strong>：10 月仍是台风季。巴士公司因台风停驶属官方取消，全额退款，改留东京即可。</span>
+        <span class="zh on">已决定不按天气取消，巴士和饭店照订照走，下雨只换内容：
+        <ul class="pts">
+          <li><strong>ゆらり 露天温泉</strong>：下雨泡汤反而更好，周二营业至 21:00，馆内有晚餐</li>
+          <li><strong>山梨县立富士山世界遗产中心</strong>（<a href="https://maps.google.com/?q=Fujisan+World+Heritage+Center+Fujikawaguchiko" target="_blank" rel="noopener noreferrer">地图</a>）：雨天首选，已核实
+            <ul>
+              <li>全年无休 09:00–17:00（周二周三照开），免费入场、免费停车</li>
+              <li>离 SAWA 1.4 km／车程 3 分钟</li>
+              <li>全室内：无障碍出入口、厕所、车位齐全，有咖啡厅和纪念品店</li>
+              <li>四季富士投影＋熔岩实物＋英文影片</li>
+            </ul>
+          </li>
+          <li><strong>ほうとう不動</strong>：室内热食，铁锅味噌宽面</li>
+          <li>不考虑音乐与森林美术馆、久保田一竹美术馆：两馆周二・周三闭馆</li>
+          <li><strong>真正会失去的只有「落日」和「红富士」</strong>
+            <ul>
+              <li>有两次机会：Day 4 傍晚＋Day 5 清晨，隔一夜天气常不同，清晨能见度通常更高</li>
+              <li>10 月本就是富士山能见度较好的季节</li>
+            </ul>
+          </li>
+          <li><strong>唯一例外是台风</strong>：10 月仍是台风季。巴士公司因台风停驶属官方取消，全额退款，改留东京即可</li>
+        </ul></span>
       </div>
       <div class="budget-box">
         <div class="budget-title">Day 4 预估花费 (2人)</div>
@@ -5598,6 +5788,19 @@ window.addEventListener('DOMContentLoaded', () => {
     strip.style.setProperty('--ind-c', cur.classList.contains('today-btn') ? 'var(--shu)' : 'var(--ai)');
     strip.classList.add('has-ind');
   }
+
+  /* 日期栏两端还有没看到的日子时，那一端淡出，一看就知道能横滑，而不是字被切掉 */
+  (function markNavEdges() {
+    var strip = document.querySelector('.day-nav-bar');
+    if (!strip) return;
+    function mark() {
+      strip.toggleAttribute('data-more-l', strip.scrollLeft > 2);
+      strip.toggleAttribute('data-more-r', strip.scrollLeft + strip.clientWidth < strip.scrollWidth - 2);
+    }
+    strip.addEventListener('scroll', mark, { passive: true });
+    window.addEventListener('resize', mark);
+    mark();
+  })();
 
   /* 换页后的位置：还没滚过日期栏就原地不动；滚过了（例如在页底点「下一天」）
      就回到日期栏刚好贴在顶栏下面，新一天从栏下开始，而不是整页弹回最顶 */

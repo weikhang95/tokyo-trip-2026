@@ -288,6 +288,10 @@ try {
   @media (min-width: 640px) {
     #map { height: 340px; }
   }
+  /* 地图载入失败（没网、key 被拒、当日额度用完）：收成一行提示，别留一个空框占半个屏幕 */
+  .map-off #map { height: auto; background: none; }
+  .map-off .route-toggle-btn { display: none; }
+  .map-fail { margin: 0; padding: 10px 16px 12px; font-size: 13px; line-height: 1.6; color: var(--muted); text-wrap: pretty; }
 
 
   /* ── Day Summary Header Card ── */
@@ -635,8 +639,13 @@ try {
     border-radius: 50%;
     background: var(--muted);
   }
-  .node-key li.kw { color: var(--shu); font-weight: 700; }
-  .node-key li.kw::before { background: currentColor; }
+  /* 注意事项：墨色粗体 + 金色荧光笔底线，和手册一致。红色只留给「今天」和「必看」 */
+  .node-key li.kw { color: var(--ink); font-weight: 700; }
+  .node-key li.kw::before { background: var(--kin); }
+  .node-key li.kw > span {
+    background: linear-gradient(transparent 58%, color-mix(in srgb, var(--kin) 26%, transparent) 0);
+    -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  }
   /* summary 保持 44px 触控高度，但吃掉一部分卡片内边距，免得底部空一大块 */
   .node-more { margin: -4px 0 -10px; }
   .node-more > summary {
@@ -2814,9 +2823,11 @@ function onGoogleMapsReady() {
 }
 
 // Google calls this when the key is rejected (wrong site, API not enabled, daily cap hit)
+// 也接没网时 script 标签的 onerror
 function gm_authFailure() {
+  document.getElementById('mapCard').classList.add('map-off');
   document.getElementById('map').innerHTML =
-    '<div style="padding:24px 16px;font-size:13px;line-height:1.6;color:var(--muted);">地图暂时载入不了。每一站的「导航」按钮照样能打开 Google Maps。</div>';
+    '<p class="map-fail">地图暂时载入不了。每一站的「导航」按钮照样能打开 Google Maps。</p>';
 }
 
 // Small stand-in for Leaflet's layer group: holds overlays so a day switch can clear them
@@ -2963,7 +2974,7 @@ function renderTimeline(day) {
     const gmapsNavUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(node.name + ' ' + (node.sub || ''))}`;
 
     // key（要点，一条一行；"!" 开头 = 警示）+ more（收起的详情）+ 最多 2 个纯文字 tag
-    const keyHtml = `<ul class="node-key">${node.key.map(f => f.startsWith('!') ? `<li class="kw">${f.slice(1)}</li>` : `<li>${f}</li>`).join('')}</ul>`;
+    const keyHtml = `<ul class="node-key">${node.key.map(f => f.startsWith('!') ? `<li class="kw"><span>${f.slice(1)}</span></li>` : `<li>${f}</li>`).join('')}</ul>`;
     const moreHtml = node.more && node.more.length
       ? `<details class="node-more"><summary>详情 · ${node.more.length} 条</summary><ul>${node.more.map(li => `<li>${li}</li>`).join('')}</ul></details>`
       : '';
@@ -3168,6 +3179,6 @@ document.addEventListener('DOMContentLoaded', initApp);
 <!-- Google Maps JavaScript API. This browser key is public by design: it only works on
      weikhang95.github.io, only for the Maps JavaScript API, and is capped at 300 map loads a day. -->
 <script src="tabbar.js?v=4" defer></script>
-<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5rs71T6Mi38Y9nAwLS6NihCBaMr5zJZs&loading=async&callback=onGoogleMapsReady&language=zh-CN&region=JP"></script>
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5rs71T6Mi38Y9nAwLS6NihCBaMr5zJZs&loading=async&callback=onGoogleMapsReady&language=zh-CN&region=JP" onerror="gm_authFailure()"></script>
 </body>
 </html>

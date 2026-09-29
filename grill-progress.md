@@ -49,6 +49,8 @@ Day 2 and Day 3 in index.html and companion.html were rewritten to match Q11–Q
 
 Q25 decided: 10/6 忍野八海 is cut to 40 min (13:35–14:15). 山中湖全景台 becomes a fixed stop at 14:40–15:20 (drive 22 min / 13.6 km). 大石公园 starts 16:10 (drive 41–49 min / 26 km); the 17:00–17:40 red-Fuji window is unchanged. Written into the handbook.
 
+Q26 decided: keep the full 10/7 five-lake dawn loop from 04:30 as written. Mom is the one who wants the early start; I go along with it. No handbook change.
+
 ## Loose ends found during the grill
 
 - Wake-up time for 10/6 disagrees: Day 3 says 明早 06:30 起床, Day 4 says 06:50 起床, 07:00 出门. Settle it in the Day 4 grill.

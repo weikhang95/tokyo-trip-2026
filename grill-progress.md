@@ -43,13 +43,9 @@ Companion is mirrored up to 7c4bc77 (later rows say whether they were mirrored).
 
 Day 2 and Day 3 in index.html and companion.html were rewritten to match Q11–Q17.
 
-## Open question (asked 2026-09-28, not answered)
+## Q18 decided (2026-09-29)
 
-**Q18: 10/6 morning, 10:12 arrival at 河口湖站 until the 11:00 ほうとう不動 lunch (45 min).** The handbook now says 站前休整 (toilets, station photo, souvenir shop), which is weak. The car is only available from 12:30, so this slot is on foot.
-- A. Keep it as is.
-- B. Walk to the lake and ride the Kachi Kachi ropeway (Mt. Fuji Panoramic Ropeway, 4.4★ / 11,093). Several reviews report 50–60 min queues at 10:20–11:00, which would push lunch to about 12:15 and the car pickup to about 12:45.
-- **C (recommended).** Walk 961 m / 13 min, nearly flat (858 m → 852 m), to the 河口湖 shore to see Fuji across the lake, then back for lunch at about 11:05.
-- Follow-up already flagged: replace the flexible 14:30–15:30 山中湖全景台 stop with the ropeway in the afternoon (a review says there is no queue near sunset; last ascent 17:00 per the handbook). Ask that as Q19.
+10/6 10:12–10:55: carry the backpack (no locker) and walk 11 min / 850 m to the 船津浜 lakeside for the first Fuji view, then back for ほうとう不動 at 11:00. If it's cloudy, stay at the station and queue early. Written into the handbook. **Next: Q19, whether to swap the flexible 14:30 山中湖全景台 stop for the Kachi Kachi ropeway in the afternoon.**
 
 ## Loose ends found during the grill
 

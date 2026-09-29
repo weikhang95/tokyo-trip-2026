@@ -24,7 +24,7 @@ Hand-off note for continuing on another machine. Started 2026-09-27. Each stop i
 | — | 10/6 option C: cooked bento only. 10/10 ことぶき屋: Mom has the grilled mackerel set; the kaisendon is mine | dc34fd7, 6508bf7 |
 | — | Airbnb, confirmed by the host on 9/27: room 303 at 竜泉 3-10-7, entrance sign "Luxury 浅草 Ⅱ". The guide arrives 10/2 18:00 JST; return the key where you picked it up. The host's WhatsApp number is saved on my phone, not in this repo. Still waiting on the Wi-Fi details | 6f4a7d6 |
 
-Companion is mirrored up to 7c4bc77 (later rows say whether they were mirrored). **Not mirrored yet: de63300 (10/9 Sapporo THE BAR, 增上寺 14:35) and 25ab877 (10/6 walk to 船津浜), plus the Q25 commit (10/6 afternoon times).** The companion session 8b is gone.
+Companion is mirrored up to 7c4bc77 (later rows say whether they were mirrored). **Not mirrored yet: de63300 (10/9 Sapporo THE BAR, 增上寺 14:35) and 25ab877 (10/6 walk to 船津浜), plus the Q25 commit (10/6 afternoon times) and the Q28 commit (10/10 Yokohama → Enoshima; companion Day 8 route and PREBAKED_ROUTES need a redo).** The companion session 8b is gone.
 
 ## Decided 2026-09-28, written into the handbook
 
@@ -51,6 +51,8 @@ Q25 decided: 10/6 忍野八海 is cut to 40 min (13:35–14:15). 山中湖全景
 
 Q26 decided: keep the full 10/7 five-lake dawn loop from 04:30 as written. Mom is the one who wants the early start; I go along with it. No handbook change.
 
+Q28 decided (2026-09-29, Mom's request): **10/10 drops Yokohama** for more Kamakura plus Enoshima. Leave 07:20 and take the 08:09 Tokyo B5 → 09:03 Kamakura train. Then: 報国寺 09:25 → 鶴岡八幡宮 (proper visit) 10:30 → 小町通 → 11:54 Enoden → 長谷寺 12:05 → 大仏 12:55 → 13:37 Enoden → ことぶき屋 14:00 (unchanged) → 15:02 to 江ノ島 → walk the bridge → 江島神社 (closes 17:00) → エスカー up → シーキャンドル sunset 17:14 (Fuji if clear; 湘南キャンドル opens that night, so buy the セット券＋ナイト at ¥1,550) → walk down 27 min → 18:26 Enoden → 藤沢, 崎陽軒 at 小田急百貨店 B1 → 19:06 JR → home 20:15. About 12–13k steps, with stairs; badge changed to 高强度. Times were checked with Yahoo!乗換案内 (norikae), Google Maps and the official sites. Written into the handbook.
+
 **Open, Q27 (asked 2026-09-29):** keep the 10/7 evening in Tokyo (15:45 红砖站舍 → KITTE 6F rooftop to watch shinkansen, sit down → 17:00 THE BIFTEKI steak → station bakery → home 18:30)? Recommendation: keep all of it. It's on the way, mostly seated, and free except dinner. If the bus arrives after 16:30, skip 红砖/rooftop and go straight to the steak.
 **Open, Q23:** 10/11 sit-down lunch outside 根津 (no festival stalls), and confirm はん亭 17:30 for dinner.
 **Still to grill after Q27:** Day 6 (10/8) pacing, Day 7 afternoon (GSIX, UNIQLO Ginza vs Q16 "no Ginza trip just to shop", 增上寺), Day 8 Kamakura chain, temple count.
@@ -67,6 +69,6 @@ Q26 decided: keep the full 10/7 five-lake dawn loop from 04:30 as written. Mom i
 - Days 4–5 (10/6–7): Fuji stops (忍野八海, 山中湖 viewpoint, 大石公园, the five-lake dawn loop); KITTE shinkansen viewing
 - Day 6 (10/8): 明治神宫, Blue Bottle, 歌舞伎町 Tower lobby, open-top bus, SHIBUYA SKY. This is a high-intensity day, so check the pacing
 - Day 7 (10/9): GINZA SIX rooftop, UNIQLO, 增上寺
-- Day 8 (10/10): the full Kamakura / Enoden / Yokohama chain
+- Day 8 (10/10): rewritten in Q28 (Kamakura + Enoshima); only the stamina check is left
 - Day 9 (10/11): the Asakusa night view moved to Day 3 (Q17), so the Day 9 evening is free for something else. The no-nap version is still undecided (proposal: 谷中銀座 + 猫衛門, home at 16:25 to shower and pack, 浅草 night view + farewell dinner, leave at 20:40). Dinner venues are not yet verified; the handbook says 浅草寺 is lit until 23:00, not re-checked
 - Temple count: about 8. Decide which ones really carry the atmosphere

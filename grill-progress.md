@@ -24,7 +24,7 @@ Hand-off note for continuing on another machine. Started 2026-09-27. Each stop i
 | — | 10/6 option C: cooked bento only. 10/10 ことぶき屋: Mom has the grilled mackerel set; the kaisendon is mine | dc34fd7, 6508bf7 |
 | — | Airbnb, confirmed by the host on 9/27: room 303 at 竜泉 3-10-7, entrance sign "Luxury 浅草 Ⅱ". The guide arrives 10/2 18:00 JST; return the key where you picked it up. The host's WhatsApp number is saved on my phone, not in this repo. Still waiting on the Wi-Fi details | 6f4a7d6 |
 
-Companion is mirrored up to 7c4bc77 (later rows say whether they were mirrored). **Not mirrored yet: de63300 (10/9 Sapporo THE BAR, 增上寺 14:35) and 25ab877 (10/6 walk to 船津浜).** The companion session 8b is gone.
+Companion is mirrored up to 7c4bc77 (later rows say whether they were mirrored). **Not mirrored yet: de63300 (10/9 Sapporo THE BAR, 增上寺 14:35) and 25ab877 (10/6 walk to 船津浜), plus the Q25 commit (10/6 afternoon times).** The companion session 8b is gone.
 
 ## Decided 2026-09-28, written into the handbook
 
@@ -46,6 +46,8 @@ Day 2 and Day 3 in index.html and companion.html were rewritten to match Q11–Q
 ## Q18 decided (2026-09-29)
 
 10/6 10:12–10:55: carry the backpack (no locker) and walk 11 min / 850 m to the 船津浜 lakeside for the first Fuji view, then back for ほうとう不動 at 11:00. If it's cloudy, stay at the station and queue early. Written into the handbook. Q19 decided: no Kachi Kachi ropeway at all; the driving loop matters more. No handbook change needed (it was already dropped).
+
+Q25 decided: 10/6 忍野八海 is cut to 40 min (13:35–14:15). 山中湖全景台 becomes a fixed stop at 14:40–15:20 (drive 22 min / 13.6 km). 大石公园 starts 16:10 (drive 41–49 min / 26 km); the 17:00–17:40 red-Fuji window is unchanged. Written into the handbook.
 
 ## Loose ends found during the grill
 

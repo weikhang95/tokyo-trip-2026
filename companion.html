@@ -915,6 +915,10 @@ try {
   .oc-x:focus-visible, .oc-ph:focus-visible, .oc-dish:focus-visible, .oc-back:focus-visible, .oc-step button:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
   /* 日文按词组换行，不会把「します」拆开（Chrome；Safari 照常） */
   dialog.oc [lang="ja"] { word-break: auto-phrase; text-wrap: pretty; }
+  /* 注音：汉字上面一行小假名，给你念出来用；颜色淡一点，店员看的还是大字 */
+  dialog.oc ruby { ruby-align: center; } /* 假名比汉字宽时，汉字挨在一起居中，不被拉开成「会 計」 */
+  dialog.oc rt { font-size: max(10px, .5em); font-weight: 600; color: var(--muted); letter-spacing: 0; }
+  dialog.oc em rt { color: inherit; }
   .oc-body { padding: 12px 16px calc(20px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 10px; }
   .oc-label { margin: 6px 0 0; font-size: 12px; font-weight: 800; color: var(--muted); letter-spacing: .04em; }
   .oc-dish {
@@ -922,7 +926,7 @@ try {
     color: var(--ink); font: inherit; text-align: left; cursor: pointer; transition: scale .1s var(--ease);
   }
   .oc-dish:active { scale: .98; }
-  .oc-jp { display: block; font-size: 20px; font-weight: 700; line-height: 1.5; color: var(--ink); }
+  .oc-jp { display: block; font-size: 20px; font-weight: 700; line-height: 1.85; color: var(--ink); }
   .oc-zh { display: block; margin-top: 4px; font-size: 13.5px; line-height: 1.55; color: var(--muted); text-wrap: pretty; }
   .oc-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-top: 6px; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
   .oc-price { flex: none; font-weight: 800; color: var(--ink); font-variant-numeric: tabular-nums; }
@@ -932,7 +936,7 @@ try {
     color: var(--ink); font: inherit; text-align: left; cursor: pointer; transition: scale .1s var(--ease);
   }
   .oc-ph:active { scale: .98; }
-  .oc-ph b { display: block; font-size: 16px; font-weight: 700; line-height: 1.5; }
+  .oc-ph b { display: block; font-size: 16px; font-weight: 700; line-height: 1.9; }
   .oc-ph span { display: block; font-size: 12.5px; color: var(--muted); }
   /* 放大：一句话占满整个对话框，手机横过来给店员看也清楚；点一下回去 */
   .oc-big {
@@ -941,7 +945,7 @@ try {
   }
   dialog.oc.is-big .oc-body { display: none; }
   dialog.oc.is-big .oc-big { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
-  .oc-big b { font-size: clamp(26px, 8vw, 40px); font-weight: 800; line-height: 1.45; text-wrap: balance; }
+  .oc-big b { font-size: clamp(26px, 8vw, 40px); font-weight: 800; line-height: 1.75; text-wrap: balance; }
   .oc-big em { font-style: normal; color: var(--ai); white-space: nowrap; }
   .oc-big-zh { font-size: 14px; line-height: 1.55; color: var(--muted); text-wrap: pretty; }
   /* 份数：两个大圆钮夹着数字，拇指按得到 */
@@ -3579,104 +3583,104 @@ const ORDER_CARDS = {
     btn: "尾张屋",
     title: "尾张屋 本店 · 天妇罗荞麦",
     dishes: [
-      { jp: "上天ぷらそば（温かいの）をお願いします。", zh: "请给我一份【上等热天妇罗荞麦面】(巨虾天妇罗盖顶，热汤养胃)", price: "¥1,700", tip: "招牌必点 · 汤头鲜甜 · 巨虾酥脆不油腻" },
-      { jp: "せいろ（冷たい蕎麦）をお願いします。", zh: "请给我一份【竹篓冷荞麦面】(附特调酱汁与芥末)", price: "¥1,000", tip: "清爽顺滑 · 荞麦香气浓郁" },
-      { jp: "親子丼をお願いします。", zh: "请给我一份【特选母子滑蛋鸡肉饭】", price: "¥1,300", tip: "鸡蛋滑嫩 · 鸡肉软烂入味 · 长辈极好下饭" }
+      { jp: "{上天|じょうてん}ぷらそば（{温|あたた}かいの）をお{願|ねが}いします。", zh: "请给我一份【上等热天妇罗荞麦面】(巨虾天妇罗盖顶，热汤养胃)", price: "¥1,700", tip: "招牌必点 · 汤头鲜甜 · 巨虾酥脆不油腻" },
+      { jp: "せいろ（{冷|つめ}たい{蕎麦|そば}）をお{願|ねが}いします。", zh: "请给我一份【竹篓冷荞麦面】(附特调酱汁与芥末)", price: "¥1,000", tip: "清爽顺滑 · 荞麦香气浓郁" },
+      { jp: "{親子丼|おやこどん}をお{願|ねが}いします。", zh: "请给我一份【特选母子滑蛋鸡肉饭】", price: "¥1,300", tip: "鸡蛋滑嫩 · 鸡肉软烂入味 · 长辈极好下饭" }
     ],
     phrases: [
-      ["温かいお茶（お湯）をいただけますか？", "请问可以给我一杯温茶/温水吗？"],
-      ["お会計をお願いします。", "请帮我们结账。"],
-      ["ネギを別皿にできますか？", "可以把葱花单独放一个小碟子吗？"],
-      ["領収書をいただけますか？", "请问有收据吗？"]
+      ["{温|あたた}かいお{茶|ちゃ}（お{湯|ゆ}）をいただけますか？", "请问可以给我一杯温茶/温水吗？"],
+      ["お{会計|かいけい}をお{願|ねが}いします。", "请帮我们结账。"],
+      ["ネギを{別皿|べつざら}にできますか？", "可以把葱花单独放一个小碟子吗？"],
+      ["{領収書|りょうしゅうしょ}をいただけますか？", "请问有收据吗？"]
     ]
   },
   kagetudo: {
     btn: "花月堂菠萝包",
     title: "浅草花月堂 本店 · 巨型菠萝包",
     dishes: [
-      { jp: "ジャンボめろんぱんを 2つ お願いします。", zh: "请给我【2个 招牌巨型脆皮菠萝包】", price: "¥300 / 个", tip: "发酵3小时 · 外皮极酥脆内里如云朵般轻软" },
-      { jp: "抹茶アイスめろんぱんを 1つ お願いします。", zh: "请给我一份【宇治抹茶冰淇淋夹心菠萝包】", price: "¥600", tip: "冷热交融 · 抹茶微苦解腻" }
+      { jp: "ジャンボめろんぱんを 2つ お{願|ねが}いします。", zh: "请给我【2个 招牌巨型脆皮菠萝包】", price: "¥300 / 个", tip: "发酵3小时 · 外皮极酥脆内里如云朵般轻软" },
+      { jp: "{抹茶|まっちゃ}アイスめろんぱんを 1つ お{願|ねが}いします。", zh: "请给我一份【宇治抹茶冰淇淋夹心菠萝包】", price: "¥600", tip: "冷热交融 · 抹茶微苦解腻" }
     ],
     phrases: [
-      ["すぐ食べます。", "我马上吃 (不打包)。"],
-      ["お会計をお願いします。", "请结账。"]
+      ["すぐ{食|た}べます。", "我马上吃 (不打包)。"],
+      ["お{会計|かいけい}をお{願|ねが}いします。", "请结账。"]
     ]
   },
   menchi: {
     btn: "炸肉饼",
     title: "浅草メンチ · 炸肉饼",
     dishes: [
-      { jp: "浅草メンチを 2つ お願いします。", zh: "请给我【2个 招牌爆汁炸肉饼】", price: "¥400 / 个", tip: "神奈川名产高座豚猪肉+牛肉与大量洋葱手工捏制 · 外皮酥脆滚烫爆汁" },
-      { jp: "からしを付けていただけますか？", zh: "可以帮我加一点黄芥末酱吗？", price: "免费", tip: "微辛解腻 · 提鲜绝配" }
+      { jp: "{浅草|あさくさ}メンチを 2つ お{願|ねが}いします。", zh: "请给我【2个 招牌爆汁炸肉饼】", price: "¥400 / 个", tip: "神奈川名产高座豚猪肉+牛肉与大量洋葱手工捏制 · 外皮酥脆滚烫爆汁" },
+      { jp: "からしを{付|つ}けていただけますか？", zh: "可以帮我加一点黄芥末酱吗？", price: "免费", tip: "微辛解腻 · 提鲜绝配" }
     ],
     phrases: [
-      ["ここで食べます。", "在这里吃 (马上吃)。"],
-      ["お会計をお願いします。", "请结账。"]
+      ["ここで{食|た}べます。", "在这里吃 (马上吃)。"],
+      ["お{会計|かいけい}をお{願|ねが}いします。", "请结账。"]
     ]
   },
   kaminari: {
     btn: "雷一茶",
     title: "雷一茶 传法院通店 · 抹茶",
     dishes: [
-      { jp: "お濃茶ラテ（アイス / ホット）をお願いします。", zh: "请给我一杯【お濃茶特浓抹茶拿铁】(冰 / 热)", price: "约 ¥650", tip: "使用宇治头等一番茶石臼现磨 · 浓醇微苦回甘 · 解炸肉饼油腻绝配" },
-      { jp: "お濃茶アイスクリームをお願いします。", zh: "请给我一份【お濃茶特浓抹茶冰淇淋】", price: "约 ¥550", tip: "不苦涩的高纯度纯天然抹茶 · 顶层撒抹茶脆米粒" }
+      { jp: "お{濃茶|こいちゃ}ラテ（アイス / ホット）をお{願|ねが}いします。", zh: "请给我一杯【お濃茶特浓抹茶拿铁】(冰 / 热)", price: "约 ¥650", tip: "使用宇治头等一番茶石臼现磨 · 浓醇微苦回甘 · 解炸肉饼油腻绝配" },
+      { jp: "お{濃茶|こいちゃ}アイスクリームをお{願|ねが}いします。", zh: "请给我一份【お濃茶特浓抹茶冰淇淋】", price: "约 ¥550", tip: "不苦涩的高纯度纯天然抹茶 · 顶层撒抹茶脆米粒" }
     ],
     phrases: [
-      ["甘さ控えめにできますか？", "可以做微糖（少甜）吗？"],
-      ["お会計をお願いします。", "请结账。"]
+      ["{甘|あま}さ{控|ひか}えめにできますか？", "可以做微糖（少甜）吗？"],
+      ["お{会計|かいけい}をお{願|ねが}いします。", "请结账。"]
     ]
   },
   fudo: {
     btn: "ほうとう不動",
     title: "ほうとう不動 · 南瓜馎饦面",
     dishes: [
-      { jp: "不動ほうとうを 2つ お願いします。", zh: "请给我们【2份 招牌不动铁锅野菜馂馎面】", price: "¥1,210 / 锅", tip: "手打粗宽面 · 炖煮南瓜/白菜/山菇 · 汤头鲜甜热气腾腾" },
-      { jp: "いなり寿司を 1皿 お願いします。", zh: "请给我一份【甜豆皮寿司 (2贯)】", price: "¥220", tip: "米饭甘甜 · 配热汤绝佳" }
+      { jp: "{不動|ふどう}ほうとうを 2つ お{願|ねが}いします。", zh: "请给我们【2份 招牌不动铁锅野菜馂馎面】", price: "¥1,210 / 锅", tip: "手打粗宽面 · 炖煮南瓜/白菜/山菇 · 汤头鲜甜热气腾腾" },
+      { jp: "いなり{寿司|ずし}を 1皿 お{願|ねが}いします。", zh: "请给我一份【甜豆皮寿司 (2贯)】", price: "¥220", tip: "米饭甘甜 · 配热汤绝佳" }
     ],
     phrases: [
-      ["熱いので取り皿をいただけますか？", "锅很烫，请问可以给我们分食的小碗吗？"],
-      ["温かいお茶をお願いします。", "请给我一杯热茶。"],
-      ["お会計をお願いします。", "请结账。"]
+      ["{熱|あつ}いので{取|と}り{皿|ざら}をいただけますか？", "锅很烫，请问可以给我们分食的小碗吗？"],
+      ["{温|あたた}かいお{茶|ちゃ}をお{願|ねが}いします。", "请给我一杯热茶。"],
+      ["お{会計|かいけい}をお{願|ねが}いします。", "请结账。"]
     ]
   },
   kawakamian: {
     btn: "川上庵",
     title: "青山 川上庵 · 手打荞麦",
     dishes: [
-      { jp: "鴨南蛮そばを お願いします。", zh: "请给我一份【鸭肉南蛮热汤荞麦面】", price: "¥2,000 前后", tip: "今天点这个 · 温润热汤 · 鸭肉与大葱甘甜" },
-      { jp: "天せいろを お願いします。", zh: "请给我一份【天せいろ · 大尾炸虾天妇罗沾汁荞麦面】", price: "¥2,200 前后", tip: "招牌菜，但昨天刚吃过天丼，这次不点" },
-      { jp: "温かいそば茶を お願いします。", zh: "请给我一杯热荞麦茶。", tip: "店内常备 · 解腻暖身" }
+      { jp: "{鴨南蛮|かもなんばん}そばを お{願|ねが}いします。", zh: "请给我一份【鸭肉南蛮热汤荞麦面】", price: "¥2,000 前后", tip: "今天点这个 · 温润热汤 · 鸭肉与大葱甘甜" },
+      { jp: "{天|てん}せいろを お{願|ねが}いします。", zh: "请给我一份【天せいろ · 大尾炸虾天妇罗沾汁荞麦面】", price: "¥2,200 前后", tip: "招牌菜，但昨天刚吃过天丼，这次不点" },
+      { jp: "{温|あたた}かいそば{茶|ちゃ}を お{願|ねが}いします。", zh: "请给我一杯热荞麦茶。", tip: "店内常备 · 解腻暖身" }
     ],
     phrases: [
-      ["二名です。禁煙席をお願いします。", "两位，请给我们禁烟座位。"],
-      ["温かいものにできますか？", "请问可以做成热的吗？(把冷荞麦换成热汤版)"],
-      ["お会計をお願いします。", "请结账。"]
+      ["{二名|にめい}です。{禁煙席|きんえんせき}をお{願|ねが}いします。", "两位，请给我们禁烟座位。"],
+      ["{温|あたた}かいものにできますか？", "请问可以做成热的吗？(把冷荞麦换成热汤版)"],
+      ["お{会計|かいけい}をお{願|ねが}いします。", "请结账。"]
     ]
   },
   shinpachi: {
     btn: "しんぱち食堂",
     title: "しんぱち食堂 渋谷明治通り店 · 炭烤鱼定食",
     dishes: [
-      { jp: "銀鮭塩焼き定食をお願いします。", zh: "请给我一份【银鲑盐烤定食】", price: "见店内电子屏", tip: "炭烤银鲑 ＋ 白饭 ＋ 味噌汤 ＋ 渍物 · 全热食软嫩无油腻 · 妈妈首选" },
-      { jp: "さば文化干し定食をお願いします。", zh: "请给我一份【文化干鯖鱼定食】", price: "见店内电子屏", tip: "招牌之一 · 油脂丰腴但不腻 · 官网写超过 20 种烤鱼可选" }
+      { jp: "{銀鮭|ぎんざけ}{塩焼|しおや}き{定食|ていしょく}をお{願|ねが}いします。", zh: "请给我一份【银鲑盐烤定食】", price: "见店内电子屏", tip: "炭烤银鲑 ＋ 白饭 ＋ 味噌汤 ＋ 渍物 · 全热食软嫩无油腻 · 妈妈首选" },
+      { jp: "さば{文化干|ぶんかぼ}し{定食|ていしょく}をお{願|ねが}いします。", zh: "请给我一份【文化干鯖鱼定食】", price: "见店内电子屏", tip: "招牌之一 · 油脂丰腴但不腻 · 官网写超过 20 种烤鱼可选" }
     ],
     phrases: [
-      ["二名です。空いていますか？", "两位，请问现在有位吗？"],
-      ["温かいお茶をいただけますか？", "请问可以给我一杯温热茶吗？"],
-      ["お会計をお願いします。", "请帮我们结账。"]
+      ["{二名|にめい}です。{空|あ}いていますか？", "两位，请问现在有位吗？"],
+      ["{温|あたた}かいお{茶|ちゃ}をいただけますか？", "请问可以给我一杯温热茶吗？"],
+      ["お{会計|かいけい}をお{願|ねが}いします。", "请帮我们结账。"]
     ]
   },
   washokubiyori: {
     btn: "和食日和",
     title: "和食日和 おさけと 大門浜松町 · 和食定食",
     dishes: [
-      { jp: "本日の定食を お願いします。", zh: "请给我一份【今日定食】", price: "¥2,500 – ¥3,500/人", tip: "附热汤与小菜 · 温热好消化" },
-      { jp: "温かい鍋物は ありますか？", zh: "请问有热的锅物吗？", tip: "高汤锅物暖胃 · 看完点灯身体已经凉了" }
+      { jp: "{本日|ほんじつ}の{定食|ていしょく}を お{願|ねが}いします。", zh: "请给我一份【今日定食】", price: "¥2,500 – ¥3,500/人", tip: "附热汤与小菜 · 温热好消化" },
+      { jp: "{温|あたた}かい{鍋物|なべもの}は ありますか？", zh: "请问有热的锅物吗？", tip: "高汤锅物暖胃 · 看完点灯身体已经凉了" }
     ],
     phrases: [
-      ["二名です。空いていますか？", "两位，请问现在有位吗？"],
-      ["熱いので取り皿をいただけますか？", "锅很烫，请问可以给我们分食的小碗吗？"],
-      ["お会計をお願いします。", "请结账。"]
+      ["{二名|にめい}です。{空|あ}いていますか？", "两位，请问现在有位吗？"],
+      ["{熱|あつ}いので{取|と}り{皿|ざら}をいただけますか？", "锅很烫，请问可以给我们分食的小碗吗？"],
+      ["お{会計|かいけい}をお{願|ねが}いします。", "请结账。"]
     ]
   }
 };
@@ -4231,8 +4235,18 @@ function selectDay(idx, updateHash = true, push = false) {
 
 // 点餐卡：原生 <dialog>，自带 Esc 关闭、背景不能点、焦点留在里面；关掉后焦点回到按钮
 // 菜和短句都能点开放大给店员看；「…をお願いします」的菜可以加减份数，日文、中文里的数字跟着变
+// 日文小字注音：数据里写 {漢字|かな}，显示成汉字上面一行假名；「2つ」「1皿」这种数量也标上念法
+const COUNTER_READ = {
+  'つ': ['', 'ひとつ', 'ふたつ', 'みっつ', 'よっつ', 'いつつ', 'むっつ', 'ななつ', 'やっつ', 'ここのつ'],
+  '皿': ['', 'ひとさら', 'ふたさら', 'さんさら', 'よんさら', 'ごさら', 'ろくさら', 'ななさら', 'はちさら', 'きゅうさら']
+};
+function rb(jp) {
+  return jp
+    .replace(/\{([^|}]+)\|([^}]+)\}/g, '<ruby>$1<rt>$2</rt></ruby>')
+    .replace(/([1-9])(つ|皿)/g, (m, n, u) => `<ruby>${m}<rt>${COUNTER_READ[u][n]}</rt></ruby>`);
+}
 function qtyParts(jp) {
-  const m = /^(.*?を)\s*(?:(\d+)\s*(つ|皿|杯|個)\s*)?(お願いします。?)$/.exec(jp);
+  const m = /^(.*?を)\s*(?:(\d+)\s*(つ|皿)\s*)?(お(?:\{願\|ねが\}|願)いします。?)$/.exec(jp);
   return m && { head: m[1], n: +(m[2] || 1), unit: m[3] || 'つ', tail: m[4], plain: !m[2] };
 }
 let ocWake = null;
@@ -4248,15 +4262,15 @@ function openOrderCard(k, from) {
   dlg.innerHTML = `<div class="oc-head"><h2 id="ocTitle">${c.title}</h2><button type="button" class="oc-x" data-close aria-label="关闭">${ph('close')}</button></div>
     <div class="oc-body">
       <p class="oc-label">指给店员看 · 点一下放大</p>
-      ${c.dishes.map((d, i) => `<button type="button" class="oc-dish" data-dish="${i}"><span class="oc-jp" lang="ja">${d.jp}</span><span class="oc-zh">${d.zh}</span><span class="oc-meta"><span>${d.tip || ''}</span>${d.price ? `<span class="oc-price">${d.price}</span>` : ''}</span></button>`).join('')}
+      ${c.dishes.map((d, i) => `<button type="button" class="oc-dish" data-dish="${i}"><span class="oc-jp" lang="ja">${rb(d.jp)}</span><span class="oc-zh">${d.zh}</span><span class="oc-meta"><span>${d.tip || ''}</span>${d.price ? `<span class="oc-price">${d.price}</span>` : ''}</span></button>`).join('')}
       <p class="oc-label">常用短句 · 点一下放大</p>
-      <div class="oc-phrases">${c.phrases.map(([jp, zh], i) => `<button type="button" class="oc-ph" data-ph="${i}"><b lang="ja">${jp}</b><span>${zh}</span></button>`).join('')}</div>
+      <div class="oc-phrases">${c.phrases.map(([jp, zh], i) => `<button type="button" class="oc-ph" data-ph="${i}"><b lang="ja">${rb(jp)}</b><span>${zh}</span></button>`).join('')}</div>
     </div>
     <div class="oc-big"></div>`;
   const bigEl = dlg.querySelector('.oc-big');
   const drawBig = step => {
     const { jp, zh, q, n } = big;
-    const jpTxt = !q || (q.plain && n === 1) ? jp : `${q.head} <em>${n}${q.unit}</em> ${q.tail}`;
+    const jpTxt = rb(!q || (q.plain && n === 1) ? jp : `${q.head} <em>${n}${q.unit}</em> ${q.tail}`);
     const zhTxt = !q || n === q.n ? zh : /(一|\d+)\s*(份|个|杯|碗|盘)/.test(zh) ? zh.replace(/(一|\d+)\s*(份|个|杯|碗|盘)/, `${n}$2`) : `${zh}（${n} 份）`;
     if (step) { // 只改字和数字，焦点留在刚按的钮上
       bigEl.querySelector('b').innerHTML = jpTxt;

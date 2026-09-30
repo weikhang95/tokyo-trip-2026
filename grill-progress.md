@@ -88,9 +88,9 @@ Q27 decided (2026-09-29): keep the 10/7 Tokyo evening as written (红砖站舍 �
 ## Loose ends found during the grill
 
 - ~~Wake-up time for 10/6 disagrees~~ Settled 2026-09-30: 06:30 起床, 07:00 出门 (the user: the basic rule is never be late). Last safe train 07:23 三ノ輪 → 07:47 東京 via 仲御徒町/御徒町, so leave by 07:12 at the latest.
-- Sakura Terrace lift (Day 3, 上野) morning hours are unconfirmed: the building opens at 11:00 and no source gives elevator hours (UENO3153 is the same). The handbook flags it. Could ask them by phone (03-6240-1161).
-- Day 4 still carries process words (实查, 已核实) and payment notes (刷卡付款, 只收现金); clean them when Day 4 is rewritten.
-- Day 2 step count (约 6,500 步) was not updated after the river walk was added.
+- ~~Sakura Terrace lift~~ Settled 2026-09-30: the user will not phone; the handbook and companion say to use the steep no-step slope beside the building if the lift is not running, both going up (08:50) and coming down (10:06). Original note: Sakura Terrace lift (Day 3, 上野) morning hours are unconfirmed: the building opens at 11:00 and no source gives elevator hours (UENO3153 is the same). The handbook flags it. Could ask them by phone (03-6240-1161).
+- ~~Day 4 process words~~ Cleaned 2026-09-30 (payment facts like 只收现金 kept, they are useful). Original note: Day 4 still carries process words (实查, 已核实) and payment notes (刷卡付款, 只收现金); clean them when Day 4 is rewritten.
+- ~~Day 2 step count~~ Updated 2026-09-30 to 约 10,000–11,000 步 (listed walks add up to about 7 km, plus station and in-store walking).
 
 ## Still to grill
 

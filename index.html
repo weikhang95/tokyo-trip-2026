@@ -524,7 +524,7 @@ html[data-theme="dark"] .bplan-img-card:has(img)::after{outline-color:oklch(1 0 
 /* 分类图标（cat-icons.js）：标签前一个 Phosphor 小图标，一眼分出吃、走、买、看。
    交通用靛蓝，餐食和咖啡用金色（饿的时候最好找），其余跟标签同色。
    电脑悬停这一站、手机按住时，图标浮出 Duotone 底色 */
-.tl-tag .cat-ico{width:1.3em;height:1.3em;vertical-align:-.3em;margin-right:4px;}
+.tl-tag .cat-ico,.tl-time.is-label .cat-ico{width:1.3em;height:1.3em;vertical-align:-.3em;margin-right:4px;}
 .cat-meal,.cat-cafe{color:var(--kin);}
 .cat-ico .ph-tone{opacity:0;}
 html[data-motion="ready"] .cat-ico .ph-tone{transition:opacity .15s var(--ease-out);}
@@ -2190,7 +2190,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
         <div class="tl-item">
             <div class="tl-icon">上野</div>
             <div>
-              <div class="tl-time"><span class="tl-clock"><span class="t-start">08:50</span><span class="t-sep">-</span><span class="t-end">11:00</span></span><span class="tl-tag">神社 · 逛街</span></div>
+              <div class="tl-time"><span class="tl-clock"><span class="t-start">08:50</span><span class="t-sep">–</span><span class="t-end">11:00</span></span><span class="tl-tag">神社 · 逛街</span></div>
               <div class="tl-main"><span class="zh on">上野东照宫 (重要文化财) → 花园稻荷 & 五条天神 → 阿美横逛街</span><span class="en">Ueno Toshogu, Hanazono Inari & Ameyoko Market</span></div>
               <p class="tl-key"><span class="f">Sakura Terrace 电梯上下，0 陡台阶<span class="sep"> · </span></span> <span class="f">阿美横买明天巴士早餐</span></p>
               <details class="tl-more">
@@ -2210,7 +2210,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
         <div class="tl-item">
             <div class="tl-icon">午餐</div>
             <div>
-              <div class="tl-time"><span class="tl-clock"><span class="t-start">11:00</span><span class="t-sep">-</span><span class="t-end">12:20</span></span><span class="tl-tag">鳗鱼饭</span></div>
+              <div class="tl-time"><span class="tl-clock"><span class="t-start">11:00</span><span class="t-sep">–</span><span class="t-end">12:20</span></span><span class="tl-tag">鳗鱼饭</span></div>
               <div class="tl-main"><span class="zh on"><a href="https://maps.google.com/?q=Izuei+Honten+Ueno" target="_blank" rel="noopener noreferrer">伊豆荣 本店</a> 炭烤鳗鱼饭 ★</span><span class="en">Charcoal-Grilled Eel at Izuei Honten</span></div>
               <p class="tl-key"><span class="f">11:00 开门就进<span class="sep"> · </span></span> <span class="f">全熟，妈妈能吃</span></p>
               <details class="tl-more">
@@ -2229,7 +2229,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
         <div class="tl-item" data-cat="shop">
             <div class="tl-icon">日本桥</div>
             <div>
-              <div class="tl-time"><span class="tl-clock"><span class="t-start">12:45</span><span class="t-sep">-</span><span class="t-end">16:45</span></span></div>
+              <div class="tl-time"><span class="tl-clock"><span class="t-start">12:45</span><span class="t-sep">–</span><span class="t-end">16:45</span></span><span class="tl-tag">购物 · 日本桥</span></div>
               <div class="tl-main"><span class="zh on">三越本店 → COREDO室町 → 日本桥 → 高岛屋本馆</span><span class="en">Mitsukoshi, COREDO Muromachi, Nihonbashi Bridge & Takashimaya</span></div>
               <p class="tl-key"><span class="f">两家百货本馆都是重要文化财<span class="sep"> · </span></span> <span class="f">¥100 现削高汤<span class="sep"> · </span></span> <span class="f">高岛屋电梯专人开</span></p>
               <details class="tl-more">
@@ -2249,7 +2249,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
         <div class="tl-item" data-cat="meal">
             <div class="tl-icon">晚餐</div>
             <div>
-              <div class="tl-time"><span class="tl-clock"><span class="t-start">16:50</span><span class="t-sep">-</span><span class="t-end">21:30</span></span></div>
+              <div class="tl-time"><span class="tl-clock"><span class="t-start">16:50</span><span class="t-sep">–</span><span class="t-end">21:30</span></span><span class="tl-tag">晚餐 · 点灯</span></div>
               <div class="tl-main"><span class="zh on">银座线直达浅草 → <a href="https://maps.google.com/?q=Kamameshi+Mutsumi+Asakusa" target="_blank" rel="noopener noreferrer">釜めし むつみ</a> 釜饭 → 点灯的浅草寺 → 回家</span><span class="en">Kamameshi at Mutsumi & Senso-ji Lit Up at Night</span></div>
               <p class="tl-key"><span class="f">17:30 釜饭，全熟，先订位<span class="sep"> · </span></span> <span class="f">饭后看点灯的浅草寺<span class="sep"> · </span></span> <span class="f">21:30 熄灯</span></p>
               <details class="tl-more">
@@ -6056,13 +6056,20 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 })();
 </script>
-<script src="cat-icons.js?v=1"></script>
+<script src="cat-icons.js?v=2"></script>
 <script>
 /* 每一站的标签前加分类图标；这一站写了 data-cat 就照它，否则按标签和标题判断（规则在 cat-icons.js） */
 (function () {
   if (!window.CatIcons) return;
   document.querySelectorAll('.tl-item').forEach(function (item) {
     var tag = item.querySelector('.tl-tag');
+    var label = item.querySelector('.tl-time.is-label');
+    if (!tag && label && !label.querySelector('.cat-ico')) {
+      // 不是时刻的小节：下雨方案、备选、不去
+      var t = label.textContent;
+      label.insertAdjacentHTML('afterbegin', CatIcons.svg(/雨/.test(t) ? 'rain' : /不排|不去|不能/.test(t) ? 'skip' : 'alt'));
+      return;
+    }
     if (!tag || tag.querySelector('.cat-ico')) return;
     var main = item.querySelector('.tl-main .zh') || item.querySelector('.tl-main');
     var segs = tag.textContent.split(/\s*·\s*/).concat([main ? main.textContent : '']);

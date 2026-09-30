@@ -4031,6 +4031,15 @@ function initApp() {
     if (go) { focusNode(+go.dataset.go); return; }
     if (e.target.closest('[data-rain]')) openRain();
   });
+  // 电脑上用鼠标滚轮也能横着翻路线条和章节胶囊（手机本来就能滑）；翻到头就把滚轮还给整页
+  document.addEventListener('wheel', e => {
+    const row = e.target.closest('.route-strip, .day-scroll');
+    if (!row || e.ctrlKey || Math.abs(e.deltaX) >= Math.abs(e.deltaY)) return;
+    const max = row.scrollWidth - row.clientWidth;
+    if (max <= 0 || (e.deltaY < 0 ? row.scrollLeft <= 0 : row.scrollLeft >= max - 1)) return;
+    e.preventDefault();
+    row.scrollLeft += e.deltaY * (e.deltaMode === 1 ? 16 : 1);
+  }, { passive: false });
   document.getElementById('chEnd').addEventListener('click', e => {
     const b = e.target.closest('[data-ch], [data-toc]');
     if (!b) return;

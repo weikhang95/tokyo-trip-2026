@@ -34,8 +34,7 @@
     { href: 'index.html#hotels', zh: '住宿', en: 'Stays', subZh: '竜泉 · 河口湖', subEn: 'Ryusen · Kawaguchiko' },
     { href: 'index.html#transit', zh: '交通', en: 'Transit', subZh: '车票与线路', subEn: 'Passes & lines' },
     { href: 'index.html#budget', zh: '预算', en: 'Budget', subZh: '两人合计', subEn: 'Total for two' },
-    { href: 'index.html#tips', zh: '提醒', en: 'Tips', subZh: '出发前必看', subEn: 'Before you go' },
-    { href: 'charts/index.html', zh: '图表', en: 'Charts', subZh: '四张决策图', subEn: 'Decision charts' }
+    { href: 'index.html#tips', zh: '提醒', en: 'Tips', subZh: '出发前必看', subEn: 'Before you go' }
   ];
 
   function isEn() { return !!document.querySelector('span.en.on:not(.tabbar *):not(.tb-sheet *)'); }

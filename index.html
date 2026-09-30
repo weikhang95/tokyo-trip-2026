@@ -194,7 +194,7 @@ body{
   transition:background-color .2s var(--ease-out),color .2s var(--ease-out);
 }
 a{color:var(--ai);text-underline-offset:.2em;text-decoration-thickness:1px;}
-h1,h2,h3,.sec-kanji,.dcc-title,.drawer-title{text-wrap:balance;}
+h1,h2,h3,.sec-kanji,.drawer-title{text-wrap:balance;}
 .day-info h3{text-wrap:pretty;} /* 日标题很长，balance 会把它挤成窄条 */
 p,li,.tl-desc,.card-lead{text-wrap:pretty;}
 /* 清单：全局 reset 清掉了缩进，统一补回来 */
@@ -248,36 +248,11 @@ p,li,.tl-desc,.card-lead{text-wrap:pretty;}
 .top-btn::after{content:"";position:absolute;inset:50% auto auto 50%;width:44px;height:44px;transform:translate(-50%,-50%);}
 @media (hover:hover){.top-btn:hover{background:var(--paper-2);color:var(--ink);}}
 .top-btn.active{border-color:var(--ai);background:var(--ai-bg);color:var(--ai);}
-.chart-top-btn,.companion-top-btn{text-decoration:none;display:inline-flex;align-items:center;gap:4px;}
+.companion-top-btn{text-decoration:none;display:inline-flex;align-items:center;gap:4px;}
 /* 卡片里唯一的行动按钮：实心靛蓝（顶栏按钮仍是幽灵样式） */
 .card a.top-btn{display:inline-flex;text-decoration:none;background:var(--ai);color:var(--on-ai);border-color:var(--ai);font-weight:700;}
 @media (hover:hover){.card a.top-btn:hover{background:var(--ai);color:var(--on-ai);opacity:.9;}}
 
-/* Decision Charts Showcase Card */
-.decision-charts-card{
-  background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);
-  padding:var(--space-lg);margin-bottom:var(--space-2xl);box-shadow:var(--card-shadow);
-}
-.dcc-header{display:flex;justify-content:flex-end;align-items:center;margin:calc(-1 * var(--space-sm)) 0 0;float:right;}
-.dcc-badge{display:none;}
-.dcc-all-link{position:relative;font-size:var(--font-xs);font-weight:700;color:var(--ai);text-decoration:none;display:inline-flex;align-items:center;gap:4px;min-height:40px;}
-.dcc-all-link::after{content:"";position:absolute;inset:50% auto auto 50%;width:44px;height:44px;transform:translate(-50%,-50%);}
-@media (hover:hover){.dcc-all-link:hover{text-decoration:underline;}}
-.dcc-title{font-family:var(--font-serif);font-size:var(--font-h3);font-weight:700;color:var(--ink);margin-bottom:var(--space-md);line-height:1.35;}
-.dcc-desc{display:none;}
-.dcc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 var(--space-lg);border-top:1px solid var(--line-soft);}
-.dcc-item{
-  display:flex;align-items:center;gap:var(--space-sm);padding:var(--space-sm) 0;min-height:56px;
-  border-bottom:1px solid var(--line-soft);text-decoration:none;
-}
-@media (hover:hover){.dcc-item:hover .dcc-item-title{color:var(--ai);}}
-.dcc-item-body{flex:1;min-width:0;}
-.dcc-item-title{font-size:var(--font-sm);font-weight:700;color:var(--ink);margin-bottom:2px;transition:color .15s var(--ease-out);}
-.dcc-item-sub{font-size:var(--font-2xs);color:var(--ink-faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums;}
-@media (max-width:640px){
-  .dcc-grid{grid-template-columns:1fr;}
-  .decision-charts-card{padding:var(--space-md);}
-}
 
 .lang-bar{display:flex;gap:0;border:1px solid var(--line);border-radius:99px;background:var(--paper);}
 .lang-btn{
@@ -980,8 +955,6 @@ html[data-mode="lite"] .clampable.no-clamp::after{display:none;}
 
 /* 精简模式下收起的次要区块（每天那张小图始终保留） */
 html[data-mode="lite"] .food-meta-list{display:none;}
-html[data-mode="lite"] .decision-charts-card{padding:var(--space-sm) var(--space-md);}
-html[data-mode="lite"] .dcc-desc{display:none;}
 
 
 /* ── 表格 → 卡片（窄屏不再左右横滚） ──────────── */
@@ -1026,8 +999,8 @@ html[data-mode="lite"] .dcc-desc{display:none;}
 @media (max-width:640px){
   /* html 的 scroll-padding-top 已经让开顶栏，卡片自己别再加一层 */
   .day,.sec-head{scroll-margin-top:4px;}
-  /* 随身行程 / 决策图表 底部 dock 已有入口，顶栏收起 */
-  .companion-top-btn,.chart-top-btn{display:none;}
+  /* 随身行程 底部 dock 已有入口，顶栏收起 */
+  .companion-top-btn{display:none;}
   /* 中/EN 收进底栏「更多」；Aa 大字留在顶栏（长辈常用） */
   .lang-bar{display:none;}
   #text-toggle{font-size:0;min-width:38px;padding:0 10px;}
@@ -1240,7 +1213,6 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
       </div>
       <div class="controls">
         <a href="companion.html" class="top-btn companion-top-btn" title="查看 随身极简行程与地图助手"><span class="zh on">随身行程</span><span class="en">Companion</span></a>
-        <a href="charts/index.html" class="top-btn chart-top-btn" title="查看 4 大行程决策图表"><span class="zh on">决策图表</span><span class="en">Charts</span></a>
         <!-- Large Text Mode Toggle (For Mum) -->
         <button class="top-btn" id="text-toggle" onclick="toggleTextSize()" title="切换长辈大字模式" aria-pressed="false">Aa 大字</button>
         <!-- Dark Mode Toggle -->
@@ -1265,7 +1237,6 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
     <a href="#sec-hotels" class="chip"><span class="zh on">住宿</span><span class="en">Stays</span></a>
     <a href="#sec-booking" class="chip"><span class="zh on">订票</span><span class="en">Booking</span></a>
     <a href="#sec-budget" class="chip"><span class="zh on">预算</span><span class="en">Budget</span></a>
-    <a href="charts/index.html" class="chip" target="_blank"><span class="zh on">决策图表</span><span class="en">Charts</span></a>
   </nav>
   <div class="sr-only" id="filter-status" role="status" aria-live="polite"></div>
 
@@ -1377,48 +1348,6 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
       <div class="meta-label"><span class="zh on">预估总额</span><span class="en">Estimated budget</span></div>
       <div class="meta-val">RM 14,348</div>
       <div class="meta-sub"><span class="zh on">约 RM 7,174 / 人</span><span class="en">~RM 7,174 / pax</span></div>
-    </div>
-  </div>
-
-  <!-- Decision Visuals Showcase Card -->
-  <div class="decision-charts-card" role="region" aria-label="行程决策图表">
-    <div class="dcc-header">
-      <div class="dcc-badge">决策图表</div>
-      <a href="charts/index.html" class="dcc-all-link">查看全部图表</a>
-    </div>
-    <h2 class="dcc-title">
-      <span class="zh on">四张决策图表</span>
-      <span class="en">Four decision charts</span>
-    </h2>
-    <p class="dcc-desc">
-      <span class="zh on">以单位分解与诚实契约替代文字堆叠，专为长辈同行控载与关键决策设计。点击任一图表可直接查看高清大图：</span>
-      <span class="en">Intuitive, responsive decision charts designed for pacing, Fuji timing, return routes, and budget. Click any card to view:</span>
-    </p>
-    <div class="dcc-grid">
-      <a href="charts/pacing-curve.html" class="dcc-item">
-        <div class="dcc-item-body">
-          <div class="dcc-item-title"><span class="zh on">10天体力波浪曲线</span><span class="en">10-Day Pacing Curve</span></div>
-          <div class="dcc-item-sub"><span class="zh on">D7 达峰 14.1k 步与连休降载避峰</span><span class="en">D7 Peak 13.5k Steps & Holiday Rest</span></div>
-        </div>
-      </a>
-      <a href="charts/fuji-visibility.html" class="dcc-item">
-        <div class="dcc-item-body">
-          <div class="dcc-item-title"><span class="zh on">富士山能见度与顺光</span><span class="en">Fuji Visibility Window</span></div>
-          <div class="dcc-item-sub"><span class="zh on">06:00–11:30 黄金窗 · 正午 28% 低谷</span><span class="en">06:00–11:30 Golden Driving Window</span></div>
-        </div>
-      </a>
-      <a href="charts/haneda-options.html" class="dcc-item">
-        <div class="dcc-item-body">
-          <div class="dcc-item-title"><span class="zh on">羽田返程 4 方案比价</span><span class="en">Haneda 4 Return Options</span></div>
-          <div class="dcc-item-sub"><span class="zh on">¥1,618 直通 vs ¥14,500 深夜跳表打车</span><span class="en">¥1,618 Transit vs ¥14,500 Taxi</span></div>
-        </div>
-      </a>
-      <a href="charts/budget-allocation.html" class="dcc-item">
-        <div class="dcc-item-body">
-          <div class="dcc-item-title"><span class="zh on">旅费 100% 百人点阵</span><span class="en">Budget 100-Dot Breakdown</span></div>
-          <div class="dcc-item-sub"><span class="zh on">2人 RM 14,348 · 62% 出发前已锁定</span><span class="en">RM 14,348 Total · 62% Pre-locked</span></div>
-        </div>
-      </a>
     </div>
   </div>
 
@@ -2779,7 +2708,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
     <div class="day-body" id="body-day-5">
       <div class="note-box tip" style="margin-bottom:14px;">
         <strong>清晨最容易看到富士山</strong>
-        <span>清晨 06:00–08:00 历史晴空露脸概率达 82%–88%，正午骤降至 28%。<a href="charts/fuji-visibility.html" target="_blank">查看「富士山全天能见度与自驾顺光窗口折线图」</a> 把握 11:30 前黄金顺光。</span>
+        <span>清晨 06:00–08:00 历史晴空露脸概率达 82%–88%，正午骤降至 28%。把握 11:30 前黄金顺光。</span>
       </div>
       <div class="day-banner-wrap">
         <img src="img/illo/day-5.svg" class="day-banner" alt="赤富士：清晨被朝阳染红的富士山" loading="lazy" decoding="async"/>
@@ -3078,7 +3007,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
     <div class="day-body" id="body-day-6">
       <div class="note-box tip" style="margin-bottom:10px;">
         <strong>今天走得最多</strong>
-        <span>上午蓝瓶坐 90 分钟，下午巴士坐 60 分钟；逛街就在巴士上车点旁边，不用赶车。<a href="charts/pacing-curve.html" target="_blank">看 10 天强度曲线</a></span>
+        <span>上午蓝瓶坐 90 分钟，下午巴士坐 60 分钟；逛街就在巴士上车点旁边，不用赶车。</span>
       </div>
       <div class="note-box warn" style="margin-bottom:10px;">
         <strong>15:20 巴士绝对不能错过</strong>
@@ -4172,7 +4101,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
         </div>
         <div class="note-box tip" style="margin:12px 0 16px;">
           <strong>羽田怎么去：4 个方案比价</strong>
-          <span>从 ¥1,618（公车＋浅草线）到 ¥14,500（深夜跳表）。<a href="charts/haneda-options.html" target="_blank">看 4 个方案的费用与体力对比图</a></span>
+          <span>从 ¥1,618（公车＋浅草线）到 ¥14,500（深夜跳表）。</span>
         </div>
         <div class="tl-item">
           <div class="tl-icon"></div>
@@ -4435,7 +4364,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
   <div class="card">
     <div class="note-box tip" style="margin-bottom:14px;">
       <strong>预算视觉化决策：</strong>
-      <span>2 人旅费总额约 RM 14,348，其中约 62%（机票+住宿）出发前已提前锁定。<a href="charts/budget-allocation.html" target="_blank">查看「旅费 100% 百人点阵分解图」↗</a> 1 点 = 1% 旅费，清楚透视每笔开支占比。</span>
+      <span>2 人旅费总额约 RM 14,348，其中约 62%（机票+住宿）出发前已提前锁定。</span>
     </div>
     <h3><span class="zh on">8.1 固定支出 (已确定 / 预估)</span><span class="en">Fixed Expenses</span></h3>
     <div class="b-row"><span>HK Express 槟城往返机票 (Essential 2人)</span><span>RM 5,208</span></div>
@@ -6273,6 +6202,6 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 })();
 </script>
-<script src="tabbar.js?v=7" defer></script>
+<script src="tabbar.js?v=8" defer></script>
 </body>
 </html>

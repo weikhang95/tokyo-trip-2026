@@ -8,7 +8,7 @@
 - `companion.html` 攻略：**主页**（装到手机桌面的 App 打开就是它；底栏「攻略」= `?view=time`，「地图」= `?view=map`）。十天是十章：出发前和回家后打开是目录（`#toc`），旅行中直接进今天那一章（`#D6`）。
 - `index.html` 背包（底栏「背包」）：航班、住宿、交通、河口湖、订票与待办、预算、提醒，一类一页（`#flights`、`#booking`…）。**这里没有每天的行程**；旧的 `#day-6` 链接会跳到攻略第六章。
 - `tabbar.js` / `tabbar.css` 底栏两页共用（攻略 | 地图 | 背包 | 待办 | 更多）；`trip-details.js` 两页共用的卡片细节（地铁线路色标、电梯／洗手间／座位图示）；`sw.js` 离线缓存。
-- 每一章的数据在 `companion.html` 的 `DAYS` 数组（第 8 章的四个方案在 `DAY8_OPTIONS`）：
+- 每一章的数据在 `companion.html` 的 `DAYS` 数组（第 8 章镰仓写在 `DAY8_OPTIONS.kamakura`）：
   - 章：`chapter` 短名（题签、胶囊）、`goal` 本章目标、`intensity` 强度（开头写 低/中低/中/高强度，决定体力格数）、`gear` 要带的东西、`deadline` 错过就作废的钟点（巴士、还车）、`rain` 雨天攻略（`sum` 一句话 + `tiers` 分档）。
   - 站（`nodes`）：`short` 路线条上的短名、`key` 要点（`!` 开头 = 金色警示）、`more` 收起的详情、`rest` 歇脚（例如「坐 90 分钟」）、`branch` 分支（`{ q, opts: [[如果, 就]] }`）、`eggs` 彩蛋（`{ t, d }`）、`cards` 点餐卡（`ORDER_CARDS` 里的键）、`hero: true` = 必看（红色）。
   - 「如果…就…」的备案写进 `branch`，不要埋在 `more` 里；整天的下雨方案写进章的 `rain`。

@@ -81,7 +81,9 @@ Q27 decided (2026-09-29): keep the 10/7 Tokyo evening as written (红砖站舍 �
 
 - Day 4 (10/6) decided 2026-09-30: 忍野八海 13:30–14:35 (about 60 min, up from 40), 山中湖全景台 15:00–15:35 (35 min, down from 40), 大石公园 from about 16:25 (still about 35 min before the sun drops behind the western ridge at 17:00–17:10).
 
-**Still to grill:** 歌舞伎町 night view, loose ends.
+- 歌舞伎町 night view: dropped 2026-09-30 (only 10/8 fits, +20 min home with 2 transfers, same night already has SHIBUYA SKY). Daytime Godzilla head shot added to the 10/8 bus wait (about 180 m from the stop). The user wants to keep the 10/9 after-dinner Sapporo THE BAR; it is on the way (浅草线 2 stops, then 日比谷线 direct home).
+
+**Still to grill:** loose ends.
 
 ## Loose ends found during the grill
 

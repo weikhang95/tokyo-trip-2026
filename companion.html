@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>东京 · 随身行程与地图助手 (Tokyo Companion)</title>
+<title>攻略 · 东京 · 河口湖 2026</title>
 <meta name="theme-color" content="#F7F5F0" />
 <link rel="manifest" href="manifest.json" />
 <link rel="apple-touch-icon" href="icons/icon-180.png" />
@@ -48,6 +48,7 @@ try {
     --ease: cubic-bezier(.2, 0, 0, 1);
     --bar-bg: rgba(247, 245, 240, 0.96);
     --pin-ring: #FFFFFF;
+    --serif: 'Noto Serif SC', 'Songti SC', serif;
   }
   /* 深色：与手册 index.html 的深色色值一致 */
   /* 底栏一直盖在页底（手机 57px；宽屏浮起 16px）：键盘 Tab 到页底的站点时让开它 */
@@ -136,7 +137,7 @@ try {
   /* 昼 / 夜 切换 */
   /* 顶栏和资料页同一种样子：左边衬线站名，右边昼夜。手机上「行程／地图」在底栏，视图切换只在宽屏出现 */
   .bar-brand { font-family: 'Noto Serif SC', 'Songti SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: .02em; white-space: nowrap; }
-  /* 页名：这一页写「日程」，资料页写「资料」 */
+  /* 页名：这一页写「攻略」，资料页写「背包」 */
   .page-tag { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 99px; background: var(--ai-soft); color: var(--ai); font-family: 'Inter', 'Noto Sans SC', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: .04em; vertical-align: 2px; }
   .bar-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
   @media (max-width: 640px) { .view-toggles { display: none; } }
@@ -180,10 +181,6 @@ try {
      上 7px / 下 9px（从 1px 边框里面算）刚好落在日期栏的内边距里，不会让它多出竖向滚动 */
   .day-pill { position: relative; }
   .day-pill::after { content: ""; position: absolute; inset: -7px 0 -9px; }
-  .day-pill .dp-tag {
-    font-size: 11px;
-    font-weight: 600;
-  }
   .day-pill.active {
     background: var(--ai);
     color: var(--on-ai);
@@ -327,7 +324,7 @@ try {
     overflow: hidden;
   }
   /* 当天的插画（和资料页同一套 img/illo/），贴满卡片顶部；地面在底部，所以从底部对齐 */
-  .hero-illo { margin: -14px -16px 12px; aspect-ratio: 800 / 260; max-height: 170px; background: var(--chip-bg); } /* 手机上整张画刚好放下，不裁；宽屏最高 170px */
+  .hero-illo { margin: -14px -16px 12px; height: min(170px, calc((100vw - 30px) * .325)); background: var(--chip-bg); } /* 手机上整张画刚好放下（800:260），宽屏最高 170px、裁掉天空；不用 aspect-ratio + max-height，那样宽屏会把画挤窄 */
   .hero-illo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center bottom; }
   html[data-theme="dark"] .hero-illo img { filter: brightness(.8) saturate(.9); }
   .hero-count {
@@ -340,14 +337,6 @@ try {
     gap: 8px;
     margin-bottom: 6px;
     flex-wrap: wrap;
-  }
-  .hero-pacing {
-    font-size: 12px;
-    font-weight: 700;
-    padding: 2px 8px;
-    border-radius: 99px;
-    background: var(--chip-bg);
-    color: var(--muted);
   }
   .hero-title {
     font-size: 17px;
@@ -390,31 +379,6 @@ try {
   .hero-deadline[hidden] { display: none; }
   .hd-what { font-size: 14px; font-weight: 800; line-height: 1.4; color: var(--ink); text-wrap: pretty; word-break: keep-all; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
   .hd-left { font-size: 12px; font-weight: 700; color: var(--kin); white-space: nowrap; font-variant-numeric: tabular-nums; }
-  /* 概要默认收起：路线已在标题里，逐站细节在下面的时间轴 */
-  .hero-more > summary {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    min-height: 44px;
-    margin: -6px 0 -8px;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--ai);
-    cursor: pointer;
-    list-style: none;
-  }
-  .hero-more > summary::-webkit-details-marker { display: none; }
-  .hero-more > summary::after {
-    content: "";
-    width: 6px; height: 6px;
-    border: solid currentColor;
-    border-width: 0 1.5px 1.5px 0;
-    rotate: 45deg;
-    translate: 0 -.15em;
-    transition: rotate .2s var(--ease), translate .2s var(--ease);
-  }
-  .hero-more[open] > summary::after { rotate: 225deg; translate: 0 .15em; }
-  .hero-more > summary:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; border-radius: 4px; }
   .hero-desc {
     font-size: 14px;
     color: var(--muted);
@@ -423,9 +387,7 @@ try {
     text-wrap: pretty;
   }
   .hero-transit {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+    display: block;
     font-size: 13px;
     font-weight: 500;
     line-height: 1.6;
@@ -695,25 +657,6 @@ try {
   .node-more ul { gap: 6px; margin-bottom: 8px; }
   .node-more strong { font-weight: 700; }
 
-  /* ── Bottom Floating Quick Action ── */
-  .role-note {
-    margin: 20px 0 8px;
-    padding: 16px 18px;
-    background: var(--ai-soft);
-    border: 1px solid var(--grid);
-    border-radius: var(--radius);
-  }
-  .role-note h2 { margin: 0 0 8px; font-size: 15px; font-weight: 800; color: var(--ink); text-wrap: balance; }
-  .role-note p { margin: 0 0 8px; font-size: 13px; line-height: 1.7; color: var(--muted); text-wrap: pretty; }
-  .role-note p:last-of-type { margin-bottom: 12px; }
-  .role-link {
-    display: inline-flex; align-items: center; min-height: 44px;
-    padding: 0 16px; border-radius: 99px;
-    background: var(--ai); color: var(--on-ai);
-    font-size: 13px; font-weight: 700; text-decoration: none;
-  }
-
-
   /* ── 小动效：用 Phosphor 同一图标的不同字重表达状态，形状不变只换墨量 ──
      电脑（能悬停）：悬停一站，交通图标浮出 Duotone 底色；导航箭头往右上探一下；日落图标的太阳先沉下去给你看。
      手机（点按）：按住时同样浮出底色；「现在」那一站的圆点慢慢呼吸；换天时太阳从高处落到此刻的位置。
@@ -768,6 +711,242 @@ try {
     .node-card:hover .sun-chip[data-kind="rise"] .sun-disc { translate: 0 calc((var(--sun-y) - 30) * 1px); }
   }
 
+  /* ══ 攻略：把 10 天当成一本 10 章的攻略本 ══
+     目录（章节选择）→ 每章封面（题签＋简报＋路线条）→ 逐站卡片（分支、彩蛋、歇脚）→ 章末（下一章）。
+     颜色照旧：靛蓝＝能点、主色；红＝今天、必看；金＝限时、警示；抹茶绿＝歇脚（让妈妈坐下来的地方）。 */
+  .day-row { display: flex; align-items: center; max-width: 900px; margin: 0 auto; }
+  .day-row .day-scroll {
+    flex: 1; min-width: 0; margin: 0; padding-left: 8px;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10px, #000 calc(100% - 20px), transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 10px, #000 calc(100% - 20px), transparent);
+  }
+  .toc-btn {
+    position: relative; flex: none; display: inline-flex; align-items: center; gap: 4px;
+    margin: 6px 0 10px 12px; padding: 6px 10px; border: 1px solid var(--grid); border-radius: 99px;
+    background: var(--paper); color: var(--ink); font: inherit; font-size: 12px; font-weight: 800; cursor: pointer;
+    transition: background-color .15s var(--ease), color .15s var(--ease), border-color .15s var(--ease), scale .1s var(--ease);
+  }
+  .toc-btn .ph { width: 1.25em; height: 1.25em; }
+  .toc-btn::after { content: ""; position: absolute; inset: -7px -4px -9px; }
+  .toc-btn:active { scale: .96; }
+  .toc-btn[aria-pressed="true"] { background: var(--ai); color: var(--on-ai); border-color: var(--ai); }
+  .toc-btn:focus-visible, .day-pill:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
+  .dp-no { font-family: var(--serif); font-weight: 700; font-variant-numeric: tabular-nums; }
+  /* 今天那一章：胶囊右上一个红点（红色只给「今天」） */
+  .dp-today { width: 6px; height: 6px; border-radius: 50%; background: var(--shu); margin-left: 1px; }
+  .day-pill.active .dp-today { background: var(--on-ai); }
+
+  /* ── 目录 ── */
+  .toc[hidden] { display: none; }
+  .toc-cover {
+    background: var(--card-bg); border: 1px solid var(--grid); border-radius: var(--radius);
+    box-shadow: var(--shadow); overflow: hidden; margin-bottom: 14px;
+  }
+  .toc-cover-art { height: min(200px, calc((100vw - 30px) * .325)); background: var(--chip-bg); }
+  .toc-cover-art img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center bottom; }
+  html[data-theme="dark"] .toc-cover-art img, html[data-theme="dark"] .toc-art img, html[data-theme="dark"] .ch-next-art img { filter: brightness(.8) saturate(.9); }
+  .toc-cover-body { padding: 14px 16px 16px; }
+  .toc-kicker { font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: .04em; font-variant-numeric: tabular-nums; }
+  .toc-title { font-family: var(--serif); font-size: 26px; font-weight: 700; line-height: 1.25; letter-spacing: .02em; margin: 4px 0 12px; text-wrap: balance; }
+  /* 十格进度：走过的章淡靛蓝，今天红，没到的灰 */
+  .toc-rail { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; margin-bottom: 12px; }
+  .toc-rail i { height: 6px; border-radius: 3px; background: var(--grid); }
+  .toc-rail i.past { background: color-mix(in srgb, var(--ai) 45%, transparent); }
+  .toc-rail i.today { background: var(--shu); }
+  .toc-go {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; min-height: 48px;
+    padding: 8px 14px; border: 0; border-radius: 12px; background: var(--ai); color: var(--on-ai);
+    font: inherit; font-size: 14px; font-weight: 800; text-align: left; cursor: pointer; transition: scale .1s var(--ease);
+  }
+  .toc-go:active { scale: .98; }
+  .toc-go .ph { width: 1.2em; height: 1.2em; }
+  .toc-go small { display: block; font-size: 12px; font-weight: 700; opacity: .85; font-variant-numeric: tabular-nums; }
+  .toc-go:focus-visible, .toc-ch:focus-visible, .ch-next:focus-visible, .ch-nav button:focus-visible, .rs-btn:focus-visible, .brief-go:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
+  .toc-pro {
+    display: flex; align-items: center; gap: 10px; min-height: 56px; margin: 0 0 10px; padding: 10px 14px;
+    border: 1px dashed var(--grid); border-radius: 14px; color: var(--ink); text-decoration: none;
+    transition: background-color .15s var(--ease);
+  }
+  @media (hover: hover) { .toc-pro:hover { background: var(--ai-soft); } }
+  .toc-pro .ph { width: 1.3em; height: 1.3em; color: var(--ai); flex: none; }
+  .toc-pro b { display: block; font-family: var(--serif); font-size: 15px; }
+  .toc-pro span { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+  .toc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .toc-ch {
+    display: grid; grid-template-columns: 108px 1fr; width: 100%; padding: 0;
+    border: 1px solid var(--grid); border-radius: 14px; background: var(--card-bg); box-shadow: var(--shadow);
+    overflow: hidden; color: inherit; font: inherit; text-align: left; cursor: pointer;
+    transition: scale .15s var(--ease), border-color .15s var(--ease);
+  }
+  .toc-ch:active { scale: .99; }
+  .toc-art { position: relative; min-height: 104px; background: var(--chip-bg); }
+  .toc-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 72% bottom; }
+  /* 走过的章：画褪一点色，像读过的书页；文字照样清楚 */
+  .toc-ch.is-past .toc-art img { filter: grayscale(.7) opacity(.75); }
+  .toc-num {
+    position: absolute; top: 6px; left: 6px; min-width: 26px; padding: 3px 5px; border-radius: 4px;
+    background: var(--paper); color: var(--ink); font-family: var(--serif); font-size: 15px; font-weight: 700; line-height: 1.2; text-align: center;
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 30%, transparent);
+  }
+  .toc-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; padding: 10px 12px 11px; }
+  .toc-no { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .toc-today { padding: 0 6px; border-radius: 99px; background: var(--shu-soft); color: var(--shu-ink); font-size: 11px; font-weight: 800; line-height: 1.6; }
+  .toc-name { font-family: var(--serif); font-size: 18px; font-weight: 700; line-height: 1.3; }
+  .toc-route {
+    font-size: 12.5px; line-height: 1.5; color: var(--muted); word-break: keep-all; overflow-wrap: anywhere;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .toc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin-top: 4px; font-size: 12px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .toc-dl { color: var(--kin); }
+  .toc-ch.is-today { border-color: var(--shu); box-shadow: 0 0 0 1px var(--shu), var(--shadow); }
+
+  /* ── 章节封面：插画左上角贴一张「题签」，像线装书封面 ── */
+  .hero-illo { position: relative; }
+  .slip {
+    position: absolute; top: 8px; left: 12px;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    padding: 6px 4px 7px; min-width: 30px;
+    background: var(--paper); color: var(--ink);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 55%, transparent), inset 0 0 0 2px var(--paper), inset 0 0 0 3px color-mix(in srgb, var(--ink) 22%, transparent), 0 2px 6px rgba(0, 0, 0, .12);
+    font-family: var(--serif); font-weight: 700; line-height: 1;
+  }
+  .slip b { font-size: 18px; }
+  .slip span { writing-mode: vertical-rl; font-size: 12px; letter-spacing: .1em; color: var(--muted); padding-top: 3px; border-top: 1px solid var(--grid); }
+  .ch-line { font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: .04em; font-variant-numeric: tabular-nums; }
+
+  /* ── 本章简报：出发前、当天第一站开始前是展开的；走起来以后收成一行 ── */
+  .brief { margin: 8px 0 0; border-top: 1px solid var(--grid); }
+  .brief > summary {
+    display: flex; align-items: center; gap: 8px; min-height: 44px; cursor: pointer; list-style: none;
+    font-size: 13px; font-weight: 800; color: var(--ink);
+  }
+  .brief > summary::-webkit-details-marker { display: none; }
+  .brief > summary::after {
+    content: ""; flex: none; width: 6px; height: 6px; margin-left: auto; border: solid var(--muted); border-width: 0 1.5px 1.5px 0;
+    rotate: 45deg; translate: 0 -.15em; transition: rotate .2s var(--ease), translate .2s var(--ease);
+  }
+  .brief[open] > summary::after { rotate: 225deg; translate: 0 .15em; }
+  .brief > summary:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; border-radius: 4px; }
+  .brief-peek { font-size: 12px; font-weight: 700; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .brief-list { display: grid; grid-template-columns: auto 1fr; gap: 9px 12px; margin: 0 0 12px; font-size: 14px; line-height: 1.55; }
+  .brief-list dt { padding-top: 1px; font-size: 12px; font-weight: 800; color: var(--muted); letter-spacing: .06em; white-space: nowrap; }
+  .brief-list dd { margin: 0; min-width: 0; text-wrap: pretty; font-variant-numeric: tabular-nums; }
+  .bl-row { display: contents; }
+  .brief-goal { font-weight: 700; }
+  .stamina { display: inline-flex; gap: 2px; margin-right: 6px; vertical-align: -1px; }
+  .stamina i { width: 10px; height: 10px; border-radius: 2px; background: var(--grid); }
+  .stamina i.on { background: var(--ai); }
+  .gear { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
+  .gear li { padding: 2px 9px; border-radius: 8px; background: var(--chip-bg); font-size: 13px; line-height: 1.6; }
+  .brief-links { display: flex; flex-wrap: wrap; gap: 4px 6px; }
+  .brief-go {
+    position: relative; display: inline-flex; align-items: center; gap: 4px; min-height: 28px; padding: 0 9px;
+    border: 0; border-radius: 99px; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer;
+    background: var(--ai-soft); color: var(--ai); transition: scale .1s var(--ease);
+  }
+  .brief-go::after { content: ""; position: absolute; inset: -8px 0; }
+  .brief-go:active { scale: .96; }
+  .brief-go .ph { width: 1.1em; height: 1.1em; }
+  .brief-go.rest { background: var(--matcha-soft); color: var(--matcha); }
+  .brief-go small { font-size: 12px; font-weight: 700; opacity: .8; }
+
+  /* ── 路线条：整章一眼看完，走过的一段变靛蓝，点一站跳过去 ── */
+  .route-strip {
+    margin: 2px -16px 0; padding: 2px 16px 4px; overflow-x: auto; scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 16px, #000 calc(100% - 28px), transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 16px, #000 calc(100% - 28px), transparent);
+  }
+  .route-strip::-webkit-scrollbar { display: none; }
+  .route-strip ol { display: flex; width: max-content; list-style: none; margin: 0; padding: 0; }
+  .rs-stop { position: relative; flex: none; width: 60px; }
+  .rs-stop + .rs-stop::before { content: ""; position: absolute; top: 16px; left: -30px; width: 60px; height: 2px; background: var(--grid); }
+  .rs-stop.is-past + .rs-stop::before { background: color-mix(in srgb, var(--ai) 45%, transparent); }
+  .rs-btn {
+    position: relative; display: flex; flex-direction: column; align-items: center; gap: 3px; width: 100%; padding: 0 0 2px;
+    border: 0; background: none; color: var(--ink); font: inherit; cursor: pointer;
+  }
+  .rs-ico {
+    position: relative; z-index: 1; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+    background: var(--card-bg); color: var(--ai); box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--ai) 30%, transparent);
+    transition: scale .1s var(--ease), background-color .2s var(--ease), color .2s var(--ease);
+  }
+  .rs-btn:active .rs-ico { scale: .92; }
+  .rs-ico svg { width: 17px; height: 17px; }
+  .rs-stop.hero .rs-ico { color: var(--shu); box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--shu) 35%, transparent); }
+  .rs-stop.is-past .rs-ico { background: var(--chip-bg); color: var(--muted); box-shadow: none; }
+  .rs-stop.is-now .rs-ico { background: var(--ai); color: var(--on-ai); box-shadow: 0 0 0 3px var(--ai-soft); }
+  .rs-stop.rest .rs-ico::after { content: ""; position: absolute; right: -1px; bottom: -1px; width: 10px; height: 10px; border-radius: 50%; background: var(--matcha); box-shadow: 0 0 0 2px var(--card-bg); }
+  .rs-name { max-width: 58px; font-size: 11.5px; font-weight: 700; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rs-time { font-size: 11px; line-height: 1.2; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .rs-stop.is-now .rs-name { color: var(--ai); }
+
+  /* ── 逐站卡片：歇脚、分支、彩蛋 ── */
+  .rest-chip { display: inline-flex; align-items: center; gap: 3px; padding: 0 7px; border-radius: 99px; background: var(--matcha-soft); color: var(--matcha); font-size: 12px; font-weight: 800; line-height: 1.6; }
+  .rest-chip .ph { width: 1.15em; height: 1.15em; }
+  .branch { margin: 8px 0 4px; padding: 8px 10px 9px; border-radius: 10px; background: var(--chip-bg); }
+  .branch + .branch { margin-top: 6px; }
+  .br-q { display: flex; align-items: center; gap: 5px; margin: 0 0 5px; font-size: 12.5px; font-weight: 800; color: var(--ink); }
+  .br-q .ph { width: 1.2em; height: 1.2em; color: var(--ai); }
+  .branch ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+  .branch li { display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 8px; font-size: 13.5px; line-height: 1.55; text-wrap: pretty; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+  .br-if { padding: 0 7px; border-radius: 6px; background: var(--card-bg); color: var(--ai); font-size: 12px; font-weight: 800; line-height: 1.7; white-space: nowrap; }
+  .egg { display: flex; gap: 6px; margin: 6px 0 2px; font-size: 13.5px; line-height: 1.55; text-wrap: pretty; }
+  .egg .ph { flex: none; width: 1.1em; height: 1.1em; margin-top: .22em; color: var(--ai); }
+  .egg b { font-weight: 800; }
+
+  /* ── 雨天攻略（整章的下雨方案，章末一张卡） ── */
+  .rain-card { margin: 4px 0 16px; background: var(--card-bg); border: 1px solid var(--grid); border-radius: 14px; box-shadow: var(--shadow); padding: 0 14px; }
+  .rain-card[hidden] { display: none; }
+  .rain-card > summary { display: flex; align-items: center; gap: 8px; min-height: 52px; list-style: none; cursor: pointer; }
+  .rain-card > summary::-webkit-details-marker { display: none; }
+  .rain-card > summary .ph { width: 1.3em; height: 1.3em; color: var(--ai); flex: none; }
+  .rain-card > summary b { font-size: 15px; font-weight: 800; }
+  .rain-card > summary span { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+  .rain-card > summary:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; border-radius: 8px; }
+  .rain-body { padding: 0 0 12px; }
+  .rain-body h3 { margin: 10px 0 4px; font-size: 13.5px; font-weight: 800; color: var(--ink); }
+  .rain-body ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; font-size: 14px; line-height: 1.6; text-wrap: pretty; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+  .rain-body li { position: relative; padding-left: 14px; }
+  .rain-body li::before { content: ""; position: absolute; left: 2px; top: .68em; width: 5px; height: 5px; border-radius: 50%; background: var(--muted); }
+
+  /* ── 章末：第 N 章 · 完，接下一章 ── */
+  .ch-end { margin: 8px 0 8px; }
+  .ch-end-mark { display: flex; align-items: center; gap: 12px; margin: 0 0 4px; font-family: var(--serif); font-size: 15px; font-weight: 700; color: var(--muted); letter-spacing: .12em; }
+  .ch-end-mark::before, .ch-end-mark::after { content: ""; flex: 1; height: 1px; background: var(--grid); }
+  .ch-end-sum { margin: 0 0 12px; text-align: center; font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .ch-next {
+    display: grid; grid-template-columns: 96px 1fr auto; align-items: center; width: 100%; padding: 0 12px 0 0;
+    border: 1px solid var(--grid); border-radius: 14px; background: var(--card-bg); box-shadow: var(--shadow);
+    overflow: hidden; color: inherit; font: inherit; text-align: left; cursor: pointer; transition: scale .15s var(--ease);
+  }
+  .ch-next:active { scale: .99; }
+  .ch-next-art { align-self: stretch; min-height: 84px; position: relative; background: var(--chip-bg); }
+  .ch-next-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 72% bottom; }
+  .ch-next-body { display: flex; flex-direction: column; gap: 1px; min-width: 0; padding: 10px 8px 10px 12px; }
+  .ch-next-k { font-size: 12px; font-weight: 700; color: var(--ai); font-variant-numeric: tabular-nums; }
+  .ch-next-n { font-family: var(--serif); font-size: 16px; font-weight: 700; }
+  .ch-next-t { font-size: 12.5px; color: var(--muted); line-height: 1.45; font-variant-numeric: tabular-nums; word-break: keep-all; overflow-wrap: anywhere; }
+  .ch-next > .ph { width: 1.2em; height: 1.2em; color: var(--muted); }
+  .ch-fin { padding: 14px 16px; border-radius: 14px; background: var(--ai-soft); text-align: center; font-family: var(--serif); font-size: 16px; font-weight: 700; }
+  .ch-nav { display: flex; justify-content: space-between; gap: 8px; margin-top: 8px; }
+  .ch-nav button {
+    display: inline-flex; align-items: center; gap: 4px; min-height: 44px; padding: 0 12px; border: 0; border-radius: 99px;
+    background: none; color: var(--ai); font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; transition: background-color .15s var(--ease);
+  }
+  .ch-nav button .ph { width: 1.1em; height: 1.1em; }
+  @media (hover: hover) { .ch-nav button:hover { background: var(--ai-soft); } }
+  .ch-nav button[hidden] { visibility: hidden; display: inline-flex; }
+
+  /* 目录和地图视图不显示章末、雨天卡；看目录时胶囊不标选中 */
+  body[data-view="toc"] #chEnd, body[data-view="toc"] #rainCard, body[data-view="map"] #chEnd, body[data-view="map"] #rainCard { display: none; }
+  body[data-view="toc"] .day-pill.active { background: var(--paper); color: var(--muted); border-color: var(--grid); box-shadow: none; }
+  body[data-view="toc"] .day-pill.active .dp-today { background: var(--shu); }
+
+  /* 换章：封面和路线轻轻浮上来（只在首屏之后、你点了换章才播） */
+  html[data-motion="ready"] .ch-enter { animation: ch-in .24s cubic-bezier(.2, 0, 0, 1) both; }
+  html[data-motion="ready"] .ch-enter + .ch-enter { animation-delay: .04s; }
+  @keyframes ch-in { from { opacity: 0; translate: 0 6px; } }
+
   /* 减少动态：与手册 index.html 同一条规则，过渡与动画一律瞬间完成 */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
@@ -793,24 +972,30 @@ try {
 <!-- ── Sticky Top Bar ── -->
 <header class="top-bar">
   <div class="bar-main">
-    <span class="bar-brand">东京 · 河口湖 2026<span class="page-tag">日程</span></span>
+    <span class="bar-brand">东京 · 河口湖 2026<span class="page-tag">攻略</span></span>
     <div class="bar-right">
       <div class="view-toggles" role="group" aria-label="视图模式">
         <button class="view-btn active" id="btn-split" onclick="setViewMode('split')" aria-pressed="true">分屏</button>
-        <button class="view-btn" id="btn-time" onclick="setViewMode('time')" aria-pressed="false">行程</button>
+        <button class="view-btn" id="btn-time" onclick="setViewMode('time')" aria-pressed="false">攻略</button>
         <button class="view-btn" id="btn-map" onclick="setViewMode('map')" aria-pressed="false">地图</button>
       </div>
       <button class="theme-btn" id="theme-toggle" type="button" onclick="toggleTheme()" aria-label="夜 · 切换深色模式">夜</button>
     </div>
   </div>
 
-  <!-- Day Selector Pills -->
-  <div class="day-scroll" id="dayPills">
-    <!-- Populated by JS -->
+  <!-- 目录 ＋ 十章胶囊 -->
+  <div class="day-row">
+    <button type="button" class="toc-btn" id="tocBtn" aria-pressed="false" onclick="showToc(true)"></button>
+    <div class="day-scroll" id="dayPills">
+      <!-- Populated by JS -->
+    </div>
   </div>
 </header>
 
 <main class="content-wrap" id="main">
+  <!-- 目录：出发前、旅程结束后打开网站先看到这里；旅行中直接进今天那一章 -->
+  <section class="toc" id="toc" hidden aria-label="目录"></section>
+
   <!-- Interactive Map -->
   <section class="map-card" id="mapCard">
     <div class="map-header">
@@ -834,12 +1019,11 @@ try {
     <!-- Populated by JS -->
   </div>
 
-  <!-- 两份文件的分工 -->
-  <section class="role-note">
-    <h2>想知道为什么这样排？</h2>
-        <p>每一站的理由、备选方案、票订了没、钱怎么花，都在底栏「资料」里。</p>
-    <a class="role-link to-handbook" href="index.html">看这一天的完整说明</a>
-  </section>
+  <!-- 雨天攻略：整章的下雨方案 -->
+  <details class="rain-card" id="rainCard" hidden></details>
+
+  <!-- 章末：第 N 章 · 完，接下一章 -->
+  <section class="ch-end" id="chEnd"></section>
 </main>
 
 <!-- Floating Action Bar -->
@@ -858,6 +1042,15 @@ const PH = {
   walk: '<path d="M152,80a32,32,0,1,0-32-32A32,32,0,0,0,152,80Zm0-48a16,16,0,1,1-16,16A16,16,0,0,1,152,32Zm64,112a8,8,0,0,1-8,8c-35.31,0-52.95-17.81-67.12-32.12-2.74-2.77-5.36-5.4-8-7.84l-13.43,30.88,37.2,26.57A8,8,0,0,1,160,176v56a8,8,0,0,1-16,0V180.12l-31.07-22.2L79.34,235.19A8,8,0,0,1,72,240a7.84,7.84,0,0,1-3.19-.67,8,8,0,0,1-4.15-10.52l54.08-124.37c-9.31-1.65-20.92,1.2-34.7,8.58a163.88,163.88,0,0,0-30.57,21.77,8,8,0,0,1-10.95-11.66c2.5-2.35,61.69-57.23,98.72-25.08,3.83,3.32,7.48,7,11,10.57C166.19,122.7,179.36,136,208,136A8,8,0,0,1,216,144Z"/>',
   nav: '<path d="M237.33,106.21,61.41,41l-.16-.05A16,16,0,0,0,40.9,61.25a1,1,0,0,0,.05.16l65.26,175.92A15.77,15.77,0,0,0,121.28,248h.3a15.77,15.77,0,0,0,15-11.29l.06-.2,21.84-78,78-21.84.2-.06a16,16,0,0,0,.62-30.38ZM149.84,144.3a8,8,0,0,0-5.54,5.54L121.3,232l-.06-.17L56,56l175.82,65.22.16.06Z"/>',
   phone: '<path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/>',
+  // 攻略页用到的：彩蛋、雨天、目录、歇脚、分支、翻章、背包
+  sparkle: '<path d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144ZM144,40a8,8,0,0,1,8-8h16V16a8,8,0,0,1,16,0V32h16a8,8,0,0,1,0,16H184V64a8,8,0,0,1-16,0V48H152A8,8,0,0,1,144,40ZM248,88a8,8,0,0,1-8,8h-8v8a8,8,0,0,1-16,0V96h-8a8,8,0,0,1,0-16h8V72a8,8,0,0,1,16,0v8h8A8,8,0,0,1,248,88Z"/>',
+  umbrella: '<path d="M240,126.63A112.44,112.44,0,0,0,51.75,53.75a111.56,111.56,0,0,0-35.7,72.88A16,16,0,0,0,32,144h88v56a32,32,0,0,0,64,0,8,8,0,0,0-16,0,16,16,0,0,1-32,0V144h88a16,16,0,0,0,16-17.37ZM32,128l0,0a96.15,96.15,0,0,1,76.2-85.89C96.48,58,81.85,86.11,80.17,128Zm64.15,0c1.39-30.77,10.53-52.81,18.3-66.24A106.44,106.44,0,0,1,128,43.16a106.31,106.31,0,0,1,13.52,18.6C154.8,84.7,159,109.28,159.82,128Zm79.65,0c-1.68-41.89-16.31-70-28-85.94A96.07,96.07,0,0,1,224,128Z"/>',
+  list: '<path d="M80,64a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H88A8,8,0,0,1,80,64Zm136,56H88a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Zm0,64H88a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16ZM44,52A12,12,0,1,0,56,64,12,12,0,0,0,44,52Zm0,64a12,12,0,1,0,12,12A12,12,0,0,0,44,116Zm0,64a12,12,0,1,0,12,12A12,12,0,0,0,44,180Z"/>',
+  armchair: '<path d="M216,88.8V72a40,40,0,0,0-40-40H80A40,40,0,0,0,40,72V88.8a40,40,0,0,0,0,78.4V200a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V167.2a40,40,0,0,0,0-78.4ZM80,48h96a24,24,0,0,1,24,24V88.8A40.07,40.07,0,0,0,168,128H88A40.07,40.07,0,0,0,56,88.8V72A24,24,0,0,1,80,48ZM208.39,152H208a8,8,0,0,0-8,8v40H56V160a8,8,0,0,0-8-8h-.39A24,24,0,1,1,72,128v40a8,8,0,0,0,16,0V144h80v24a8,8,0,0,0,16,0V128a24,24,0,1,1,24.39,24Z"/>',
+  signpost: '<path d="M246,106.65,212.33,69.3A16,16,0,0,0,200.44,64H136V32a8,8,0,0,0-16,0V64H40A16,16,0,0,0,24,80v64a16,16,0,0,0,16,16h80v64a8,8,0,0,0,16,0V160h64.44a16,16,0,0,0,11.89-5.3L246,117.35A8,8,0,0,0,246,106.65ZM200.44,144H40V80H200.44l28.8,32Z"/>',
+  caretR: '<path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/>',
+  caretL: '<path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"/>',
+  backpack: '<path d="M168,40.58V32A24,24,0,0,0,144,8H112A24,24,0,0,0,88,32v8.58A56.09,56.09,0,0,0,40,96V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V96A56.09,56.09,0,0,0,168,40.58ZM112,24h32a8,8,0,0,1,8,8v8H104V32A8,8,0,0,1,112,24Zm56,136H88v-8a8,8,0,0,1,8-8h64a8,8,0,0,1,8,8ZM88,176h48v8a8,8,0,0,0,16,0v-8h16v40H88Zm112,40H184V152a24,24,0,0,0-24-24H96a24,24,0,0,0-24,24v64H56V96A40,40,0,0,1,96,56h64a40,40,0,0,1,40,40V216ZM152,88a8,8,0,0,1-8,8H112a8,8,0,0,1,0-16h32A8,8,0,0,1,152,88Z"/>',
 };
 // Duotone 的 20% 底色层（同一套 Phosphor 的 duotone 字重），平时透明，「现在」这一站和悬停时才浮出来
 const PH_TONE = {
@@ -887,6 +1080,8 @@ let currentDay8OptionKey = 'kamakura'; // 'kamakura', 'kiyosumi', 'kichijoji'
 const DAY8_OPTIONS = {
   kamakura: {
     key: 'kamakura',
+    chapter: "镰仓",
+    goal: "竹林喝抹茶，江之电贴海走，江之岛看日落和蜡烛祭",
     label: '方案 A · 镰仓 · 江之电 · 江之岛日落（主推）',
     day: 'D8',
     date: '10/10',
@@ -899,6 +1094,7 @@ const DAY8_OPTIONS = {
     nodes: [
       {
         time: '07:20 - 09:03',
+        short: "横须贺线",
         mode: "train",
         name: '东京站地下 B5 月台 → JR 横须贺线【逗子行】★',
         title: "东京站 B5 → JR 横须贺线 → 镰仓",
@@ -916,6 +1112,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '09:10 - 09:20',
+        short: "巴士",
         mode: "bus",
         name: '镰仓站东口 4 のりば → 京急巴士【鎌36／鎌23／鎌24】→ 浄明寺',
         title: "镰仓站东口 → 巴士到浄明寺",
@@ -931,6 +1128,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '09:25 - 10:25',
+        short: "报国寺",
         name: '报国寺「竹之寺」＋ 休耕庵茶席 ★',
         title: "报国寺竹林 ＋ 休耕庵茶席 ★",
         sub: '拝観¥400＋抹茶¥600 · 09:00–16:00 · 抹茶受理到 15:30',
@@ -946,6 +1144,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '10:30 - 11:35',
+        short: "八幡宫",
         name: '鶴岡八幡宮 → 小町通商店街',
         title: "鶴岡八幡宮 → 顺走小町通 ★",
         sub: '八幡宮免费 · 10–3 月 06:00–21:00 · 小町通全长约 360m 全平',
@@ -963,6 +1162,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '11:40 - 12:45',
+        short: "长谷寺",
         mode: "train",
         name: '江之电 镰仓 → 长谷 → 长谷寺',
         title: "江之电 → 长谷寺 看海",
@@ -981,6 +1181,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '12:55 - 13:25',
+        short: "大佛",
         mode: "walk",
         name: '高德院 镰仓大佛',
         title: "镰仓大佛 ★",
@@ -998,6 +1199,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '13:37 - 13:52',
+        short: "江之电",
         mode: "train",
         name: '长谷站 → 江之电【藤沢行】→ 鎌倉高校前',
         title: "长谷 → 江之电贴海段 → 鎌倉高校前",
@@ -1015,6 +1217,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '14:00 - 14:55',
+        short: "ことぶき屋",
         name: 'ことぶき屋 鎌倉高校前店',
         title: "ことぶき屋 靠窗海景午餐 ★",
         sub: '4.8★/171 则 · 11:00–18:30 全年无休 · 出站直走 317m',
@@ -1032,6 +1235,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '15:02 - 16:40',
+        short: "江之岛",
         mode: "train",
         name: '江之电 → 江ノ島站 → 弁天桥 → 江島神社 → エスカー',
         title: "江之岛 · 江島神社 → 坐エスカー上山",
@@ -1051,6 +1255,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '16:40 - 17:35',
+        short: "灯台",
         name: '江の島シーキャンドル（展望灯台）',
         title: "シーキャンドル 相模湾日落 ★",
         cat: 'sight',
@@ -1069,6 +1274,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '17:35 - 18:30',
+        short: "蜡烛祭",
         name: '江の島サムエル・コッキング苑「湘南キャンドル 2026」',
         title: "湘南蜡烛祭首夜 · 1 万支蜡烛 ★",
         sub: '17:00 点灯 · 周六到 21:00 · 庭园平路为主，有长椅',
@@ -1086,6 +1292,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '18:30 - 20:36',
+        short: "回家",
         mode: "train",
         name: '江ノ島站 → 江之电 → 藤泽 崎陽軒 → JR 上野东京线 → 三ノ輪',
         title: "藤泽买崎陽軒便当 → 20:36 到家",
@@ -1106,6 +1313,8 @@ const DAY8_OPTIONS = {
   },
   nezu: {
     key: 'nezu',
+    chapter: "根津",
+    goal: "根津神社千本鸟居，釜竹吃乌冬，看谷中祭神轿，下午回房午睡",
     label: '方案 B · 根津神社与谷中祭（与 D9 重合）',
     day: 'D8',
     date: '10/10',
@@ -1118,6 +1327,7 @@ const DAY8_OPTIONS = {
     nodes: [
       {
         time: '09:30 - 09:45',
+        short: "日暮里",
         mode: "bus",
         name: '门口都08 → 日暮里 → 谷中下坡走到根津神社',
         title: "都08 → 日暮里 → 谷中下坡",
@@ -1130,6 +1340,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '09:45 - 11:00',
+        short: "根津神社",
         name: '根津神社 (300年原装重要文化財古建 & 朱红千本鸟居) ★',
         title: "根津神社 千本鸟居 ★",
         sub: '1706年德川将军造营 · 重要文化财 · 锦鲤神桥',
@@ -1141,6 +1352,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '11:15 - 12:30',
+        short: "釜竹",
         name: '根津老街 → 根津 釜竹 (手打乌冬面) / 百年和食定食 ★',
         title: "根津 釜竹 手打乌冬 ★",
         sub: '步行仅 350m 平路 · 米其林必比登推荐',
@@ -1152,6 +1364,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '12:35 - 14:15',
+        short: "谷中祭",
         name: '谷根千老街散策 → 巧遇一年一度【谷中祭】神轿出巡 ★',
         title: "谷根千老街 → 谷中祭神轿 ★",
         sub: '谷中まつり (10/10–10/11 限定) · 东京本土民间盛典',
@@ -1163,6 +1376,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '14:30 - 15:00',
+        short: "午睡",
         name: '地铁回竜泉公寓 → 深度泡脚大午睡 (彻底回血) ★',
         title: "回公寓午睡",
         sub: '下午早早回巢 · 充沛备战次日深夜返程',
@@ -1176,6 +1390,8 @@ const DAY8_OPTIONS = {
   },
   kiyosumi: {
     key: 'kiyosumi',
+    chapter: "清澄白河",
+    goal: "蓝瓶 1 号店、清澄庭园、深川饭，下午回房养精神",
     label: '方案 C · 清澄白河 (避连休回血)',
     day: 'D8',
     date: '10/10',
@@ -1188,6 +1404,7 @@ const DAY8_OPTIONS = {
     nodes: [
       {
         time: '10:30',
+        short: "蓝瓶",
         name: '清澄白河 · 蓝瓶咖啡 (日本1号店)',
         title: "清澄白河 蓝瓶咖啡 日本 1 号店",
         sub: 'Blue Bottle Kiyosumi Shirakawa',
@@ -1198,6 +1415,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '11:30',
+        short: "清澄庭园",
         name: '清澄庭园 (水上回游式大名庭园) ★',
         title: "清澄庭园 ★",
         sub: '都立庭园 · 门票仅 ¥150 (长辈半价)',
@@ -1209,6 +1427,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '13:00',
+        short: "深川饭",
         name: '门前仲町 · 下町传统名物「深川饭」',
         title: "门前仲町 深川饭",
         sub: '富冈八幡宫旁老铺',
@@ -1219,6 +1438,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '14:30',
+        short: "隅田川",
         name: '隅田川林荫漫步 → 回公寓午休',
         title: "隅田川边走走 → 回公寓午睡",
         sub: '沿江木栈道吹风 → 回房躺平蓄力',
@@ -1232,6 +1452,8 @@ const DAY8_OPTIONS = {
   },
   kichijoji: {
     key: 'kichijoji',
+    chapter: "吉祥寺",
+    goal: "井之头公园湖边坐坐，吉卜力美术馆外围拍龙猫",
     label: '方案 D · 吉祥寺井之头 (文青备选)',
     day: 'D8',
     date: '10/10',
@@ -1244,6 +1466,7 @@ const DAY8_OPTIONS = {
     nodes: [
       {
         time: '09:30',
+        short: "吉祥寺站",
         name: '吉祥寺站出站 → 穿越平和通り',
         title: "吉祥寺站 → 平和通り",
         sub: 'Kichijoji Station North Exit',
@@ -1254,6 +1477,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '09:45',
+        short: "Sunroad",
         name: 'Sunroad 拱廊商业街 & Satou 松阪牛肉丸',
         title: "Sunroad 拱廊 ＋ 肉のさとう 炸牛肉丸",
         sub: '全遮雨拱廊步行街 · 肉のさとう',
@@ -1264,6 +1488,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '11:00',
+        short: "井之头",
         name: '井之头恩赐公园 (神田川源头天鹅湖与绿荫) ★',
         title: "井之头恩赐公园 ★",
         sub: 'Inokashira Park · 百年都立公园',
@@ -1274,6 +1499,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '12:15',
+        short: "Chai Break",
         name: 'Chai Break 斯里兰卡奶茶 / 咖啡早午餐',
         title: "Chai Break 奶茶早午餐",
         sub: '公园入口旁宁静红茶名店',
@@ -1284,6 +1510,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '14:00',
+        short: "吉卜力",
         name: '三鹰之森吉卜力美术馆外围 (龙猫售票亭合影)',
         title: "吉卜力美术馆外围 ★",
         sub: 'Ghibli Museum 外围森林步道',
@@ -1294,6 +1521,7 @@ const DAY8_OPTIONS = {
       },
       {
         time: '15:30',
+        short: "巴士",
         mode: "bus",
         name: '搭乘巴士直达吉祥寺站 → JR 中央线返程',
         title: "巴士回吉祥寺站 → JR 中央线",
@@ -1310,6 +1538,8 @@ const DAY8_OPTIONS = {
 const DAYS = [
   {
     day: "D1",
+    chapter: "抵达",
+    goal: "顺利落地，Skyliner 转公车到竜泉，早睡倒时差",
     date: "10/3",
     weekday: "六",
     title: "成田 → Skyliner → 竜泉入住",
@@ -1320,6 +1550,7 @@ const DAYS = [
     nodes: [
       {
         time: "14:45",
+        short: "成田",
         mode: "plane",
         name: "成田机场 T2 (第2航厦)",
         title: "成田 T2 落地 · 入境",
@@ -1336,6 +1567,7 @@ const DAYS = [
       },
       {
         time: "16:42",
+        short: "Skyliner",
         mode: "train",
         name: "Skyliner 空港第2ビル駅",
         title: "Skyliner → 日暮里",
@@ -1353,6 +1585,7 @@ const DAYS = [
       },
       {
         time: "17:33",
+        short: "都08",
         mode: "bus",
         name: "日暮里站东口 ②番のりば",
         title: "日暮里 → 都08 公车",
@@ -1368,6 +1601,7 @@ const DAYS = [
       },
       {
         time: "17:45",
+        short: "入住",
         name: "竜泉基地 (Luxury 浅草 Ⅱ)",
         title: "竜泉入住 · 303 号房",
         sub: "東京都台東区竜泉 3-10-7 · 门口楼名 Luxury 浅草 Ⅱ",
@@ -1382,6 +1616,7 @@ const DAYS = [
       },
       {
         time: "18:30",
+        short: "超市",
         name: "My Basket 竜泉1丁目店",
         title: "超市补给 → 21:00 熄灯",
         sub: "まいばすけっと 竜泉1丁目店 · 约 255m · 营业至 23:00",
@@ -1399,6 +1634,8 @@ const DAYS = [
   },
   {
     day: "D2",
+    chapter: "浅草",
+    goal: "清晨独享雷门，午后过桜桥看晴空塔，傍晚逛秋叶原、买好外套",
     date: "10/4",
     weekday: "日",
     title: "浅草晨拍 → 待乳山 → 桜桥 → 秋叶原",
@@ -1409,6 +1646,7 @@ const DAYS = [
     nodes: [
       {
         time: "06:30",
+        short: "公车",
         mode: "bus",
         name: "竜泉站牌搭公车",
         title: "门口公车 → 浅草雷门",
@@ -1425,6 +1663,7 @@ const DAYS = [
       },
       {
         time: "06:50",
+        short: "雷门",
         name: "浅草寺 · 雷门无人黄金晨拍 ★",
         title: "浅草寺 · 雷门 无人晨拍 ★",
         sub: "Sensoji Temple & Kaminarimon Gate",
@@ -1439,6 +1678,7 @@ const DAYS = [
       },
       {
         time: "08:00",
+        short: "FUGLEN",
         name: "FUGLEN ASAKUSA (浅草店)",
         title: "FUGLEN ASAKUSA 咖啡 ＋ 华夫饼",
         cat: 'cafe',
@@ -1455,6 +1695,7 @@ const DAYS = [
       },
       {
         time: "10:00",
+        short: "炸肉饼",
         name: "浅草メンチ (炸肉饼) ＆ 雷一茶 (特浓抹茶)",
         title: "浅草メンチ 炸肉饼 ＋ 雷一茶",
         sub: "高座豚爆汁肉饼 → 雷一茶 お濃茶拿铁",
@@ -1470,6 +1711,7 @@ const DAYS = [
       },
       {
         time: "10:40",
+        short: "展望台",
         name: "浅草文化观光中心 8F 免费展望台",
         title: "浅草文化观光中心 8F 展望台",
         cat: 'sight',
@@ -1485,6 +1727,7 @@ const DAYS = [
       },
       {
         time: "11:30",
+        short: "尾张屋",
         name: "尾张屋 本店 (160年手打荞麦面)",
         title: "尾张屋 本店 天妇罗荞麦",
         sub: "浅草 1-7-1 · 11:30 准点开门",
@@ -1500,6 +1743,7 @@ const DAYS = [
       },
       {
         time: "12:20",
+        short: "待乳山",
         name: "待乳山圣天 (免费迷你小缆车)",
         title: "待乳山圣天 免费小缆车",
         sub: "浅草 7-4-1 · 06:00–16:30",
@@ -1514,6 +1758,7 @@ const DAYS = [
       },
       {
         time: "13:10",
+        short: "桜桥",
         name: "桜桥 (Sakurabashi X型景观桥)",
         title: "桜桥 看晴空塔 ★",
         sub: "隅田川唯一的纯步行景观桥",
@@ -1527,6 +1772,7 @@ const DAYS = [
       },
       {
         time: "13:15",
+        short: "隅田川",
         name: "对岸隅田公园 → すみだリバーウォーク",
         title: "隅田川河边散步 → リバーウォーク",
         sub: "约 1 km · 14 分钟平路 · 一路看晴空塔",
@@ -1542,6 +1788,7 @@ const DAYS = [
       },
       {
         time: "14:00",
+        short: "松饼",
         name: "Belle & Emma ASAKUSA 舒芙蕾松饼",
         title: "Belle & Emma 舒芙蕾松饼",
         cat: 'cafe',
@@ -1557,6 +1804,7 @@ const DAYS = [
       },
       {
         time: "15:20",
+        short: "秋叶原",
         name: "秋叶原 · 周日限定「步行者天国」★",
         title: "秋叶原 周日步行者天国 ★",
         sub: "中央通大马路 · 17:00 准时结束封路",
@@ -1572,6 +1820,7 @@ const DAYS = [
       },
       {
         time: "17:00",
+        short: "分头逛",
         name: "分头逛：友都八喜 / Animate + GiGO",
         title: "分头逛 友都八喜 · Animate",
         sub: "先问妈妈愿不愿意 · 18:15 会合",
@@ -1586,6 +1835,7 @@ const DAYS = [
       },
       {
         time: "18:15",
+        short: "UNIQLO",
         name: "UNIQLO 友都八喜秋叶原店 (7F)",
         title: "7F UNIQLO 会合 · 买外套",
         sub: "友都八喜 7F · 每天 09:30–22:00",
@@ -1600,6 +1850,7 @@ const DAYS = [
       },
       {
         time: "18:45",
+        short: "晚餐",
         name: "友都八喜 8F 舒适美食街",
         title: "友都八喜 8F 晚餐 → 回家",
         sub: "Yodobashi-Akiba 8F · 炸猪排/寿喜烧",
@@ -1616,6 +1867,10 @@ const DAYS = [
   },
   {
 
+
+      chapter: "上野",
+
+      goal: "东照宫、鳗鱼饭，日本桥老铺逛一下午，晚上看点灯的浅草寺",
       day: "D3",
       date: "10/5",
       weekday: "一",
@@ -1627,6 +1882,7 @@ const DAYS = [
       nodes: [
         {
           time: "08:50",
+          short: "日比谷线",
           mode: "train",
           name: "三ノ轮站搭日比谷线至上野",
           title: "三ノ輪 → 日比谷线 → 上野",
@@ -1643,6 +1899,7 @@ const DAYS = [
         },
         {
           time: "09:10",
+          short: "东照宫",
           name: "上野东照宫",
           title: "上野东照宫 (重要文化财)",
           sub: "Ueno Toshogu · 09:00 开门 · 逛 30 分钟",
@@ -1657,6 +1914,7 @@ const DAYS = [
         },
         {
           time: "09:45",
+          short: "红鸟居",
           name: "花园稻荷神社 & 五条天神社",
           title: "花园稻荷红鸟居 · 五条天神",
           sub: "同一个院子 · 06:00–17:00 · 约 20 分钟",
@@ -1672,6 +1930,7 @@ const DAYS = [
         },
         {
           time: "10:15",
+          short: "阿美横",
           name: "阿美横 (アメ横)",
           title: "阿美横 药妆 · 零食",
           sub: "Sakura Terrace 过马路 209 米 · 逛约 45 分钟",
@@ -1687,6 +1946,7 @@ const DAYS = [
         },
         {
           time: "11:00",
+          short: "伊豆荣",
           name: "伊豆荣 本店 (炭烤鳗鱼饭)",
           title: "伊豆荣 本店 炭烤鳗鱼饭 ★",
           sub: "不忍池南边 · 约 300 年鳗鱼老铺 · Google 4.1★",
@@ -1703,6 +1963,7 @@ const DAYS = [
         },
         {
           time: "12:20",
+          short: "三越前",
           mode: "train",
           name: "银座线 前往三越前",
           title: "前往三越前",
@@ -1715,6 +1976,7 @@ const DAYS = [
         },
         {
           time: "12:45",
+          short: "三越",
           name: "日本桥三越本店",
           title: "日本桥三越本店",
           cat: 'shop',
@@ -1731,6 +1993,7 @@ const DAYS = [
         },
         {
           time: "14:15",
+          short: "にんべん",
           name: "COREDO 室町 1 & 3",
           title: "COREDO 室町 · にんべん · 茅乃舎",
           cat: 'shop',
@@ -1745,6 +2008,7 @@ const DAYS = [
         },
         {
           time: "15:05",
+          short: "日本桥",
           name: "日本桥 (日本国道路元標)",
           title: "日本桥 · 道路起点",
           sub: "COREDO 走约 4 分钟",
@@ -1756,6 +2020,7 @@ const DAYS = [
         },
         {
           time: "15:15",
+          short: "高岛屋",
           name: "日本桥高岛屋 S.C. 本馆",
           title: "日本桥高岛屋 本馆",
           cat: 'shop',
@@ -1771,6 +2036,7 @@ const DAYS = [
         },
         {
           time: "16:50",
+          short: "银座线",
           mode: "train",
           name: "日本桥站 → 银座线直达浅草",
           title: "日本桥 → 银座线 → 浅草",
@@ -1785,6 +2051,7 @@ const DAYS = [
         },
         {
           time: "17:30",
+          short: "釜饭",
           name: "釜めし むつみ (1968 年釜饭老铺)",
           title: "釜めし むつみ 釜饭晚餐",
           sub: "浅草 3-32-4 · 周一 17:15–22:00",
@@ -1800,6 +2067,7 @@ const DAYS = [
         },
         {
           time: "18:45",
+          short: "浅草寺",
           name: "浅草寺 夜间点灯",
           title: "点灯的浅草寺 ★",
           sub: "むつみ往南走几分钟 · 亮到 23:00",
@@ -1813,6 +2081,7 @@ const DAYS = [
         },
         {
           time: "20:00",
+          short: "回家",
           name: "回家 · 收小包",
           title: "回家 · 21:30 熄灯",
           sub: "雷门到公寓约 1.4 km · 走约 20 分钟",
@@ -1829,6 +2098,8 @@ const DAYS = [
     },
   {
     day: "D4",
+    chapter: "河口湖",
+    goal: "08:10 巴士去河口湖，取车逛忍野八海，大石公园看红富士，泡温泉",
     date: "10/6",
     weekday: "二",
     title: "巴士去河口湖 → 忍野八海 → 大石公园落日 → 温泉",
@@ -1840,6 +2111,7 @@ const DAYS = [
     nodes: [
       {
         time: "08:10 - 10:12",
+        short: "巴士",
         mode: "bus",
         name: "东京站八重洲南口高速巴士",
         title: "八重洲南口 → 高速巴士 → 河口湖",
@@ -1858,6 +2130,7 @@ const DAYS = [
       },
       {
         time: "10:12 - 10:55",
+        short: "船津浜",
         mode: "walk",
         name: "船津浜 河口湖畔",
         title: "走到船津浜湖边 看富士",
@@ -1875,6 +2148,7 @@ const DAYS = [
       },
       {
         time: "11:00 - 12:00",
+        short: "ほうとう",
         name: "ほうとう不動 河口湖駅前店",
         title: "ほうとう不動 南瓜餺飥面 ★",
         sub: "出站 90 米 · 11:00 开门第一批",
@@ -1891,6 +2165,7 @@ const DAYS = [
       },
       {
         time: "12:10 - 12:30",
+        short: "取车",
         mode: "car",
         name: "ニッポンレンタカー 河口湖駅前",
         title: "ニッポンレンタカー 取车",
@@ -1909,6 +2184,7 @@ const DAYS = [
       },
       {
         time: "12:45 - 13:10",
+        short: "Lawson",
         name: "ローソン 富士河口湖町役場前店",
         title: "町役场前 Lawson 富士山同框",
         sub: "开 1.5km 约 5 分钟 · 自带免费停车场",
@@ -1924,6 +2200,7 @@ const DAYS = [
       },
       {
         time: "13:30 - 14:35",
+        short: "忍野八海",
         name: "忍野八海",
         title: "忍野八海 涌泉与木栈道",
         sub: "开 15.6km · 21–25 分钟 · 约 13:35 到",
@@ -1940,6 +2217,7 @@ const DAYS = [
       },
       {
         time: "15:00 - 15:35",
+        short: "山中湖",
         name: "山中湖 明神山 パノラマ台",
         title: "山中湖全景台 金色芒草",
         sub: "忍野开 22 分钟（13.6km） · 停车免费",
@@ -1955,6 +2233,7 @@ const DAYS = [
       },
       {
         time: "16:25 - 17:40",
+        short: "大石公园",
         name: "大石公园",
         title: "大石公园 夕照富士 ★",
         sun: { kind: 'set', at: '17:05', zh: '太阳入山' },
@@ -1973,6 +2252,7 @@ const DAYS = [
       },
       {
         time: "18:00 - 18:35",
+        short: "SAWA",
         name: "SAWA Hotel",
         title: "SAWA 入住 → Ogino 超市",
         sub: "大石公园开回 6.5km · 15 分钟 → Ogino 开车 4 分钟",
@@ -1987,6 +2267,7 @@ const DAYS = [
       },
       {
         time: "18:50 - 20:30",
+        short: "温泉",
         name: "富士眺望の湯 ゆらり",
         title: "晚餐与温泉 三选一",
         sub: "ゆらり 在鸣泽村 · 车程 13–15 分钟 · 周二开到 21:00",
@@ -2005,6 +2286,8 @@ const DAYS = [
   },
   {
     day: "D5",
+    chapter: "五湖日出",
+    goal: "本栖湖看千圆日出，12:30 前还车，13:30 巴士回东京吃牛排",
     date: "10/7",
     weekday: "三",
     title: "五湖日出 → 还车 → KITTE 看新干线 → 牛排",
@@ -2019,6 +2302,7 @@ const DAYS = [
     nodes: [
       {
         time: "04:30",
+        short: "出发",
         mode: "car",
         name: "SAWA 驾车出发西行 (推迟15分避寒)",
         title: "SAWA 出发 → 本栖湖",
@@ -2034,6 +2318,7 @@ const DAYS = [
       },
       {
         time: "05:00 - 06:05",
+        short: "本栖湖",
         name: "本栖湖 · 浩庵湖畔日出 ★★",
         title: "本栖湖 浩庵 千圆日出 ★★",
         sun: { kind: 'rise', at: '05:52', zh: '日出越山' },
@@ -2050,6 +2335,7 @@ const DAYS = [
       },
       {
         time: "06:18 - 06:45",
+        short: "精进湖",
         name: "精进湖 他手合滨 (子抱富士) ★",
         title: "精进湖 他手合滨 子抱富士 ★",
         sub: "県営精進湖他手合浜駐車場 (免费柏油车位+24h公厕)",
@@ -2065,6 +2351,7 @@ const DAYS = [
       },
       {
         time: "06:57 - 07:15",
+        short: "西湖",
         name: "西湖 根场滨 (西端开阔湖岸)",
         title: "西湖 根场滨",
         sub: "西湖西端湖岸",
@@ -2079,6 +2366,7 @@ const DAYS = [
       },
       {
         time: "07:33 - 07:55",
+        short: "长崎公园",
         name: "河口湖 长崎公园 (顺光北壁)",
         title: "河口湖 长崎公园",
         sub: "顺光侧照北壁与河口湖大桥 · 视车位弹性停靠",
@@ -2093,6 +2381,7 @@ const DAYS = [
       },
       {
         time: "08:20 - 09:45",
+        short: "回 SAWA",
         name: "回到 SAWA 充裕休整 → 09:45 退房",
         title: "回 SAWA 洗澡吃早餐 → 09:45 退房",
         sub: "充裕 80 分钟：热水澡 + 微波热食 + 打包退房",
@@ -2108,6 +2397,7 @@ const DAYS = [
       },
       {
         time: "09:45 - 11:35",
+        short: "机动",
         name: "退房后双轨机动收官 (用足24小时租期)",
         title: "还车前两个方案",
         cat: 'nature',
@@ -2124,6 +2414,7 @@ const DAYS = [
       },
       {
         time: "11:35 - 11:58",
+        short: "还车",
         mode: "car",
         name: "站前加油 → ニッポンレンタカー 验车还车",
         title: "ENEOS 加满油 → 还车",
@@ -2141,6 +2432,7 @@ const DAYS = [
       },
       {
         time: "12:00 - 13:10",
+        short: "いだ天",
         name: "站西【天妇罗 いだ天】热食大餐 ＋ 专享洗手间",
         title: "いだ天 天妇罗午餐 ★",
         sub: "避坑闭环：现炸大虾天妇罗 ＋ 避开车站公厕大长龙",
@@ -2157,6 +2449,7 @@ const DAYS = [
       },
       {
         time: "13:10 - 13:30",
+        short: "巴士",
         mode: "bus",
         name: "河口湖站 2 号月台登车 → 高速巴士返程",
         title: "河口湖站 2 号站台 → 高速巴士",
@@ -2173,6 +2466,7 @@ const DAYS = [
       },
       {
         time: "16:05",
+        short: "KITTE",
         name: "KITTE 6F 屋顶花园 (免费露台) ★",
         title: "KITTE 6F 屋顶花园 ★",
         cat: 'sight',
@@ -2190,6 +2484,7 @@ const DAYS = [
       },
       {
         time: "17:00",
+        short: "牛排",
         name: "THE BIFTEKI (KITTE B1F 铁板熟成牛排) ★",
         title: "THE BIFTEKI 铁板牛排 ★",
         sub: "同一部电梯 6F 直下 B1F · 0 步转场 · 11:00–22:00 无休",
@@ -2206,6 +2501,7 @@ const DAYS = [
       },
       {
         time: "18:00",
+        short: "面包",
         name: "进闸顺路买明早面包 (GRANSTA 1F 改札内)",
         title: "GRANSTA 1F 买明早面包 → 回家",
         sub: "THE STANDARD BAKERS · 中央通路 · 山手线月台旁",
@@ -2224,6 +2520,8 @@ const DAYS = [
   },
   {
     day: "D6",
+    chapter: "涩谷",
+    goal: "15:10 前到歌舞伎町上车点，坐开顶巴士，在 SKY 看 17:16 日落",
     date: "10/8",
     weekday: "四",
     title: "明治神宫 → 蓝瓶 → 开顶巴士 → 涩谷SKY ★",
@@ -2231,14 +2529,56 @@ const DAYS = [
     desc: "07:35 错峰出门，08:25 走进几乎无人的明治神宫巨木森林；蓝瓶青山 2F 露台坐 90 分钟，华夫饼合点一份、慢慢挑杯子；川上庵手打荞麦午餐；沿表参道散步，搭副都心线到新宿，和妈妈一起逛全球最大的 Onitsuka Tiger 旗舰店和 3COINS+plus，就在巴士上车点旁边；15:20 坐上开顶双层巴士，16:35 登顶涩谷SKY 看 17:16 日落与夜景，吃完炭烤鱼就搭银座线到浅草，转巴士到门口。",
     transit: "日比谷线→千代田线直达明治神宫前 2 号出口 → 千代田线 1 站至表参道(走 B3 出口才有电梯) → 表参道走到明治神宫前，13:00 前后副都心线 2 站至新宿三丁目 → Onitsuka → 3COINS → 15:20 双层巴士至涩谷 → 银座线坐到终点浅草 → 草63／都08 巴士到竜泉（下雨在上野换日比谷线）",
     deadline: { at: "15:10", what: "到歌舞伎町 Tower 1 番のりば", note: "巴士不等人" },
+    gear: ["巴士确认信截图（两部手机都存）", "¥100 硬币（SKY 寄包）", "妈妈的带帽防风外套", "折叠购物袋", "相机挂绳"],
+    rain: {
+      sum: "小雨照走：巴士关顶照开，晚饭提前、18:30 再上 SKY。荒天巴士停开，就改去免费的都厅 45F。",
+      tiers: [
+        { t: "先知道这四件事（官方条款）", d: [
+            "巴士雨天照开：关上顶篷运行，免费发雨具",
+            "只有荒天才停；天气突变时可能在出发前才宣布停驶",
+            "SKY 遇雨、打雷、强风：屋顶和 46F 户外区可能不开，不退款；46F 室内 SKY GALLERY 照常开",
+            "SKY 券上巴士才发，下车后到当天 21:20 最终入场都有效。巴士停驶 ＝ 拿不到 SKY 券"
+          ] },
+        { t: "档 1 · 小雨到中雨（最可能）：行程不变，只调顺序", d: [
+            "巴士照坐，上车跟工作人员要雨具；关顶后还是双层高视角，妈妈照样坐 60 分钟",
+            "16:35–17:00 先到 14F 柜台换票，顺便问最终入场时间",
+            "17:00 先吃晚饭（しんぱち食堂，07:00–23:00 都开）",
+            "18:30–19:30 再上去：傍晚雨常转小；就算没停，人也散了，46F 室内看雨夜霓虹一样好看",
+            "19:30 前后下楼搭银座线；下雨就在上野换日比谷线"
+          ] },
+        { t: "档 2 · 大雨整晚不停：照样上去，当成室内景点", d: [
+            "46F 全室内，有长椅和咖啡",
+            "别等雨停等到 21:00，把妈妈拖累；反正不退款，不用纠结值不值"
+          ] },
+        { t: "档 3 · 荒天巴士停开（唯一要整段换的情况）", d: [
+            "先办退款：東急バス 03-3410-0181，运休公告看预订网站",
+            "那时你们在新宿（约 14:55 到 Tower），就地改去【东京都厅 南展望室】：免费、室内、45 楼，09:30–21:30，周二休（10/8 周四开）；有无障碍入口，45F 有咖啡座和长椅",
+            "高度 202 米，SKY 是 229 米；下雨天 SKY 露台本来就关，室内看夜景差这 27 米没关系",
+            "怎么去：新宿三丁目没有大江户线。从 Tower 走到都营大江戸線新宿西口站，搭 1 站（2 分钟 · ¥178）到都庁前站，出站直通都厅；中间一段地面路要撑伞，雨大就打车",
+            "18:00–21:00 楼下有 Tokyo Night & Light 免费投影秀，每 30 分钟一场。晚饭在新宿站周边，或回 Tower 17–18F 歌舞伎横丁（全室内、有座）"
+          ] },
+        { t: "上午不怕雨，照走", d: [
+            "明治神宫参道有树冠遮，砂石路不积水，下雨人更少；穿防滑鞋撑伞走 852 米没问题",
+            "蓝瓶二楼露台会湿，坐室内；表参道之丘全室内、0 台阶",
+            "新宿三丁目到 Onitsuka 135 米、再到 3COINS 472 米，要撑伞"
+          ] },
+        { t: "其他室内备选", d: [
+            "Shibuya Hikarie 11F（4.3★）：免费，落地窗看夜景，有皮沙发。SKY 露台关时的首选",
+            "惠比寿花园广场 38F/39F（4.4★）：日比谷线直达惠比寿，Skywalk 室内步道过去，免费看东京铁塔夜景，全程不淋雨",
+            "SHIBUYA STREAM（4.3★）：室内商场，沿连廊吃晚饭、喝咖啡",
+            "明治神宫御苑（4.4★）：日式庭园和清正井，入园 ¥500，早上就在神宫里"
+          ] }
+      ]
+    },
     routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Meiji+Jingu&destination=SHIBUYA+SKY&waypoints=Blue+Bottle+Coffee+Aoyama%7COmotesando+Hills%7COnitsuka+Tiger+Shinjuku+Flagship+Store%7CTokyu+Kabukicho+Tower&travelmode=transit",
     nodes: [
       {
         time: "07:35",
+        short: "出发",
         mode: "train",
         name: "公寓出发 → 明治神宫前站 2 号出口",
         sub: "日比谷线→日比谷站换千代田线 · 约 43 分钟",
-        lat: 35.6702, lng: 139.7060,
+        lat: 35.6702, lng: 139.706,
         key: ["07:45 三ノ輪发 → 08:28 到", "!走 2 号出口，有电梯"],
         more: [
           "三ノ輪站搭日比谷线到日比谷站，站内换千代田线，直达明治神宮前站：07:45 三ノ輪发 → 08:28 到，43 分钟，¥252。",
@@ -2249,21 +2589,27 @@ const DAYS = [
       },
       {
         time: "08:25",
+        short: "明治神宫",
         name: "明治神宫 (晨光巨木森林 · 门票免费)",
         title: "明治神宫 森林参道 ★",
         sub: "单程 852 米平缓 12 分 · 09:00 授与所开门",
         lat: 35.6764, lng: 139.6993,
         key: ["先去授与所买御守", "有免费轮椅", "!原路走回神宫桥"],
         more: [
-          "全天最美的时段，没有旅行团。08:55 到主殿，09:00 授与所开门，第一批买不用排队。摸「夫妇楠」为全家祈福。",
+          "全天最美的时段，没有旅行团。08:55 到主殿，09:00 授与所开门，第一批买不用排队：长寿守、开运木守、绘马。",
           "南参道两侧有 1.5–2 米宽的平整石板无障碍带，靠边走不伤膝。南鸟居警卫室免费借轮椅；参道中段 FOREST TERRACE 有冷气和热茶。",
           "09:30 起沿南参道原路走回神宫桥（约 850m，12–15 分钟）。<strong>别走西参道</strong>：出口在代代木／参宫桥那一侧，离明治神宫前站约 1.3km，接不上下一程。"
         ],
         tags: ["神宫 · 免费"],
-        hero: true
+        hero: true,
+        eggs: [
+          { t: "夫妇楠", d: "本殿前两棵用注连绳相连的神树，为妈妈祈福" },
+          { t: "酒樽墙", d: "参道边一整面清酒樽，对面是法国葡萄酒桶；大鸟居是日本最大的木造鸟居（台湾千年扁柏）" }
+        ]
       },
       {
         time: "10:00",
+        short: "蓝瓶",
         name: "Blue Bottle Coffee 青山店 ★ (核心圆梦)",
         title: "Blue Bottle Coffee 青山店 2F 露台 ★",
         sub: "千代田线 1 站 ¥178 · B3 出口",
@@ -2273,47 +2619,66 @@ const DAYS = [
           "B3 出口有大型升降电梯直达地面，<strong>A4 只有长楼梯</strong>。出站过小马路，平路 150 米到店。",
           "营业 08:00–19:00，上午 10 点人最少。坐 2F 面向树冠的露天阳台，手冲拿铁；<strong>华夫饼两人合点一份</strong>，11:30 还要吃午餐。",
           "吃完再去吧台慢慢挑正版清澄白河马克杯，含税 ¥2,750，独立 Cafe 不能退税。杯子要带一整天：请店员包好放背包中间，上 SKY 露台前连包放 46F 寄物柜。",
-          "别走错店：神宫前 2 丁目潮牌店里的 HUMAN MADE Cafe 几乎全是立饮。"
+          "别走错店：这家在南青山 3-13-14 2F，挑高、80 多个软座、大露台。神宫前 2 丁目潮牌店里的 HUMAN MADE Cafe 几乎全是立饮，没有华夫饼。"
         ],
-        tags: ["咖啡 · 坐 90 分钟"],
-        hero: true
+        tags: ["咖啡"],
+        hero: true,
+        rest: "坐 90 分钟"
       },
       {
         time: "11:30",
+        short: "川上庵",
         name: "青山 川上庵 手打荞麦",
         sub: "蓝瓶隔壁 · 鸭肉南蛮热汤荞麦",
         lat: 35.6655, lng: 139.7133,
         key: ["川上庵在蓝瓶隔壁，11:30 入座", "人均 ¥1,800–2,500"],
         more: [
           "川上庵（Google 4.2★ · 1,275 则 · 南青山 3-14-1）：点鸭肉南蛮热汤荞麦（昨天刚吃过天丼，不点天せいろ），大沙发卡座。11:00 开门免排队，人均 ¥1,800–2,500。",
-          "离华夫饼约 80 分钟：两人只分一份，热汤面不重。妈妈真的不饿就先逛下一站，饭后再补（要走回头路约 600 米，只当备用）。"
+          "离华夫饼约 80 分钟：两人只分一份，热汤面不重，荞麦软好嚼。"
         ],
         tags: ["午餐"],
-        hero: false
+        hero: false,
+        branch: [
+          { q: "临时有变", opts: [
+              ["妈妈不饿", "先逛下一站，饭后再补（要走回头路约 600 米，只当备用）"],
+              ["客满", "表参道之丘馆内餐厅（不用多走），或神宫里 FOREST TERRACE 的天妇罗荞麦御膳"]
+            ] }
+        ]
       },
       {
         time: "12:30",
+        short: "表参道",
         name: "表参道散步 → 表参道之丘 → 副都心线去新宿",
         sub: "沿表参道缓降 577m · 之丘走 283m 到明治神宫前",
         lat: 35.66708, lng: 139.70913,
-        cat: 'walk',
+        cat: "walk",
         key: ["之丘只走坡道、上洗手间", "13:02／13:07 副都心线到新宿三丁目"],
         more: [
-          "川上庵出店沿青山通り往西北 145m，表参道交叉口右转，沿表参道缓降 435m。实测海拔 38.02m → 34.37m，平均 −0.8%。顺路看 Dior、Tod's 建筑外观。",
-          "12:40–12:55 表参道之丘（11:00–20:00）：一起走一段安藤忠雄的螺旋坡道，0 台阶，上个无障碍厕所，不逛店。",
+          "川上庵出店沿青山通り往西北 145m，表参道交叉口右转，沿表参道缓降 435m。实测海拔 38.02m → 34.37m，平均 −0.8%。",
+          "12:40–12:55 表参道之丘（11:00–20:00）：只走坡道，上个无障碍厕所，不逛店。",
           "12:55 走 283m 到明治神宮前站，副都心线 12:58 急行（13:01 到）、13:02（13:07 到）、13:07（13:12 到）。<strong>表参道站没有副都心线。</strong>新宿三丁目走 E1 出口。",
           "Onitsuka 表参道店就在之丘旁，今天不进：新宿旗舰店大得多。"
         ],
         tags: ["散步 · 地铁"],
-        hero: false
+        hero: false,
+        branch: [
+          { q: "副都心线出状况", opts: [
+              ["停运或大延误", "那时才 13:00 左右，离底线还有 2 小时。改走 JR 原宿站 → 山手线 2 站到新宿 → 东口走到 Onitsuka，别打车（会塞车）"]
+            ] }
+        ],
+        eggs: [
+          { t: "螺旋坡道", d: "表参道之丘里安藤忠雄设计的缓坡，绕着中庭走一段，全程 0 台阶" },
+          { t: "名建筑", d: "顺路看 SANAA 设计的 Dior 表参道、伊东丰雄设计的 Tod's 外观" }
+        ]
       },
       {
         time: "13:15",
+        short: "Onitsuka",
         name: "Onitsuka Tiger 新宿旗舰店 (全球最大)",
         title: "Onitsuka Tiger 新宿旗舰店",
         sub: "新宿三丁目 E1 出口走 135m · Bic Camera 新宿东口店隔壁",
         lat: 35.69186, lng: 139.70197,
-        cat: 'shop',
+        cat: "shop",
         key: ["11:00–20:00", "!14:05 去 3COINS"],
         more: [
           "2026 年 7 月 10 日开幕，全球最大：约 1,837 ㎡、4 层，是表参道最大那家的 3.4 倍。三条线都有：经典 Onitsuka Tiger、潮流 ONITSUKA TIGER、正装 THE ONITSUKA；评论说 2F 是日本制高价线，3F 是经典款。",
@@ -2321,14 +2686,21 @@ const DAYS = [
           "UNIQLO、GU 今天不去，留到 10/9 银座。"
         ],
         tags: ["购物 · 一起逛"],
-        hero: false
+        hero: false,
+        branch: [
+          { q: "时间不够", opts: [
+              ["14:40 还在这里", "别去 3COINS，直接走到上车点（633 米，慢走约 12 分钟）"],
+              ["前面哪站拖了", "砍逛街，不砍巴士"]
+            ] }
+        ]
       },
       {
         time: "14:15",
+        short: "3COINS",
         name: "3COINS+plus 新宿店",
         sub: "西武新宿 Pepe 3F · Onitsuka 走 472m · 11:00–21:30",
         lat: 35.69461, lng: 139.70019,
-        cat: 'shop',
+        cat: "shop",
         key: ["!14:50 离开，买没买完都走", "带折叠购物袋"],
         more: [
           "plus 版，款式比一般 3COINS 多，有联名款和较大件的家居用品。",
@@ -2339,60 +2711,77 @@ const DAYS = [
       },
       {
         time: "14:50",
-        cat: 'bus',
+        short: "候车",
+        cat: "bus",
         name: "歌舞伎町 Tower 1 番のりば 候车",
         sub: "3COINS 走 161m · 约 14:55 到",
-        lat: 35.69605, lng: 139.70040,
+        lat: 35.69605, lng: 139.7004,
         key: ["!官方底线 15:10，巴士不等人", "SKY 券上车才发"],
         more: [
           "<strong>官方底线：15:10 前到上车点。</strong>Japan Bus Online 常见问题：建议开车前 10 分钟到；巴士准时开、不等人；没赶上算 no-show，套票 ¥10,800（含 SKY）全不退。",
-          "前面拖了就砍 3COINS：14:40 还在 Onitsuka，就直接走到上车点（633m，慢走约 12 分钟）。",
           "Japan Bus Online 的「E-ticket」确认信<strong>用手机出示</strong>，上车给司机看。两部手机都存一张截图（不用网也能打开），电量留够。",
-          "副都心线停运：那时才 13:00 左右，改走 JR 原宿 → 山手线到新宿 → 东口，别打车。",
-          "官网没说大堂有座位：站着等，或到 2F 歌舞伎横丁买杯饮料坐（很吵）。上车选二楼左侧座位。",
-          "顺手拍哥斯拉头像：新宿東宝ビル 8F（4.4★），离上车点约 180 米、离 3COINS 约 160 米。只拍白天版，晚上不专门回来。"
+          "官网没说大堂有座位：站着等，或到 2F 歌舞伎横丁买杯饮料坐（很吵）。上车选二楼左侧座位。"
         ],
         tags: ["候车"],
-        hero: false
+        hero: false,
+        eggs: [
+          { t: "哥斯拉头像", d: "新宿東宝ビル 8F，离上车点约 180 米、离 3COINS 约 160 米。只拍白天版，晚上不专门回来" }
+        ]
       },
       {
         time: "15:20",
+        short: "开顶巴士",
         mode: "bus",
         name: "SHIBUYA STREET RIDE 开顶双层巴士 (60 分钟)",
         sub: "歌舞伎町 Tower 15:20 发 → 涩谷 Fukuras · 含在套票内",
         lat: 35.6938, lng: 139.7036,
-        key: ["已订 10/8 15:20 班", "!15:10 前到，巴士不等人", "手机出示确认信", "下雨照开"],
+        key: ["已订 10/8 15:20 班", "!15:10 前到，巴士不等人", "手机出示确认信"],
         more: [
-          "已订妥（2026-09-15）「SHIBUYA SKY セット券」：巴士加 SKY 入场券。",
+          "已订妥（2026-09-15）「SHIBUYA SKY セット券」：巴士加 SKY 入场券。每班只有 10 席，一天只有 09:40、15:20 两班。",
           "妈妈整整 1 小时坐着不用走：开顶穿过新宿、表参道、代代木竞技场，从高处看涩谷十字路口。",
-          "16:20 下车，日落 17:16，车上看不到夕阳。",
-          "下雨：关顶照开、免费发雨具，只有荒天才停。"
+          "16:20 下车，日落 17:16，车上看不到夕阳。"
         ],
-        tags: ["巴士 · 坐 60 分钟"],
-        hero: true
+        tags: ["巴士"],
+        hero: true,
+        rest: "坐 60 分钟",
+        branch: [
+          { q: "天气", opts: [
+              ["下雨", "关顶照开，上车跟工作人员要雨具（免费）"],
+              ["荒天停驶", "拿不到 SKY 券，就地改去都厅 45F，见章末「雨天攻略」档 3"]
+            ] }
+        ]
       },
       {
         time: "16:35",
+        short: "SKY",
         name: "SHIBUYA SKY (229m 露天全景日落) ★★",
         title: "SHIBUYA SKY 日落 17:16 ★",
-        cat: 'sight',
-        sun: { kind: 'set', at: '17:16', zh: '日落' },
+        cat: "sight",
+        sun: { kind: "set", at: "17:16", zh: "日落" },
         sub: "Fukuras 下车平路 462m → Scramble Square 14F 换票",
         lat: 35.6585, lng: 139.7022,
         key: ["带 100 円硬币寄包", "!妈妈穿带帽防风外套"],
         more: [
           "手上是套票附的<strong>自由入场券，不是指定时段票</strong>。16:35 到 14F 柜台换票，日落最挤，可能分到较晚时段。",
-          "17:00 前入场 → 照计划走。17:30 之后 → 先去しんぱち食堂吃晚餐（把 18:10 那顿提前），18:30 再上去看夜景，人少更从容。分到晚场就只有夜景、没有夕阳。",
           "46F 寄背包（100 円硬币，退币式）。露天平台不能带包、雨伞、帽子、围巾；相机要有手绳。",
-          "高空体感只有 12–14°C，穿带兜帽的防风外套。",
-          "下雨：屋顶 SKY STAGE 和 46F 户外会关，46F 室内照开，<strong>不退款</strong>。券「降車後から当日の最終入場時間まで有効」，有效到当天 21:20 最终入场，所以往后挪：17:00 先吃晚餐，18:30–19:30 再上去，雨常转小、人也散了。",
-          "荒天巴士停 ＝ 拿不到券（券上车才发）。改去东京都厅南展望室：免费、45F、202m、09:30–21:30、周二休（10/8 周四开）。新宿三丁目没有大江户线：从 Tower 走到都营大江戸線新宿西口站，搭 1 站（2 分钟 · ¥178）到都庁前站，出站直通都厅；中间一段地面路要撑伞，雨大就打车。退款专线 03-3410-0181。"
+          "229 米高处日落时体感只有 12–14°C，风大：妈妈穿带兜帽的防风夹克或薄羽绒（帽子不能戴，连体风帽可以）。"
         ],
         tags: ["日落 · 夜景"],
-        hero: true
+        hero: true,
+        branch: [
+          { q: "14F 换票分到几点？", opts: [
+              ["17:00 前", "照计划：16:45 先在 46F 室内落地窗长椅看日落和富士山剪影，17:30 天黑人散再上露天 Sky Stage"],
+              ["17:30 后", "先去しんぱち食堂吃晚饭（把 18:10 那顿提前），18:30 再上来看夜景，人少更从容"]
+            ] },
+          { q: "天气", opts: [
+              ["下雨", "屋顶和 46F 户外会关，46F 室内照开，不退款。券到 21:20 都有效：先吃晚饭，18:30 再上"],
+              ["风大变冷", "回 46F Sky Gallery 靠窗沙发坐"]
+            ] }
+        ]
       },
       {
         time: "18:10",
+        short: "晚餐",
         name: "炭烤鱼定食晚餐 → 银座线到浅草 → 巴士到门口",
         title: "しんぱち食堂 炭烤鱼定食 → 银座线 ＋ 巴士回家",
         sub: "しんぱち食堂 渋谷明治通り店 · 炭烤鱼定食 · 平路 400m",
@@ -2401,19 +2790,25 @@ const DAYS = [
         more: [
           "しんぱち食堂 渋谷明治通り店（4.0★／293 则 · 07:00–23:00 每天开）：炭烤鱼定食（鲑鱼腹／鯖鱼／赤魚）＋白饭＋味噌汤＋渍物，全热食、软、不生冷。电子屏自助点单，不用讲日文。",
           "18:00 下楼，出 Scramble Square 往明治通平路约 400m，1F 街面店，0 阶梯。平日 18:00 有人排队，18:10 就去，别拖到 18:30。",
-          "不想走 400m：12F そば【半笑】或 ヒカリエ 8F【d47 食堂】。别选 12F Moheji（铁板文字烧，评论说上菜等 1–1.5 小时、限时 2 小时、吵）。",
           "回家：吃完（约 19:30）电梯到 3F 直通银座线涩谷站。<strong>涩谷是起点站，每班都「当駅始発」，班班有座</strong>，晚上 3–6 分钟一班。坐到终点浅草，约 35 分钟、0 换乘，¥252/人。",
-          "浅草转巴士，<strong>哪班先来搭哪班</strong>，都停竜泉（公寓门口走 2–3 分钟），¥210，可刷 Suica：草63【浅草雷門 4 のりば】；都08【東武浅草駅前（西側）11 のりば】，跟草63 不在同一个站牌；草43【浅草雷門 6 のりば】。例：19:40 涩谷发 → 20:14 浅草 → 慢走约 9 分钟 → 20:27 草63 → 20:36 竜泉。",
-          "下雨改走上野：浅草出站到站牌约 9 分钟都在户外。列车到上野时下车，站内换日比谷线到三ノ輪（1b 出口走 6 分钟），换乘通道全在室内。",
-          "太累就打车：浅草站前排班 → 公寓 2.15km，约 ¥1,100。"
+          "浅草转巴士，<strong>哪班先来搭哪班</strong>，都停竜泉（公寓门口走 2–3 分钟），¥210，可刷 Suica：草63【浅草雷門 4 のりば】；都08【東武浅草駅前（西側）11 のりば】，跟草63 不在同一个站牌；草43【浅草雷門 6 のりば】。例：19:40 涩谷发 → 20:14 浅草 → 慢走约 9 分钟 → 20:27 草63 → 20:36 竜泉。"
         ],
         tags: ["晚餐 · 回家"],
-        hero: false
+        hero: false,
+        branch: [
+          { q: "临时有变", opts: [
+              ["不想走 400 米", "Scramble Square 12F 荞麦【半笑】，或ヒカリエ 8F【d47 食堂】。别选 12F Moheji（上菜要等 1 小时以上）"],
+              ["下雨", "银座线到上野就下车，站内换日比谷线到三ノ輪（1b 出口走 6 分钟），换乘全在室内"],
+              ["太累", "浅草站前打车到公寓约 ¥1,100；从涩谷直接打车约 ¥5,500–6,000"]
+            ] }
+        ]
       }
     ]
   },
   {
     day: "D7",
+    chapter: "银座",
+    goal: "小网神社洗钱，筑地吃早午餐，银座逛 UNIQLO 和 GU，傍晚看东京铁塔点灯",
     date: "10/9",
     weekday: "五",
     title: "小网神社洗钱 → 筑地 → 银座 → 东京铁塔夜景",
@@ -2424,6 +2819,7 @@ const DAYS = [
     nodes: [
       {
         time: "07:40 - 09:15",
+        short: "小网神社",
         mode: "train",
         name: "小网神社 洗钱井 ★",
         title: "小网神社 洗钱 ★",
@@ -2441,6 +2837,7 @@ const DAYS = [
       },
       {
         time: "09:25 - 10:45",
+        short: "筑地",
         name: "筑地场外市场 (吃几家小的)",
         title: "筑地场外市场 吃几家小的 ★",
         sub: "人形町日比谷线 3 站约 5 分钟 · 1 号电梯出口",
@@ -2458,6 +2855,7 @@ const DAYS = [
       },
       {
         time: "10:45",
+        short: "GINZA SIX",
         name: "穿过 GINZA SIX 走走、拍照",
         title: "路过 GINZA SIX",
         sub: "日比谷线 1 站至东银座 → 银座地下步道 250m 直通 B2",
@@ -2472,6 +2870,7 @@ const DAYS = [
       },
       {
         time: "11:35",
+        short: "UNIQLO",
         name: "UNIQLO 银座旗舰店 (12 层)",
         title: "UNIQLO 银座旗舰店",
         sub: "GSIX 斜对面过马路 101m · 11:00–21:00",
@@ -2487,6 +2886,7 @@ const DAYS = [
       },
       {
         time: "13:00",
+        short: "GU",
         name: "GU 银座店 (5 层)",
         title: "GU 银座店",
         sub: "UNIQLO 走 98m · すずらん通り · 11:00–21:00",
@@ -2502,6 +2902,7 @@ const DAYS = [
       },
       {
         time: "13:45",
+        short: "下午茶",
         name: "和光钟楼 → 虎屋菓寮或木村家下午茶",
         title: "银座下午茶",
         sub: "中央通平路 · 全程有电梯",
@@ -2517,6 +2918,7 @@ const DAYS = [
       },
       {
         time: "14:45",
+        short: "自由逛",
         name: "银座自由时间",
         title: "银座自由逛",
         sub: "约 70 分钟 · GSIX 你挑好的店，或回 UNIQLO／GU 补买",
@@ -2533,6 +2935,7 @@ const DAYS = [
       },
       {
         time: "16:15",
+        short: "增上寺",
         name: "增上寺 (大殿与东京铁塔同框) ★",
         title: "增上寺 ★",
         sub: "都营浅草线 2 站至大门 B4 垂直电梯 → 芝大门 350m",
@@ -2548,6 +2951,7 @@ const DAYS = [
       },
       {
         time: "17:00",
+        short: "东京铁塔",
         name: "芝公园看 17:14 点灯 → 暖橙色铁塔夜景 ★",
         title: "芝公园 铁塔夜景 ★",
         sub: "芝公园 4 号地林荫步道长椅 · 坐着等到 17:50",
@@ -2563,6 +2967,7 @@ const DAYS = [
       },
       {
         time: "17:55",
+        short: "晚餐",
         name: "和食日和 おさけと 大門浜松町",
         title: "大门和食晚餐",
         sub: "芝公园平路 350m · 周五 17:00–22:30 · 4.0★",
@@ -2579,6 +2984,7 @@ const DAYS = [
       },
       {
         time: "19:15",
+        short: "回家",
         mode: "train",
         name: "（看体力）回银座 Sapporo 黑标 THE BAR 一杯 → 日比谷线直达三ノ輪",
         title: "饭后一杯 → 日比谷线回家",
@@ -2599,6 +3005,8 @@ const DAYS = [
   DAY8_OPTIONS.kamakura,
   {
     day: "D9",
+    chapter: "谷根千",
+    goal: "逛谷中祭、画招财猫，烤鸡串告别晚餐，夜里出发去羽田",
     date: "10/11",
     weekday: "日",
     title: "谷根千一整天 → 烤鸡串告别晚餐 → 羽田 ★",
@@ -2609,6 +3017,7 @@ const DAYS = [
     nodes: [
       {
         time: "07:45",
+        short: "草63",
         mode: "bus",
         name: "公寓旁「竜泉」站牌 → 都营公车【草63】直达団子坂下",
         title: "门口草63 → 団子坂下",
@@ -2626,6 +3035,7 @@ const DAYS = [
       },
       {
         time: "08:05",
+        short: "CIBI",
         name: "CIBI 千駄木 墨尔本式早餐",
         title: "CIBI 早餐",
         sub: "千駄木 3-37-11 · Google 4.2★ · 周日 08:00–17:30",
@@ -2642,6 +3052,7 @@ const DAYS = [
       },
       {
         time: "09:40",
+        short: "根津神社",
         name: "根津神社 (重要文化財社殿 · 朱红千本鸟居) ★",
         title: "根津神社 千本鸟居 ★",
         sub: "德川五代将军纲吉造营 · 重要文化财 · 锦鲤神桥",
@@ -2656,6 +3067,7 @@ const DAYS = [
       },
       {
         time: "10:55",
+        short: "大道艺",
         name: "第27回 谷中祭 · 旧吉田屋酒店大道艺 ★",
         title: "谷中祭 旧吉田屋 大道艺 ★",
         sub: "谷中祭 10/10–11 · 10:00–16:00 · 明治木造老清酒店",
@@ -2671,6 +3083,7 @@ const DAYS = [
       },
       {
         time: "11:45",
+        short: "傳左衛門",
         name: "八代目傳左衛門めし屋 家常定食",
         title: "傳左衛門 定食午餐",
         sub: "谷中 6-1-27 · Google 4.6★ · 周日 11:00–15:00 · 可刷卡",
@@ -2687,6 +3100,7 @@ const DAYS = [
       },
       {
         time: "12:40",
+        short: "kokonn",
         name: "kokonn 陶器小店",
         title: "kokonn 陶器",
         sub: "谷中 6-3-8 · Google 4.3★ · 周日 11:00–18:00 · 周三休",
@@ -2702,6 +3116,7 @@ const DAYS = [
       },
       {
         time: "13:20",
+        short: "猫衛門",
         name: "猫衛門 画自己的招财猫 ★",
         title: "猫衛門 招财猫绘付 ★",
         sub: "谷中 5-4-2 · Google 4.4★ · 周日 11:00–18:00 · 可刷卡",
@@ -2717,6 +3132,7 @@ const DAYS = [
       },
       {
         time: "14:40",
+        short: "初音の森",
         name: "谷中祭主会场「初音の森」",
         title: "谷中祭 初音の森",
         sub: "防災広場 初音の森 · 谷中 5-4-21 · 16:00 结束",
@@ -2730,6 +3146,7 @@ const DAYS = [
       },
       {
         time: "15:15",
+        short: "和栗や",
         name: "谷中銀座 → 和栗や 现做栗子蒙布朗",
         title: "和栗や 蒙布朗",
         sub: "谷中 3-9-14 · Google 4.3★ · 周日 11:00–17:30 · 12 席不能预约",
@@ -2745,6 +3162,7 @@ const DAYS = [
       },
       {
         time: "17:30",
+        short: "樫",
         name: "炭火焼鳥 樫 最后一晚：比内地鸡烤鸡串 ★",
         title: "樫 烤鸡串晚餐 ★",
         sub: "千駄木 2-43-4 · Google 4.5★ · 周日 17:30 开 · 12 席",
@@ -2761,6 +3179,7 @@ const DAYS = [
       },
       {
         time: "19:07",
+        short: "回公寓",
         mode: "bus",
         name: "団子坂下 → 草63 回竜泉",
         title: "草63 回公寓",
@@ -2776,6 +3195,7 @@ const DAYS = [
       },
       {
         time: "19:30",
+        short: "封箱",
         name: "回公寓：洗热水澡 · 封箱",
         title: "洗澡 → 封箱",
         sub: "Luxury 浅草 Ⅱ 303号房",
@@ -2791,6 +3211,7 @@ const DAYS = [
       },
       {
         time: "20:40",
+        short: "出发",
         mode: "bus",
         name: "出发：门口「竜泉」站牌",
         title: "出发 → 门口公车到浅草",
@@ -2807,6 +3228,7 @@ const DAYS = [
       },
       {
         time: "21:17 / 21:34",
+        short: "浅草线",
         mode: "train",
         name: "浅草线 · 往羽田方向 ★",
         title: "浅草线 往羽田 ★",
@@ -2824,6 +3246,7 @@ const DAYS = [
       },
       {
         time: "22:02 - 22:18",
+        short: "羽田",
         name: "羽田机场 T3 航厦候机",
         title: "羽田 T3 候机",
         sub: "Haneda Airport Terminal 3 · 3F 出境大厅",
@@ -2839,6 +3262,8 @@ const DAYS = [
   },
   {
     day: "D10",
+    chapter: "归途",
+    goal: "02:20 羽田起飞，香港转机，15:40 回到槟城",
     date: "10/12",
     weekday: "一",
     title: "羽田 → 香港 → 槟城",
@@ -2849,6 +3274,7 @@ const DAYS = [
     nodes: [
       {
         time: "02:20",
+        short: "羽田",
         mode: "plane",
         name: "羽田机场 T3",
         title: "UO629 羽田 → 香港",
@@ -2861,6 +3287,7 @@ const DAYS = [
       },
       {
         time: "15:40",
+        short: "槟城",
         mode: "plane",
         name: "Penang International Airport",
         title: "UO746 香港 → 槟城",
@@ -3069,7 +3496,9 @@ let currentDayIdx = 0;
 let markersLayer = null;
 let polylineLayer = null;
 // 手机默认只看行程（地图在底栏「地图」）；宽屏默认地图＋行程并排
-let currentViewMode = matchMedia('(min-width: 900px)').matches ? 'split' : 'time'; // 'split', 'time', 'map'
+let currentViewMode = matchMedia('(min-width: 900px)').matches ? 'split' : 'time'; // 'split', 'time', 'map', 'toc'
+let chapterMode = currentViewMode;   // 看某一章时用的视图：手机「行程」，宽屏「分屏」
+let lastGuide = 'chapter';           // 去地图之前在看目录还是某一章，点底栏「攻略」回到那里
 
 // 现在几点：网址加 ?now=2026-10-10T16:50 可以假装是那个时刻，出发前预览「现在」和日落倒数
 const NOW_OVERRIDE = (() => {
@@ -3091,6 +3520,20 @@ function todayIdx() {
   return i < 0 ? 0 : i;
 }
 
+// ── 攻略：十章 ──
+const CN = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+const TRIP_START = new Date(2026, 9, 3), TRIP_END = new Date(2026, 9, 13); // 10/12 那天过完算结束
+function tripPhase() { const n = nowDate(); return n < TRIP_START ? 'before' : n >= TRIP_END ? 'after' : 'during'; }
+function chNo(i) { return `第${CN[i]}章`; }
+function dayDate(d) { return `${d.date} 周${d.weekday}`; }
+function isPastDay(day) { const [m, d] = day.date.split('/').map(Number); return nowDate() >= new Date(2026, m - 1, d + 1); }
+// 体力条：低 1 格、中低 2、中 3、高 4（和手册的强度同一把尺）
+function stamina(intensity) {
+  const t = intensity || '';
+  const lv = /^高/.test(t) ? 4 : /^中低/.test(t) ? 2 : /^中/.test(t) ? 3 : 1;
+  return `<span class="stamina" role="img" aria-label="体力消耗 ${lv}/4">${[1, 2, 3, 4].map(i => `<i class="${i <= lv ? 'on' : ''}"></i>`).join('')}</span>`;
+}
+
 function getDayIdxFromHash() {
   const hash = window.location.hash.toLowerCase().replace('#', '');
   if (!hash) return todayIdx();
@@ -3104,30 +3547,119 @@ function getDayIdxFromHash() {
 
 function initApp() {
   renderDayPills();
-  const initIdx = getDayIdxFromHash();
-  selectDay(initIdx, false);
-  // 底栏「日程」带 ?view=time、「地图」带 ?view=map；已经在随身页就只换视图，不重载
-  const v = /[?&]view=(time|map|split)/.exec(location.search);
-  setViewMode(v ? v[1] : currentViewMode);
+  // 底栏「攻略」带 ?view=time、「地图」带 ?view=map
+  const v = (/[?&]view=(time|map|split)/.exec(location.search) || [])[1];
+  if (v === 'time' || v === 'split') chapterMode = v;
+  const hash = location.hash.toLowerCase();
+  if (hash === '#toc') { selectDay(todayIdx(), false); showToc(false); }
+  else if (/\d/.test(hash)) { selectDay(getDayIdxFromHash(), false); setViewMode(v || chapterMode); }
+  else if (v === 'map' || tripPhase() === 'during') { selectDay(todayIdx(), false); setViewMode(v || chapterMode); }
+  else { selectDay(0, false); showToc(false); }
+
   document.addEventListener('click', e => {
-    // 底栏「手册」：从随身页过去，直接打开手册里同一天
-    const hb = e.target.closest('.tabbar a[data-key="handbook"]');
-    if (hb) { hb.href = `index.html#day-${currentDayIdx + 1}`; return; }
     const a = e.target.closest('.tabbar a[data-key="days"], .tabbar a[data-key="map"]');
     if (!a || !a.href.includes('companion.html')) return;
     e.preventDefault();
-    setViewMode(a.dataset.key === 'map' ? 'map' : 'time');
+    if (a.dataset.key === 'map') setViewMode('map');
+    // 「攻略」：从地图回来就回到刚才那一页；已经在攻略里再点一次 = 回到起点（旅行中是今天那一章，其他时候是目录）
+    else if (currentViewMode === 'map') lastGuide === 'toc' ? showToc(false) : setViewMode(chapterMode);
+    else goHome();
     window.scrollTo({ top: 0, behavior: scrollBehavior() });
+  });
+  // 封面上的「简报」「路线条」、章末「下一章」：点了跳到那一站或那一章
+  document.getElementById('dayHero').addEventListener('click', e => {
+    const go = e.target.closest('[data-go]');
+    if (go) { focusNode(+go.dataset.go); return; }
+    if (e.target.closest('[data-rain]')) openRain();
+  });
+  document.getElementById('chEnd').addEventListener('click', e => {
+    const b = e.target.closest('[data-ch], [data-toc]');
+    if (!b) return;
+    if (b.dataset.toc !== undefined) showToc(true);
+    else { openChapter(+b.dataset.ch); window.scrollTo({ top: 0, behavior: 'auto' }); }
   });
   // 首屏画完才开动效：打开页面时不播，之后换天、换站才有过渡
   requestAnimationFrame(() => requestAnimationFrame(() => { document.documentElement.dataset.motion = 'ready'; }));
 
-  window.addEventListener('hashchange', () => {
+  // 手机返回键：目录 ↔ 某一章
+  const route = () => {
+    if (location.hash.toLowerCase() === '#toc') { if (currentViewMode !== 'toc') showToc(false); return; }
     const idx = getDayIdxFromHash();
-    if (idx !== currentDayIdx) {
-      selectDay(idx, false);
-    }
-  });
+    if (currentViewMode === 'toc') setViewMode(chapterMode);
+    if (idx !== currentDayIdx) selectDay(idx, false);
+  };
+  window.addEventListener('hashchange', route);
+  window.addEventListener('popstate', route);
+}
+
+function goHome() {
+  if (tripPhase() === 'during') openChapter(todayIdx(), false);
+  else showToc(false);
+}
+// 打开某一章：从目录进来记一笔历史，手机返回键能回目录
+function openChapter(idx, push = currentViewMode === 'toc') {
+  const switching = idx !== currentDayIdx || currentViewMode === 'toc';
+  if (currentViewMode === 'toc' || currentViewMode === 'map' && push) setViewMode(chapterMode);
+  selectDay(idx, true, push);
+  if (switching && document.documentElement.dataset.motion === 'ready') {
+    ['dayHero', 'timelineList'].forEach(id => {
+      const el = document.getElementById(id);
+      el.classList.remove('ch-enter'); void el.offsetWidth; el.classList.add('ch-enter');
+    });
+  }
+}
+function showToc(push) {
+  renderToc();
+  setViewMode('toc');
+  if (location.hash !== '#toc') history[push ? 'pushState' : 'replaceState'](null, '', '#toc');
+  window.scrollTo({ top: 0, behavior: 'auto' });
+}
+function openRain() {
+  const el = document.getElementById('rainCard');
+  if (el.hidden) return;
+  el.open = true;
+  el.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
+}
+
+// ── 目录：封面 + 十章 ──
+function renderToc() {
+  const el = document.getElementById('toc');
+  const phase = tripPhase();
+  const ti = DAYS.findIndex(isToday);
+  const toGo = Math.ceil((TRIP_START - nowDate()) / 86400000);
+  const rail = DAYS.map(d => `<i class="${isToday(d) ? 'today' : isPastDay(d) ? 'past' : ''}"></i>`).join('');
+  const railLabel = phase === 'during' && ti >= 0 ? `十章走到第 ${ti + 1} 章` : phase === 'after' ? '十章都走完了' : '还没出发';
+  let go = '';
+  if (phase === 'during' && ti >= 0) {
+    go = `<button type="button" class="toc-go" data-ch="${ti}"><span>今天 · ${chNo(ti)} ${DAYS[ti].chapter}<small>${DAYS[ti].goal}</small></span>${ph('caretR')}</button>`;
+  } else if (phase === 'before') {
+    go = `<button type="button" class="toc-go" data-ch="0"><span>还有 ${toGo} 天出发 · 从第一章读起<small>${dayDate(DAYS[0])} ${DAYS[0].nodes[0].time.slice(0, 5)} 落地成田</small></span>${ph('caretR')}</button>`;
+  }
+  el.innerHTML = `
+    <div class="toc-cover">
+      <div class="toc-cover-art"><img src="img/illo/home.svg" alt="" decoding="async"></div>
+      <div class="toc-cover-body">
+        <p class="toc-kicker">2026 · 10/3 – 10/12 · 我和妈妈</p>
+        <h1 class="toc-title">东京 · 河口湖<br>十日攻略</h1>
+        <div class="toc-rail" role="img" aria-label="${railLabel}">${rail}</div>
+        ${go}
+      </div>
+    </div>
+    ${phase === 'before' ? `<a class="toc-pro" href="index.html#booking">${ph('backpack')}<span><b>序章 · 出发前</b>订票、待办、证件，都在底栏「背包」里</span></a>` : ''}
+    <ol class="toc-list">${DAYS.map((d, i) => {
+      const dl = [].concat(d.deadline || [])[0];
+      const today = isToday(d), past = !today && isPastDay(d);
+      return `<li><button type="button" class="toc-ch${today ? ' is-today' : past ? ' is-past' : ''}" data-ch="${i}">
+        <span class="toc-art"><img src="img/illo/day-${i + 1}.svg" alt="" loading="lazy" decoding="async"><span class="toc-num" aria-hidden="true">${CN[i]}</span></span>
+        <span class="toc-body">
+          <span class="toc-no">${chNo(i)} · ${dayDate(d)}${today ? '<span class="toc-today">今天</span>' : ''}</span>
+          <span class="toc-name">${d.chapter}</span>
+          <span class="toc-route">${d.title}</span>
+          <span class="toc-meta"><span>${stamina(d.intensity)}${d.intensity.split(' · ')[0]}</span>${dl ? `<span class="toc-dl">限时 ${dl.at}</span>` : ''}</span>
+        </span>
+      </button></li>`;
+    }).join('')}</ol>`;
+  el.querySelectorAll('[data-ch]').forEach(b => { b.onclick = () => { openChapter(+b.dataset.ch, true); window.scrollTo({ top: 0, behavior: 'auto' }); }; });
 }
 
 let infoWindow = null;
@@ -3257,10 +3789,12 @@ function renderDayPills() {
     btn.className = `day-pill ${idx === currentDayIdx ? 'active' : ''}`;
     btn.id = `pill-${idx}`;
     btn.setAttribute('aria-pressed', String(idx === currentDayIdx));
-    btn.innerHTML = `<span>${d.day}</span><span class="dp-tag">${d.date} 周${d.weekday}</span>`;
-    btn.onclick = () => selectDay(idx);
+    btn.setAttribute('aria-label', `${chNo(idx)} ${d.chapter} · ${dayDate(d)}${isToday(d) ? ' · 今天' : ''}`);
+    btn.innerHTML = `<span class="dp-no">${idx + 1}</span><span>${d.chapter}</span>${isToday(d) ? '<span class="dp-today" aria-hidden="true"></span>' : ''}`;
+    btn.onclick = () => openChapter(idx);
     container.appendChild(btn);
   });
+  document.getElementById('tocBtn').innerHTML = `${ph('list')}目录`;
 }
 
 
@@ -3276,16 +3810,17 @@ function switchDay8Option(key) {
     delete PREBAKED_ROUTES['D8'];
   }
 
-  // Re-render Day 8
+  // Re-render Day 8（胶囊上的章名跟着方案换）
+  renderDayPills();
   selectDay(7, false);
 }
 
-function selectDay(idx, updateHash = true) {
+function selectDay(idx, updateHash = true, push = false) {
   currentDayIdx = idx;
   const day = DAYS[idx];
 
   if (updateHash && window.location.hash !== `#${day.day}`) {
-    history.replaceState(null, '', `#${day.day}`);
+    history[push ? 'pushState' : 'replaceState'](null, '', `#${day.day}`);
   }
 
   // Update pills
@@ -3293,18 +3828,16 @@ function selectDay(idx, updateHash = true) {
     p.classList.toggle('active', i === idx);
     p.setAttribute('aria-pressed', String(i === idx));
   });
+  // 只横向滚胶囊那一排；scrollIntoView 会连整页一起往下滚
   const activePill = document.getElementById(`pill-${idx}`);
   if (activePill) {
-    activePill.scrollIntoView({ behavior: scrollBehavior(), inline: 'center', block: 'nearest' });
+    const row = activePill.parentElement;
+    row.scrollTo({ left: activePill.offsetLeft - row.offsetLeft - (row.clientWidth - activePill.offsetWidth) / 2, behavior: document.documentElement.dataset.motion === 'ready' ? scrollBehavior() : 'auto' });
   }
 
   // Update map header
   const routeBtn = document.getElementById('btnGmapsDayRoute');
   routeBtn.href = day.routeUrl;
-
-  // 回手册的每个入口都带上当天，落在手册的同一天而不是首页
-  const handbookHref = `index.html#day-${idx + 1}`;
-  document.querySelectorAll('.to-handbook, .tabbar a[data-key="handbook"]').forEach(a => { a.href = handbookHref; });
 
   // Render Day Hero Card
   const heroCard = document.getElementById('dayHero');
@@ -3324,27 +3857,95 @@ function selectDay(idx, updateHash = true) {
   const toGo = Math.ceil((new Date(2026, 9, 3) - nowDate()) / 86400000);
   const countHtml = toGo > 0 ? `<span class="hero-count">还有 ${toGo} 天出发</span>` : '';
   heroCard.innerHTML = `
-    <div class="hero-illo"><img src="img/illo/day-${idx + 1}.svg" alt="" decoding="async"></div>
+    <div class="hero-illo"><img src="img/illo/day-${idx + 1}.svg" alt="" decoding="async"><span class="slip" aria-hidden="true"><b>${CN[idx]}</b><span>${day.chapter}</span></span></div>
     ${d8SwitcherHtml}
     <div class="hero-meta">
-      ${countHtml}<span class="hero-pacing">${day.intensity}</span>
+      <span class="ch-line">${chNo(idx)} · ${dayDate(day)}</span>${countHtml}
     </div>
     <h1 class="hero-title">${day.title}</h1>
+    ${stripHtml(day)}
     <div class="hero-deadline" id="heroDeadline" hidden></div>
     <button type="button" class="hero-next" id="heroNext" hidden></button>
-    <details class="hero-more"><summary>今日概要 · 交通</summary><div class="hero-transit">${day.transit}</div><p class="hero-desc">${day.desc}</p></details>
-    <a href="${day.routeUrl}" target="_blank" class="hero-route-link">今日完整路线 · Google Maps ↗</a>
+    ${briefHtml(day)}
+    <a href="${day.routeUrl}" target="_blank" class="hero-route-link">全天路线 · Google Maps ↗</a>
   `;
 
-  if (window.TripDetails) TripDetails.decorate(heroCard.querySelector('.hero-transit'));
+  if (window.TripDetails) TripDetails.decorate(heroCard.querySelector('.brief'));
   updateDeadline();
   updateNextStop();
 
   // Render Timeline
   renderTimeline(day);
+  renderRain(day);
+  renderChEnd(idx);
+  centerStrip();
 
   // Update Leaflet Map
   updateMap(day);
+}
+
+// 本章简报：目标、体力、歇脚、要带、彩蛋、下雨，最后是交通和概要。
+// 出发前、当天第一站开始前是展开的（早上 30 秒看完）；走起来以后收成一行，让「下一站」在最上面
+function briefHtml(day) {
+  const rests = day.nodes.map((n, i) => n.rest ? `<button type="button" class="brief-go rest" data-go="${i}">${ph('armchair')}${n.short || n.title}<small>${n.rest}</small></button>` : '').join('');
+  const eggList = day.nodes.flatMap((n, i) => (n.eggs || []).map(e => [i, e]));
+  const eggs = eggList.map(([i, e]) => `<button type="button" class="brief-go" data-go="${i}">${ph('sparkle')}${e.t}</button>`).join('');
+  const gear = (day.gear || []).map(g => `<li>${g}</li>`).join('');
+  const rows = [
+    ['目标', `<span class="brief-goal">${day.goal}</span>`],
+    ['体力', `${stamina(day.intensity)}${day.intensity}`],
+    rests && ['歇脚', `<div class="brief-links">${rests}</div>`],
+    gear && ['要带', `<ul class="gear">${gear}</ul>`],
+    eggs && ['彩蛋', `<div class="brief-links">${eggs}</div>`],
+    day.rain && ['下雨', `${day.rain.sum} <button type="button" class="brief-go" data-rain>${ph('umbrella')}雨天攻略</button>`]
+  ].filter(Boolean);
+  const peek = [gear && `要带 ${day.gear.length} 样`, eggList.length && `彩蛋 ${eggList.length}`, day.rain && '雨天攻略'].filter(Boolean).join(' · ');
+  const open = !(isToday(day) && nowMins() >= nodeStartMins(day.nodes[0]));
+  return `<details class="brief"${open ? ' open' : ''}><summary>本章简报<span class="brief-peek">${peek}</span></summary>
+    <dl class="brief-list">${rows.map(([t, d]) => `<div class="bl-row"><dt>${t}</dt><dd>${d}</dd></div>`).join('')}</dl>
+    <div class="hero-transit">${day.transit}</div>
+    <p class="hero-desc">${day.desc}</p>
+  </details>`;
+}
+// 路线条：每站一个分类图标 ＋ 短名 ＋ 钟点；走过的变灰、现在的实心靛蓝，点了跳到那一站
+function stripHtml(day) {
+  return `<nav class="route-strip" aria-label="本章路线 · ${day.nodes.length} 站"><ol>${day.nodes.map((n, i) => `<li class="rs-stop${n.hero ? ' hero' : ''}${n.rest ? ' rest' : ''}"><button type="button" class="rs-btn" data-go="${i}" aria-label="第 ${i + 1} 站 · ${n.time.slice(0, 5)} ${n.title || n.name}${n.rest ? ' · 歇脚' : ''}"><span class="rs-ico">${nodeCatIcon(n)}</span><span class="rs-name">${n.short || ''}</span><span class="rs-time">${n.time.slice(0, 5)}</span></button></li>`).join('')}</ol></nav>`;
+}
+// 当天打开：路线条滚到「现在」那一站
+function centerStrip() {
+  const strip = document.querySelector('#dayHero .route-strip');
+  const cur = strip && (strip.querySelector('.is-now') || [...strip.querySelectorAll('.rs-stop:not(.is-past)')][0]);
+  if (!cur || !isToday(DAYS[currentDayIdx])) { if (strip) strip.scrollLeft = 0; return; }
+  strip.scrollLeft = Math.max(0, cur.offsetLeft - strip.clientWidth / 2 + cur.offsetWidth / 2);
+}
+function renderRain(day) {
+  const el = document.getElementById('rainCard');
+  if (!day.rain) { el.hidden = true; el.innerHTML = ''; return; }
+  el.open = false;
+  el.innerHTML = `<summary>${ph('umbrella')}<span><b>雨天攻略</b><span>${day.rain.sum}</span></span></summary>
+    <div class="rain-body">${day.rain.tiers.map(t => `<h3>${t.t}</h3><ul>${t.d.map(x => `<li>${x}</li>`).join('')}</ul>`).join('')}</div>`;
+  el.hidden = false;
+  if (window.TripDetails) TripDetails.decorate(el);
+}
+// 章末：第 N 章 · 完，今天走了多少步，接下一章（带插画）；最后一章写「全书完」
+function renderChEnd(idx) {
+  const el = document.getElementById('chEnd');
+  const day = DAYS[idx], next = DAYS[idx + 1], prev = DAYS[idx - 1];
+  const steps = /约 [\d,–]+ 步/.exec(day.intensity || '');
+  const nextHtml = next
+    ? `<button type="button" class="ch-next" data-ch="${idx + 1}">
+        <span class="ch-next-art"><img src="img/illo/day-${idx + 2}.svg" alt="" loading="lazy" decoding="async"></span>
+        <span class="ch-next-body"><span class="ch-next-k">下一章 · ${dayDate(next)}</span><span class="ch-next-n">${chNo(idx + 1)} ${next.chapter}</span><span class="ch-next-t">${next.nodes[0].time.slice(0, 5)} 出发 · ${next.goal}</span></span>
+        ${ph('caretR')}
+      </button>`
+    : `<p class="ch-fin">全书完 · 一路平安</p>`;
+  el.innerHTML = `<p class="ch-end-mark">${chNo(idx)} · 完</p>
+    ${steps ? `<p class="ch-end-sum">这一章${steps[0]}</p>` : ''}
+    ${nextHtml}
+    <div class="ch-nav">
+      <button type="button" data-ch="${idx - 1}"${prev ? '' : ' hidden'}>${ph('caretL')}${prev ? `${chNo(idx - 1)} ${prev.chapter}` : ''}</button>
+      <button type="button" data-toc>${ph('list')}目录</button>
+    </div>`;
 }
 
 // 每站一个分类图标（吃、走、买、看…），规则在 cat-icons.js；节点写了 cat 就用它，其次看交通方式
@@ -3371,7 +3972,11 @@ function renderTimeline(day) {
     const moreHtml = node.more && node.more.length
       ? `<details class="node-more"><summary>详情 · ${node.more.length} 条</summary><ul>${node.more.map(li => `<li>${li}</li>`).join('')}</ul></details>`
       : '';
-    const tagHtml = (node.tags || []).map(t => `<span class="node-tag">${t}</span>`).join('');
+    const tagHtml = (node.tags || []).map(t => `<span class="node-tag">${t}</span>`).join('')
+      + (node.rest ? `<span class="rest-chip">${ph('armchair')}${node.rest}</span>` : '');
+    // 分支：「如果…就…」一眼看到，不埋在详情里
+    const branchHtml = (node.branch || []).map(b => `<div class="branch"><p class="br-q">${ph('signpost')}${b.q || '临时有变'}</p><ul>${b.opts.map(([k, v]) => `<li><span class="br-if">${k}</span><span>${v}</span></li>`).join('')}</ul></div>`).join('');
+    const eggHtml = (node.eggs || []).map(e => `<p class="egg">${ph('sparkle')}<span><b>彩蛋 · ${e.t}</b>${e.d ? `：${e.d}` : ''}</span></p>`).join('');
 
     item.innerHTML = `
       <button type="button" class="node-dot" aria-label="在地图上看第 ${nIdx + 1} 站">${nIdx + 1}</button>
@@ -3383,6 +3988,8 @@ function renderTimeline(day) {
         <h2 class="node-name">${node.title || node.name}</h2>
         <div class="node-name-sub">${String(node.sub || '').replace(/(\d{1,2}:\d{2})\s*-\s*(\d{1,2}:\d{2})/g, '$1–$2')}</div>
         ${keyHtml}
+        ${branchHtml}
+        ${eggHtml}
         ${moreHtml}
       </div>
     `;
@@ -3527,8 +4134,8 @@ function updateNextStop() {
     const first = next && next.nodes[0];
     el.classList.add('is-done');
     el.innerHTML = `<span class="hn-when">今天收工${steps ? ` · 走了${steps[0]}` : ''}</span>` +
-      (first ? `<span class="hn-what">明天 ${first.time.slice(0, 5)} · ${first.title || first.name}</span>` : '<span class="hn-what">一路平安，回家啦</span>');
-    el.onclick = first ? () => selectDay(currentDayIdx + 1) : null;
+      (first ? `<span class="hn-what">明天 · ${chNo(currentDayIdx + 1)} ${next.chapter} · ${first.time.slice(0, 5)} 出发</span>` : '<span class="hn-what">全书完，一路平安</span>');
+    el.onclick = first ? () => { openChapter(currentDayIdx + 1); window.scrollTo({ top: 0, behavior: 'auto' }); } : null;
     el.hidden = false;
     return;
   }
@@ -3586,15 +4193,17 @@ function updateDeadline() {
 function markNow() {
   const day = DAYS[currentDayIdx];
   const items = document.querySelectorAll('#timelineList .node-item');
+  const stops = document.querySelectorAll('#dayHero .rs-stop');
   let cur = -1;
   if (isToday(day)) {
     const mins = nowMins();
     day.nodes.forEach((n, i) => {
       const [start, end] = nodeSpan(day, i);
       if (start != null && mins >= start && mins < end) cur = i;
-      if (start != null && mins >= end) items[i]?.classList.add('is-past');
+      if (start != null && mins >= end) { items[i]?.classList.add('is-past'); stops[i]?.classList.add('is-past'); }
     });
   }
+  stops.forEach((el, i) => el.classList.toggle('is-now', i === cur));
   items.forEach((el, i) => {
     const on = i === cur;
     if (el.classList.contains('is-now') === on) return;
@@ -3654,20 +4263,29 @@ document.addEventListener('visibilitychange', () => { if (!document.hidden) tick
 
 function setViewMode(mode) {
   currentViewMode = mode;
+  if (mode === 'split' || mode === 'time') chapterMode = mode;
+  if (mode !== 'map') lastGuide = mode === 'toc' ? 'toc' : 'chapter';
   document.body.dataset.view = mode;
   document.body.dataset.tab = mode === 'map' ? 'map' : 'days';
   if (window.TabBar) window.TabBar.setActive(document.body.dataset.tab);
   ['split', 'time', 'map'].forEach(m => document.getElementById('btn-' + m).setAttribute('aria-pressed', String(m === mode)));
   document.getElementById('btn-split').classList.toggle('active', mode === 'split');
-  document.getElementById('btn-time').classList.toggle('active', mode === 'time');
+  document.getElementById('btn-time').classList.toggle('active', mode === 'time' || mode === 'toc');
   document.getElementById('btn-map').classList.toggle('active', mode === 'map');
+  document.getElementById('tocBtn').setAttribute('aria-pressed', String(mode === 'toc'));
+  document.querySelectorAll('.day-pill').forEach((p, i) => p.setAttribute('aria-pressed', String(mode !== 'toc' && i === currentDayIdx)));
+  document.getElementById('toc').hidden = mode !== 'toc';
 
   const mapCard = document.getElementById('mapCard');
   const heroCard = document.getElementById('dayHero');
   const timelineList = document.getElementById('timelineList');
   const mapElem = document.getElementById('map');
 
-  if (mode === 'time') {
+  if (mode === 'toc') {
+    mapCard.classList.add('collapsed');
+    heroCard.style.display = 'none';
+    timelineList.style.display = 'none';
+  } else if (mode === 'time') {
     mapCard.classList.add('collapsed');
     heroCard.style.display = 'block';
     timelineList.style.display = 'block';
@@ -3700,7 +4318,7 @@ document.addEventListener('DOMContentLoaded', initApp);
 </script>
 <!-- Google Maps JavaScript API. This browser key is public by design: it only works on
      weikhang95.github.io, only for the Maps JavaScript API, and is capped at 300 map loads a day. -->
-<script src="tabbar.js?v=8" defer></script>
+<script src="tabbar.js?v=9" defer></script>
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5rs71T6Mi38Y9nAwLS6NihCBaMr5zJZs&loading=async&callback=onGoogleMapsReady&language=zh-CN&region=JP" onerror="gm_authFailure()"></script>
 </body>
 </html>

@@ -520,6 +520,12 @@ html[data-theme="dark"] .bplan-img-card:has(img)::after{outline-color:oklch(1 0 
 .t-start{font-size:1.375em;font-weight:700;letter-spacing:-.01em;color:var(--ink);}
 .t-sep{color:var(--ink-faint);font-weight:400;}
 .t-end{font-size:1em;font-weight:500;color:var(--ink-faint);}
+/* 行程当天：正在进行的一站写「现在」，走过的站开始时刻变淡（内文不淡，晚点了照样看得清） */
+.tl-item.is-past .t-start{color:var(--ink-faint);}
+.tl-item.is-now{scroll-margin-top:calc(var(--topbar-h, 68px) + 8px);}
+.tl-item.is-now .t-start{color:var(--ai);}
+.now-tag{display:inline-flex;align-items:center;gap:4px;margin-left:8px;padding:1px 8px;border-radius:999px;background:var(--ai-soft);color:var(--ai);font-size:var(--font-xs);font-weight:800;vertical-align:.15em;}
+.now-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;}
 .tl-tag{display:block;margin-top:2px;font-size:var(--font-xs);font-weight:600;color:var(--ai);line-height:1.45;white-space:normal;}
 /* 分类图标（cat-icons.js）：标签前一个 Phosphor 小图标，一眼分出吃、走、买、看。
    交通用靛蓝，餐食和咖啡用金色（饿的时候最好找），其余跟标签同色。
@@ -5630,7 +5636,11 @@ window.addEventListener('DOMContentLoaded', () => {
     var idx = dayIndexForToday();
     if (idx < 0) return;
     var id = TRIP[idx].id;
-    if (typeof window.tripSetView === 'function') { window.tripSetView(id); return; }
+    if (typeof window.tripSetView === 'function') {
+      window.tripSetView(id);
+      requestAnimationFrame(function () { requestAnimationFrame(function () { scrollToNow(silent); }); });
+      return;
+    }
     var card = document.getElementById(id);
     if (!card) return;
     var body = card.querySelector('.day-body');
@@ -5755,11 +5765,67 @@ window.addEventListener('DOMContentLoaded', () => {
 
   window.refreshTripClamp = refreshClamp;
 
+  /* ── 现在：今天的时间轴标出正在进行的一站，走过的站变淡 ── */
+  function clockMins(t) {
+    var m = /(\d{1,2}):(\d{2})/.exec(t || '');
+    return m ? +m[1] * 60 + +m[2] : null;
+  }
+  function markNow() {
+    [].forEach.call(document.querySelectorAll('.tl-item.is-now, .tl-item.is-past'), function (it) {
+      it.classList.remove('is-now', 'is-past');
+    });
+    [].forEach.call(document.querySelectorAll('.tl-item .now-tag'), function (t) { t.remove(); });
+    var idx = dayIndexForToday();
+    if (idx < 0) return null;
+    var n = new Date(), now = n.getHours() * 60 + n.getMinutes(), cur = null;
+    var items = [].filter.call(document.querySelectorAll('#' + TRIP[idx].id + ' .tl-item'), function (it) {
+      return it.querySelector('.t-start');
+    });
+    items.forEach(function (it, i) {
+      var start = clockMins(it.querySelector('.t-start').textContent);
+      var endEl = it.querySelector('.t-end'), next = items[i + 1];
+      var end = endEl ? clockMins(endEl.textContent)
+              : next ? clockMins(next.querySelector('.t-start').textContent) : start + 60;
+      if (start == null || end == null) return;
+      if (end < start) end += 1440; // 跨午夜
+      if (now >= end) it.classList.add('is-past');
+      else if (now >= start && !cur) {
+        cur = it;
+        it.classList.add('is-now');
+        var tag = document.createElement('span');
+        tag.className = 'now-tag';
+        tag.textContent = '现在';
+        it.querySelector('.tl-clock').after(tag);
+      }
+    });
+    return cur;
+  }
+  // 打开今天：直接落在现在这一站，不用从早上第一站往下找
+  function scrollToNow(silent) {
+    var cur = markNow();
+    if (!cur || cur.offsetParent === null) return;
+    cur.scrollIntoView({
+      behavior: silent ? 'auto' : (typeof preferredScrollBehavior === 'function' ? preferredScrollBehavior() : 'smooth'),
+      block: 'start'
+    });
+  }
+
   function boot() {
     initMode();
     initTables();
     initClamp();
     initToday();
+    markNow();
+    setInterval(markNow, 60000);
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) markNow(); });
+    // 首次打开落在今天（没带网址或就是今天那页）时，滚到现在这一站
+    window.addEventListener('load', function () {
+      var idx = dayIndexForToday();
+      if (idx < 0) return;
+      var h = location.hash.slice(1);
+      if (h && h !== TRIP[idx].id) return;
+      requestAnimationFrame(function () { requestAnimationFrame(function () { scrollToNow(true); }); });
+    });
   }
 
   if (document.readyState === 'loading') {

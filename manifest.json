@@ -3,7 +3,7 @@
   "short_name": "东京 2026",
   "description": "2026年10月3日至12日的行程手册与随身地图，没网也能看",
   "lang": "zh-CN",
-  "start_url": "./index.html",
+  "start_url": "./companion.html?view=time",
   "scope": "./",
   "display": "standalone",
   "background_color": "#f7f7f5",

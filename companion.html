@@ -21,7 +21,7 @@ try {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="tabbar.css?v=5">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&family=Noto+Serif+SC:wght@700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #F7F5F0;
@@ -134,8 +134,10 @@ try {
     color: var(--on-ai);
   }
   /* 昼 / 夜 切换 */
-  /* 回手册走底栏「手册」（直达同一天），顶栏只留视图切换和昼夜 */
-  .bar-right { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+  /* 顶栏和资料页同一种样子：左边衬线站名，右边昼夜。手机上「行程／地图」在底栏，视图切换只在宽屏出现 */
+  .bar-brand { font-family: 'Noto Serif SC', 'Songti SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: .02em; white-space: nowrap; }
+  .bar-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  @media (max-width: 640px) { .view-toggles { display: none; } }
   .theme-btn {
     position: relative;
     min-width: 40px; min-height: 40px; padding: 0 10px;
@@ -320,6 +322,15 @@ try {
     padding: 14px 16px;
     margin-bottom: 16px;
     box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  /* 当天的插画（和资料页同一套 img/illo/），贴满卡片顶部；地面在底部，所以从底部对齐 */
+  .hero-illo { margin: -14px -16px 12px; aspect-ratio: 800 / 260; max-height: 170px; background: var(--chip-bg); } /* 手机上整张画刚好放下，不裁；宽屏最高 170px */
+  .hero-illo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center bottom; }
+  html[data-theme="dark"] .hero-illo img { filter: brightness(.8) saturate(.9); }
+  .hero-count {
+    font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 99px;
+    background: var(--ai-soft); color: var(--ai); font-variant-numeric: tabular-nums;
   }
   .hero-meta {
     display: flex;
@@ -779,6 +790,7 @@ try {
 <!-- ── Sticky Top Bar ── -->
 <header class="top-bar">
   <div class="bar-main">
+    <span class="bar-brand">东京 · 河口湖 2026</span>
     <div class="bar-right">
       <div class="view-toggles" role="group" aria-label="视图模式">
         <button class="view-btn active" id="btn-split" onclick="setViewMode('split')" aria-pressed="true">分屏</button>
@@ -821,10 +833,9 @@ try {
 
   <!-- 两份文件的分工 -->
   <section class="role-note">
-    <h2>这里只回答「现在往哪走」</h2>
-    <p>随身页放的是当天的时间、地点、地图与一键导航 —— 站在路口掏出手机要看的东西。</p>
-    <p><strong>为什么这样排、有哪些备选、票订了没、钱怎么花</strong>，都在手册里。手册是出发前读的，随身页是路上用的。</p>
-    <a class="role-link to-handbook" href="index.html">打开这一天的手册</a>
+    <h2>想知道为什么这样排？</h2>
+        <p>每一站的理由、备选方案、票订了没、钱怎么花，都在底栏「资料」里。</p>
+    <a class="role-link to-handbook" href="index.html">看这一天的完整说明</a>
   </section>
 </main>
 
@@ -3053,7 +3064,8 @@ let map = null;
 let currentDayIdx = 0;
 let markersLayer = null;
 let polylineLayer = null;
-let currentViewMode = 'split'; // 'split', 'time', 'map'
+// 手机默认只看行程（地图在底栏「地图」）；宽屏默认地图＋行程并排
+let currentViewMode = matchMedia('(min-width: 900px)').matches ? 'split' : 'time'; // 'split', 'time', 'map'
 
 // 现在几点：网址加 ?now=2026-10-10T16:50 可以假装是那个时刻，出发前预览「现在」和日落倒数
 const NOW_OVERRIDE = (() => {
@@ -3304,10 +3316,14 @@ function selectDay(idx, updateHash = true) {
     `;
   }
 
+  // 出发前：顶部写还有几天出发
+  const toGo = Math.ceil((new Date(2026, 9, 3) - nowDate()) / 86400000);
+  const countHtml = toGo > 0 ? `<span class="hero-count">还有 ${toGo} 天出发</span>` : '';
   heroCard.innerHTML = `
+    <div class="hero-illo"><img src="img/illo/day-${idx + 1}.svg" alt="" decoding="async"></div>
     ${d8SwitcherHtml}
     <div class="hero-meta">
-      <span class="hero-pacing">${day.intensity}</span>
+      ${countHtml}<span class="hero-pacing">${day.intensity}</span>
     </div>
     <h1 class="hero-title">${day.title}</h1>
     <div class="hero-deadline" id="heroDeadline" hidden></div>
@@ -3663,7 +3679,7 @@ document.addEventListener('DOMContentLoaded', initApp);
 </script>
 <!-- Google Maps JavaScript API. This browser key is public by design: it only works on
      weikhang95.github.io, only for the Maps JavaScript API, and is capped at 300 map loads a day. -->
-<script src="tabbar.js?v=6" defer></script>
+<script src="tabbar.js?v=7" defer></script>
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5rs71T6Mi38Y9nAwLS6NihCBaMr5zJZs&loading=async&callback=onGoogleMapsReady&language=zh-CN&region=JP" onerror="gm_authFailure()"></script>
 </body>
 </html>

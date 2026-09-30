@@ -1868,11 +1868,11 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
   <div class="card" style="padding:var(--space-sm) var(--space-md);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:var(--space-md);background:var(--paper);">
     <div style="display:flex;align-items:center;gap:12px;">
       <div>
-        <div style="font-weight:700;font-size:var(--font-sm);color:var(--ink);"><span class="zh on">两份文件的分工：手册想清楚，随身页走路用</span><span class="en">How the two files divide the work</span></div>
-        <div style="font-size:var(--font-xs);color:var(--ink-soft);margin-top:2px;line-height:1.75;"><span class="zh on"><strong>这份手册</strong>回答「为什么这样排」—— 完整理由、备选方案、订票状态、预算与待办。出发前读，路上查细节。<br/><strong>随身页</strong>只回答「现在往哪走」—— 当天时间轴 ＋ 地图 ＋ 每一站一键导航，不解释原因。<br/><strong>决策图表</strong>是摊开来比的四张图。<br/>每天的页面底部有直接跳到那天地图的按钮，随身页也能跳回同一天的手册。</span><span class="en"><strong>This handbook</strong> holds the reasoning, alternatives, bookings and budget. <strong>The companion</strong> holds today’s timeline, map and one-tap navigation. <strong>Charts</strong> are the four comparisons. Each day links straight to its map, and back.</span></div>
+        <div style="font-weight:700;font-size:var(--font-sm);color:var(--ink);"><span class="zh on">日程是主页，这里是资料</span><span class="en">How the two files divide the work</span></div>
+        <div style="font-size:var(--font-xs);color:var(--ink-soft);margin-top:2px;line-height:1.75;"><span class="zh on"><strong>日程</strong>（底栏第一格）：今天几点去哪、下一站、一键导航。出门看这个。<br/><strong>资料</strong>（就是这里）：航班、住宿、交通、预算、提醒，以及每一天的完整说明和备选。</span><span class="en"><strong>This handbook</strong> holds the reasoning, alternatives, bookings and budget. <strong>The companion</strong> holds today’s timeline, map and one-tap navigation. <strong>Charts</strong> are the four comparisons. Each day links straight to its map, and back.</span></div>
       </div>
     </div>
-    <a href="companion.html" class="top-btn"><span class="zh on">打开随身助手</span><span class="en">Open Companion</span></a>
+    <a href="companion.html?view=time" class="top-btn"><span class="zh on">打开日程</span><span class="en">Open Companion</span></a>
   </div>
 
   <!-- DAY 1 -->
@@ -6298,6 +6298,6 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 })();
 </script>
-<script src="tabbar.js?v=6" defer></script>
+<script src="tabbar.js?v=7" defer></script>
 </body>
 </html>

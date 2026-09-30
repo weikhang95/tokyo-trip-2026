@@ -2,7 +2,7 @@
    页面走网络优先（有网就拿最新），没网退回缓存；图片、样式、字体走缓存优先。
    Google 地图底图和 API 不缓存（跨域、有配额），离线时地图空白，导航按钮仍会跳 Google Maps app。
    改了预缓存清单或想强制所有人更新时，把 VERSION 加一。 */
-const VERSION = 'v7';
+const VERSION = 'v8';
 const CACHE = 'tokyo-2026-' + VERSION;
 
 const PRECACHE = [

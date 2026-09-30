@@ -796,7 +796,7 @@ html[data-theme="dark"] .tl>.tl-item{background:var(--paper-2);box-shadow:none;}
   .glance-item::before{
     content:"";grid-column:1;grid-row:1 / span 2;
     width:48px;height:48px;border-radius:var(--r-sm);align-self:center;
-    background-position:center;background-size:cover;background-color:var(--paper-2);
+    background-position:center;background-size:192px auto;background-color:var(--paper-2); /* 插画下面 200 单位（地面和主角）刚好填满 48px */
     outline:1px solid oklch(0 0 0 / .1);outline-offset:-1px;
   }
   html[data-theme="dark"] .glance-item::before{outline-color:oklch(1 0 0 / .1);}
@@ -1183,10 +1183,11 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
 .day-map-link .dm-sub{font-size:var(--font-xs);color:var(--ink-soft);line-height:1.35;}
 .day-map-link .dm-go{margin-left:auto;font-size:1.25rem;font-weight:700;line-height:1;}
 /* 有照片的日子：照片放到这一天最上面，整张图就是进随身页的入口，底部一颗按钮 */
-.day-banner-wrap:has(.day-map-link){height:132px;max-height:132px;}
-.day-banner-wrap:has(.day-map-link)::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.28),rgba(0,0,0,0) 50%);}
+/* 插画 800×260：手机 180px 高左右各裁一点，宽屏 220px 只裁天空；按钮放在左上的天空里，不挡主角 */
+.day-banner-wrap:has(.day-map-link){height:180px;max-height:180px;}
+@media (min-width:641px){.day-banner-wrap:has(.day-map-link){height:220px;max-height:220px;}}
 .day-banner-wrap .day-map-link{
-  position:absolute;inset:0;z-index:1;align-items:flex-end;min-height:0;margin:0;padding:var(--space-sm);
+  position:absolute;inset:0;z-index:1;align-items:flex-start;min-height:0;margin:0;padding:var(--space-sm);
   border:0;border-radius:0;background:none;
 }
 .day-banner-wrap .day-map-link:focus-visible{outline:2px solid var(--ai);outline-offset:-4px;}

@@ -6,19 +6,20 @@
 
 - 纯静态网页，没有构建步骤。`main` 分支就是线上网站：https://weikhang95.github.io/tokyo-trip-2026/
 - `companion.html` 攻略：**主页**（装到手机桌面的 App 打开就是它；底栏「攻略」= `?view=time`，「地图」= `?view=map`）。十天是十章：出发前和回家后打开是目录（`#toc`），旅行中直接进今天那一章（`#D6`）。
-- `index.html` 背包（底栏「背包」）：航班、住宿、交通、订票、预算、提醒、待办。
+- `index.html` 背包（底栏「背包」）：航班、住宿、交通、河口湖、订票与待办、预算、提醒，一类一页（`#flights`、`#booking`…）。**这里没有每天的行程**；旧的 `#day-6` 链接会跳到攻略第六章。
 - `tabbar.js` / `tabbar.css` 底栏两页共用（攻略 | 地图 | 背包 | 待办 | 更多）；`trip-details.js` 两页共用的卡片细节（地铁线路色标、电梯／洗手间／座位图示）；`sw.js` 离线缓存。
 - 每一章的数据在 `companion.html` 的 `DAYS` 数组（第 8 章的四个方案在 `DAY8_OPTIONS`）：
   - 章：`chapter` 短名（题签、胶囊）、`goal` 本章目标、`intensity` 强度（开头写 低/中低/中/高强度，决定体力格数）、`gear` 要带的东西、`deadline` 错过就作废的钟点（巴士、还车）、`rain` 雨天攻略（`sum` 一句话 + `tiers` 分档）。
-  - 站（`nodes`）：`short` 路线条上的短名、`key` 要点（`!` 开头 = 金色警示）、`more` 收起的详情、`rest` 歇脚（例如「坐 90 分钟」）、`branch` 分支（`{ q, opts: [[如果, 就]] }`）、`eggs` 彩蛋（`{ t, d }`）、`hero: true` = 必看（红色）。
-- 预览某个时刻：随身页网址加 `?now=2026-10-08T12:40`。
+  - 站（`nodes`）：`short` 路线条上的短名、`key` 要点（`!` 开头 = 金色警示）、`more` 收起的详情、`rest` 歇脚（例如「坐 90 分钟」）、`branch` 分支（`{ q, opts: [[如果, 就]] }`）、`eggs` 彩蛋（`{ t, d }`）、`cards` 点餐卡（`ORDER_CARDS` 里的键）、`hero: true` = 必看（红色）。
+  - 「如果…就…」的备案写进 `branch`，不要埋在 `more` 里；整天的下雨方案写进章的 `rain`。
+- 预览某个时刻：攻略网址加 `?now=2026-10-08T12:40`（例如 `companion.html?now=2026-10-08T12:40#D6`）。
 
 ## 旅行中怎么改
 
 - 改完**直接 commit 并 push 到 `main`**，不要开分支或 PR，否则手机上看不到。先 `git pull`。
 - 一次只改一件事，小提交。
 - commit 信息不要加 `Co-Authored-By: Claude` 或「Generated with Claude Code」之类的署名。
-- **改行程要两页一起改**（背包里的每天长说明搬完之前）：`index.html` 的时间、站点、餐厅、交通变了，同一轮就要改 `companion.html` 的 `DAYS`，反过来也一样。
+- **行程只有一份，在 `companion.html` 的 `DAYS`**：改时间、站点、餐厅、交通只改这里。背包里的订票、预算、住宿信息跟着变了才顺手改 `index.html`。
 - HTML 是网络优先，改了不用动缓存版本。改了 `tabbar.js` / `tabbar.css` / `trip-details.js` 或预缓存清单，要把引用处的 `?v=` 和 `sw.js` 的 `VERSION` 各加一。
 
 ## 行程规则（已定，不要重新讨论）

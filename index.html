@@ -474,8 +474,8 @@ html[data-theme="dark"] .hero img{filter:brightness(.8) saturate(.9);}
 /* Budget Box (Clean & Quiet) */
 
 .b-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--line-soft);font-size:var(--font-sub);font-weight:400;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
-.b-row span:last-child{font-weight:600;color:var(--ink);white-space:nowrap;padding-left:10px;}
-.b-row span:first-child{min-width:0;}
+.b-row > span:last-child{font-weight:600;color:var(--ink);white-space:nowrap;padding-left:10px;}
+.b-row > span:first-child{min-width:0;}
 .b-row:last-of-type{border-bottom:none;}
 .b-total{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;column-gap:var(--space-sm);row-gap:2px;padding:var(--space-sm) 0 0;border-top:1px solid var(--ink-faint);margin-top:var(--space-xs);font-weight:600;color:var(--ink);font-size:var(--font-base);}
 .b-total-val{margin-left:auto;white-space:nowrap;font-family:var(--font-sans);font-size:var(--font-h3);color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums;}
@@ -1468,9 +1468,9 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
   <div class="card">
     <h3><span class="zh on">计程车明细 (2026/4/20 新费率)</span><span class="en">Taxi Breakdown (Apr 2026 Tariff)</span></h3>
     <p style="font-size:0.875rem;opacity:0.85;margin-bottom:10px;">初乗 ¥500 / <strong>1.0 km</strong>、距离加算 ¥100 / <strong>232 m</strong>、时间加算 ¥100 / <strong>1分25秒</strong> (≤10km/h)。2026 年 4 月 20 日起东京23区调涨 <strong>10.14%</strong>。</p>
-    <div class="b-row" style="font-weight:700;opacity:.75;"><span>主行程实搭</span><span></span></div>
+    <div class="b-row" style="font-weight:700;color:var(--ink-faint);"><span>主行程实搭</span><span></span></div>
     <div class="b-total"><span>主行程小计 (全程公共交通，不打车)</span><span class="b-total-val">¥0</span></div>
-    <div class="b-row" style="font-weight:700;opacity:.75;margin-top:8px;"><span>备选 (主方案不搭，遇雨／行李重／太累才用)</span><span></span></div>
+    <div class="b-row" style="font-weight:700;color:var(--ink-faint);margin-top:8px;"><span>备选 (主方案不搭，遇雨／行李重／太累才用)</span><span></span></div>
     <div class="b-row"><span>Day 6 · 浅草站 → 公寓 (2.15km，站前排班) — 涩谷太累的应急</span><span>¥1,100</span></div>
     <div class="b-row"><span>Day 5 · 东京站 → 竜泉 (6.6km) — 主方案已改 <strong>JR＋日比谷线 2人 ¥648</strong></span><span>¥2,900</span></div>
     <div class="b-row"><span>Day 9 · 公寓 → 浅草站 (2.15km) — 主方案走 <strong>都08 公车</strong>，此为 Plan B</span><span>¥2,000</span></div>

@@ -675,6 +675,33 @@ try {
   html[data-motion="ready"] .now-tag { animation: now-in .25s cubic-bezier(.2,0,0,1); }
   @keyframes now-in { from { opacity: 0; translate: 0 4px; } }
 
+  /* 线香：现在这一站的上边框是一炷香，从这一站开始烧到下一站开始（或写明的结束钟点）。
+     烧过的一段成灰（虚线），香头是朱色的火点，冒一缕烟；还剩多久写在「现在」旁边，不只靠这条线。
+     封面路线条上，现在这一站到下一站的那段连线也一样烧。 */
+  .node-item.is-now .node-card { position: relative; }
+  .incense { --burn: 0; position: absolute; top: -2px; left: 14px; right: 14px; height: 2px; pointer-events: none; }
+  .incense::before {
+    content: ""; position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--burn) * 100%) 0 0);
+    background: repeating-linear-gradient(90deg, color-mix(in srgb, var(--muted) 50%, transparent) 0 2px, transparent 2px 5px) var(--card-bg);
+  }
+  .incense-tip { position: absolute; inset: 0; translate: calc(var(--burn) * 100%) 0; }
+  .incense i, .rs-stop.is-next::after {
+    position: absolute; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: var(--shu);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--shu) 22%, transparent), 0 0 8px 1px color-mix(in srgb, var(--shu) 45%, transparent);
+  }
+  .incense i { top: 1px; left: 0; }
+  .incense svg {
+    position: absolute; bottom: 4px; left: 0; width: 10px; height: 13px; margin-left: -4px; overflow: visible;
+    fill: none; stroke: var(--muted); stroke-width: 1.2; stroke-linecap: round; opacity: .6;
+    -webkit-mask-image: linear-gradient(to top, #000 25%, transparent); mask-image: linear-gradient(to top, #000 25%, transparent);
+  }
+  /* 路线条：两个圆之间露出来的连线是 17px 到 43px 这 26px */
+  .rs-stop.is-next { --burn: 0; }
+  .rs-stop.is-next::before { background: linear-gradient(90deg, color-mix(in srgb, var(--ai) 45%, transparent) calc(17px + var(--burn) * 26px), var(--grid) 0); }
+  .rs-stop.is-next::after { content: ""; top: 17px; left: -13px; translate: calc(var(--burn) * 26px) 0; z-index: 1; }
+  html[data-motion="ready"] .incense::before { transition: clip-path 1s cubic-bezier(.2,0,0,1); }
+  html[data-motion="ready"] .incense-tip, html[data-motion="ready"] .rs-stop.is-next::after { transition: translate 1s cubic-bezier(.2,0,0,1); }
+
   /* 日落／日出：--sun-y 是太阳相对地平线的高度（负 = 在上面），--sun-w 是暖度（0 金 → 1 朱） */
   .sun-chip {
     --sun-y: 0; --sun-w: 0;
@@ -832,7 +859,7 @@ try {
   .brief-go:active { scale: .96; }
   .brief-go .ph { width: 1.1em; height: 1.1em; }
   .brief-go.rest { background: var(--matcha-soft); color: var(--matcha); }
-  .brief-go small { font-size: 12px; font-weight: 700; opacity: .8; }
+  .brief-go small { font-size: 12px; font-weight: 700; }
 
   /* ── 路线条：整章一眼看完，走过的一段变靛蓝，点一站跳过去 ── */
   .route-strip {
@@ -4678,6 +4705,8 @@ function updateNextStop() {
   el.onclick = () => focusNode(i);
   el.hidden = false;
 }
+// 「还剩」多久：不到一小时写分钟，否则几小时几分
+function leftTxt(m) { return m < 60 ? `${m} 分` : `${Math.floor(m / 60)} 小时${m % 60 ? ` ${m % 60} 分` : ''}`; }
 // 一站的起止（分钟）：没写结束时间就到下一站开始，最后一站算 60 分钟
 function nodeSpan(day, i) {
   const n = day.nodes[i];
@@ -4718,7 +4747,7 @@ function updateDeadline() {
   dock.hidden = !(today && dl);
   if (!dl) { el.hidden = true; syncDock(); return; }
   const left = hhmm(dl.at) - nowMins();
-  const txt = !today ? dl.note : left < 60 ? `还剩 ${left} 分` : `还剩 ${Math.floor(left / 60)} 小时${left % 60 ? ` ${left % 60} 分` : ''}`;
+  const txt = !today ? dl.note : `还剩 ${leftTxt(left)}`;
   el.innerHTML = `<span class="hd-what">${dl.at} 前${dl.what}</span><span class="hd-left">${txt}</span>`;
   el.hidden = false;
   if (today) {
@@ -4760,7 +4789,27 @@ function markNow() {
     const tag = el.querySelector('.now-tag');
     if (on && !tag) when.insertAdjacentHTML('beforeend', '<span class="now-tag">现在</span>');
     if (!on && tag) tag.remove();
+    if (!on) el.querySelector('.incense')?.remove();
   });
+  burnIncense(day, cur, items, stops);
+}
+// 线香：现在这一站烧了多少（0–1）。最后一站没写结束钟点就不点，不编一个离开时间
+function burnIncense(day, cur, items, stops) {
+  stops.forEach((el, i) => el.classList.toggle('is-next', cur >= 0 && i === cur + 1));
+  const el = items[cur], tag = el?.querySelector('.now-tag');
+  if (!tag) return;
+  const n = day.nodes[cur];
+  if (!(/[-–]\s*\d{1,2}:\d{2}/.test(n.time) || day.nodes[cur + 1])) return;
+  const [start, end] = nodeSpan(day, cur), mins = nowMins();
+  const burn = Math.min(1, Math.max(0, (mins - start) / (end - start))).toFixed(3);
+  let inc = el.querySelector('.incense');
+  if (!inc) {
+    el.querySelector('.node-card').insertAdjacentHTML('afterbegin', `<div class="incense" aria-hidden="true"><span class="incense-tip"><i></i><svg viewBox="0 0 10 13"><path d="M5 13c-2.5-2 2.5-3.5 0-6s2-3.5.5-6"/></svg></span></div>`);
+    inc = el.querySelector('.incense');
+  }
+  inc.style.setProperty('--burn', burn);
+  stops[cur + 1]?.style.setProperty('--burn', burn);
+  tag.textContent = `现在 · 还剩 ${leftTxt(end - mins)}`;
 }
 
 // 日落／日出小图标：太阳按时间一点点沉下地平线（日出反过来），离得越近颜色越暖；
@@ -4775,13 +4824,12 @@ function sunState(sun, today, mins) {
   const d = mins - at;
   const up = -40, down = 64;
   let y, txt;
-  const left = m => m < 60 ? `${m} 分` : `${Math.floor(m / 60)} 小时${m % 60 ? ` ${m % 60} 分` : ''}`;
   if (sun.kind === 'set') {
     y = d <= -180 ? up : d <= 0 ? up * (-d / 180) : Math.min(down, down * d / 20);
-    txt = d < -180 ? `${sun.zh} ${sun.at}` : d < 0 ? `${sun.zh}还有 ${left(-d)}` : d < 40 ? '余晖中' : `已${sun.zh} ${sun.at}`;
+    txt = d < -180 ? `${sun.zh} ${sun.at}` : d < 0 ? `${sun.zh}还有 ${leftTxt(-d)}` : d < 40 ? '余晖中' : `已${sun.zh} ${sun.at}`;
   } else {
     y = d <= -20 ? down : d <= 0 ? down * (-d / 20) : Math.max(up, up * d / 180);
-    txt = d < -180 ? `${sun.zh} ${sun.at}` : d < 0 ? `${sun.zh}还有 ${left(-d)}` : d < 30 ? '日出中' : `${sun.zh} ${sun.at}`;
+    txt = d < -180 ? `${sun.zh} ${sun.at}` : d < 0 ? `${sun.zh}还有 ${leftTxt(-d)}` : d < 30 ? '日出中' : `${sun.zh} ${sun.at}`;
   }
   // 暖度：日落前一小时从金色渐到朱色；日出后一小时从朱色退回金色
   const w = sun.kind === 'set' ? (d < -60 ? 0 : d < 0 ? (60 + d) / 60 : 1) : (d < 0 ? 1 : d < 60 ? 1 - d / 60 : 0);

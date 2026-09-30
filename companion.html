@@ -941,6 +941,9 @@ try {
   .oc-say:active { scale: .96; }
   .oc-say:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
   .oc-say.is-big { display: inline-flex; gap: 6px; width: auto; padding: 0 16px; border-radius: 99px; font-size: 13px; font-weight: 800; }
+  /* 店员会问的：下面一行「回」＝怎么回答 */
+  .oc-ph > .oc-re { display: flex; align-items: baseline; gap: 6px; margin-top: 4px; color: var(--ink); font-size: 13.5px; font-weight: 700; line-height: 1.9; }
+  .oc-re i { flex: none; padding: 0 6px; border-radius: 6px; background: var(--card-bg); color: var(--ai); font-style: normal; font-size: 11.5px; font-weight: 800; line-height: 1.7; }
   .oc-hint { margin: 2px 0 0; font-size: 13px; line-height: 1.6; color: var(--muted); text-wrap: pretty; }
   .oc-ph {
     display: block; width: 100%; padding: 10px 12px; border: 0; border-radius: 12px; background: var(--chip-bg);
@@ -948,7 +951,7 @@ try {
   }
   .oc-ph:active { scale: .98; }
   .oc-ph b { display: block; font-size: 16px; font-weight: 700; line-height: 1.9; }
-  .oc-ph span { display: block; font-size: 12.5px; color: var(--muted); }
+  .oc-ph > span { display: block; font-size: 12.5px; color: var(--muted); }
   /* 放大：一句话占满整个对话框，手机横过来给店员看也清楚；点一下回去 */
   .oc-big {
     display: none; min-height: 60dvh; width: 100%; padding: 24px 20px calc(16px + env(safe-area-inset-bottom, 0px));
@@ -3593,7 +3596,7 @@ const DAYS = [
 const ORDER_CARDS = {
   // 开口就用：不分店，出门最常说的几句；目录里点开
   talk: {
-    title: "开口就用 · 16 句",
+    title: "开口就用 · 说 16 句 · 听 12 句",
     sections: [
       { label: "最常用", phrases: [
         ["すみません。", "不好意思（叫店员、借过、道歉都用这句）"],
@@ -3601,6 +3604,21 @@ const ORDER_CARDS = {
         ["{大丈夫|だいじょうぶ}です。", "不用了，谢谢（婉拒袋子、吸管、推销）"],
         ["ゆっくり{話|はな}してください。", "请说慢一点"],
         ["もう{一度|いちど}お{願|ねが}いします。", "请再说一次"]
+      ] },
+      // 店员会说的敬语：先听懂；第三项是你怎么回答
+      { label: "店员会问你 · 听懂就好", hear: true, phrases: [
+        ["いらっしゃいませ。", "欢迎光临（不用回答）"],
+        ["{何名様|なんめいさま}ですか？", "几位？", "{二人|ふたり}です。"],
+        ["ご{注文|ちゅうもん}はお{決|き}まりですか？", "决定好点什么了吗？", "もう{少|すこ}し{待|ま}ってください。（还没）"],
+        ["{以上|いじょう}でよろしいですか？", "就这些吗？", "はい。"],
+        ["{少々|しょうしょう}お{待|ま}ちください。", "请稍等（不用回答）"],
+        ["{店内|てんない}でお{召|め}し{上|あ}がりですか？", "在店里吃吗？", "はい。／ {持|も}ち{帰|かえ}りで。（外带）"],
+        ["お{会計|かいけい}はご{一緒|いっしょ}でよろしいですか？", "一起结账吗？", "はい、{一緒|いっしょ}で。"],
+        ["お{支払|しはら}いはどうされますか？", "怎么付款？", "カードで。／ {現金|げんきん}で。"],
+        ["ポイントカードはお{持|も}ちですか？", "有积分卡吗？", "ないです。"],
+        ["{袋|ふくろ}はご{利用|りよう}ですか？", "要袋子吗？", "お{願|ねが}いします。／ {大丈夫|だいじょうぶ}です。（不要）"],
+        ["{温|あたた}めますか？", "（便利店便当）要加热吗？", "はい、お{願|ねが}いします。"],
+        ["お{箸|はし}はお{付|つ}けしますか？", "要筷子吗？", "{二膳|にぜん}お{願|ねが}いします。（两双）"]
       ] },
       { label: "问路 · 叫车", phrases: [
         ["トイレはどこですか？", "洗手间在哪里？"],
@@ -4065,7 +4083,7 @@ function renderToc() {
       </div>
     </div>
     ${phase === 'before' ? `<a class="toc-pro" href="index.html#booking">${ph('backpack')}<span><b>序章 · 出发前</b>订票、待办、证件，都在底栏「背包」里</span></a>` : ''}
-    <button type="button" class="toc-pro" data-talk>${ph('chat')}<span><b>开口就用 · 16 句</b>每句有注音，点喇叭听念法：叫人、问路、叫车、买东西、妈妈</span></button>
+    <button type="button" class="toc-pro" data-talk>${ph('chat')}<span><b>开口就用 · 日语 28 句</b>要说的 16 句，店员会问的 12 句；每句有注音，点喇叭听</span></button>
     <ol class="toc-list">${DAYS.map((d, i) => {
       const dl = [].concat(d.deadline || [])[0];
       const today = isToday(d), past = !today && isPastDay(d);
@@ -4300,11 +4318,11 @@ function kana(jp) {
     .replace(/\{([^|}]+)\|([^}]+)\}/g, '$2')
     .replace(/([1-9])(つ|皿)/g, (m, n, u) => COUNTER_READ[u][n]);
 }
-function sayJa(jp) {
+function sayJa(jp, rate = .85) {
   if (!CAN_SAY) return;
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(kana(jp));
-  u.lang = 'ja-JP'; u.rate = .85;
+  u.lang = 'ja-JP'; u.rate = rate;
   const v = speechSynthesis.getVoices().find(x => /^ja/i.test(x.lang));
   if (v) u.voice = v;
   speechSynthesis.speak(u);
@@ -4321,8 +4339,10 @@ function openOrderCard(k, from) {
   let big = null, back = null; // 放大的那一项：{ jp, zh, q: qtyParts, n, src }；back = 点开它的按钮
   const dishes = c.dishes || [];
   const phrases = c.sections ? c.sections.flatMap(x => x.phrases) : c.phrases;
+  const hearSet = new Set();
+  if (c.sections) { let k = 0; c.sections.forEach(x => x.phrases.forEach(() => { if (x.hear) hearSet.add(k); k++; })); }
   let pi = 0;
-  const phRow = ([jp, zh]) => { const i = pi++; return `<div class="oc-row"><button type="button" class="oc-ph" data-ph="${i}"><b lang="ja">${rb(jp)}</b><span>${zh}</span></button>${sayBtn(`data-say-ph="${i}"`, zh)}</div>`; };
+  const phRow = ([jp, zh, re]) => { const i = pi++; return `<div class="oc-row"><button type="button" class="oc-ph" data-ph="${i}"><b lang="ja">${rb(jp)}</b><span>${zh}</span>${re ? `<span class="oc-re"><i>你答</i><span lang="ja">${rb(re)}</span></span>` : ''}</button>${sayBtn(`data-say-ph="${i}"`, zh)}</div>`; };
   const body = c.sections
     ? c.sections.map(x => `<p class="oc-label">${x.label}</p><div class="oc-phrases">${x.phrases.map(phRow).join('')}</div>`).join('')
     : `<p class="oc-label">指给店员看 · 点一下放大</p>
@@ -4364,10 +4384,11 @@ function openOrderCard(k, from) {
   dlg.onclick = e => {
     if (e.target === dlg || e.target.closest('[data-close]')) { dlg.close(); return; }
     const sy = e.target.closest('.oc-say');
-    if (sy) { sayJa(sy.dataset.sayBig !== undefined ? big.src : sy.dataset.sayDish !== undefined ? dishes[+sy.dataset.sayDish].jp : phrases[+sy.dataset.sayPh][0]); return; }
+    // 自己要说的念慢一点跟读；店员会说的用正常语速，练耳朵
+    if (sy) { sayJa(sy.dataset.sayBig !== undefined ? big.src : sy.dataset.sayDish !== undefined ? dishes[+sy.dataset.sayDish].jp : phrases[+sy.dataset.sayPh][0], hearSet.has(sy.dataset.sayBig !== undefined ? big.i : +sy.dataset.sayPh) ? 1 : .85); return; }
     const d = e.target.closest('[data-dish]'), p = e.target.closest('[data-ph]'), st = e.target.closest('[data-step]');
     if (d) { const x = dishes[+d.dataset.dish], q = qtyParts(x.jp); openBig({ jp: x.jp, zh: x.zh, q, n: q ? q.n : 1 }, d); return; }
-    if (p) { const [jp, zh] = phrases[+p.dataset.ph]; openBig({ jp, zh, q: null, n: 1 }, p); return; }
+    if (p) { const [jp, zh] = phrases[+p.dataset.ph]; openBig({ jp, zh, q: null, n: 1, i: +p.dataset.ph }, p); return; }
     if (st) {
       big.n = Math.min(9, Math.max(1, big.n + +st.dataset.step)); drawBig(true);
       if (st.disabled) bigEl.querySelector('[data-step]:not(:disabled)').focus(); // 按到头，焦点换到另一颗

@@ -70,13 +70,14 @@ Q27 decided (2026-09-29): keep the 10/7 Tokyo evening as written (红砖站舍 �
   - 3COINS+plus in 西武新宿 Pepe 3F 14:15–14:45: 11:00–21:30, 161 m from 1 番のりば.
   - Leave 3COINS at 14:50. This supersedes the Harajuku timings (13:45 / 14:20 / the last 14:45 train).
   - The user is interested in a 歌舞伎町 night photo, but it's not possible on 10/8 (the bus leaves at 15:20 in daylight). Open question.
-- Day 7 (10/9) revised: walk through GINZA SIX for about 20 min (no rooftop; the user will pick GSIX shops later), UNIQLO 11:55–13:15, GU 銀座店 13:15–13:55, tea until 15:10, 增上寺 from 15:30. The user still feels Ginza time is short. Proposal pending: end Tsukiji at 10:45 and shorten 增上寺 to 40 min, which gives Ginza 10:50–15:40 plus 40 min of free time.
+- Day 7 (10/9) revised: walk through GINZA SIX for about 20 min (no rooftop; the user will pick GSIX shops later), UNIQLO 11:55–13:15, GU 銀座店 13:15–13:55, tea until 15:10, 增上寺 from 15:30. The user still feels Ginza time is short. Proposal was: end Tsukiji at 10:45 and shorten 增上寺 to 40 min, which gives Ginza 10:50–15:40 plus 40 min of free time.
+- Day 7 (10/9) decided 2026-09-30: Tsukiji 08:30–10:45, GSIX walk-through 10:45–11:35 (40 min), UNIQLO 11:35–13:00, GU 13:00–13:45, 和光 and tea 13:45–14:45, Ginza free time 14:45–15:55 (Ginza is now about 5 h), 增上寺 16:15–17:00 (the main hall closes 17:00), 芝公园 17:00–17:50 for the 17:14 lighting and a night shot of the warm-orange winter Landmark Light (switch date for 2026 not announced, likely done by 10/9; the grounds stay open after 17:00), dinner 17:55–19:15 (Friday, may wait). Sapporo THE BAR moved to after dinner and made optional: 19:23 浅草线 大門 → 東銀座, bar 19:35–20:05, 20:15 日比谷线 銀座 → 三ノ輪 20:37, home about 20:45. The user said Mom is fine with it since it is on the way and not a special trip. Note that Day 8 leaves at 07:20 the next morning.
 - Dwell-time audit (2026-09-30): D8 Kamakura is the tightest day (八幡宮 about 30 min, 小町通 40, 长谷寺 40, Enoshima about 70 including the walk). D4 忍野八海 is only about 40 min. D8 has a header typo: the Enoden stop starts at 13:27 but the train is 13:37.
 - UNIQLO and GU are not on this day. The user will go to UNIQLO Ginza on 10/9, and GU goes there too (GU 銀座店, 银座 5-7-7). The Harajuku GU STYLE STUDIO takes app orders only.
 - The user and Mom mainly care about Onitsuka Tiger, UNIQLO, GU and 3COINS; Mom should not be left sitting alone while the user shops.
 - 太田記念美術館 (葛飾応為 展, 10/6–11/3) and 根津美術館 were offered and not chosen. ハラカド shows a "2026年9月14日 閉店" notice on its homepage (unclear whether it is the whole building), so it was not used.
 
-**Still to grill:** Day 7 afternoon (GSIX, UNIQLO Ginza vs Q16 "no Ginza trip just to shop", 增上寺), Day 8 Kamakura chain, temple count.
+**Still to grill:** Day 8 Kamakura chain, temple count.
 
 ## Loose ends found during the grill
 

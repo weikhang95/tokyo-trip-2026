@@ -79,7 +79,9 @@ Q27 decided (2026-09-29): keep the 10/7 Tokyo evening as written (红砖站舍 �
 
 - Day 8 (10/10) decided 2026-09-30: keep all stops. 報国寺 stays at 09:25 (the user asked about moving it later as a rest stop; rejected because it is east of the station, the opposite direction from Hase and Enoshima, closes at 16:00 and queues in the afternoon; the real rests are ことぶき屋 lunch, the Enoshima escalator and the Sea Candle indoor deck). 八幡宮 10:40–11:10 (30 min, Mom prays at 舞殿, the user climbs the 61 steps alone), 小町通 11:10–11:35, 11:40 Enoden (11:54 is the fallback), 長谷寺 11:50–12:45 (55 min, up from 40). Enoshima keeps 15:10–16:40 (90 min). Fixed the 13:27 typo to 13:25.
 
-**Still to grill:** 10/6 忍野八海 time, 歌舞伎町 night view, loose ends.
+- Day 4 (10/6) decided 2026-09-30: 忍野八海 13:30–14:35 (about 60 min, up from 40), 山中湖全景台 15:00–15:35 (35 min, down from 40), 大石公园 from about 16:25 (still about 35 min before the sun drops behind the western ridge at 17:00–17:10).
+
+**Still to grill:** 歌舞伎町 night view, loose ends.
 
 ## Loose ends found during the grill
 

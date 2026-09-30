@@ -1668,7 +1668,8 @@ const DAYS = [
       "午餐：160 年老店手打荞麦",
       "午后坐免费迷你缆车，过桜桥沿隅田川走一圈，吃舒芙蕾松饼",
       "傍晚逛秋叶原步行者天国（周日限定）",
-      "友都八喜 UNIQLO 买好去富士山的外套"
+      "友都八喜 UNIQLO 买好去富士山的外套",
+      "晚餐：九州じゃんがら豚骨拉面"
     ],
     transit: [
       "门口公车直达浅草雷门",
@@ -1677,7 +1678,7 @@ const DAYS = [
       "日比谷线直达回竜泉"
     ],
     gear: ["相机（40mm 定焦）", "护照（UNIQLO 买外套免税）", "纸袋装菠萝包"],
-    routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Tokyo+Taito+Ryusen+3-10-7&destination=Akihabara+Electric+Town&waypoints=Kaminarimon+Gate%7CMatsuchiyama+Shoden%7CSakurabashi+Bridge%7CSumida+River+Walk%7CBelle+%26+Emma+ASAKUSA&travelmode=walking",
+    routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Tokyo+Taito+Ryusen+3-10-7&destination=Kyushu+Jangara+Akihabara&waypoints=Kaminarimon+Gate%7CMatsuchiyama+Shoden%7CSakurabashi+Bridge%7CSumida+River+Walk%7CBelle+%26+Emma+ASAKUSA&travelmode=walking",
     nodes: [
       {
         time: "06:30",
@@ -1921,18 +1922,24 @@ const DAYS = [
       },
       {
         time: "18:45",
-        short: "晚餐",
-        name: "友都八喜 8F 舒适美食街",
-        title: "友都八喜 8F 晚餐 → 回家",
-        sub: "Yodobashi-Akiba 8F · 炸猪排/寿喜烧",
-        lat: 35.6987, lng: 139.7747,
-        key: ["室内大卡座，不排街头队", "日比谷线 4 站 8 分钟回三ノ輪"],
+        short: "拉面",
+        name: "九州じゃんがら 秋葉原店 (九州豚骨拉面)",
+        title: "九州じゃんがら 拉面 → 回家",
+        sub: "外神田 3-11-6 · 友都八喜走 578 米、8 分钟 · 每天 11:00–21:45 · Google 4.4★",
+        lat: 35.7007814, lng: 139.7706793,
+        key: ["排队时店员先来点单，入座很快上面", "妈妈那碗不要溏心蛋"],
         more: [
-          "从 7F 搭电梯上 8F：和牛寿喜烧、京都胜牛、炸猪排等，冷气足，洗手间干净。不点鳗鱼：隔天午餐就是伊豆荣鳗鱼饭。",
-          "20:15 秋叶原站搭日比谷线（北千住方向）4 站 8 分钟到三ノ輪，1b 出口有电梯，平路 670m（约 8 分钟），20:30 到家。"
+          "约 14 个座位，店小有点挤，有英文菜单（Google 评论）。",
+          "豚骨汤浓但不腻，评论推荐加炸蒜；加面（替玉）¥150。溏心蛋的蛋黄是流的，妈妈那碗不加。",
+          "回家：走 666 米、约 10 分钟到秋叶原站日比谷线，19:52／19:57／20:02 北千住或北越谷方向 4 站到三ノ輪（¥178，Yahoo! 乘换查的，未核实）。1b 出口有电梯，平路 670m，约 20:15 到家。"
         ],
-        tags: ["晚餐 · 回家"],
-        hero: false
+        tags: ["晚餐 · 拉面"],
+        hero: false,
+        branch: [
+          { q: "妈妈想坐宽一点", opts: [
+              ["友都八喜 8F", "从 7F 搭电梯上 8F 舒适美食街：炸猪排、寿喜烧等，室内大卡座不排街头队；吃完 20:15 秋叶原站日比谷线回家"]
+            ] }
+        ]
       }
     ]
   },

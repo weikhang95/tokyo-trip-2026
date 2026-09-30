@@ -106,29 +106,6 @@ try {
     max-width: 900px;
     margin: 0 auto;
   }
-  .brand-group {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    min-width: 0;
-  }
-  .back-btn {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--ai);
-    background: var(--ai-soft);
-    text-decoration: none;
-    padding: 5px 10px;
-    border-radius: 99px;
-    white-space: nowrap;
-    min-height: 40px;
-    transition: scale .1s var(--ease), background-color .15s var(--ease);
-  }
-  .back-btn:active { scale: .96; }
   .view-toggles {
     display: flex;
     flex-shrink: 0;
@@ -157,7 +134,8 @@ try {
     color: var(--on-ai);
   }
   /* 昼 / 夜 切换 */
-  .bar-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  /* 回手册走底栏「手册」（直达同一天），顶栏只留视图切换和昼夜 */
+  .bar-right { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 6px; }
   .theme-btn {
     position: relative;
     min-width: 40px; min-height: 40px; padding: 0 10px;
@@ -612,7 +590,7 @@ try {
     transition: background-color .15s var(--ease), opacity .15s var(--ease), scale .1s var(--ease);
   }
   .nav-btn:active { scale: .96; }
-  .back-btn::after, .view-btn::after, .theme-btn::after, .route-toggle-btn::after, .map-link-btn::after {
+  .view-btn::after, .theme-btn::after, .route-toggle-btn::after, .map-link-btn::after {
     content: ""; position: absolute; inset: 50% auto auto 50%;
     width: 44px; height: 44px; transform: translate(-50%, -50%);
   }
@@ -801,9 +779,6 @@ try {
 <!-- ── Sticky Top Bar ── -->
 <header class="top-bar">
   <div class="bar-main">
-    <div class="brand-group">
-      <a href="index.html" class="back-btn to-handbook">← 手册</a>
-    </div>
     <div class="bar-right">
       <div class="view-toggles" role="group" aria-label="视图模式">
         <button class="view-btn active" id="btn-split" onclick="setViewMode('split')" aria-pressed="true">分屏</button>
@@ -3119,6 +3094,9 @@ function initApp() {
   const v = /[?&]view=(time|map|split)/.exec(location.search);
   setViewMode(v ? v[1] : currentViewMode);
   document.addEventListener('click', e => {
+    // 底栏「手册」：从随身页过去，直接打开手册里同一天
+    const hb = e.target.closest('.tabbar a[data-key="handbook"]');
+    if (hb) { hb.href = `index.html#day-${currentDayIdx + 1}`; return; }
     const a = e.target.closest('.tabbar a[data-key="days"], .tabbar a[data-key="map"]');
     if (!a || !a.href.includes('companion.html')) return;
     e.preventDefault();
@@ -3310,7 +3288,7 @@ function selectDay(idx, updateHash = true) {
 
   // 回手册的每个入口都带上当天，落在手册的同一天而不是首页
   const handbookHref = `index.html#day-${idx + 1}`;
-  document.querySelectorAll('.to-handbook').forEach(a => { a.href = handbookHref; });
+  document.querySelectorAll('.to-handbook, .tabbar a[data-key="handbook"]').forEach(a => { a.href = handbookHref; });
 
   // Render Day Hero Card
   const heroCard = document.getElementById('dayHero');

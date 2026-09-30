@@ -53,6 +53,9 @@ try {
   /* 深色：与手册 index.html 的深色色值一致 */
   /* 底栏一直盖在页底（手机 57px；宽屏浮起 16px）：键盘 Tab 到页底的站点时让开它 */
   html { scroll-padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px) + 8px); }
+  /* 跳到某张卡时别被顶栏（和限时停靠条）盖住 */
+  html { scroll-padding-top: 112px; }
+  html:has(.dl-dock.is-on) { scroll-padding-top: 150px; }
   html[data-theme="dark"] {
     color-scheme: dark;
     --bg: #0e1116;
@@ -379,6 +382,23 @@ try {
   .hero-deadline[hidden] { display: none; }
   .hd-what { font-size: 14px; font-weight: 800; line-height: 1.4; color: var(--ink); text-wrap: pretty; word-break: keep-all; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
   .hd-left { font-size: 12px; font-weight: 700; color: var(--kin); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  /* 限时停靠：当天还有没到的限时，封面那条滚出顶栏后，它钉在顶栏下面一行（盖在内容上，不挤动页面）；点一下回到封面 */
+  .dl-dock {
+    position: absolute; left: 0; right: 0; top: 100%;
+    display: flex; align-items: center; gap: 8px; width: 100%; min-height: 38px;
+    padding: 6px max(16px, calc((100% - 900px) / 2 + 16px));
+    border: 0; background: color-mix(in srgb, var(--kin) 12%, var(--paper));
+    box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--kin) 28%, transparent), 0 6px 14px -10px rgba(0, 0, 0, .35);
+    color: var(--ink); font: inherit; text-align: left; cursor: pointer;
+    opacity: 0; translate: 0 -4px; visibility: hidden;
+    transition: opacity .18s var(--ease), translate .18s var(--ease), visibility 0s .18s;
+  }
+  .dl-dock[hidden] { display: none; }
+  .dl-dock.is-on { opacity: 1; translate: 0; visibility: visible; transition: opacity .18s var(--ease), translate .18s var(--ease), visibility 0s; }
+  .dl-dock .ph { flex: none; width: 1.2em; height: 1.2em; color: var(--kin); }
+  .dd-what { flex: 1; min-width: 0; font-size: 13px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
+  .dd-left { flex: none; font-size: 12px; font-weight: 800; color: var(--kin); font-variant-numeric: tabular-nums; }
+  .dl-dock:focus-visible { outline: 2px solid var(--ai); outline-offset: -2px; }
   .hero-desc {
     font-size: 14px;
     color: var(--muted);
@@ -723,8 +743,6 @@ try {
   .day-row { display: flex; align-items: center; max-width: 900px; margin: 0 auto; }
   .day-row .day-scroll {
     flex: 1; min-width: 0; margin: 0; padding-left: 8px;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10px, #000 calc(100% - 20px), transparent);
-    mask-image: linear-gradient(90deg, transparent, #000 10px, #000 calc(100% - 20px), transparent);
   }
   .toc-btn {
     position: relative; flex: none; display: inline-flex; align-items: center; gap: 4px;
@@ -827,11 +845,11 @@ try {
     font-size: 13px; font-weight: 800; color: var(--ink);
   }
   .brief > summary::-webkit-details-marker { display: none; }
-  .brief > summary::after {
+  .brief > summary::after, .rain-card > summary::after {
     content: ""; flex: none; width: 6px; height: 6px; margin-left: auto; border: solid var(--muted); border-width: 0 1.5px 1.5px 0;
     rotate: 45deg; translate: 0 -.15em; transition: rotate .2s var(--ease), translate .2s var(--ease);
   }
-  .brief[open] > summary::after { rotate: 225deg; translate: 0 .15em; }
+  .brief[open] > summary::after, .rain-card[open] > summary::after { rotate: 225deg; translate: 0 .15em; }
   .brief > summary:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; border-radius: 4px; }
   .brief-peek { font-size: 12px; font-weight: 700; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
   .brief-list { display: grid; grid-template-columns: auto 1fr; gap: 9px 12px; margin: 0 0 12px; font-size: 14px; line-height: 1.55; }
@@ -859,9 +877,15 @@ try {
   /* ── 路线条：整章一眼看完，走过的一段变靛蓝，点一站跳过去 ── */
   .route-strip {
     margin: 2px -16px 0; padding: 2px 16px 4px; overflow-x: auto; scrollbar-width: none;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 16px, #000 calc(100% - 28px), transparent);
-    mask-image: linear-gradient(90deg, transparent, #000 16px, #000 calc(100% - 28px), transparent);
   }
+  /* 横滑的两排（章节胶囊、路线条）：还有内容的那一边才淡出；滑到头那一边不淡，也不会露出半个字 */
+  .day-row .day-scroll, .route-strip {
+    --fade-l: 28px; --fade-r: 28px;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent);
+  }
+  .day-row .day-scroll[data-edge~="start"], .route-strip[data-edge~="start"] { --fade-l: 0px; }
+  .day-row .day-scroll[data-edge~="end"], .route-strip[data-edge~="end"] { --fade-r: 0px; }
   .route-strip::-webkit-scrollbar { display: none; }
   .route-strip ol { display: flex; width: max-content; list-style: none; margin: 0; padding: 0; }
   .rs-stop { position: relative; flex: none; width: 60px; }
@@ -928,12 +952,18 @@ try {
   .oc-head h2 { flex: 1; min-width: 0; margin: 0; font-size: 15px; font-weight: 800; line-height: 1.4; text-wrap: balance; }
   .oc-x { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border: 0; border-radius: 50%; background: none; color: var(--muted); cursor: pointer; }
   .oc-x .ph { width: 1.3em; height: 1.3em; }
-  .oc-x:focus-visible, .oc-ph:focus-visible, .oc-big:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
+  .oc-x:focus-visible, .oc-ph:focus-visible, .oc-dish:focus-visible, .oc-back:focus-visible, .oc-step button:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
+  /* 日文按词组换行，不会把「します」拆开（Chrome；Safari 照常） */
+  dialog.oc [lang="ja"] { word-break: auto-phrase; text-wrap: pretty; }
   .oc-body { padding: 12px 16px calc(20px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 10px; }
   .oc-label { margin: 6px 0 0; font-size: 12px; font-weight: 800; color: var(--muted); letter-spacing: .04em; }
-  .oc-dish { padding: 12px 14px; border-radius: 12px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--grid); }
-  .oc-jp { font-size: 20px; font-weight: 700; line-height: 1.5; color: var(--ink); }
-  .oc-zh { margin-top: 4px; font-size: 13.5px; line-height: 1.55; color: var(--muted); text-wrap: pretty; }
+  .oc-dish {
+    display: block; width: 100%; padding: 12px 14px; border: 0; border-radius: 12px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--grid);
+    color: var(--ink); font: inherit; text-align: left; cursor: pointer; transition: scale .1s var(--ease);
+  }
+  .oc-dish:active { scale: .98; }
+  .oc-jp { display: block; font-size: 20px; font-weight: 700; line-height: 1.5; color: var(--ink); }
+  .oc-zh { display: block; margin-top: 4px; font-size: 13.5px; line-height: 1.55; color: var(--muted); text-wrap: pretty; }
   .oc-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-top: 6px; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
   .oc-price { flex: none; font-weight: 800; color: var(--ink); font-variant-numeric: tabular-nums; }
   .oc-phrases { display: grid; gap: 8px; }
@@ -946,21 +976,34 @@ try {
   .oc-ph span { display: block; font-size: 12.5px; color: var(--muted); }
   /* 放大：一句话占满整个对话框，手机横过来给店员看也清楚；点一下回去 */
   .oc-big {
-    position: sticky; bottom: 0; display: none; min-height: 60dvh; width: 100%; padding: 24px 20px;
-    border: 0; background: var(--card-bg); color: var(--ink); font: inherit; text-align: center; cursor: pointer;
+    display: none; min-height: 60dvh; width: 100%; padding: 24px 20px calc(16px + env(safe-area-inset-bottom, 0px));
+    background: var(--card-bg); color: var(--ink); text-align: center; cursor: pointer;
   }
   dialog.oc.is-big .oc-body { display: none; }
   dialog.oc.is-big .oc-big { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
   .oc-big b { font-size: clamp(26px, 8vw, 40px); font-weight: 800; line-height: 1.45; text-wrap: balance; }
-  .oc-big span { font-size: 14px; color: var(--muted); }
-  .oc-big small { font-size: 12px; color: var(--muted); }
+  .oc-big em { font-style: normal; color: var(--ai); white-space: nowrap; }
+  .oc-big-zh { font-size: 14px; line-height: 1.55; color: var(--muted); text-wrap: pretty; }
+  /* 份数：两个大圆钮夹着数字，拇指按得到 */
+  .oc-step { display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; padding: 4px; border-radius: 99px; background: var(--chip-bg); cursor: default; }
+  .oc-step button {
+    display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%;
+    background: var(--card-bg); color: var(--ai); font: inherit; font-size: 22px; font-weight: 700; line-height: 1; cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .08); transition: scale .1s var(--ease), opacity .15s var(--ease);
+  }
+  .oc-step button:active { scale: .96; }
+  .oc-step button:disabled { opacity: .35; cursor: default; box-shadow: none; }
+  .oc-step output { min-width: 2.2ch; font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .oc-back { min-height: 44px; padding: 0 16px; border: 0; border-radius: 99px; background: none; color: var(--muted); font: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer; }
 
   /* ── 雨天攻略（整章的下雨方案，章末一张卡） ── */
   .rain-card { margin: 4px 0 16px; background: var(--card-bg); border: 1px solid var(--grid); border-radius: 14px; box-shadow: var(--shadow); padding: 0 14px; }
   .rain-card[hidden] { display: none; }
-  .rain-card > summary { display: flex; align-items: center; gap: 8px; min-height: 52px; list-style: none; cursor: pointer; }
+  .rain-card > summary { display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 12px 0; list-style: none; cursor: pointer; }
   .rain-card > summary::-webkit-details-marker { display: none; }
   .rain-card > summary .ph { width: 1.3em; height: 1.3em; color: var(--ai); flex: none; }
+  .rain-card > summary > span { flex: 1; min-width: 0; }
+  .rain-card > summary::after { margin-right: 4px; }
   .rain-card > summary b { font-size: 15px; font-weight: 800; }
   .rain-card > summary span { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
   .rain-card > summary:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; border-radius: 8px; }
@@ -1051,11 +1094,13 @@ try {
       <!-- Populated by JS -->
     </div>
   </div>
+  <!-- 限时停靠：封面上的限时条滚出屏幕后，钉在顶栏下面 -->
+  <button type="button" class="dl-dock" id="dlDock" hidden></button>
 </header>
 
 <main class="content-wrap" id="main">
   <!-- 目录：出发前、旅程结束后打开网站先看到这里；旅行中直接进今天那一章 -->
-  <section class="toc" id="toc" hidden aria-label="目录"></section>
+  <section class="toc" id="tocView" hidden aria-label="目录"></section>
 
   <!-- Interactive Map -->
   <section class="map-card" id="mapCard">
@@ -1099,6 +1144,7 @@ try {
 <script>
 // 图标：Phosphor Icons Regular (MIT, phosphoricons.com)，内联 SVG，颜色跟文字走
 const PH = {
+  timer: '<path d="M128,40a96,96,0,1,0,96,96A96.11,96.11,0,0,0,128,40Zm0,176a80,80,0,1,1,80-80A80.09,80.09,0,0,1,128,216ZM173.66,90.34a8,8,0,0,1,0,11.32l-40,40a8,8,0,0,1-11.32-11.32l40-40A8,8,0,0,1,173.66,90.34ZM96,16a8,8,0,0,1,8-8h48a8,8,0,0,1,0,16H104A8,8,0,0,1,96,16Z"/>',
   train: '<path d="M184,24H72A32,32,0,0,0,40,56V184a32,32,0,0,0,32,32h8L65.6,235.2a8,8,0,1,0,12.8,9.6L100,216h56l21.6,28.8a8,8,0,1,0,12.8-9.6L176,216h8a32,32,0,0,0,32-32V56A32,32,0,0,0,184,24ZM56,120V80h64v40Zm80-40h64v40H136ZM72,40H184a16,16,0,0,1,16,16v8H56V56A16,16,0,0,1,72,40ZM184,200H72a16,16,0,0,1-16-16V136H200v48A16,16,0,0,1,184,200ZM96,172a12,12,0,1,1-12-12A12,12,0,0,1,96,172Zm88,0a12,12,0,1,1-12-12A12,12,0,0,1,184,172Z"/>',
   bus: '<path d="M184,32H72A32,32,0,0,0,40,64V208a16,16,0,0,0,16,16H80a16,16,0,0,0,16-16V192h64v16a16,16,0,0,0,16,16h24a16,16,0,0,0,16-16V64A32,32,0,0,0,184,32ZM56,176V120H200v56Zm0-96H200v24H56ZM72,48H184a16,16,0,0,1,16,16H56A16,16,0,0,1,72,48Zm8,160H56V192H80Zm96,0V192h24v16Zm-72-60a12,12,0,1,1-12-12A12,12,0,0,1,104,148Zm72,0a12,12,0,1,1-12-12A12,12,0,0,1,176,148Zm72-68v24a8,8,0,0,1-16,0V80a8,8,0,0,1,16,0ZM24,80v24a8,8,0,0,1-16,0V80a8,8,0,0,1,16,0Z"/>',
   car: '<path d="M240,104H229.2L201.42,41.5A16,16,0,0,0,186.8,32H69.2a16,16,0,0,0-14.62,9.5L26.8,104H16a8,8,0,0,0,0,16h8v80a16,16,0,0,0,16,16H64a16,16,0,0,0,16-16V184h96v16a16,16,0,0,0,16,16h24a16,16,0,0,0,16-16V120h8a8,8,0,0,0,0-16ZM69.2,48H186.8l24.89,56H44.31ZM64,200H40V184H64Zm128,0V184h24v16Zm24-32H40V120H216ZM56,144a8,8,0,0,1,8-8H80a8,8,0,0,1,0,16H64A8,8,0,0,1,56,144Zm112,0a8,8,0,0,1,8-8h16a8,8,0,0,1,0,16H176A8,8,0,0,1,168,144Z"/>',
@@ -4261,7 +4307,7 @@ function openRain() {
 
 // ── 目录：封面 + 十章 ──
 function renderToc() {
-  const el = document.getElementById('toc');
+  const el = document.getElementById('tocView');
   const phase = tripPhase();
   const ti = DAYS.findIndex(isToday);
   const toGo = Math.ceil((TRIP_START - nowDate()) / 86400000);
@@ -4471,6 +4517,7 @@ function selectDay(idx, updateHash = true, push = false) {
   if (activePill) {
     const row = activePill.parentElement;
     row.scrollTo({ left: activePill.offsetLeft - row.offsetLeft - (row.clientWidth - activePill.offsetWidth) / 2, behavior: document.documentElement.dataset.motion === 'ready' ? scrollBehavior() : 'auto' });
+    edgeFade(row);
   }
 
   // Update map header
@@ -4523,31 +4570,66 @@ function selectDay(idx, updateHash = true, push = false) {
 }
 
 // 点餐卡：原生 <dialog>，自带 Esc 关闭、背景不能点、焦点留在里面；关掉后焦点回到按钮
+// 菜和短句都能点开放大给店员看；「…をお願いします」的菜可以加减份数，日文、中文里的数字跟着变
+function qtyParts(jp) {
+  const m = /^(.*?を)\s*(?:(\d+)\s*(つ|皿|杯|個)\s*)?(お願いします。?)$/.exec(jp);
+  return m && { head: m[1], n: +(m[2] || 1), unit: m[3] || 'つ', tail: m[4], plain: !m[2] };
+}
+let ocWake = null;
+function ocKeepAwake(on) {
+  if (on && !ocWake && navigator.wakeLock) navigator.wakeLock.request('screen').then(l => { ocWake = l; }).catch(() => {});
+  if (!on && ocWake) { ocWake.release().catch(() => {}); ocWake = null; }
+}
 function openOrderCard(k, from) {
   const c = ORDER_CARDS[k], dlg = document.getElementById('orderCard');
   if (!c || !dlg.showModal) return;
+  let big = null, back = null; // 放大的那一项：{ jp, zh, q: qtyParts, n }；back = 点开它的按钮
   dlg.classList.remove('is-big');
   dlg.innerHTML = `<div class="oc-head"><h2 id="ocTitle">${c.title}</h2><button type="button" class="oc-x" data-close aria-label="关闭">${ph('close')}</button></div>
     <div class="oc-body">
-      <p class="oc-label">指给店员看</p>
-      ${c.dishes.map(d => `<div class="oc-dish"><div class="oc-jp" lang="ja">${d.jp}</div><div class="oc-zh">${d.zh}</div><div class="oc-meta"><span>${d.tip || ''}</span>${d.price ? `<span class="oc-price">${d.price}</span>` : ''}</div></div>`).join('')}
+      <p class="oc-label">指给店员看 · 点一下放大</p>
+      ${c.dishes.map((d, i) => `<button type="button" class="oc-dish" data-dish="${i}"><span class="oc-jp" lang="ja">${d.jp}</span><span class="oc-zh">${d.zh}</span><span class="oc-meta"><span>${d.tip || ''}</span>${d.price ? `<span class="oc-price">${d.price}</span>` : ''}</span></button>`).join('')}
       <p class="oc-label">常用短句 · 点一下放大</p>
       <div class="oc-phrases">${c.phrases.map(([jp, zh], i) => `<button type="button" class="oc-ph" data-ph="${i}"><b lang="ja">${jp}</b><span>${zh}</span></button>`).join('')}</div>
     </div>
-    <button type="button" class="oc-big" data-unbig></button>`;
-  dlg.onclick = e => {
-    if (e.target === dlg || e.target.closest('[data-close]')) { dlg.close(); return; }
-    const p = e.target.closest('[data-ph]');
-    if (p) {
-      const [jp, zh] = c.phrases[+p.dataset.ph];
-      const big = dlg.querySelector('.oc-big');
-      big.innerHTML = `<b lang="ja">${jp}</b><span>${zh}</span><small>点一下回去</small>`;
-      dlg.classList.add('is-big'); big.focus();
+    <div class="oc-big"></div>`;
+  const bigEl = dlg.querySelector('.oc-big');
+  const drawBig = step => {
+    const { jp, zh, q, n } = big;
+    const jpTxt = !q || (q.plain && n === 1) ? jp : `${q.head} <em>${n}${q.unit}</em> ${q.tail}`;
+    const zhTxt = !q || n === q.n ? zh : /(一|\d+)\s*(份|个|杯|碗|盘)/.test(zh) ? zh.replace(/(一|\d+)\s*(份|个|杯|碗|盘)/, `${n}$2`) : `${zh}（${n} 份）`;
+    if (step) { // 只改字和数字，焦点留在刚按的钮上
+      bigEl.querySelector('b').innerHTML = jpTxt;
+      bigEl.querySelector('.oc-big-zh').textContent = zhTxt;
+      bigEl.querySelector('output').textContent = n;
+      bigEl.querySelector('[data-step="-1"]').disabled = n <= 1;
+      bigEl.querySelector('[data-step="1"]').disabled = n >= 9;
       return;
     }
-    if (e.target.closest('[data-unbig]')) { dlg.classList.remove('is-big'); dlg.querySelector('.oc-ph')?.focus(); }
+    bigEl.innerHTML = `<b lang="ja">${jpTxt}</b><span class="oc-big-zh">${zhTxt}</span>
+      ${q ? `<span class="oc-step" role="group" aria-label="份数"><button type="button" data-step="-1" aria-label="少一份"${n <= 1 ? ' disabled' : ''}>−</button><output aria-live="polite">${n}</output><button type="button" data-step="1" aria-label="多一份"${n >= 9 ? ' disabled' : ''}>＋</button></span>` : ''}
+      <button type="button" class="oc-back" data-unbig>点一下回去</button>`;
   };
-  dlg.onclose = () => { from?.focus({ preventScroll: true }); };
+  const openBig = (item, from) => {
+    big = item; back = from; drawBig();
+    dlg.classList.add('is-big'); dlg.scrollTop = 0;
+    bigEl.querySelector('[data-unbig]').focus({ preventScroll: true });
+    ocKeepAwake(true); // 拿给店员看的时候屏幕别暗掉
+  };
+  dlg.onclick = e => {
+    if (e.target === dlg || e.target.closest('[data-close]')) { dlg.close(); return; }
+    const d = e.target.closest('[data-dish]'), p = e.target.closest('[data-ph]'), st = e.target.closest('[data-step]');
+    if (d) { const x = c.dishes[+d.dataset.dish], q = qtyParts(x.jp); openBig({ jp: x.jp, zh: x.zh, q, n: q ? q.n : 1 }, d); return; }
+    if (p) { const [jp, zh] = c.phrases[+p.dataset.ph]; openBig({ jp, zh, q: null, n: 1 }, p); return; }
+    if (st) {
+      big.n = Math.min(9, Math.max(1, big.n + +st.dataset.step)); drawBig(true);
+      if (st.disabled) bigEl.querySelector('[data-step]:not(:disabled)').focus(); // 按到头，焦点换到另一颗
+      return;
+    }
+    if (e.target.closest('.oc-step')) return;
+    if (e.target.closest('.oc-big')) { dlg.classList.remove('is-big'); ocKeepAwake(false); back?.focus(); }
+  };
+  dlg.onclose = () => { ocKeepAwake(false); from?.focus({ preventScroll: true }); };
   dlg.showModal();
   dlg.scrollTop = 0;
   dlg.querySelector('.oc-x').focus();
@@ -4584,9 +4666,15 @@ function stripHtml(day) {
 function centerStrip() {
   const strip = document.querySelector('#dayHero .route-strip');
   const cur = strip && (strip.querySelector('.is-now') || [...strip.querySelectorAll('.rs-stop:not(.is-past)')][0]);
-  if (!cur || !isToday(DAYS[currentDayIdx])) { if (strip) strip.scrollLeft = 0; return; }
-  strip.scrollLeft = Math.max(0, cur.offsetLeft - strip.clientWidth / 2 + cur.offsetWidth / 2);
+  if (strip) strip.scrollLeft = cur && isToday(DAYS[currentDayIdx]) ? Math.max(0, cur.offsetLeft - strip.clientWidth / 2 + cur.offsetWidth / 2) : 0;
+  if (strip) edgeFade(strip);
 }
+// 横滑的两排：滑到头的那一边不淡出（配合 CSS 的 data-edge）
+function edgeFade(row) {
+  const max = row.scrollWidth - row.clientWidth;
+  row.dataset.edge = [row.scrollLeft <= 1 && 'start', row.scrollLeft >= max - 1 && 'end'].filter(Boolean).join(' ');
+}
+document.addEventListener('scroll', e => { if (e.target.matches?.('.day-scroll, .route-strip')) edgeFade(e.target); }, { capture: true, passive: true });
 function renderRain(day) {
   const el = document.getElementById('rainCard');
   if (!day.rain) { el.hidden = true; el.innerHTML = ''; return; }
@@ -4858,12 +4946,29 @@ function updateDeadline() {
   const day = DAYS[currentDayIdx];
   const today = isToday(day);
   const dl = [].concat(day.deadline || []).find(d => !today || hhmm(d.at) >= nowMins());
-  if (!dl) { el.hidden = true; return; }
+  const dock = document.getElementById('dlDock');
+  dock.hidden = !(today && dl);
+  if (!dl) { el.hidden = true; syncDock(); return; }
   const left = hhmm(dl.at) - nowMins();
   const txt = !today ? dl.note : left < 60 ? `还剩 ${left} 分` : `还剩 ${Math.floor(left / 60)} 小时${left % 60 ? ` ${left % 60} 分` : ''}`;
   el.innerHTML = `<span class="hd-what">${dl.at} 前${dl.what}</span><span class="hd-left">${txt}</span>`;
   el.hidden = false;
+  if (today) {
+    dock.innerHTML = `${ph('timer')}<span class="dd-what">${dl.at} 前${dl.what}</span><span class="dd-left">${txt}</span>`;
+    dock.setAttribute('aria-label', `限时：${dl.at} 前${dl.what}，${txt}。回到本章封面`);
+  }
+  syncDock();
 }
+// 限时停靠：封面上的限时条被顶栏盖住以后才出现，在目录、地图里不出现
+function syncDock() {
+  const dock = document.getElementById('dlDock');
+  const hd = document.getElementById('heroDeadline');
+  const covered = !!hd && hd.getBoundingClientRect().bottom < document.querySelector('.top-bar').getBoundingClientRect().bottom;
+  dock.classList.toggle('is-on', !dock.hidden && covered && (currentViewMode === 'time' || currentViewMode === 'split'));
+}
+let dockFrame = 0;
+addEventListener('scroll', () => { if (!dockFrame && !document.getElementById('dlDock').hidden) dockFrame = requestAnimationFrame(() => { dockFrame = 0; syncDock(); }); }, { passive: true });
+document.getElementById('dlDock').addEventListener('click', () => window.scrollTo({ top: 0, behavior: scrollBehavior() }));
 // 「现在」这一站：当天、且现在落在这一站的时间段里（没写结束时间就到下一站开始）
 function markNow() {
   const day = DAYS[currentDayIdx];
@@ -4949,7 +5054,7 @@ function setViewMode(mode) {
   document.getElementById('btn-map').classList.toggle('active', mode === 'map');
   document.getElementById('tocBtn').setAttribute('aria-pressed', String(mode === 'toc'));
   document.querySelectorAll('.day-pill').forEach((p, i) => p.setAttribute('aria-pressed', String(mode !== 'toc' && i === currentDayIdx)));
-  document.getElementById('toc').hidden = mode !== 'toc';
+  document.getElementById('tocView').hidden = mode !== 'toc';
 
   const mapCard = document.getElementById('mapCard');
   const heroCard = document.getElementById('dayHero');
@@ -4980,6 +5085,7 @@ function setViewMode(mode) {
     timelineList.style.display = 'block';
     mapElem.style.height = (window.innerWidth >= 640) ? '340px' : '270px';
   }
+  syncDock();
 }
 
 // 转屏或窗口大小变了：地图高度按当前视图重算（地图视图要贴着底栏上沿）

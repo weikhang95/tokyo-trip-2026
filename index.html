@@ -321,7 +321,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .hero{border-radius:var(--r-lg) var(--r-lg) 0 0;overflow:hidden;position:relative;height:260px;margin-bottom:0;background:#18283d;}
 .hero::after{content:"";position:absolute;inset:0;border-radius:inherit;outline:1px solid oklch(0 0 0 / .1);outline-offset:-1px;pointer-events:none;}
 html[data-theme="dark"] .hero::after{outline-color:oklch(1 0 0 / .1);}
-.hero img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block;}
+.hero img{width:100%;height:100%;object-fit:cover;object-position:center 70%;display:block;}
+/* 插画在深色模式压暗一点，别比周围的深色卡片还亮 */
+html[data-theme="dark"] .hero img,html[data-theme="dark"] .day-banner,html[data-theme="dark"] .glance-item::before{filter:brightness(.8) saturate(.9);}
 .hero-overlay{
   position:absolute;inset:0;
   background:linear-gradient(to top, rgba(10,16,24,0.72) 0%, rgba(10,16,24,0.28) 38%, rgba(10,16,24,0) 62%);
@@ -798,16 +800,16 @@ html[data-theme="dark"] .tl>.tl-item{background:var(--paper-2);box-shadow:none;}
     outline:1px solid oklch(0 0 0 / .1);outline-offset:-1px;
   }
   html[data-theme="dark"] .glance-item::before{outline-color:oklch(1 0 0 / .1);}
-  .glance-item:nth-child(1)::before{background-image:url("img/asakusa-xs.jpg");}
-  .glance-item:nth-child(2)::before{background-image:url("img/asakusa-xs.jpg");}
-  .glance-item:nth-child(3)::before{background-image:url("img/ueno-xs.jpg");}
-  .glance-item:nth-child(4)::before{background-image:url("img/fuji_hero-xs.jpg");}
-  .glance-item:nth-child(5)::before{background-image:url("img/fuji_dawn-xs.jpg");}
-  .glance-item:nth-child(6)::before{background-image:url("img/tokyo_tower-xs.jpg");}
-  .glance-item:nth-child(7)::before{background-image:url("img/shibuya-xs.jpg");}
-  .glance-item:nth-child(8)::before{background-image:url("img/yanaka-xs.jpg");}
-  .glance-item:nth-child(9)::before{background-image:url("img/shibuya-xs.jpg");}
-  .glance-item:nth-child(10)::before{background-image:url("img/fuji_hero-xs.jpg");}
+  .glance-item:nth-child(1)::before{background-image:url("img/illo/day-1.svg");background-position:60% 100%;}
+  .glance-item:nth-child(2)::before{background-image:url("img/illo/day-2.svg");background-position:83% 100%;}
+  .glance-item:nth-child(3)::before{background-image:url("img/illo/day-3.svg");background-position:70% 100%;}
+  .glance-item:nth-child(4)::before{background-image:url("img/illo/day-4.svg");background-position:53% 100%;}
+  .glance-item:nth-child(5)::before{background-image:url("img/illo/day-5.svg");background-position:55% 100%;}
+  .glance-item:nth-child(6)::before{background-image:url("img/illo/day-6.svg");background-position:67% 100%;}
+  .glance-item:nth-child(7)::before{background-image:url("img/illo/day-7.svg");background-position:67% 100%;}
+  .glance-item:nth-child(8)::before{background-image:url("img/illo/day-8.svg");background-position:78% 100%;}
+  .glance-item:nth-child(9)::before{background-image:url("img/illo/day-9.svg");background-position:63% 100%;}
+  .glance-item:nth-child(10)::before{background-image:url("img/illo/day-10.svg");background-position:60% 100%;}
   .glance-dnum{
     /* 右下角贴住缩略图（48×48，在行内垂直居中）：两行标题、两位数 10 都不会伸出图外 */
     position:absolute;left:48px;top:calc(50% + 24px);translate:-100% -100%;min-width:18px;padding:1px var(--space-2xs);
@@ -1042,7 +1044,7 @@ html[data-mode="lite"] .dcc-desc{display:none;}
 
 /* ── 小图：每天一张窄条 ───────────────────────── */
 .day-banner-wrap{aspect-ratio:auto;height:110px;max-height:110px;}
-.day-banner{object-position:center 45%;}
+.day-banner{object-position:center bottom;} /* 插画的地面在底部，宽屏裁掉的是天空 */
 @media (max-width:640px){
   .day-banner-wrap{height:84px;max-height:84px;}
   .hero{height:150px;}
@@ -1182,7 +1184,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
 .day-map-link .dm-go{margin-left:auto;font-size:1.25rem;font-weight:700;line-height:1;}
 /* 有照片的日子：照片放到这一天最上面，整张图就是进随身页的入口，底部一颗按钮 */
 .day-banner-wrap:has(.day-map-link){height:132px;max-height:132px;}
-.day-banner-wrap:has(.day-map-link)::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.45),rgba(0,0,0,0) 55%);}
+.day-banner-wrap:has(.day-map-link)::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,.28),rgba(0,0,0,0) 50%);}
 .day-banner-wrap .day-map-link{
   position:absolute;inset:0;z-index:1;align-items:flex-end;min-height:0;margin:0;padding:var(--space-sm);
   border:0;border-radius:0;background:none;
@@ -1360,9 +1362,9 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
     </button>
   </div>
 
-  <!-- Hero Banner (Real High-Res Stock Photo) -->
+  <!-- 首页插画：木版画风格，和每天的小图同一套（img/illo/） -->
   <div class="hero">
-    <img src="img/fuji_hero.jpg" alt="河口湖远眺富士山" decoding="async" fetchpriority="high"/>
+    <img src="img/illo/home.svg" alt="河口湖远眺富士山（插画）" decoding="async" fetchpriority="high"/>
     <div class="hero-overlay">
       <h1 class="hero-title">
         <span class="zh on">东京与河口湖</span>
@@ -1885,7 +1887,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
     </div>
     <div class="day-body" id="body-day-1">
       <div class="day-banner-wrap">
-        <img src="img/asakusa.jpg" class="day-banner" alt="浅草街景" loading="lazy" decoding="async"/>
+        <img src="img/illo/day-1.svg" class="day-banner" alt="傍晚抵达东京：飞机下降、晴空塔与 Skyliner" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -2022,7 +2024,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
     </div>
     <div class="day-body" id="body-day-2">
       <div class="day-banner-wrap">
-        <img src="img/asakusa.jpg" class="day-banner" alt="浅草寺与传统街区" loading="lazy" decoding="async"/>
+        <img src="img/illo/day-2.svg" class="day-banner" alt="浅草清晨：五重塔、雷门大灯笼与远处的晴空塔" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
         <div class="tl-item" data-cat="sight">
@@ -2221,7 +2223,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
       </div>
       <div class="day-body" id="body-day-3">
         <div class="day-banner-wrap">
-          <img src="img/ueno.jpg" class="day-banner" alt="上野东照宫" loading="lazy" decoding="async"/>
+          <img src="img/illo/day-3.svg" class="day-banner" alt="上野东照宫：金色唐门、石灯笼和银杏" loading="lazy" decoding="async"/>
         </div>
         <div class="tl">
         <div class="tl-item">
@@ -2354,7 +2356,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
     </div>
     <div class="day-body" id="body-day-4">
       <div class="day-banner-wrap">
-        <img src="img/fuji_hero.jpg" class="day-banner" alt="河口湖与富士山" loading="lazy" decoding="async"/>
+        <img src="img/illo/day-4.svg" class="day-banner" alt="河口湖日落：紫色富士山倒映湖面" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -2806,7 +2808,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
         <span>清晨 06:00–08:00 历史晴空露脸概率达 82%–88%，正午骤降至 28%。<a href="charts/fuji-visibility.html" target="_blank">查看「富士山全天能见度与自驾顺光窗口折线图」</a> 把握 11:30 前黄金顺光。</span>
       </div>
       <div class="day-banner-wrap">
-        <img src="img/fuji_dawn.jpg" class="day-banner" alt="河口湖清晨的赤富士" loading="lazy" decoding="async"/>
+        <img src="img/illo/day-5.svg" class="day-banner" alt="赤富士：清晨被朝阳染红的富士山" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -3113,7 +3115,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
         <span>巴士关顶照开，SKY 室内照开。<a href="#day6-rain" data-jump>看「下雨怎么办」</a></span>
       </div>
       <div class="day-banner-wrap">
-        <img src="img/shibuya.jpg" class="day-banner" alt="涩谷城市天际线" loading="lazy" decoding="async"/>
+        <img src="img/illo/day-6.svg" class="day-banner" alt="涩谷 SKY 日落：天际线、远处的富士山和开顶巴士" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -3441,7 +3443,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
         <span>芝公园坐着等到 17:50，拍暖橙色冬季灯的铁塔夜景，17:55 再吃晚餐。啤酒挪到饭后，看体力决定去不去。约 20:45 到家，明早 07:20 出门去镰仓，早点睡。</span>
       </div>
       <div class="day-banner-wrap">
-        <img src="img/tokyo_tower.jpg" class="day-banner" alt="增上寺前远望东京铁塔" loading="lazy" decoding="async"/>
+        <img src="img/illo/day-7.svg" class="day-banner" alt="夜晚的东京铁塔，前面是增上寺屋顶" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -3713,7 +3715,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
         <span><ul class="pts"><li><strong>A 镰仓 · 江之电 · 江之岛（主推）</strong><ul><li>07:20 出门，报国寺竹林 → 鶴岡八幡宮 → 小町通 → 长谷寺 → 大佛 → 江之电贴海段 → ことぶき屋 → 江之岛シーキャンドル日落 → 湘南蜡烛祭</li><li>约 12,000–13,000 步，八幡宮、长谷寺、江之岛都有台阶</li><li>20:36 到家</li></ul></li><li><strong>B 根津神社 · 谷中祭</strong><ul><li>门口都08 → 日暮里 ¥210，回程根津 → 北千住 → 三ノ輪 ¥209</li><li>约 3,800 步，14:30 回房午睡</li><li><strong>和 Day 9（10/11）完全重合</strong>，选它 Day 9 就改走 C</li></ul></li><li><strong>C 清澄白河 · 深川饭</strong>：地铁 ¥180 · 约 3,500–4,000 步，和哪天都不重合，最省力</li><li><strong>D 吉祥寺 · 井之头</strong>：JR 中央线 ¥230 · 约 11,000–12,000 步，假日人多</li><li><strong>E 浅草 · 公寓早休</strong>：走路或门口公车 ¥210 · 约 2,500 步</li></ul></span>
       </div>
       <div class="day-banner-wrap">
-        <img src="img/kamakura.jpg" class="day-banner" alt="镰仓高校前平交道与湘南海岸" loading="lazy" decoding="async"/>
+        <img src="img/illo/day-8.svg" class="day-banner" alt="江之岛日落：灯塔、相模湾与江之电" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -3998,7 +4000,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
     </div>
     <div class="day-body" id="body-day-9">
       <div class="day-banner-wrap">
-        <img src="img/ueno.jpg" class="day-banner" alt="谷中与下町风情" loading="lazy" decoding="async"/>
+        <img src="img/illo/day-9.svg" class="day-banner" alt="谷中「夕阳阶梯」：黄昏、老屋和猫" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
         <div class="tl-item">
@@ -4290,7 +4292,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
     </div>
     <div class="day-body" id="body-day-10">
       <div class="day-banner-wrap">
-        <img src="img/fuji_hero.jpg" class="day-banner" alt="返程日回望富士山" loading="lazy" decoding="async"/>
+        <img src="img/illo/day-10.svg" class="day-banner" alt="回家：清晨飞越云海" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
         <div class="tl-item">

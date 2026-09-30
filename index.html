@@ -828,9 +828,14 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
 /* 「详情」展开：内容从标题下方轻轻落下来 */
 @keyframes detail-in{from{opacity:0;translate:0 -4px;}to{opacity:1;translate:0 0;}}
 
-/* 夜 ↔ 昼：换字时新字从模糊的小点长出来 */
-@keyframes glyph-in{from{opacity:0;scale:.25;filter:blur(4px);}to{opacity:1;scale:1;filter:blur(0);}}
-#theme-toggle.swap{animation:glyph-in .3s cubic-bezier(.2,0,0,1);}
+/* 昼夜：月亮 = 点了变深色，太阳 = 点了变浅色；两个图标叠着，切换时一个缩小模糊淡出、一个长出来（打开页面不播） */
+#theme-toggle { display: grid; place-items: center; }
+#theme-toggle svg { grid-area: 1 / 1; width: 20px; height: 20px; fill: currentColor; }
+html[data-theme="dark"] #theme-toggle .ic-moon, html:not([data-theme="dark"]) #theme-toggle .ic-sun { opacity: 0; scale: .25; filter: blur(4px); }
+#theme-toggle.swap svg { animation: glyph-in .3s cubic-bezier(.2,0,0,1); }
+html[data-theme="dark"] #theme-toggle.swap .ic-moon, html:not([data-theme="dark"]) #theme-toggle.swap .ic-sun { animation-name: glyph-out; }
+@keyframes glyph-in { from { opacity: 0; scale: .25; filter: blur(4px); } }
+@keyframes glyph-out { from { opacity: 1; scale: 1; filter: blur(0); } }
 
 /* ── 这一天 → 随身页地图 ───────────────────────── */
 
@@ -898,7 +903,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
         <!-- Large Text Mode Toggle (For Mum) -->
         <button class="top-btn" id="text-toggle" onclick="toggleTextSize()" title="切换长辈大字模式" aria-pressed="false">Aa 大字</button>
         <!-- Dark Mode Toggle -->
-        <button class="top-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="深色模式" aria-pressed="false">夜</button>
+        <button class="top-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="深色模式" aria-pressed="false"><svg class="ic-moon" viewBox="0 0 256 256" aria-hidden="true"><path d="M233.54,142.23a8,8,0,0,0-8-2,88.08,88.08,0,0,1-109.8-109.8,8,8,0,0,0-10-10,104.84,104.84,0,0,0-52.91,37A104,104,0,0,0,136,224a103.09,103.09,0,0,0,62.52-20.88,104.84,104.84,0,0,0,37-52.91A8,8,0,0,0,233.54,142.23ZM188.9,190.34A88,88,0,0,1,65.66,67.11a89,89,0,0,1,31.4-26A106,106,0,0,0,96,56,104.11,104.11,0,0,0,200,160a106,106,0,0,0,14.92-1.06A89,89,0,0,1,188.9,190.34Z"/></svg><svg class="ic-sun" viewBox="0 0 256 256" aria-hidden="true"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"/></svg></button>
         <!-- Language Switcher -->
         <div class="lang-bar" role="group" aria-label="语言">
           <button class="lang-btn active" id="btn-zh" aria-pressed="true" onclick="setLang('zh')">中文</button>
@@ -1744,7 +1749,6 @@ function toggleTheme() {
   html.setAttribute('data-theme', next);
   getComputedStyle(html).opacity;
   requestAnimationFrame(() => freeze.remove());
-  btn.textContent = next === 'dark' ? '昼' : '夜';
   btn.classList.remove('swap'); void btn.offsetWidth; btn.classList.add('swap');
   btn.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
   document.querySelector('meta[name="theme-color"]').setAttribute('content', next === 'dark' ? '#0e1116' : '#f7f7f5');
@@ -1757,7 +1761,6 @@ function loadTheme() {
   if (theme) {
     document.documentElement.setAttribute('data-theme', theme);
     const btn = document.getElementById('theme-toggle');
-    btn.textContent = theme === 'dark' ? '昼' : '夜';
     btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
     document.querySelector('meta[name="theme-color"]').setAttribute('content', theme === 'dark' ? '#0e1116' : '#f7f7f5');
   }

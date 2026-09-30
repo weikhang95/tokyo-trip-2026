@@ -373,6 +373,7 @@ try {
     font-variant-numeric: tabular-nums;
   }
   .hn-when .ph { width: 1.2em; height: 1.2em; }
+  .hero-next.is-done { background: var(--ai-soft); }
   .hn-what {
     font-size: 14px; font-weight: 700; line-height: 1.4;
     font-variant-numeric: tabular-nums; text-wrap: pretty;
@@ -844,6 +845,7 @@ try {
 
 
 <script src="cat-icons.js?v=2"></script>
+<script src="trip-details.js?v=1"></script>
 <script>
 // 图标：Phosphor Icons Regular (MIT, phosphoricons.com)，内联 SVG，颜色跟文字走
 const PH = {
@@ -3332,6 +3334,7 @@ function selectDay(idx, updateHash = true) {
     <a href="${day.routeUrl}" target="_blank" class="hero-route-link">今日完整路线 · Google Maps ↗</a>
   `;
 
+  if (window.TripDetails) TripDetails.decorate(heroCard.querySelector('.hero-transit'));
   updateDeadline();
   updateNextStop();
 
@@ -3391,6 +3394,7 @@ function renderTimeline(day) {
     list.appendChild(item);
   });
   foldDone(day, list);
+  if (window.TripDetails) TripDetails.decorate(list);
   markNow();
   updateSun(true);
 }
@@ -3511,7 +3515,22 @@ function updateNextStop() {
   const day = DAYS[currentDayIdx];
   const mins = nowMins();
   const i = isToday(day) ? day.nodes.findIndex(n => nodeStartMins(n) > mins) : -1;
-  if (i < 0) { el.hidden = true; return; }
+  if (i < 0) {
+    // 今天收工：最后一站也结束了，告诉你明天几点出门、第一站去哪
+    const last = day.nodes.length - 1;
+    const done = isToday(day) && nodeSpan(day, last)[1] <= mins;
+    const next = DAYS[currentDayIdx + 1];
+    if (!done) { el.hidden = true; return; }
+    const steps = /约 [\d,–]+ 步/.exec(day.intensity || '');
+    const first = next && next.nodes[0];
+    el.classList.add('is-done');
+    el.innerHTML = `<span class="hn-when">今天收工${steps ? ` · 走了${steps[0]}` : ''}</span>` +
+      (first ? `<span class="hn-what">明天 ${first.time.slice(0, 5)} · ${first.title || first.name}</span>` : '<span class="hn-what">一路平安，回家啦</span>');
+    el.onclick = first ? () => selectDay(currentDayIdx + 1) : null;
+    el.hidden = false;
+    return;
+  }
+  el.classList.remove('is-done');
   const n = day.nodes[i];
   const diff = nodeStartMins(n) - mins;
   const when = diff < 60 ? `${diff} 分钟后` : (diff % 60 ? `${Math.floor(diff / 60)} 小时 ${diff % 60} 分后` : `${diff / 60} 小时后`);

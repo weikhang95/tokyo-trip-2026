@@ -6278,6 +6278,8 @@ window.addEventListener('DOMContentLoaded', () => {
 })();
 </script>
 <script src="cat-icons.js?v=2"></script>
+<script src="trip-details.js?v=1"></script>
+<script>if (window.TripDetails) TripDetails.decorate(document.getElementById('main-content'));</script>
 <script>
 /* 每一站的标签前加分类图标；这一站写了 data-cat 就照它，否则按标签和标题判断（规则在 cat-icons.js） */
 (function () {

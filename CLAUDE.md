@@ -5,9 +5,9 @@
 ## 这个仓库
 
 - 纯静态网页，没有构建步骤。`main` 分支就是线上网站：https://weikhang95.github.io/tokyo-trip-2026/
-- `companion.html` 随身页：**旅行中的主页面**（底栏「日程」= `?view=time`，「地图」= `?view=map`）。每天的数据在 `DAYS` 数组里：`nodes` 是每一站，`deadline` 是错过就作废的钟点（巴士、还车）。
-- `index.html` 手册：资料库（航班、住宿、交通、预算、提醒、待办）和每一站的长说明。
-- `tabbar.js` / `tabbar.css` 底栏两页共用；`sw.js` 离线缓存。
+- `companion.html` 日程：**主页**（装到手机桌面的 App 打开就是它）（底栏「日程」= `?view=time`，「地图」= `?view=map`）。每天的数据在 `DAYS` 数组里：`nodes` 是每一站，`deadline` 是错过就作废的钟点（巴士、还车）。
+- `index.html` 资料（底栏「资料」）：资料库（航班、住宿、交通、预算、提醒、待办）和每一站的长说明。
+- `tabbar.js` / `tabbar.css` 底栏两页共用（日程 | 地图 | 资料 | 待办 | 更多）；`trip-details.js` 两页共用的卡片细节（地铁线路色标、电梯／洗手间／座位图示）；`sw.js` 离线缓存。
 - 预览某个时刻：随身页网址加 `?now=2026-10-08T12:40`。
 
 ## 旅行中怎么改
@@ -16,7 +16,7 @@
 - 一次只改一件事，小提交。
 - commit 信息不要加 `Co-Authored-By: Claude` 或「Generated with Claude Code」之类的署名。
 - **改行程要两页一起改**：`index.html` 的时间、站点、餐厅、交通变了，同一轮就要改 `companion.html` 的 `DAYS`，反过来也一样。
-- HTML 是网络优先，改了不用动缓存版本。改了 `tabbar.js` / `tabbar.css` 或预缓存清单，要把引用处的 `?v=` 和 `sw.js` 的 `VERSION` 各加一。
+- HTML 是网络优先，改了不用动缓存版本。改了 `tabbar.js` / `tabbar.css` / `trip-details.js` 或预缓存清单，要把引用处的 `?v=` 和 `sw.js` 的 `VERSION` 各加一。
 
 ## 行程规则（已定，不要重新讨论）
 

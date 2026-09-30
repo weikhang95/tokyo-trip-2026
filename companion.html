@@ -1837,6 +1837,7 @@ const DAYS = [
     intensity: "中负荷 · 自驾 48 km",
     desc: "大行李留东京，08:10 高速巴士去河口湖；先走到船津浜湖边看富士，ほうとう午餐；12:30 取车，忍野八海、山中湖全景台、大石公园看红富士余晖，入住 SAWA 后看体力泡温泉，21:00 熄灯。",
     transit: "日比谷线＋JR 上野东京线 → 08:10 高速巴士 → 河口湖自驾",
+    deadline: { at: "08:00", what: "到东京站八重洲南口 9 号站台", note: "08:10 准点发车" },
     routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Kawaguchiko+Station&destination=Fuji+Yurari+Onsen&waypoints=Lawson+Fujikawaguchiko+Town+Hall%7COshino+Hakkai%7CYamanakako+Panorama+Deck%7COishi+Park+Kawaguchiko%7CSawa+Hotel+Fujikawaguchiko&travelmode=driving",
     nodes: [
       {
@@ -2012,6 +2013,10 @@ const DAYS = [
     intensity: "中负荷 · 自驾 90 km",
     desc: "清晨制霸千圆日出、精进湖子抱富士、西湖根场滨与长崎公园，08:20 回 SAWA 洗热水澡吃热食退房，11:45 还车，いだ天大餐避开排队与公厕长龙，13:30 巴士回东京！",
     transit: "自驾五湖晨光环线 → 11:45 站前还车 → 高速巴士 13:30 返东京站 → KITTE 露台",
+    deadline: [
+      { at: "12:30", what: "还车（ニッポンレンタカー 河口湖駅前）", note: "租期到 12:30" },
+      { at: "13:20", what: "到河口湖站 2 号站台", note: "13:30 准点发车" }
+    ],
     routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Sawa+Hotel+Fujikawaguchiko&destination=Nippon+Rent-A-Car+Kawaguchiko+Station&waypoints=Koan+Camping+Ground+Motosuko%7C483+Shoji+Fujikawaguchiko%7CSaiko+Nenba-hama%7CNagasaki+Park+Kawaguchiko%7CSawa+Hotel+Fujikawaguchiko&travelmode=driving",
     nodes: [
       {
@@ -2227,7 +2232,7 @@ const DAYS = [
     intensity: "高负荷 (全行程唯一高光峰值) · 约 13,600 步",
     desc: "07:35 错峰出门，08:25 走进几乎无人的明治神宫巨木森林；蓝瓶青山 2F 露台坐 90 分钟，华夫饼合点一份、慢慢挑杯子；川上庵手打荞麦午餐；沿表参道散步，搭副都心线到新宿，和妈妈一起逛全球最大的 Onitsuka Tiger 旗舰店和 3COINS+plus，就在巴士上车点旁边；15:20 坐上开顶双层巴士，16:35 登顶涩谷SKY 看 17:16 日落与夜景，吃完炭烤鱼就搭银座线到浅草，转巴士到门口。",
     transit: "日比谷线→千代田线直达明治神宫前 2 号出口 → 千代田线 1 站至表参道(走 B3 出口才有电梯) → 表参道走到明治神宫前，13:00 前后副都心线 2 站至新宿三丁目 → Onitsuka → 3COINS → 15:20 双层巴士至涩谷 → 银座线坐到终点浅草 → 草63／都08 巴士到竜泉（下雨在上野换日比谷线）",
-    deadline: { at: "15:10", where: "歌舞伎町 Tower 1 番のりば", note: "巴士不等人" },
+    deadline: { at: "15:10", what: "到歌舞伎町 Tower 1 番のりば", note: "巴士不等人" },
     routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Meiji+Jingu&destination=SHIBUYA+SKY&waypoints=Blue+Bottle+Coffee+Aoyama%7COmotesando+Hills%7COnitsuka+Tiger+Shinjuku+Flagship+Store%7CTokyu+Kabukicho+Tower&travelmode=transit",
     nodes: [
       {
@@ -3512,17 +3517,17 @@ function unfoldDone() {
   document.querySelectorAll('#timelineList .is-folded').forEach(el => el.classList.remove('is-folded'));
   document.querySelector('#timelineList .done-fold')?.remove();
 }
-// 死线：当天倒数「还剩多久」，过了就收起；其他日子只写钟点和原因
+// 死线：当天倒数「还剩多久」，过了换下一个、都过了就收起；其他日子只写钟点和原因
 function updateDeadline() {
   const el = document.getElementById('heroDeadline');
   if (!el) return;
   const day = DAYS[currentDayIdx];
-  const dl = day.deadline;
   const today = isToday(day);
-  const left = dl ? hhmm(dl.at) - nowMins() : -1;
-  if (!dl || (today && left < 0)) { el.hidden = true; return; }
+  const dl = [].concat(day.deadline || []).find(d => !today || hhmm(d.at) >= nowMins());
+  if (!dl) { el.hidden = true; return; }
+  const left = hhmm(dl.at) - nowMins();
   const txt = !today ? dl.note : left < 60 ? `还剩 ${left} 分` : `还剩 ${Math.floor(left / 60)} 小时${left % 60 ? ` ${left % 60} 分` : ''}`;
-  el.innerHTML = `<span class="hd-what">${dl.at} 前到${dl.where}</span><span class="hd-left">${txt}</span>`;
+  el.innerHTML = `<span class="hd-what">${dl.at} 前${dl.what}</span><span class="hd-left">${txt}</span>`;
   el.hidden = false;
 }
 // 「现在」这一站：当天、且现在落在这一站的时间段里（没写结束时间就到下一站开始）

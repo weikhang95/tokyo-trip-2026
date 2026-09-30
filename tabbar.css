@@ -40,12 +40,31 @@ html[data-theme="dark"] .tb-sheet { --tb-surface: var(--card-bg, var(--paper)); 
 .tb-item:hover { color: var(--tb-ink); }
 .tb-item:focus-visible { outline: 2px solid var(--tb-accent); outline-offset: -4px; border-radius: 10px; }
 .tb-ico { width: 24px; height: 24px; flex-shrink: 0; }
-/* 当前页：墨色标签加粗，图标换成 Phosphor Fill（不靠动效表达状态） */
-.tb-ico .ph-fill { display: none; }
+/* 图标三态，同一个 Phosphor 图标的三种粗细，形状不变只换墨量：
+   线框（平时）→ 双色（电脑悬停 / 手机按住：Fill 叠 20%，就是 Phosphor Duotone）→ 实心（当前页）。
+   状态本身靠颜色和加粗标签表达，动效只是过渡 */
+.tb-ico path { transform-box: fill-box; transform-origin: center; }
+.tb-ico .ph-fill { opacity: 0; scale: .8; }
 .tb-item[aria-current="page"] { color: var(--tb-ink); font-weight: 650; }
 .tb-item[aria-current="page"] .tb-ico { color: var(--tb-accent); }
-.tb-item[aria-current="page"] .ph-regular { display: none; }
-.tb-item[aria-current="page"] .ph-fill { display: inline; }
+.tb-item[aria-current="page"] .ph-regular { opacity: 0; }
+.tb-item[aria-current="page"] .ph-fill { opacity: 1; scale: 1; }
+.tb-item:active:not([aria-current]) .ph-fill { opacity: .2; scale: 1; }
+@media (hover: hover) {
+  .tb-item:hover:not([aria-current]) .ph-fill { opacity: .2; scale: 1; }
+  .tb-item:hover .tb-ico { translate: 0 -1px; }
+}
+/* 过渡只在 JS 标了 tb-ready（首屏画完）之后才开：打开页面时不播 */
+.tabbar.tb-ready .tb-ico { transition: translate .2s var(--tb-ease); }
+.tabbar.tb-ready .tb-ico path { transition: opacity .22s cubic-bezier(.2,0,0,1), scale .22s cubic-bezier(.2,0,0,1); }
+
+/* 当前页的小横条：换页时从上一格滑过来，看得出「从哪到哪」 */
+.tabbar::before {
+  content: ""; position: absolute; top: -1px; left: 0; width: 24px; height: 2px; border-radius: 1px;
+  background: var(--tb-accent); pointer-events: none;
+  translate: var(--tb-x, 0px) 0; opacity: var(--tb-o, 0);
+}
+.tabbar.tb-ready::before { transition: translate .32s cubic-bezier(.2,0,0,1), opacity .15s var(--tb-ease); }
 
 /* 何时出现：手册只在窄屏；随身页始终显示 */
 body[data-tabbar="mobile"] .tabbar { display: none; }
@@ -128,6 +147,8 @@ html[data-text-size="large"] .tb-settings button { font-size: 16px; min-height: 
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tb-sheet, .tb-backdrop, .tb-item, .tb-links a, .tb-settings button { transition: none; }
+  .tb-sheet, .tb-backdrop, .tb-item, .tb-links a, .tb-settings button,
+  .tabbar.tb-ready .tb-ico, .tabbar.tb-ready .tb-ico path, .tabbar.tb-ready::before { transition: none; }
+  .tb-item:hover .tb-ico { translate: none; }
 }
 @media print { .tabbar, .tb-sheet, .tb-backdrop { display: none !important; } }

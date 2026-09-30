@@ -20,7 +20,7 @@ try {
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="tabbar.css?v=4">
+<link rel="stylesheet" href="tabbar.css?v=5">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -692,10 +692,67 @@ try {
   }
 
 
+  /* ── 小动效：用 Phosphor 同一图标的不同字重表达状态，形状不变只换墨量 ──
+     电脑（能悬停）：悬停一站，交通图标浮出 Duotone 底色；导航箭头往右上探一下；日落图标的太阳先沉下去给你看。
+     手机（点按）：按住时同样浮出底色；「现在」那一站的圆点慢慢呼吸；换天时太阳从高处落到此刻的位置。
+     全部只在 html[data-motion="ready"]（首屏画完）之后才开；状态本身都另有文字或颜色，不只靠动效。 */
+  .ph-tone { opacity: 0; }
+  html[data-motion="ready"] .ph-tone { transition: opacity .15s var(--ease); }
+  html[data-motion="ready"] .nav-btn .ph { transition: translate .2s cubic-bezier(.2,0,0,1); }
+  .node-card:active .time-badge .ph-tone, .nav-btn:active .ph-tone { opacity: .25; }
+  @media (hover: hover) {
+    .node-card:hover .time-badge .ph-tone { opacity: .25; }
+    .nav-btn:hover .ph-tone { opacity: .3; }
+    .nav-btn:hover .ph { translate: 1.5px -1.5px; }
+  }
+
+  /* 「现在」：当天、时间落在这一站里。圆点外一圈慢呼吸，旁边写「现在」 */
+  .node-item.is-now .time-badge .ph-tone { opacity: .25; }
+  .node-item.is-now .node-dot::before {
+    content: ""; position: absolute; inset: -2px; border-radius: 50%;
+    border: 2px solid var(--ai); opacity: .4; pointer-events: none;
+  }
+  html[data-motion="ready"] .node-item.is-now .node-dot::before { animation: now-breathe 2.8s cubic-bezier(.2,0,0,1) infinite; }
+  @keyframes now-breathe { 0% { opacity: .55; scale: 1; } 70%, 100% { opacity: 0; scale: 1.9; } }
+  .now-tag {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; font-weight: 800; color: var(--ai); letter-spacing: .02em;
+  }
+  .now-tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  html[data-motion="ready"] .now-tag { animation: now-in .25s cubic-bezier(.2,0,0,1); }
+  @keyframes now-in { from { opacity: 0; translate: 0 4px; } }
+
+  /* 日落／日出：--sun-y 是太阳相对地平线的高度（负 = 在上面），--sun-w 是暖度（0 金 → 1 朱） */
+  .sun-chip {
+    --sun-y: 0; --sun-w: 0;
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums;
+    color: color-mix(in srgb, var(--shu) calc(var(--sun-w) * 100%), var(--kin));
+  }
+  .sun-ico { width: 1.35em; height: 1.35em; flex: none; overflow: visible; }
+  .sun-ico path, .sun-ico circle { fill: none; stroke: currentColor; stroke-width: 16; stroke-linecap: round; }
+  .sun-ico .sun-tone { fill: currentColor; fill-opacity: .2; stroke: none; }
+  .sun-disc { translate: 0 calc(var(--sun-y) * 1px); }
+  .sun-rays { opacity: clamp(0, calc(1 - var(--sun-y) / 24), 1); }
+  html[data-motion="ready"] .sun-disc { transition: translate 1.2s cubic-bezier(.2,0,0,1); }
+  html[data-motion="ready"] .sun-rays { transition: opacity .6s var(--ease); }
+  html[data-motion="ready"] .sun-chip { transition: color 1.2s var(--ease); }
+  /* 电脑悬停：太阳先沉下去让你预览「落日」，移开再升回来 */
+  @media (hover: hover) {
+    .node-card:hover .sun-chip[data-kind="set"] .sun-disc { translate: 0 calc((var(--sun-y) + 30) * 1px); }
+    .node-card:hover .sun-chip[data-kind="set"] .sun-rays { opacity: 0; }
+    .node-card:hover .sun-chip[data-kind="rise"] .sun-disc { translate: 0 calc((var(--sun-y) - 30) * 1px); }
+  }
+
   /* 减少动态：与手册 index.html 同一条规则，过渡与动画一律瞬间完成 */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
     .node-item.active .node-dot { transform: none; }
+    /* 「现在」不呼吸，改成一圈静止的淡环 */
+    html[data-motion="ready"] .node-item.is-now .node-dot::before { animation: none; opacity: .35; scale: 1.4; }
+    .nav-btn:hover .ph { translate: none; }
+    .node-card:hover .sun-chip .sun-disc { translate: 0 calc(var(--sun-y) * 1px); }
+    .node-card:hover .sun-chip .sun-rays { opacity: clamp(0, calc(1 - var(--sun-y) / 24), 1); }
   }
   /* 320 宽：方案 C「清澄白河」放不下，字号退一级 */
   @media (max-width: 359px) { .d8-opt-btn { font-size: 12px; } }
@@ -742,6 +799,7 @@ try {
       </div>
     </div>
     <div id="map"></div>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><clipPath id="sun-clip"><rect x="0" y="0" width="256" height="152"/></clipPath></svg>
   </section>
 
   <!-- Day Hero Card -->
@@ -778,10 +836,20 @@ const PH = {
   nav: '<path d="M237.33,106.21,61.41,41l-.16-.05A16,16,0,0,0,40.9,61.25a1,1,0,0,0,.05.16l65.26,175.92A15.77,15.77,0,0,0,121.28,248h.3a15.77,15.77,0,0,0,15-11.29l.06-.2,21.84-78,78-21.84.2-.06a16,16,0,0,0,.62-30.38ZM149.84,144.3a8,8,0,0,0-5.54,5.54L121.3,232l-.06-.17L56,56l175.82,65.22.16.06Z"/>',
   phone: '<path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/>',
 };
+// Duotone 的 20% 底色层（同一套 Phosphor 的 duotone 字重），平时透明，「现在」这一站和悬停时才浮出来
+const PH_TONE = {
+  train: 'M208,72v56H48V72Z',
+  bus: 'M48,184H88v24a8,8,0,0,1-8,8H56a8,8,0,0,1-8-8Zm120,24a8,8,0,0,0,8,8h24a8,8,0,0,0,8-8V184H168ZM48,72v40H208V72Z',
+  car: 'M184,176h40v24a8,8,0,0,1-8,8H192a8,8,0,0,1-8-8ZM32,200a8,8,0,0,0,8,8H64a8,8,0,0,0,8-8V176H32ZM194.11,44.75A8,8,0,0,0,186.8,40H69.2a8,8,0,0,0-7.31,4.75L32,112H224Z',
+  plane: 'M209,81l-33,31,32,88-24,24-48-72-24,24v24L88,224,72,184,32,168l24-24H80l24-24L32,72,56,48l88,32,31-33A24,24,0,0,1,209,81Z',
+  walk: 'M176,48a24,24,0,1,1-24-24A24,24,0,0,1,176,48Z',
+  nav: 'M234.35,129,152,152,129,234.35a8,8,0,0,1-15.21.27l-65.28-176A8,8,0,0,1,58.63,48.46l176,65.28A8,8,0,0,1,234.35,129Z',
+};
 const PH_LABEL = { train: '电车', bus: '公车', car: '开车', plane: '飞机', walk: '步行' };
 function ph(name, label) {
   const a = label ? `role="img" aria-label="${label}"` : 'aria-hidden="true"';
-  return `<svg class="ph" viewBox="0 0 256 256" fill="currentColor" ${a}>${PH[name]}</svg>`;
+  const tone = PH_TONE[name] ? `<path class="ph-tone" d="${PH_TONE[name]}"/>` : '';
+  return `<svg class="ph" viewBox="0 0 256 256" fill="currentColor" ${a}>${tone}${PH[name]}</svg>`;
 }
 
 // ══════════════════════════════════════════════════════════════════════
@@ -959,6 +1027,7 @@ const DAY8_OPTIONS = {
         time: '16:40 - 17:35',
         name: '江の島シーキャンドル（展望灯台）',
         title: "シーキャンドル 相模湾日落 ★",
+        sun: { kind: 'set', at: '17:14', zh: '日落' },
         sub: '日落 17:14 · 电梯直上 · 有室内展望层',
         lat: 35.29974, lng: 139.47843,
         key: ["天晴看得到富士山剪影", "!屋顶风大，带外套"],
@@ -1853,6 +1922,7 @@ const DAYS = [
         time: "16:10 - 17:40",
         name: "大石公园",
         title: "大石公园 夕照富士 ★",
+        sun: { kind: 'set', at: '17:05', zh: '太阳入山' },
         sub: "全景台开约 26km · 41–49 分钟 · 免费停车",
         lat: 35.5230, lng: 138.7456,
         key: ["17:00–17:40 红富士余晖", "!17:00 后降到 10–12°C，披外套"],
@@ -1927,6 +1997,7 @@ const DAYS = [
         time: "05:00 - 06:05",
         name: "本栖湖 · 浩庵湖畔日出 ★★",
         title: "本栖湖 浩庵 千圆日出 ★★",
+        sun: { kind: 'rise', at: '05:52', zh: '日出越山' },
         sub: "日币千圆纸钞日出原型 · 05:44–05:46 平地日出 / 约05:51–05:53 跃出东侧山棱",
         lat: 35.4719, lng: 138.5833,
         key: ["先在车里取暖，05:15 下车", "车位离湖滩 5 米"],
@@ -2215,6 +2286,7 @@ const DAYS = [
         time: "16:35",
         name: "SHIBUYA SKY (229m 露天全景日落) ★★",
         title: "SHIBUYA SKY 日落 17:16 ★",
+        sun: { kind: 'set', at: '17:16', zh: '日落' },
         sub: "Fukuras 下车平路 462m → Scramble Square 14F 换票",
         lat: 35.6585, lng: 139.7022,
         key: ["带 100 円硬币寄包", "!妈妈穿带帽防风外套"],
@@ -2775,9 +2847,18 @@ let markersLayer = null;
 let polylineLayer = null;
 let currentViewMode = 'split'; // 'split', 'time', 'map'
 
+// 现在几点：网址加 ?now=2026-10-10T16:50 可以假装是那个时刻，出发前预览「现在」和日落倒数
+const NOW_OVERRIDE = (() => {
+  const m = /[?&]now=([\d\-T:]+)/.exec(location.search);
+  return m ? new Date(m[1]) - Date.now() : 0;
+})();
+function nowDate() { return new Date(Date.now() + NOW_OVERRIDE); }
+function nowMins() { const n = nowDate(); return n.getHours() * 60 + n.getMinutes(); }
+function hhmm(t) { const m = /^(\d{1,2}):(\d{2})/.exec(t || ''); return m ? +m[1] * 60 + +m[2] : null; }
+
 // 行程当天：没带日期打开（例如底栏「地图」）就停在今天
 function isToday(day) {
-  const now = new Date();
+  const now = nowDate();
   const [m, d] = day.date.split('/').map(Number);
   return now.getFullYear() === 2026 && now.getMonth() + 1 === m && now.getDate() === d;
 }
@@ -2801,6 +2882,8 @@ function initApp() {
   renderDayPills();
   const initIdx = getDayIdxFromHash();
   selectDay(initIdx, false);
+  // 首屏画完才开动效：打开页面时不播，之后换天、换站才有过渡
+  requestAnimationFrame(() => requestAnimationFrame(() => { document.documentElement.dataset.motion = 'ready'; }));
 
   window.addEventListener('hashchange', () => {
     const idx = getDayIdxFromHash();
@@ -3043,7 +3126,7 @@ function renderTimeline(day) {
       <button type="button" class="node-dot" aria-label="在地图上看第 ${nIdx + 1} 站">${nIdx + 1}</button>
       <div class="node-card">
         <div class="node-top">
-          <span class="node-when"><span class="time-badge">${node.mode ? ph(node.mode, PH_LABEL[node.mode]) : ''}${String(node.time).replace(/\s*-\s*/, '–')}</span>${tagHtml}</span>
+          <span class="node-when"><span class="time-badge">${node.mode ? ph(node.mode, PH_LABEL[node.mode]) : ''}${String(node.time).replace(/\s*-\s*/, '–')}</span>${tagHtml}${node.sun ? `<span class="sun-chip" data-kind="${node.sun.kind}" data-node="${nIdx}">${SUN_SVG}<span class="sun-txt"></span></span>` : ''}</span>
           <a href="${gmapsNavUrl}" target="_blank" class="nav-btn" title="在 Google Maps 中导航">${ph('nav')}导航</a>
         </div>
         <h2 class="node-name">${node.title || node.name}</h2>
@@ -3061,6 +3144,8 @@ function renderTimeline(day) {
 
     list.appendChild(item);
   });
+  markNow();
+  updateSun(true);
 }
 
 let mapMarkers = [];
@@ -3158,8 +3243,7 @@ function scrollToCurrentNode() {
   if (!day.nodes.length) return;
   let idx = 0;
   if (isToday(day)) {
-    const now = new Date();
-    const mins = now.getHours() * 60 + now.getMinutes();
+    const mins = nowMins();
     day.nodes.forEach((n, i) => {
       const t = /^(\d{1,2}):(\d{2})/.exec(n.time);
       if (t && +t[1] * 60 + +t[2] <= mins) idx = i;
@@ -3177,8 +3261,7 @@ function updateNextStop() {
   const el = document.getElementById('heroNext');
   if (!el) return;
   const day = DAYS[currentDayIdx];
-  const now = new Date();
-  const mins = now.getHours() * 60 + now.getMinutes();
+  const mins = nowMins();
   const i = isToday(day) ? day.nodes.findIndex(n => nodeStartMins(n) > mins) : -1;
   if (i < 0) { el.hidden = true; return; }
   const n = day.nodes[i];
@@ -3188,8 +3271,77 @@ function updateNextStop() {
   el.onclick = () => focusNode(i);
   el.hidden = false;
 }
-setInterval(updateNextStop, 30000);
-document.addEventListener('visibilitychange', () => { if (!document.hidden) updateNextStop(); });
+// 「现在」这一站：当天、且现在落在这一站的时间段里（没写结束时间就到下一站开始）
+function markNow() {
+  const day = DAYS[currentDayIdx];
+  const items = document.querySelectorAll('#timelineList .node-item');
+  let cur = -1;
+  if (isToday(day)) {
+    const mins = nowMins();
+    day.nodes.forEach((n, i) => {
+      const start = hhmm(n.time);
+      const endM = /[-–]\s*(\d{1,2}:\d{2})/.exec(n.time);
+      const next = day.nodes[i + 1] ? hhmm(day.nodes[i + 1].time) : null;
+      const end = endM ? hhmm(endM[1]) : (next ?? start + 60);
+      if (start != null && mins >= start && mins < end) cur = i;
+    });
+  }
+  items.forEach((el, i) => {
+    const on = i === cur;
+    if (el.classList.contains('is-now') === on) return;
+    el.classList.toggle('is-now', on);
+    const when = el.querySelector('.node-when');
+    const tag = el.querySelector('.now-tag');
+    if (on && !tag) when.insertAdjacentHTML('beforeend', '<span class="now-tag">现在</span>');
+    if (!on && tag) tag.remove();
+  });
+}
+
+// 日落／日出小图标：太阳按时间一点点沉下地平线（日出反过来），离得越近颜色越暖；
+// 不是当天就停在半露的样子，只显示时刻
+const SUN_SVG = `<svg class="sun-ico" viewBox="0 0 256 256" aria-hidden="true">
+  <g clip-path="url(#sun-clip)"><g class="sun-disc"><circle class="sun-tone" cx="128" cy="144" r="56"/><circle cx="128" cy="144" r="56"/></g></g>
+  <g class="sun-rays"><path d="M80,40l8,16M176,40l-8,16M24,96l16,8M232,96l-16,8"/></g>
+  <path d="M16,160H240M48,200H208"/></svg>`;
+function sunState(sun, today, mins) {
+  const at = hhmm(sun.at);
+  if (!today) return { y: 0, w: 0, txt: `${sun.zh} ${sun.at}` };
+  const d = mins - at;
+  const up = -40, down = 64;
+  let y, txt;
+  const left = m => m < 60 ? `${m} 分` : `${Math.floor(m / 60)} 小时${m % 60 ? ` ${m % 60} 分` : ''}`;
+  if (sun.kind === 'set') {
+    y = d <= -180 ? up : d <= 0 ? up * (-d / 180) : Math.min(down, down * d / 20);
+    txt = d < -180 ? `${sun.zh} ${sun.at}` : d < 0 ? `${sun.zh}还有 ${left(-d)}` : d < 40 ? '余晖中' : `已${sun.zh} ${sun.at}`;
+  } else {
+    y = d <= -20 ? down : d <= 0 ? down * (-d / 20) : Math.max(up, up * d / 180);
+    txt = d < -180 ? `${sun.zh} ${sun.at}` : d < 0 ? `${sun.zh}还有 ${left(-d)}` : d < 30 ? '日出中' : `${sun.zh} ${sun.at}`;
+  }
+  // 暖度：日落前一小时从金色渐到朱色；日出后一小时从朱色退回金色
+  const w = sun.kind === 'set' ? (d < -60 ? 0 : d < 0 ? (60 + d) / 60 : 1) : (d < 0 ? 1 : d < 60 ? 1 - d / 60 : 0);
+  return { y, w, txt };
+}
+function updateSun(settle) {
+  const day = DAYS[currentDayIdx];
+  const today = isToday(day), mins = nowMins();
+  document.querySelectorAll('#timelineList .sun-chip').forEach(chip => {
+    const st = sunState(day.nodes[+chip.dataset.node].sun, today, mins);
+    const apply = () => {
+      chip.style.setProperty('--sun-y', st.y.toFixed(1));
+      chip.style.setProperty('--sun-w', st.w.toFixed(2));
+    };
+    chip.querySelector('.sun-txt').textContent = st.txt;
+    // 换天时太阳从高处落到现在的位置（只在首屏之后）
+    if (settle && document.documentElement.dataset.motion === 'ready') {
+      chip.style.setProperty('--sun-y', -40); chip.style.setProperty('--sun-w', 0);
+      requestAnimationFrame(() => requestAnimationFrame(apply));
+    } else apply();
+  });
+}
+
+function tick() { updateNextStop(); markNow(); updateSun(false); }
+setInterval(tick, 30000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) tick(); });
 
 function setViewMode(mode) {
   currentViewMode = mode;
@@ -3237,7 +3389,7 @@ document.addEventListener('DOMContentLoaded', initApp);
 </script>
 <!-- Google Maps JavaScript API. This browser key is public by design: it only works on
      weikhang95.github.io, only for the Maps JavaScript API, and is capped at 300 map loads a day. -->
-<script src="tabbar.js?v=4" defer></script>
+<script src="tabbar.js?v=5" defer></script>
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5rs71T6Mi38Y9nAwLS6NihCBaMr5zJZs&loading=async&callback=onGoogleMapsReady&language=zh-CN&region=JP" onerror="gm_authFailure()"></script>
 </body>
 </html>

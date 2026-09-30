@@ -109,6 +109,9 @@
     document.addEventListener('keydown', onKey);
 
     setActive(body.dataset.tab || '');
+    window.addEventListener('resize', placeMark);
+    // 首屏画完再开过渡
+    requestAnimationFrame(function () { requestAnimationFrame(function () { bar.classList.add('tb-ready'); }); });
   }
 
   function renderSheet(focusAct) {
@@ -192,6 +195,14 @@
     // 日程键永远指向"今天"
     var d = bar.querySelector('[data-key="days"]');
     if (d) d.setAttribute('href', daysTarget());
+    placeMark();
+  }
+  // 小横条对准当前那一格；没有当前页（例如在抽屉里）就淡出
+  function placeMark() {
+    var cur = bar.querySelector('.tb-item[aria-current="page"]');
+    if (!cur || !cur.offsetWidth) { bar.style.setProperty('--tb-o', 0); return; }
+    bar.style.setProperty('--tb-x', (cur.offsetLeft + cur.offsetWidth / 2 - 12) + 'px');
+    bar.style.setProperty('--tb-o', 1);
   }
 
   window.TabBar = { setActive: setActive, open: function () { openSheet(); }, close: function () { closeSheet(); } };

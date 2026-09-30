@@ -670,6 +670,8 @@ html[data-theme="dark"] .tl>.tl-item{background:var(--paper-2);box-shadow:none;}
 
 /* Checkable Lists */
 .check-list{display:flex;flex-direction:column;gap:var(--space-xs);margin-top:var(--space-sm);}
+.check-list + h3{margin-top:var(--space-lg);}
+.done-list{display:flex;flex-direction:column;gap:6px;margin:0 0 0 1.15rem;padding:0;font-size:var(--font-sub);line-height:1.6;color:var(--ink-soft);}
 .check-item{
   display:flex;align-items:flex-start;gap:var(--space-sm);padding:var(--space-sm) var(--space-md);background:var(--paper-tint);
   border-radius:var(--r-md);border:1px solid var(--line-soft);font-size:var(--font-sub);font-weight:500;
@@ -4262,96 +4264,69 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
   </div>
 
   <div class="card">
-    <h3><span class="zh on">预订事项与关键时间节点 (含官方凭据与预订链接)</span><span class="en">Booking Timeline & Official Evidence</span></h3>
-    
-    <div class="note-box tip" style="margin-bottom:16px;">
-      <strong>河口湖高速巴士官方预订凭据与规则（东京站出发）：</strong>
-      <span class="zh on"><ul class="pts"><li><strong>路线名称</strong>：东京站 ⇄ 河口湖・富士山线（<strong>JRバス関東 / 富士急バス 联营</strong>；京王巴士不跑东京站）</li><li><strong>上车地点</strong>：<a href="https://maps.google.com/?q=Tokyo+Station+Yaesu+South+Exit" target="_blank" rel="noopener noreferrer">东京站八重洲南口 9号巴士站</a>（一楼地面，出站平地零阶梯，依票面为主）<ul><li>东京站登记地号为 <code>1 Chome-9-1 Marunouchi</code>，但实际巴士站总站在东侧<strong>八重洲南口</strong>，切勿走出丸之内红砖口</li></ul></li><li><strong>订票渠道警示</strong>：<strong>切勿在 Highwaybus.com 订票！</strong>Highwaybus 是京王系统，只卖新宿/涩谷发车，东京站线路不开放售票</li><li><strong>正规预订渠道</strong><ol><li><a href="https://japanbusonline.com/zh-tw/CourseSearch/11500410001?AreaCd=313" target="_blank" rel="noopener noreferrer">Japan Bus Online (东京站-富士五湖线 直达订票日历)</a>：首选，全中文界面、支持海外信用卡与 Wise、凭邮件电子票扫码直接上车，免换纸票</li><li><a href="https://www.kousokubus.net/" target="_blank" rel="noopener noreferrer">高速バスネット (kousokubus.net / JR官方)</a>：JR巴士官方系统，享网络折扣</li><li><a href="https://willer-travel.com/zh/" target="_blank" rel="noopener noreferrer">WILLER TRAVEL 中文网</a>：官方授权聚合平台</li></ol></li><li><strong>放票时间</strong>：JRバス関東 规则为 <strong>乗車日の「1ヶ月1日前」10:00（日本时间）＝ 大马 09:00</strong><ul><li>「1ヶ月1日前」＝ 乘车日前一天再往回推 1 个月</li></ul></li><li><strong>去程放票</strong>：10/06 巴士票 → <strong>2026年9月5日 日本 10:00 ＝ 大马 09:00 开抢</strong>（<strong>实价 ¥2,300/人</strong>）</li><li><strong>回程放票</strong>：10/07 巴士票 → <strong>2026年9月6日（日）日本 10:00 ＝ 大马 09:00 开抢</strong>（<strong>实价 ¥2,300/人</strong>）</li></ul></span>
-    </div>
-
+    <h3><span class="zh on">还要做</span><span class="en">Still to do</span></h3>
     <div class="check-list">
       <label class="check-item">
-        <input type="checkbox" id="chk-1" onchange="saveCheck('chk-1')"/>
-        <span><strong>【已订妥】</strong> Yoin TOKYO <strong>303号房</strong> · 10/3–10/12 (9晚) · 2 adults · RM 3,868.47 · 有电梯</span>
-      </label>
-      <label class="check-item">
         <input type="checkbox" id="chk-1-2" onchange="saveCheck('chk-1-2')"/>
-        <span><strong>【入住前】</strong> 经 <strong>Airbnb 站内讯息</strong>提交 2 人身分资料：姓名 / 住址 / 职业 / 护照资料页照片 (日本民泊法规定，<strong>勿用 email</strong>)</span>
-      </label>
-      <label class="check-item">
-        <input type="checkbox" id="chk-1-3" onchange="saveCheck('chk-1-3')"/>
-        <span><strong>【9月24日】</strong> Airbnb 自动扣款 RM 3,868.47 — 确认卡内有额度</span>
+        <span><strong>Airbnb 站内讯息</strong>交 2 人身份资料：姓名／住址／职业／护照资料页照片（日本民泊法规定，<strong>别用 email</strong>）</span>
       </label>
       <label class="check-item">
         <input type="checkbox" id="chk-1-4" onchange="saveCheck('chk-1-4')"/>
-        <span><strong>【10月2日 15:00 MYR】</strong> Airbnb 免费取消最后期限 (日本时间 16:00)，过后仅退「第一晚以外」</span>
-      </label>
-      <label class="check-item">
-        <input type="checkbox" id="chk-2" onchange="saveCheck('chk-2')"/>
-        <span><strong>【已预订】</strong> <a href="https://maps.google.com/?q=Sawa+Hotel+Fujikawaguchiko" target="_blank" rel="noopener noreferrer">SAWA Hotel（船津 2090）</a> — Twin 21㎡，税后 RM 332，<strong>不含早</strong>，门口平面免费停车。<strong>10/6 晚上务必开车 4 分钟去 Ogino 买好隔天早餐</strong></span>
-      </label>
-      <label class="check-item">
-        <input type="checkbox" id="chk-3" onchange="saveCheck('chk-3')"/>
-        <span><strong>【8月内 · 已搞定】</strong> 本人 iPhone 17 Pro 已用 Wise Digital Visa 成功开通 Apple Wallet Suica；落地在成田 T2 B1 红色机台现金为妈妈买 Welcome Suica 实体卡</span>
+        <span><strong>10/2 日本 16:00（大马 15:00）</strong>前 Airbnb 还能免费取消，过了只退「第一晚以外」</span>
       </label>
       <label class="check-item">
         <input type="checkbox" id="chk-vjw" onchange="saveCheck('chk-vjw')"/>
-        <span><strong>【随时 · 8-9月】</strong> 登入 <a href="https://www.vjw.digital.go.jp/" target="_blank" rel="noopener noreferrer">Visit Japan Web 官网</a> 登记两本护照与航班，生成通关二维码并<strong>截图存入手机相册</strong></span>
-      </label>
-      <label class="check-item">
-        <input type="checkbox" id="chk-adapter" onchange="saveCheck('chk-adapter')"/>
-        <span><strong>【出发前备齐】</strong> 英标转日本双扁头插头 (Type A，2–3个)；充电宝标示清晰放随身行李 (严禁托运)</span>
+        <span><a href="https://www.vjw.digital.go.jp/" target="_blank" rel="noopener noreferrer">Visit Japan Web</a> 登记两本护照和航班，通关二维码<strong>截图存相册</strong></span>
       </label>
       <label class="check-item">
         <input type="checkbox" id="chk-busticket" onchange="saveCheck('chk-busticket')"/>
-        <span><strong>【出发前截图】</strong> 10/8 开顶巴士的确认信（9/15 Japan Bus Online 寄的「E-ticket」邮件）：两部手机都存一张截图，上车给司机看、领 SKY 门票。<strong>10/8 15:10 前一定要到歌舞伎町 Tower 1 番のりば</strong>，巴士不等人，错过 ¥10,800 全不退</span>
-      </label>
-      <label class="check-item">
-        <input type="checkbox" id="chk-cold" onchange="saveCheck('chk-cold')"/>
-        <span><strong>【防寒衣物】</strong> 准备妈妈的轻便薄羽绒服/防风外套与薄围巾 (河口湖清晨湖风大，气温低至 8–10°C)</span>
-      </label>
-      <label class="check-item">
-        <input type="checkbox" id="chk-4" onchange="saveCheck('chk-4')"/>
-        <span><strong>【9月5日（六）· 日本 10:00 ＝ 大马 09:00 · 已开卖】</strong> 在 <a href="https://japanbusonline.com/zh-tw/CourseSearch/11500410001?AreaCd=313" target="_blank" rel="noopener noreferrer">Japan Bus Online (直达页面)</a> (或 <a href="https://www.kousokubus.net/" target="_blank" rel="noopener noreferrer">高速バスネット</a>) 抢 10/06 去程 <strong>08:10</strong> 巴士票 (→ 河口湖2号巴士站 10:12，<strong>10:07 是富士山站别下错</strong>；<strong>无 08:00 班次；切勿用 highwaybus</strong>)</span>
-      </label>
-      <label class="check-item">
-        <input type="checkbox" id="chk-4-2" onchange="saveCheck('chk-4-2')"/>
-        <span><strong>【9月6日（日）· 日本 10:00 ＝ 大马 09:00 · 已开卖】</strong> 在 <a href="https://japanbusonline.com/zh-tw/CourseSearch/11500410001?AreaCd=313" target="_blank" rel="noopener noreferrer">Japan Bus Online (直达页面)</a> (或 <a href="https://www.kousokubus.net/" target="_blank" rel="noopener noreferrer">高速バスネット</a>) 抢 10/07 回程 <strong>13:30</strong> 巴士票 (→ 東京駅 15:35；<strong>无 14:00 班次；切勿用 highwaybus</strong>)</span>
-      </label>
-      <label class="check-item">
-        <input type="checkbox" id="chk-4-3" onchange="saveCheck('chk-4-3')"/>
-        <span><strong>【已解决 · 2026-09-14】</strong> <strong>国际驾照 IDP</strong>（<strong>日内瓦 1949 小册子式</strong>）已领；<strong>大马实体正本驾照</strong>一度缺货，现已补发到手。<strong>10/6 取车两本都要带</strong>（护照 + 大马正本驾照 + IDP），租车行看不到正本不给车。出发前最后确认：<strong>正本驾照效期须在 2026-10-07 之后</strong>（IDP 效期绑驾照效期）。日本靠左行驶，与大马相同。</span>
-      </label>
-      <label class="check-item">
-        <input type="checkbox" id="chk-4-4" onchange="saveCheck('chk-4-4')"/>
-        <span><strong>【租车】</strong> 预订 <a href="https://maps.google.com/?q=%E3%83%8B%E3%83%83%E3%83%9D%E3%83%B3%E3%83%AC%E3%83%B3%E3%82%BF%E3%82%AB%E3%83%BC+%E6%B2%B3%E5%8F%A3%E6%B9%96%E9%A7%85%E5%89%8D" target="_blank" rel="noopener noreferrer">ニッポンレンタカー 河口湖駅前</a> compact 车 <strong>(10/6 12:30 – 10/7 12:30 = 24 小时整，压在 1 日料金上限)</strong>。营业 08:00–19:00。SAWA 是门口平面免费停车，<strong>无限高／限宽</strong>，车型不受饭店限制。<strong>比トヨタ 近 (2分 vs 4分)、开更早关更晚</strong></span>
+        <span>10/8 开顶巴士确认信（9/15 Japan Bus Online 寄的「E-ticket」邮件）<strong>两部手机都存截图</strong>，上车给司机看、领 SKY 门票</span>
       </label>
       <label class="check-item">
         <input type="checkbox" id="chk-5" onchange="saveCheck('chk-5')"/>
-        <span><strong>涩谷SKY 已订</strong>：走「SHIBUYA STREET RIDE 巴士套票」，<strong>10/8 15:20 班次</strong>（2026-09-15 订妥）。<strong>9/23 23:00 的抢票闹钟已作废，请取消</strong>。套票的 SKY 券是<strong>自由入场券</strong>，16:35 在 14F 换票可能被排到较晚时段 —— 应对见 Day 6</span>
+        <span><strong>取消 9/23 23:00 的旧 SKY 抢票闹钟</strong>（已改走巴士套票）</span>
       </label>
       <label class="check-item">
-        <input type="checkbox" id="chk-6" onchange="saveCheck('chk-6')"/>
-        <span><strong>【已查 · 2026-09-19】</strong> 10/11 都营浅草线至羽田<strong>末班直通 23:17 浅草发 → 00:03 羽田 T3</strong>，21 点档错过也还有车</span>
-      </label>
-      <label class="check-item">
-        <input type="checkbox" id="chk-6-2" onchange="saveCheck('chk-6-2')"/>
-        <span><strong>【已完成 · 2026-09-10】</strong> <strong>妈妈的旅游保险已投保</strong> — Chubb <strong>Executive / Zone 1</strong>，与你同期间 (10/2–10/13)。两人各持一张 Individual 保单，海外医疗与延误保障全数就绪，早于 10/2 中午的生效门槛</span>
+        <input type="checkbox" id="chk-kashi" onchange="saveCheck('chk-kashi')"/>
+        <span><strong>订樫 10/11 17:30</strong>（03-5834-2581），说明全部要全熟</span>
       </label>
       <label class="check-item">
         <input type="checkbox" id="chk-7" onchange="saveCheck('chk-7')"/>
-        <span><strong>【出发前】</strong> 从 <strong>Certificate of Insurance</strong> 抄下<strong>保单号</strong>与 <strong>Chubb 24 小时紧急电话</strong>，两支手机各存一份 + 纸本放钱包；确认保障期涵盖 <strong>10/2–10/13</strong></span>
+        <span>从 Certificate of Insurance 抄下<strong>保单号</strong>和 <strong>Chubb 24 小时紧急电话</strong>：两部手机各存一份，纸本放钱包</span>
       </label>
       <label class="check-item">
         <input type="checkbox" id="chk-8" onchange="saveCheck('chk-8')"/>
-        <span><strong>【出发前】</strong> 确认妈妈的<strong>长期用药清单</strong> — 既往症 Chubb 完全不赔 (出发前 12 个月内看过医生／吃过处方药即算)。有慢性病则评估加保，并备<strong>英文处方笺</strong>随身</span>
+        <span>妈妈的<strong>长期用药清单</strong>：既往症 Chubb 不赔（出发前 12 个月内看过医生／吃过处方药就算），备<strong>英文处方笺</strong></span>
       </label>
       <label class="check-item">
-        <input type="checkbox" id="chk-net" onchange="saveCheck('chk-net')" checked/>
-        <span><strong>【上网卡】</strong> <strong>行动上网（Hello1010 · KDDI au 线路）</strong>：你（iPhone 17 Pro）买 <strong>eSIM 20GB / 15天（RM 58.38）</strong>；妈妈（vivo V23e）买 <strong>实体 Nano-SIM 卡 10GB / 15天</strong>（插卡槽2）。<br/>
-        <strong>行前 5 项设置</strong>（iCloud 照片、卡槽1漫游、MicroSD、离线地图、WhatsApp 演练）步骤见「提醒」的行动网络。</span>
+        <input type="checkbox" id="chk-4-3" onchange="saveCheck('chk-4-3')"/>
+        <span>确认<strong>大马正本驾照效期在 2026-10-07 之后</strong>；10/6 取车带护照＋正本驾照＋IDP 三样</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" id="chk-net" onchange="saveCheck('chk-net')"/>
+        <span>上网卡行前 5 项设置（iCloud 照片、卡槽1漫游、MicroSD、离线地图、WhatsApp 演练），步骤见「提醒」的行动网络</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" id="chk-adapter" onchange="saveCheck('chk-adapter')"/>
+        <span>日本双扁头插头（Type A）2–3 个；充电宝放随身行李（不能托运）</span>
+      </label>
+      <label class="check-item">
+        <input type="checkbox" id="chk-cold" onchange="saveCheck('chk-cold')"/>
+        <span>妈妈的薄羽绒服／防风外套和围巾（河口湖清晨 5–10°C）</span>
       </label>
     </div>
+    <h3><span class="zh on">已办好</span><span class="en">Done</span></h3>
+    <ul class="done-list">
+      <li>Yoin TOKYO <strong>303 号房</strong> · 10/3–10/12（9 晚）· RM 3,868.47（9/24 已扣款）· 有电梯</li>
+      <li><a href="https://maps.google.com/?q=Sawa+Hotel+Fujikawaguchiko" target="_blank" rel="noopener noreferrer">SAWA Hotel（船津 2090）</a>：Twin，<strong>不含早</strong>，门口免费停车；10/6 晚上开车 4 分钟去 Ogino 买隔天早餐</li>
+      <li>河口湖巴士两程：10/6 <strong>08:10</strong> 东京站八重洲南口 9 号 → 河口湖 10:12（10:07 是富士山站，别下错）；10/7 <strong>13:30</strong> → 東京駅 15:35</li>
+      <li><a href="https://maps.google.com/?q=%E3%83%8B%E3%83%83%E3%83%9D%E3%83%B3%E3%83%AC%E3%83%B3%E3%82%BF%E3%82%AB%E3%83%BC+%E6%B2%B3%E5%8F%A3%E6%B9%96%E9%A7%85%E5%89%8D" target="_blank" rel="noopener noreferrer">ニッポンレンタカー 河口湖駅前</a>：<strong>10/6 12:30 – 10/7 12:30</strong>，营业 08:00–19:00；IDP 和正本驾照都已到手</li>
+      <li>涩谷 SKY：SHIBUYA STREET RIDE 巴士套票 <strong>10/8 15:20</strong>（9/15 订妥）。SKY 券是自由入场券，16:35 到 14F 换票可能排到较晚时段，应对见当天</li>
+      <li>旅游保险：两人各一张 Chubb <strong>Executive / Zone 1</strong> Individual 保单（10/2–10/13，9/10 投保）</li>
+      <li>Suica：你的 iPhone 已开 Apple Wallet Suica；妈妈的 Welcome Suica 落地在成田 T2 B1 红色机台用现金买</li>
+      <li>上网卡（Hello1010 · au）：你 eSIM 20GB／15 天，妈妈实体 Nano-SIM 10GB／15 天（插卡槽2）</li>
+      <li>10/11 都营浅草线去羽田末班直通 23:17 浅草 → 00:03 T3（9/19 查过）</li>
+    </ul>
   </div>
 
   <!-- SECTION 8: BUDGET -->

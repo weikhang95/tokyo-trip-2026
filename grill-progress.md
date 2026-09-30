@@ -87,7 +87,7 @@ Q27 decided (2026-09-29): keep the 10/7 Tokyo evening as written (红砖站舍 �
 
 ## Loose ends found during the grill
 
-- Wake-up time for 10/6 disagrees: Day 3 says 明早 06:30 起床, Day 4 says 06:50 起床, 07:00 出门. Settle it in the Day 4 grill.
+- ~~Wake-up time for 10/6 disagrees~~ Settled 2026-09-30: 06:30 起床, 07:00 出门 (the user: the basic rule is never be late). Last safe train 07:23 三ノ輪 → 07:47 東京 via 仲御徒町/御徒町, so leave by 07:12 at the latest.
 - Sakura Terrace lift (Day 3, 上野) morning hours are unconfirmed: the building opens at 11:00 and no source gives elevator hours (UENO3153 is the same). The handbook flags it. Could ask them by phone (03-6240-1161).
 - Day 4 still carries process words (实查, 已核实) and payment notes (刷卡付款, 只收现金); clean them when Day 4 is rewritten.
 - Day 2 step count (约 6,500 步) was not updated after the river walk was added.

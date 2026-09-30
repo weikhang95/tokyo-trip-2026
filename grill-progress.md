@@ -58,7 +58,17 @@ Q27 decided (2026-09-29): keep the 10/7 Tokyo evening as written (红砖站舍 �
 
 **Q23 lunch decided:** 10/11 lunch is non-fried, at **八代目傳左衛門めし屋** (谷中 6-1-27). Google Maps: 4.6★/292, Sun 11:00–15:00, closed Mon and Tue, card OK. Yahoo!マップ user-posted menu (undated): 肉じゃが ¥1,265, 豚しゃぶ温野菜 / おろしハンバーグ / 塩糀炒め ¥1,375, 焼き魚 ¥1,485, アジフライ ¥1,540 (skip it, it's fried). About ¥3,000 for two. Weekend waits run up to 45 min and 谷中祭 adds crowds, so write our name on the list at the door first. It is 343 m / 5 min from kokonn. Backup: 季節料理 ふくや (千駄木 3-24-8, Sun 11:30–14:00, card/PayPay; the lunch set includes sashimi, so swap it out for Mom).
 **Q23 dinner decided (2026-09-30):** 炭火焼鳥 樫 (千駄木 2-43-4, 4.5★, Sun 17:30–22:30 with food L.O. 22:00, closed Mon, 12 seats: 8 at the counter plus 1 private room; card or PayPay; reserve 03-5834-2581). Reasons: yakitori is the one category not yet eaten on the trip; it is charcoal-grilled rather than fried; it avoids repeating beef or the lunch 豚しゃぶ; and it is light before the red-eye. When booking, ask for everything well done for Mom (the shop serves chicken sashimi and rare liver). 樫コース 6 dishes ¥3,980 (search snippet only, not verified); Retty budget ≤¥6,000/person. Backup: 串焼とくり (opens 18:00 Sunday). **Day 9 written into index.html:** 07:45 草63 bus (竜泉 → 団子坂下, direct, ¥210) → CIBI 08:05 → 根津神社 09:40 → 旧吉田屋 (put our name on the 傳左衛門 list at 11:00) → 傳左衛門 lunch → kokonn (cash only) → 猫衛門 painting (¥2,750/person, official) → 初音の森 main venue → 谷中銀座 + 和栗や (about ¥1,600 set, 30–60 min queue in autumn, give up at 16:30) → 樫 17:30 → 19:07 草63 団子坂下 → 竜泉 19:27 (GO is the backup) → 20:40. Nap removed; pack on the night of 10/10. Badge changed to 中强度. Budget is about ¥28,200. companion.html Day 9 mirrored (ca61c28); the stale D9 prebaked route was dropped so OSRM redraws it.
-**Still to grill:** Day 6 (10/8) pacing, Day 7 afternoon (GSIX, UNIQLO Ginza vs Q16 "no Ginza trip just to shop", 增上寺), Day 8 Kamakura chain, temple count.
+**Q Day 6 decided (2026-09-30), written into index.html (c57aa2c) and companion.html:** the 90 min in the Kabukicho Tower lobby is gone, because the official site never says the lobby has seats. The day now runs:
+- Blue Bottle 09:45–11:30, one shared waffle, then pick the mug.
+- 川上庵 11:30–12:30.
+- Walk down 表参道 together: 表参道之丘 (slope and toilet only) 12:40, Onitsuka Tiger 13:00–13:45, 3COINS 原宿本店 13:55–14:20.
+- 246 m to 明治神宮前, 14:32 副都心线, about 14:55 at Kabukicho Tower 1 番のりば for the 15:20 bus (official: Shibuya Connected Route 09:40 and 15:20).
+- Home: the Ginza Line starts at Shibuya, so every train has seats and there is no need to wait for 20:00; leave after dinner (about 19:30). Ride to 浅草 and take whichever bus to 竜泉 comes first: 草63 (雷門 4 のりば), 都08 (東武浅草駅前 11 のりば) or 草43 (雷門 6 のりば). Home about 20:40. If it rains, change at 上野 to the Hibiya Line.
+- UNIQLO and GU are not on this day. The user will go to UNIQLO Ginza on 10/9, and GU goes there too (GU 銀座店, 银座 5-7-7). The Harajuku GU STYLE STUDIO takes app orders only.
+- The user and Mom mainly care about Onitsuka Tiger, UNIQLO, GU and 3COINS; Mom should not be left sitting alone while the user shops.
+- 太田記念美術館 (葛飾応為 展, 10/6–11/3) and 根津美術館 were offered and not chosen. ハラカド shows a "2026年9月14日 閉店" notice on its homepage (unclear whether it is the whole building), so it was not used.
+
+**Still to grill:** Day 7 afternoon (GSIX, UNIQLO Ginza vs Q16 "no Ginza trip just to shop", 增上寺), Day 8 Kamakura chain, temple count.
 
 ## Loose ends found during the grill
 
@@ -70,8 +80,7 @@ Q27 decided (2026-09-29): keep the 10/7 Tokyo evening as written (红砖站舍 �
 ## Still to grill
 
 - Days 4–5 (10/6–7): Fuji stops (忍野八海, 山中湖 viewpoint, 大石公园, the five-lake dawn loop); KITTE shinkansen viewing
-- Day 6 (10/8): 明治神宫, Blue Bottle, 歌舞伎町 Tower lobby, open-top bus, SHIBUYA SKY. This is a high-intensity day, so check the pacing
-- Day 7 (10/9): GINZA SIX rooftop, UNIQLO, 增上寺
+- Day 7 (10/9): GINZA SIX rooftop, UNIQLO (the user confirmed they will go), add GU 銀座店 next to it, 增上寺
 - Day 8 (10/10): rewritten in Q28 (Kamakura + Enoshima); only the stamina check is left
 - Day 9 (10/11): the Asakusa night view moved to Day 3 (Q17), so the Day 9 evening is free for something else. The no-nap version is still undecided (proposal: 谷中銀座 + 猫衛門, home at 16:25 to shower and pack, 浅草 night view + farewell dinner, leave at 20:40). Dinner venues are not yet verified; the handbook says 浅草寺 is lit until 23:00, not re-checked
 - Temple count: about 8. Decide which ones really carry the atmosphere

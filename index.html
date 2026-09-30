@@ -613,10 +613,10 @@ html[data-theme="dark"] .tl>.tl-item{background:var(--paper-2);box-shadow:none;}
 .tl .tl-item.is-past .tl-clock{background:transparent;box-shadow:inset 0 0 0 1px var(--line);color:var(--ink-faint);}
 .tl .tl-tag{display:inline;margin:0;font-size:1em;}
 .tl .now-tag{margin-left:0;vertical-align:baseline;}
-.tl .tl-main{font-size:var(--font-base);font-weight:800;line-height:1.4;margin-bottom:6px;text-wrap:pretty;}
+.tl .tl-main{font-size:var(--font-base);font-weight:800;line-height:1.4;margin-bottom:6px;text-wrap:pretty;word-break:keep-all;overflow-wrap:anywhere;}
 .tl .tl-main a{text-decoration-thickness:1px;text-underline-offset:3px;}
 .tl .tl-key{display:flex;flex-direction:column;gap:3px;margin:0 0 2px;color:var(--ink);line-height:1.6;}
-.tl .tl-key .f{display:block;position:relative;padding-left:14px;}
+.tl .tl-key .f{display:block;position:relative;padding-left:14px;text-wrap:pretty;}
 .tl .tl-key .f::before{content:"";position:absolute;left:2px;top:.68em;width:5px;height:5px;border-radius:50%;background:var(--ink-faint);}
 .tl .tl-key .f:has(.kw)::before{background:var(--kin);}
 .tl .tl-key .sep{display:none;}
@@ -945,7 +945,7 @@ html[lang="en"] .cd-num{margin-left:0;}
 .cd-row{display:block;height:1.15em;text-align:center;}
 
 /* 今天那一天的卡片 */
-.day.is-today{border-color:var(--shu);}
+/* 今天：红色只落在日号和「今天」标签上，整张卡不加红框（手机上会变成两条贯穿全页的红线） */
 .day.is-today .day-daynum{color:var(--shu);}
 .day-today-tag{
   display:none;flex-shrink:0;font-size:var(--font-2xs);font-weight:800;letter-spacing:.06em;
@@ -1483,7 +1483,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
         <div class="glance-dnum">DAY 7</div>
         <div class="glance-date">10/09 (五)</div>
         <div class="glance-title"><span class="zh on">小网神社洗钱 → 筑地 → 银座 UNIQLO · GU → 东京铁塔暖橙夜景 ★</span><span class="en">Koami Shrine, Tsukiji, Ginza & Tokyo Tower</span></div>
-        <span class="badge mid"><span class="zh on">中强度</span><span class="en">Mid</span></span>
+        <span class="badge mid"><span class="zh on">中低强度</span><span class="en">Easy-Mid</span></span>
       </a>
       <a href="#day-8" class="glance-item">
         <div class="glance-dnum">DAY 8</div>

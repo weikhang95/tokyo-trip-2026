@@ -365,6 +365,7 @@ try {
     line-height: 1.35;
     margin-bottom: 6px;
     text-wrap: balance;
+    word-break: keep-all; overflow-wrap: anywhere; /* 只在空格、→ 两边换行，「开顶巴士」不会拆成两行 */
   }
   /* 下一站：卡片内边距 14px，圆角 16 - 6 ≈ 10px 保持同心 */
   .hero-next {
@@ -379,13 +380,14 @@ try {
   .hero-next:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
   .hn-when {
     display: inline-flex; align-items: center; gap: 4px;
-    font-size: 12px; font-weight: 700; color: var(--shu-ink);
+    font-size: 12px; font-weight: 700; color: var(--ai);
     font-variant-numeric: tabular-nums;
   }
   .hn-when .ph { width: 1.2em; height: 1.2em; }
   .hn-what {
     font-size: 14px; font-weight: 700; line-height: 1.4;
     font-variant-numeric: tabular-nums; text-wrap: pretty;
+    word-break: keep-all; overflow-wrap: anywhere;
   }
   /* 死线：这一天有错过就作废的钟点（例如巴士）。金色＝警示，和站点里「!」要点同色 */
   .hero-deadline {
@@ -394,7 +396,7 @@ try {
     background: var(--kin-soft); box-shadow: inset 3px 0 0 var(--kin);
   }
   .hero-deadline[hidden] { display: none; }
-  .hd-what { font-size: 14px; font-weight: 800; line-height: 1.4; color: var(--ink); text-wrap: pretty; font-variant-numeric: tabular-nums; }
+  .hd-what { font-size: 14px; font-weight: 800; line-height: 1.4; color: var(--ink); text-wrap: pretty; word-break: keep-all; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
   .hd-left { font-size: 12px; font-weight: 700; color: var(--kin); white-space: nowrap; font-variant-numeric: tabular-nums; }
   /* 概要默认收起：路线已在标题里，逐站细节在下面的时间轴 */
   .hero-more > summary {
@@ -543,6 +545,11 @@ try {
     border-color: var(--ai);
     box-shadow: 0 4px 18px color-mix(in srgb, var(--ai) 15%, transparent);
   }
+  /* 现在这一站：靛蓝框，和手册的「现在」卡一样 */
+  .node-item.is-now .node-card {
+    border-color: var(--ai);
+    box-shadow: 0 0 0 1px var(--ai), var(--shadow);
+  }
   .node-card:active {
     scale: .99;
   }
@@ -620,6 +627,7 @@ try {
     line-height: 1.35;
     margin-bottom: 4px;
     text-wrap: balance;
+    word-break: keep-all; overflow-wrap: anywhere;
   }
   .node-name-sub {
     font-size: 12px;
@@ -893,7 +901,7 @@ const DAY8_OPTIONS = {
     day: 'D8',
     date: '10/10',
     weekday: '六',
-    intensity: '高负荷 · 约 12,000–13,000 步 · 八幡宮、长谷寺、江之岛有台阶',
+    intensity: '高强度 · 约 12,000–13,000 步 · 八幡宮、长谷寺、江之岛有台阶',
     title: '镰仓 → 江之电海景 → 江之岛日落 ★',
     desc: '08:09 早班车直达镰仓：报国寺竹林茶席 → 鶴岡八幡宮 → 小町通 → 长谷寺看海 → 大佛；江之电贴海段到ことぶき屋靠窗午餐；下午上江之岛，シーキャンドル看日落与富士，留下看湘南蜡烛祭首夜；藤泽买崎陽軒便当，20:36 到家。',
     transit: 'JR 横须贺线（IC ¥1,034）→ 京急巴士到浄明寺 → 巴士到八幡宮 → 江之电刷 Suica 四段（¥840/人，一日券不划算）→ 藤泽 JR 上野东京线 → 上野换日比谷线到三ノ輪（IC ¥1,212）',
@@ -1112,7 +1120,7 @@ const DAY8_OPTIONS = {
     day: 'D8',
     date: '10/10',
     weekday: '六',
-    intensity: '低负荷 (下町回血) · 约 3,800 步',
+    intensity: '低强度 · 下町回血 · 约 3,800 步',
     title: '根津神社 → 谷中祭 → 釜竹乌冬 → 午睡',
     desc: '注意：根津神社和谷中祭都在 D9（10/11）的行程里。谷中祭 10/10–10/11 两天都办，所以今天走它不会错过祭典，但 D9 就得改走方案 C（清澄白河），否则连着两天走同一条路线。不想动 D9 的话，今天请直接选方案 C。｜门口都08公车到日暮里再走谷中下坡，漫步 300 年江户德川重要文化財古刹与朱红千本鸟居，偶遇街头传统神轿出巡与人情味市集，吃庭园手打乌冬面，14:30 回房泡脚大午睡。',
     transit: '门口都08 → 日暮里 (¥210) → 谷中下坡漫步 → 根津站千代田线/北千住转日比谷线回三ノ輪 (¥209)',
@@ -1182,7 +1190,7 @@ const DAY8_OPTIONS = {
     day: 'D8',
     date: '10/10',
     weekday: '六',
-    intensity: '低负荷 (深度回血) · 约 3,500–4,000 步',
+    intensity: '低强度 · 深度回血 · 约 3,500–4,000 步',
     title: '清澄白河 → 清澄庭园 → 深川饭',
     desc: '日本三连休首日避开热区！上午漫步清澄庭园水上踏石，午餐在门前仲町享用热腾腾深川蛤蜊饭，下午悠闲打卡东京慢调咖啡馆，晚间早休备战羽田离境。',
     transit: '大江户线/半藏门线直达 → 傍晚步行回巢',
@@ -1238,7 +1246,7 @@ const DAY8_OPTIONS = {
     day: 'D8',
     date: '10/10',
     weekday: '六',
-    intensity: '中等负荷 · 假日人潮较多宜放慢走',
+    intensity: '中强度 · 假日人潮较多宜放慢走',
     title: '吉祥寺 → 井之头公园 → 吉卜力外围',
     desc: '东京人最想居住街区！探访井之头恩赐公园水塘林荫，闲逛 Sunroad 遮雨商业街与中道通杂货铺。假日人潮密集，宜放慢脚步走走停停。',
     transit: 'JR 中央线快速 / 京王井之头线 → 巴士接驳',
@@ -1315,7 +1323,7 @@ const DAYS = [
     date: "10/3",
     weekday: "六",
     title: "成田 → Skyliner → 竜泉入住",
-    intensity: "低负荷 · 约 3,000 步",
+    intensity: "低强度 · 约 3,000 步",
     desc: "14:45 落地成田 T2，换票、提现、买 Suica，坐 16:42 Skyliner 和都08 公车到门口。不排景点，早睡倒时差。",
     transit: "Skyliner 36 分钟到日暮里 → 都08 公车 6 站到竜泉",
     routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Narita+Airport+Terminal+2&destination=Tokyo+Taito+Ryusen+3-10-7&travelmode=transit",
@@ -1404,7 +1412,7 @@ const DAYS = [
     date: "10/4",
     weekday: "日",
     title: "浅草晨拍 → 待乳山 → 桜桥 → 秋叶原",
-    intensity: "中负荷 · 约 10,000–11,000 步",
+    intensity: "中强度 · 约 10,000–11,000 步",
     desc: "利用倒时差早起优势独享清空雷门，中午吃 160 年手打荞麦，午后乘免费迷你缆车、过桜桥沿隅田川走一圈，吃舒芙蕾松饼，傍晚逛周日限定秋叶原步行者天国，在友都八喜 UNIQLO 买好去富士山的外套。",
     transit: "门口公车直达浅草雷门 → 桜桥＋すみだリバーウォーク徒步 → 浅草站银座线赴秋叶原 → 日比谷线直达回竜泉",
     routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Tokyo+Taito+Ryusen+3-10-7&destination=Akihabara+Electric+Town&waypoints=Kaminarimon+Gate%7CMatsuchiyama+Shoden%7CSakurabashi+Bridge%7CSumida+River+Walk%7CBelle+%26+Emma+ASAKUSA&travelmode=walking",
@@ -1622,7 +1630,7 @@ const DAYS = [
       date: "10/5",
       weekday: "一",
       title: "上野东照宫 → 阿美横 → 日本桥三越 → 高岛屋",
-      intensity: "中等强度 · 约 4,500 步",
+      intensity: "中低强度 · 约 4,500 步",
       desc: "东照宫金色唐门，花园稻荷红鸟居拍照，阿美横逛药妆零食、买明天巴士早餐，伊豆荣鳗鱼饭；下午三越天女像、にんべん现削高汤、日本桥、高岛屋专人电梯；晚上吃むつみ釜饭，饭后看点灯的浅草寺。",
       transit: "日比谷线 2站 → 银座线 3站 → 日本桥站银座线直达浅草 → 走路回家",
       routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Tokyo+Taito+Ryusen+3-10-7&destination=Nihombashi+Takashimaya+Shopping+Center&waypoints=Ueno+Toshogu+Shrine%7CHanazono+Inari+Gojoten+Shrine%7CAmeyoko+Shopping+District%7CIzuei+Honten+Ueno%7CNihombashi+Mitsukoshi+Main+Store%7CCOREDO+Muromachi%7CNihonbashi+Bridge&travelmode=transit",
@@ -1834,7 +1842,7 @@ const DAYS = [
     date: "10/6",
     weekday: "二",
     title: "巴士去河口湖 → 忍野八海 → 大石公园落日 → 温泉",
-    intensity: "中负荷 · 自驾 48 km",
+    intensity: "中强度 · 自驾 48 km",
     desc: "大行李留东京，08:10 高速巴士去河口湖；先走到船津浜湖边看富士，ほうとう午餐；12:30 取车，忍野八海、山中湖全景台、大石公园看红富士余晖，入住 SAWA 后看体力泡温泉，21:00 熄灯。",
     transit: "日比谷线＋JR 上野东京线 → 08:10 高速巴士 → 河口湖自驾",
     deadline: { at: "08:00", what: "到东京站八重洲南口 9 号站台", note: "08:10 准点发车" },
@@ -2010,7 +2018,7 @@ const DAYS = [
     date: "10/7",
     weekday: "三",
     title: "五湖日出 → 还车 → KITTE 看新干线 → 牛排",
-    intensity: "中负荷 · 自驾 90 km",
+    intensity: "中强度 · 自驾 90 km",
     desc: "清晨制霸千圆日出、精进湖子抱富士、西湖根场滨与长崎公园，08:20 回 SAWA 洗热水澡吃热食退房，11:45 还车，いだ天大餐避开排队与公厕长龙，13:30 巴士回东京！",
     transit: "自驾五湖晨光环线 → 11:45 站前还车 → 高速巴士 13:30 返东京站 → KITTE 露台",
     deadline: [
@@ -2229,7 +2237,7 @@ const DAYS = [
     date: "10/8",
     weekday: "四",
     title: "明治神宫 → 蓝瓶 → 开顶巴士 → 涩谷SKY ★",
-    intensity: "高负荷 (全行程唯一高光峰值) · 约 13,600 步",
+    intensity: "高强度 · 全程最累的一天 · 约 13,600 步",
     desc: "07:35 错峰出门，08:25 走进几乎无人的明治神宫巨木森林；蓝瓶青山 2F 露台坐 90 分钟，华夫饼合点一份、慢慢挑杯子；川上庵手打荞麦午餐；沿表参道散步，搭副都心线到新宿，和妈妈一起逛全球最大的 Onitsuka Tiger 旗舰店和 3COINS+plus，就在巴士上车点旁边；15:20 坐上开顶双层巴士，16:35 登顶涩谷SKY 看 17:16 日落与夜景，吃完炭烤鱼就搭银座线到浅草，转巴士到门口。",
     transit: "日比谷线→千代田线直达明治神宫前 2 号出口 → 千代田线 1 站至表参道(走 B3 出口才有电梯) → 表参道走到明治神宫前，13:00 前后副都心线 2 站至新宿三丁目 → Onitsuka → 3COINS → 15:20 双层巴士至涩谷 → 银座线坐到终点浅草 → 草63／都08 巴士到竜泉（下雨在上野换日比谷线）",
     deadline: { at: "15:10", what: "到歌舞伎町 Tower 1 番のりば", note: "巴士不等人" },
@@ -2419,7 +2427,7 @@ const DAYS = [
     date: "10/9",
     weekday: "五",
     title: "小网神社洗钱 → 筑地 → 银座 → 东京铁塔夜景",
-    intensity: "中低负荷 · 约 6,000 步",
+    intensity: "中低强度 · 约 6,000 步",
     desc: "07:40 出门，先去人形町小网神社洗钱（妈妈想去），再去筑地吃炭烤鲔鱼脸颊丼和玉子烧（大腹寿司只你吃），GINZA SIX 走走拍照，逛 UNIQLO 银座 12 层旗舰和 GU 银座，和光旁下午茶歇脚，银座自由逛到 15:55。增上寺拍大殿与铁塔同框，芝公园坐等 17:14 点灯，17:30–17:50 拍暖橙色冬季灯的铁塔夜景，17:55 在大门吃暖胃和食。饭后看体力回银座喝一杯 Sapporo 黑标，日比谷线直达三ノ輪，约 20:45 到家。",
     transit: "日比谷线直达人形町 → 日比谷线 3 站到筑地 → 1 站到东银座 → 银座地下步道穿过 GSIX → UNIQLO → GU → 和光（都步行 150m 内）→ 都营浅草线 2 站至大门 → 饭后浅草线 2 站回东银座 → 日比谷线直达三ノ輪（不喝就浅草线回浅草换都08）",
     routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Koami+Shrine&destination=Zojoji+Temple&waypoints=Tsukiji+Outer+Market%7CGINZA+SIX%7CUNIQLO+Ginza%7CGU+Ginza+Store%7CShiba+Park&travelmode=transit",
@@ -3109,7 +3117,7 @@ function initApp() {
   selectDay(initIdx, false);
   // 底栏「日程」带 ?view=time、「地图」带 ?view=map；已经在随身页就只换视图，不重载
   const v = /[?&]view=(time|map|split)/.exec(location.search);
-  if (v) setViewMode(v[1]);
+  setViewMode(v ? v[1] : currentViewMode);
   document.addEventListener('click', e => {
     const a = e.target.closest('.tabbar a[data-key="days"], .tabbar a[data-key="map"]');
     if (!a || !a.href.includes('companion.html')) return;
@@ -3255,7 +3263,7 @@ function renderDayPills() {
     btn.className = `day-pill ${idx === currentDayIdx ? 'active' : ''}`;
     btn.id = `pill-${idx}`;
     btn.setAttribute('aria-pressed', String(idx === currentDayIdx));
-    btn.innerHTML = `<span>${d.day}</span><span class="dp-tag">${d.date}${d.weekday}</span>`;
+    btn.innerHTML = `<span>${d.day}</span><span class="dp-tag">${d.date} 周${d.weekday}</span>`;
     btn.onclick = () => selectDay(idx);
     container.appendChild(btn);
   });
@@ -3525,13 +3533,13 @@ function nodeSpan(day, i) {
   const next = day.nodes[i + 1] ? hhmm(day.nodes[i + 1].time) : null;
   return [start, endM ? hhmm(endM[1]) : (next ?? start + 60)];
 }
-// 当天打开：走完的站收成一行「已走完 N 站」，时间轴从现在开始；上一站留着，晚了也找得到
+// 当天打开：走完的站收成一行「已走完 N 站」，折叠条下面第一张就是现在这一站；点折叠条全部展开
 function foldDone(day, list) {
   if (!isToday(day)) return;
   const mins = nowMins();
   let live = day.nodes.findIndex((n, i) => nodeSpan(day, i)[1] > mins);
   if (live < 0) live = day.nodes.length - 1;
-  const fold = live - 1;
+  const fold = live;
   if (fold < 1) return;
   const items = list.querySelectorAll('.node-item');
   for (let i = 0; i < fold; i++) items[i].classList.add('is-folded');

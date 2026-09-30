@@ -745,10 +745,10 @@ try {
   .toc-go:active { scale: .98; }
   .toc-go .ph { width: 1.2em; height: 1.2em; }
   .toc-go small { display: block; font-size: 12px; font-weight: 700; opacity: .85; font-variant-numeric: tabular-nums; }
-  .toc-go:focus-visible, .toc-ch:focus-visible, .ch-next:focus-visible, .ch-nav button:focus-visible, .rs-btn:focus-visible, .brief-go:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
+  .toc-pro:focus-visible, .toc-go:focus-visible, .toc-ch:focus-visible, .ch-next:focus-visible, .ch-nav button:focus-visible, .rs-btn:focus-visible, .brief-go:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
   .toc-pro {
-    display: flex; align-items: center; gap: 10px; min-height: 56px; margin: 0 0 10px; padding: 10px 14px;
-    border: 1px dashed var(--grid); border-radius: 14px; color: var(--ink); text-decoration: none;
+    display: flex; align-items: center; gap: 10px; width: 100%; min-height: 56px; margin: 0 0 10px; padding: 10px 14px;
+    border: 1px dashed var(--grid); border-radius: 14px; background: none; color: var(--ink); font: inherit; text-align: left; cursor: pointer; text-decoration: none;
     transition: background-color .15s var(--ease);
   }
   @media (hover: hover) { .toc-pro:hover { background: var(--ai-soft); } }
@@ -931,6 +931,17 @@ try {
   .oc-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-top: 6px; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
   .oc-price { flex: none; font-weight: 800; color: var(--ink); font-variant-numeric: tabular-nums; }
   .oc-phrases { display: grid; gap: 8px; }
+  /* 一行 = 句子（点了放大）＋ 右边一颗喇叭（点了念出来） */
+  .oc-row { display: grid; grid-template-columns: 1fr auto; gap: 6px; }
+  .oc-say {
+    display: grid; place-items: center; width: 44px; min-height: 44px; border: 0; border-radius: 12px;
+    background: var(--ai-soft); color: var(--ai); font: inherit; cursor: pointer; transition: scale .1s var(--ease);
+  }
+  .oc-say .ph { width: 1.3em; height: 1.3em; }
+  .oc-say:active { scale: .96; }
+  .oc-say:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
+  .oc-say.is-big { display: inline-flex; gap: 6px; width: auto; padding: 0 16px; border-radius: 99px; font-size: 13px; font-weight: 800; }
+  .oc-hint { margin: 2px 0 0; font-size: 13px; line-height: 1.6; color: var(--muted); text-wrap: pretty; }
   .oc-ph {
     display: block; width: 100%; padding: 10px 12px; border: 0; border-radius: 12px; background: var(--chip-bg);
     color: var(--ink); font: inherit; text-align: left; cursor: pointer; transition: scale .1s var(--ease);
@@ -1106,6 +1117,7 @@ try {
 <script>
 // 图标：Phosphor Icons Regular (MIT, phosphoricons.com)，内联 SVG，颜色跟文字走
 const PH = {
+  speaker: '<path d="M155.51,24.81a8,8,0,0,0-8.42.88L77.25,80H32A16,16,0,0,0,16,96v64a16,16,0,0,0,16,16H77.25l69.84,54.31A8,8,0,0,0,160,224V32A8,8,0,0,0,155.51,24.81ZM32,96H72v64H32ZM144,207.64,88,164.09V91.91l56-43.55Zm54-106.08a40,40,0,0,1,0,52.88,8,8,0,0,1-12-10.58,24,24,0,0,0,0-31.72,8,8,0,0,1,12-10.58ZM248,128a79.9,79.9,0,0,1-20.37,53.34,8,8,0,0,1-11.92-10.67,64,64,0,0,0,0-85.33,8,8,0,1,1,11.92-10.67A79.83,79.83,0,0,1,248,128Z"/>',
   timer: '<path d="M128,40a96,96,0,1,0,96,96A96.11,96.11,0,0,0,128,40Zm0,176a80,80,0,1,1,80-80A80.09,80.09,0,0,1,128,216ZM173.66,90.34a8,8,0,0,1,0,11.32l-40,40a8,8,0,0,1-11.32-11.32l40-40A8,8,0,0,1,173.66,90.34ZM96,16a8,8,0,0,1,8-8h48a8,8,0,0,1,0,16H104A8,8,0,0,1,96,16Z"/>',
   train: '<path d="M184,24H72A32,32,0,0,0,40,56V184a32,32,0,0,0,32,32h8L65.6,235.2a8,8,0,1,0,12.8,9.6L100,216h56l21.6,28.8a8,8,0,1,0,12.8-9.6L176,216h8a32,32,0,0,0,32-32V56A32,32,0,0,0,184,24ZM56,120V80h64v40Zm80-40h64v40H136ZM72,40H184a16,16,0,0,1,16,16v8H56V56A16,16,0,0,1,72,40ZM184,200H72a16,16,0,0,1-16-16V136H200v48A16,16,0,0,1,184,200ZM96,172a12,12,0,1,1-12-12A12,12,0,0,1,96,172Zm88,0a12,12,0,1,1-12-12A12,12,0,0,1,184,172Z"/>',
   bus: '<path d="M184,32H72A32,32,0,0,0,40,64V208a16,16,0,0,0,16,16H80a16,16,0,0,0,16-16V192h64v16a16,16,0,0,0,16,16h24a16,16,0,0,0,16-16V64A32,32,0,0,0,184,32ZM56,176V120H200v56Zm0-96H200v24H56ZM72,48H184a16,16,0,0,1,16,16H56A16,16,0,0,1,72,48Zm8,160H56V192H80Zm96,0V192h24v16Zm-72-60a12,12,0,1,1-12-12A12,12,0,0,1,104,148Zm72,0a12,12,0,1,1-12-12A12,12,0,0,1,176,148Zm72-68v24a8,8,0,0,1-16,0V80a8,8,0,0,1,16,0ZM24,80v24a8,8,0,0,1-16,0V80a8,8,0,0,1,16,0Z"/>',
@@ -3579,6 +3591,36 @@ const DAYS = [
 
 // 点餐卡：打开给店员看的日文（菜名、常用短句）。站点写 cards: ['owariya'] 就会出现按钮
 const ORDER_CARDS = {
+  // 开口就用：不分店，出门最常说的几句；目录里点开
+  talk: {
+    title: "开口就用 · 16 句",
+    sections: [
+      { label: "最常用", phrases: [
+        ["すみません。", "不好意思（叫店员、借过、道歉都用这句）"],
+        ["ありがとうございます。", "谢谢"],
+        ["{大丈夫|だいじょうぶ}です。", "不用了，谢谢（婉拒袋子、吸管、推销）"],
+        ["ゆっくり{話|はな}してください。", "请说慢一点"],
+        ["もう{一度|いちど}お{願|ねが}いします。", "请再说一次"]
+      ] },
+      { label: "问路 · 叫车", phrases: [
+        ["トイレはどこですか？", "洗手间在哪里？"],
+        ["エレベーターはありますか？", "有电梯吗？"],
+        ["{一番|いちばん}{近|ちか}い{駅|えき}はどこですか？", "最近的车站在哪里？"],
+        ["{台東区|たいとうく}{竜泉|りゅうせん}{3-10-7|さんのじゅうのなな}までお{願|ねが}いします。", "请送我们到台东区竜泉 3-10-7（回公寓，给司机看）"]
+      ] },
+      { label: "买东西", phrases: [
+        ["{免税|めんぜい}できますか？", "可以办免税吗？（要出示护照）"],
+        ["{試着|しちゃく}してもいいですか？", "可以试穿吗？"],
+        ["{別|べつ}のサイズはありますか？", "有别的尺码吗？"],
+        ["{袋|ふくろ}はいりません。", "不用袋子"],
+        ["カードで{払|はら}えますか？", "可以刷卡吗？"]
+      ] },
+      { label: "妈妈", phrases: [
+        ["{母|はは}は{生|なま}ものが{食|た}べられません。", "我妈妈不能吃生的东西"],
+        ["{座|すわ}れるところはありますか？", "有可以坐下休息的地方吗？"]
+      ] }
+    ]
+  },
   owariya: {
     btn: "尾张屋",
     title: "尾张屋 本店 · 天妇罗荞麦",
@@ -4023,6 +4065,7 @@ function renderToc() {
       </div>
     </div>
     ${phase === 'before' ? `<a class="toc-pro" href="index.html#booking">${ph('backpack')}<span><b>序章 · 出发前</b>订票、待办、证件，都在底栏「背包」里</span></a>` : ''}
+    <button type="button" class="toc-pro" data-talk>${ph('chat')}<span><b>开口就用 · 16 句</b>每句有注音，点喇叭听念法：叫人、问路、叫车、买东西、妈妈</span></button>
     <ol class="toc-list">${DAYS.map((d, i) => {
       const dl = [].concat(d.deadline || [])[0];
       const today = isToday(d), past = !today && isPastDay(d);
@@ -4037,6 +4080,7 @@ function renderToc() {
       </button></li>`;
     }).join('')}</ol>`;
   el.querySelectorAll('[data-ch]').forEach(b => { b.onclick = () => { openChapter(+b.dataset.ch, true); window.scrollTo({ top: 0, behavior: 'auto' }); }; });
+  el.querySelector('[data-talk]').onclick = e => openOrderCard('talk', e.currentTarget);
 }
 
 let infoWindow = null;
@@ -4249,6 +4293,23 @@ function qtyParts(jp) {
   const m = /^(.*?を)\s*(?:(\d+)\s*(つ|皿)\s*)?(お(?:\{願\|ねが\}|願)いします。?)$/.exec(jp);
   return m && { head: m[1], n: +(m[2] || 1), unit: m[3] || 'つ', tail: m[4], plain: !m[2] };
 }
+// 听念法：手机自带的日语语音（iPhone 离线也能念）；念的是注音的假名，不会把汉字念错
+const CAN_SAY = 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
+function kana(jp) {
+  return jp.replace(/<[^>]+>/g, '')
+    .replace(/\{([^|}]+)\|([^}]+)\}/g, '$2')
+    .replace(/([1-9])(つ|皿)/g, (m, n, u) => COUNTER_READ[u][n]);
+}
+function sayJa(jp) {
+  if (!CAN_SAY) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(kana(jp));
+  u.lang = 'ja-JP'; u.rate = .85;
+  const v = speechSynthesis.getVoices().find(x => /^ja/i.test(x.lang));
+  if (v) u.voice = v;
+  speechSynthesis.speak(u);
+}
+const sayBtn = (attr, what) => CAN_SAY ? `<button type="button" class="oc-say" ${attr} aria-label="听「${what}」的念法">${ph('speaker')}</button>` : '';
 let ocWake = null;
 function ocKeepAwake(on) {
   if (on && !ocWake && navigator.wakeLock) navigator.wakeLock.request('screen').then(l => { ocWake = l; }).catch(() => {});
@@ -4257,20 +4318,29 @@ function ocKeepAwake(on) {
 function openOrderCard(k, from) {
   const c = ORDER_CARDS[k], dlg = document.getElementById('orderCard');
   if (!c || !dlg.showModal) return;
-  let big = null, back = null; // 放大的那一项：{ jp, zh, q: qtyParts, n }；back = 点开它的按钮
+  let big = null, back = null; // 放大的那一项：{ jp, zh, q: qtyParts, n, src }；back = 点开它的按钮
+  const dishes = c.dishes || [];
+  const phrases = c.sections ? c.sections.flatMap(x => x.phrases) : c.phrases;
+  let pi = 0;
+  const phRow = ([jp, zh]) => { const i = pi++; return `<div class="oc-row"><button type="button" class="oc-ph" data-ph="${i}"><b lang="ja">${rb(jp)}</b><span>${zh}</span></button>${sayBtn(`data-say-ph="${i}"`, zh)}</div>`; };
+  const body = c.sections
+    ? c.sections.map(x => `<p class="oc-label">${x.label}</p><div class="oc-phrases">${x.phrases.map(phRow).join('')}</div>`).join('')
+    : `<p class="oc-label">指给店员看 · 点一下放大</p>
+      ${dishes.map((d, i) => `<div class="oc-row"><button type="button" class="oc-dish" data-dish="${i}"><span class="oc-jp" lang="ja">${rb(d.jp)}</span><span class="oc-zh">${d.zh}</span><span class="oc-meta"><span>${d.tip || ''}</span>${d.price ? `<span class="oc-price">${d.price}</span>` : ''}</span></button>${sayBtn(`data-say-dish="${i}"`, d.zh)}</div>`).join('')}
+      <p class="oc-label">常用短句 · 点一下放大</p>
+      <div class="oc-phrases">${phrases.map(phRow).join('')}</div>`;
   dlg.classList.remove('is-big');
   dlg.innerHTML = `<div class="oc-head"><h2 id="ocTitle">${c.title}</h2><button type="button" class="oc-x" data-close aria-label="关闭">${ph('close')}</button></div>
     <div class="oc-body">
-      <p class="oc-label">指给店员看 · 点一下放大</p>
-      ${c.dishes.map((d, i) => `<button type="button" class="oc-dish" data-dish="${i}"><span class="oc-jp" lang="ja">${rb(d.jp)}</span><span class="oc-zh">${d.zh}</span><span class="oc-meta"><span>${d.tip || ''}</span>${d.price ? `<span class="oc-price">${d.price}</span>` : ''}</span></button>`).join('')}
-      <p class="oc-label">常用短句 · 点一下放大</p>
-      <div class="oc-phrases">${c.phrases.map(([jp, zh], i) => `<button type="button" class="oc-ph" data-ph="${i}"><b lang="ja">${rb(jp)}</b><span>${zh}</span></button>`).join('')}</div>
+      ${c.sections && CAN_SAY ? '<p class="oc-hint">每句都有注音。点喇叭听念法，跟着念几遍；点句子放大，给对方看。</p>' : ''}
+      ${body}
     </div>
     <div class="oc-big"></div>`;
   const bigEl = dlg.querySelector('.oc-big');
   const drawBig = step => {
     const { jp, zh, q, n } = big;
-    const jpTxt = rb(!q || (q.plain && n === 1) ? jp : `${q.head} <em>${n}${q.unit}</em> ${q.tail}`);
+    big.src = !q || (q.plain && n === 1) ? jp : `${q.head} <em>${n}${q.unit}</em> ${q.tail}`;
+    const jpTxt = rb(big.src);
     const zhTxt = !q || n === q.n ? zh : /(一|\d+)\s*(份|个|杯|碗|盘)/.test(zh) ? zh.replace(/(一|\d+)\s*(份|个|杯|碗|盘)/, `${n}$2`) : `${zh}（${n} 份）`;
     if (step) { // 只改字和数字，焦点留在刚按的钮上
       bigEl.querySelector('b').innerHTML = jpTxt;
@@ -4281,6 +4351,7 @@ function openOrderCard(k, from) {
       return;
     }
     bigEl.innerHTML = `<b lang="ja">${jpTxt}</b><span class="oc-big-zh">${zhTxt}</span>
+      ${CAN_SAY ? `<button type="button" class="oc-say is-big" data-say-big>${ph('speaker')}听念法</button>` : ''}
       ${q ? `<span class="oc-step" role="group" aria-label="份数"><button type="button" data-step="-1" aria-label="少一份"${n <= 1 ? ' disabled' : ''}>−</button><output aria-live="polite">${n}</output><button type="button" data-step="1" aria-label="多一份"${n >= 9 ? ' disabled' : ''}>＋</button></span>` : ''}
       <button type="button" class="oc-back" data-unbig>点一下回去</button>`;
   };
@@ -4292,9 +4363,11 @@ function openOrderCard(k, from) {
   };
   dlg.onclick = e => {
     if (e.target === dlg || e.target.closest('[data-close]')) { dlg.close(); return; }
+    const sy = e.target.closest('.oc-say');
+    if (sy) { sayJa(sy.dataset.sayBig !== undefined ? big.src : sy.dataset.sayDish !== undefined ? dishes[+sy.dataset.sayDish].jp : phrases[+sy.dataset.sayPh][0]); return; }
     const d = e.target.closest('[data-dish]'), p = e.target.closest('[data-ph]'), st = e.target.closest('[data-step]');
-    if (d) { const x = c.dishes[+d.dataset.dish], q = qtyParts(x.jp); openBig({ jp: x.jp, zh: x.zh, q, n: q ? q.n : 1 }, d); return; }
-    if (p) { const [jp, zh] = c.phrases[+p.dataset.ph]; openBig({ jp, zh, q: null, n: 1 }, p); return; }
+    if (d) { const x = dishes[+d.dataset.dish], q = qtyParts(x.jp); openBig({ jp: x.jp, zh: x.zh, q, n: q ? q.n : 1 }, d); return; }
+    if (p) { const [jp, zh] = phrases[+p.dataset.ph]; openBig({ jp, zh, q: null, n: 1 }, p); return; }
     if (st) {
       big.n = Math.min(9, Math.max(1, big.n + +st.dataset.step)); drawBig(true);
       if (st.disabled) bigEl.querySelector('[data-step]:not(:disabled)').focus(); // 按到头，焦点换到另一颗
@@ -4303,7 +4376,7 @@ function openOrderCard(k, from) {
     if (e.target.closest('.oc-step')) return;
     if (e.target.closest('.oc-big')) { dlg.classList.remove('is-big'); ocKeepAwake(false); back?.focus(); }
   };
-  dlg.onclose = () => { ocKeepAwake(false); from?.focus({ preventScroll: true }); };
+  dlg.onclose = () => { ocKeepAwake(false); if (CAN_SAY) speechSynthesis.cancel(); from?.focus({ preventScroll: true }); };
   dlg.showModal();
   dlg.scrollTop = 0;
   dlg.querySelector('.oc-x').focus();

@@ -4,5 +4,5 @@
 
 网页版：https://weikhang95.github.io/tokyo-trip-2026/
 
-- `index.html` — 单文件旅行手册（离线可用，含每日行程、订票清单、预算）
-- `tokyo-trip-2026-final.md` — 行程原始文档
+- `companion.html` — 日程（主页，每天现在做什么、下一站）
+- `index.html` — 资料（航班、住宿、交通、预算、待办和每一站的说明）

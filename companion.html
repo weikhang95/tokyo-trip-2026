@@ -1150,7 +1150,7 @@ try {
 <!-- 点餐卡：给店员看的日文 -->
 <dialog class="oc" id="orderCard" aria-labelledby="ocTitle"></dialog>
 
-<script src="cat-icons.js?v=2"></script>
+<script src="cat-icons.js?v=3"></script>
 <script src="trip-details.js?v=1"></script>
 <script>
 // 图标：Phosphor Icons Regular (MIT, phosphoricons.com)，内联 SVG，颜色跟文字走
@@ -4522,7 +4522,8 @@ function renderChEnd(idx) {
 function nodeCatIcon(node) {
   if (!window.CatIcons) return node.mode ? ph(node.mode, PH_LABEL[node.mode]) : '';
   const segs = (node.tags || []).flatMap(t => t.split(/\s*·\s*/)).concat([node.title || node.name]);
-  return CatIcons.svg(node.cat || CatIcons.classify(segs, node.mode), 'ph');
+  const cat = node.cat || CatIcons.classify(segs, node.mode);
+  return CatIcons.svg(cat, 'ph', node.icon || CatIcons.glyph(segs, cat));
 }
 
 function renderTimeline(day) {

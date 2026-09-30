@@ -7,6 +7,7 @@
 <meta name="theme-color" content="#F7F5F0" />
 <link rel="manifest" href="manifest.json" />
 <link rel="apple-touch-icon" href="icons/icon-180.png" />
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-title" content="东京 2026" />
 <script>
@@ -21,7 +22,7 @@ try {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="tabbar.css?v=5">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&family=Noto+Serif+SC:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #F7F5F0;
@@ -49,6 +50,9 @@ try {
     --bar-bg: rgba(247, 245, 240, 0.96);
     --pin-ring: #FFFFFF;
     --serif: 'Noto Serif SC', 'Songti SC', serif;
+    /* 正文用手机自带字体（iPhone 是苹方），跟背包同一套；只下载标题用的 Noto Serif SC 700 */
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    --sans-ja: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
   }
   /* 深色：与手册 index.html 的深色色值一致 */
   /* 底栏一直盖在页底（手机 57px；宽屏浮起 16px）：键盘 Tab 到页底的站点时让开它 */
@@ -84,7 +88,7 @@ try {
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   body {
     background: var(--bg);
-    font-family: 'Inter', 'Noto Sans SC', sans-serif;
+    font-family: var(--sans);
     color: var(--ink);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -141,7 +145,7 @@ try {
   /* 顶栏和资料页同一种样子：左边衬线站名，右边昼夜。手机上「行程／地图」在底栏，视图切换只在宽屏出现 */
   .bar-brand { font-family: 'Noto Serif SC', 'Songti SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: .02em; white-space: nowrap; }
   /* 页名：这一页写「攻略」，资料页写「背包」 */
-  .page-tag { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 99px; background: var(--ai-soft); color: var(--ai); font-family: 'Inter', 'Noto Sans SC', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: .04em; vertical-align: 2px; }
+  .page-tag { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 99px; background: var(--ai-soft); color: var(--ai); font-family: var(--sans); font-size: 12px; font-weight: 800; letter-spacing: .04em; vertical-align: 2px; }
   .bar-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
   @media (max-width: 640px) { .view-toggles { display: none; } }
   .theme-btn {
@@ -343,10 +347,12 @@ try {
   }
   /* 死线：这一天有错过就作废的钟点（例如巴士）。金色＝警示，和站点里「!」要点同色 */
   .hero-deadline {
-    display: flex; align-items: baseline; justify-content: space-between; gap: 4px 10px; flex-wrap: wrap;
-    margin: 4px 0 0; padding: 8px 12px; border-radius: 10px;
-    background: var(--kin-soft); box-shadow: inset 3px 0 0 var(--kin);
+    display: grid; grid-template-columns: auto 1fr; align-items: start; gap: 2px 8px;
+    margin: 4px 0 0; padding: 9px 12px; border-radius: 10px;
+    background: var(--kin-soft);
   }
+  .hero-deadline > .ph { grid-row: span 2; width: 18px; height: 18px; margin-top: 1px; color: var(--kin); }
+  .hero-deadline .hd-what, .hero-deadline .hd-left { grid-column: 2; }
   .hero-deadline[hidden] { display: none; }
   .hd-what { font-size: 14px; font-weight: 800; line-height: 1.4; color: var(--ink); text-wrap: pretty; word-break: keep-all; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
   .hd-left { font-size: 12px; font-weight: 700; color: var(--kin); white-space: nowrap; font-variant-numeric: tabular-nums; }
@@ -404,8 +410,10 @@ try {
     padding: 6px 12px;
     border-radius: 99px;
     margin-top: 8px;
+    position: relative;
     transition: background-color .15s var(--ease), color .15s var(--ease);
   }
+  .hero-route-link::after { content: ""; position: absolute; inset: -8px 0; }
   /* 分屏时地图卡已有「Google 路线」，这里只在「行程」视图出现 */
   body:not([data-view="time"]) .hero-route-link { display: none; }
   @media (hover: hover) {
@@ -687,12 +695,13 @@ try {
      烧过的一段成灰（虚线），香头是朱色的火点，冒一缕烟；还剩多久写在「现在」旁边，不只靠这条线。
      封面路线条上，现在这一站到下一站的那段连线也一样烧。 */
   .node-item.is-now .node-card { position: relative; }
-  .incense { --burn: 0; position: absolute; top: -2px; left: 14px; right: 14px; height: 2px; pointer-events: none; }
+  .incense { --burn: 0; position: absolute; top: -2px; left: 14px; right: 14px; height: 2px; pointer-events: none; container-type: inline-size; }
   .incense::before {
     content: ""; position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--burn) * 100%) 0 0);
     background: repeating-linear-gradient(90deg, color-mix(in srgb, var(--muted) 50%, transparent) 0 2px, transparent 2px 5px) var(--card-bg);
   }
-  .incense-tip { position: absolute; inset: 0; translate: calc(var(--burn) * 100%) 0; }
+  /* 香头是一个零宽的点，按香的长度（100cqw）挪；整条宽度去挪会伸出卡片，整页被撑宽 */
+  .incense-tip { position: absolute; top: 0; bottom: 0; left: 0; width: 0; translate: calc(var(--burn) * 100cqw) 0; }
   .incense i, .rs-stop.is-next::after {
     position: absolute; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: var(--shu);
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--shu) 22%, transparent), 0 0 8px 1px color-mix(in srgb, var(--shu) 45%, transparent);
@@ -951,8 +960,9 @@ try {
   /* 日文按词组换行，不会把「します」拆开（Chrome；Safari 照常） */
   dialog.oc [lang="ja"] { word-break: auto-phrase; text-wrap: pretty; }
   /* 注音：汉字上面一行小假名，给你念出来用；颜色淡一点，店员看的还是大字 */
+  dialog.oc [lang="ja"] { font-family: var(--sans-ja); }
   dialog.oc ruby { ruby-align: center; } /* 假名比汉字宽时，汉字挨在一起居中，不被拉开成「会 計」 */
-  dialog.oc rt { font-size: max(10px, .5em); font-weight: 600; color: var(--muted); letter-spacing: 0; }
+  dialog.oc rt { font-size: max(9px, .5em); font-weight: 600; color: var(--muted); letter-spacing: 0; }
   dialog.oc em rt { color: inherit; }
   .oc-body { padding: 12px 16px calc(20px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 10px; }
   .oc-label { margin: 6px 0 0; font-size: 12px; font-weight: 800; color: var(--muted); letter-spacing: .04em; }
@@ -985,7 +995,7 @@ try {
     color: var(--ink); font: inherit; text-align: left; cursor: pointer; transition: scale .1s var(--ease);
   }
   .oc-ph:active { scale: .98; }
-  .oc-ph b { display: block; font-size: 16px; font-weight: 700; line-height: 1.9; }
+  .oc-ph b { display: block; font-size: 18px; font-weight: 700; line-height: 1.85; }
   .oc-ph > span { display: block; font-size: 12.5px; color: var(--muted); }
   /* 放大：一句话占满整个对话框，手机横过来给店员看也清楚；点一下回去 */
   .oc-big {
@@ -1209,7 +1219,7 @@ const DAY8_OPTIONS = {
     date: "10/10",
     weekday: "六",
     intensity: "高强度 · 约 12,000–13,000 步 · 八幡宮、长谷寺、江之岛有台阶",
-    title: "镰仓 → 江之电海景 → 江之岛日落 ★",
+    title: "镰仓 → 江之电海景 → 江之岛日落",
     desc: [
       "10/10–12 日本三连休，景点人多；路线已按避开人潮排好",
       "上午：报国寺竹林茶席 → 鶴岡八幡宮 → 小町通 → 长谷寺看海 → 大佛",
@@ -1232,7 +1242,7 @@ const DAY8_OPTIONS = {
         time: "07:20 - 09:03",
         short: "横须贺线",
         mode: "train",
-        name: "东京站地下 B5 月台 → JR 横须贺线【逗子行】★",
+        name: "东京站地下 B5 月台 → JR 横须贺线【逗子行】",
         title: "东京站 B5 → JR 横须贺线 → 镰仓",
         sub: "08:09 东京发 · 54 分钟直达 · IC ¥1,034/人",
         lat: 35.6812, lng: 139.7671,
@@ -1272,8 +1282,8 @@ const DAY8_OPTIONS = {
       {
         time: "09:25 - 10:25",
         short: "报国寺",
-        name: "报国寺「竹之寺」＋ 休耕庵茶席 ★",
-        title: "报国寺竹林 ＋ 休耕庵茶席 ★",
+        name: "报国寺「竹之寺」＋ 休耕庵茶席",
+        title: "报国寺竹林 ＋ 休耕庵茶席",
         sub: "拝観¥400＋抹茶¥600 · 09:00–16:00 · 抹茶受理到 15:30",
         lat: 35.31999, lng: 139.56924,
         key: ["两人共 ¥2,000", "坐着喝抹茶看竹梢", "有无障碍洗手间"],
@@ -1290,7 +1300,7 @@ const DAY8_OPTIONS = {
         time: "10:30 - 11:35",
         short: "八幡宫",
         name: "鶴岡八幡宮 → 小町通商店街",
-        title: "鶴岡八幡宮 → 顺走小町通 ★",
+        title: "鶴岡八幡宮 → 顺走小町通",
         sub: "八幡宮免费 · 10–3 月 06:00–21:00 · 小町通全长约 360m 全平",
         lat: 35.32599, lng: 139.55635,
         key: ["!坐鎌23／鎌24 在「八幡宮」下车", "本宫要爬大石段", "小町通不可边走边吃"],
@@ -1339,7 +1349,7 @@ const DAY8_OPTIONS = {
         short: "大佛",
         mode: "walk",
         name: "高德院 镰仓大佛",
-        title: "镰仓大佛 ★",
+        title: "镰仓大佛",
         cat: "sight",
         sub: "长谷寺走 8 分钟 · 门票 ¥300 · 08:00–17:00 · 有无障碍入口",
         lat: 35.3168, lng: 139.5357,
@@ -1380,7 +1390,7 @@ const DAY8_OPTIONS = {
         time: "14:00 - 14:55",
         short: "ことぶき屋",
         name: "ことぶき屋 鎌倉高校前店",
-        title: "ことぶき屋 靠窗海景午餐 ★",
+        title: "ことぶき屋 靠窗海景午餐",
         sub: "4.8★/171 则 · 11:00–18:30 全年无休 · 出站直走 317m",
         lat: 35.30687, lng: 139.4968,
         key: ["靠窗席先订位", "人均 ¥1,800–2,500"],
@@ -1430,7 +1440,7 @@ const DAY8_OPTIONS = {
         time: "16:40 - 17:35",
         short: "灯台",
         name: "江の島シーキャンドル（展望灯台）",
-        title: "シーキャンドル 相模湾日落 ★",
+        title: "シーキャンドル 相模湾日落",
         cat: "sight",
         sun: { kind: "set", at: "17:14", zh: "日落" },
         sub: "日落 17:14 · 电梯直上 · 有室内展望层",
@@ -1454,7 +1464,7 @@ const DAY8_OPTIONS = {
         time: "17:35 - 18:30",
         short: "蜡烛祭",
         name: "江の島サムエル・コッキング苑「湘南キャンドル 2026」",
-        title: "湘南蜡烛祭首夜 · 1 万支蜡烛 ★",
+        title: "湘南蜡烛祭首夜 · 1 万支蜡烛",
         sub: "17:00 点灯 · 周六到 21:00 · 庭园平路为主，有长椅",
         lat: 35.2994, lng: 139.478,
         key: ["天黑后 17:45 起最好看", "!雨天中止当天 12:00 前公布"],
@@ -1663,8 +1673,8 @@ const DAYS = [
       {
         time: "06:50",
         short: "雷门",
-        name: "浅草寺 · 雷门无人黄金晨拍 ★",
-        title: "浅草寺 · 雷门 无人晨拍 ★",
+        name: "浅草寺 · 雷门无人黄金晨拍",
+        title: "浅草寺 · 雷门 无人晨拍",
         sub: "Sensoji Temple & Kaminarimon Gate",
         lat: 35.7111, lng: 139.7963,
         key: ["06:50–07:50 几乎没人", "本堂 06:30 开门"],
@@ -1778,7 +1788,7 @@ const DAYS = [
         time: "13:10",
         short: "桜桥",
         name: "桜桥 (Sakurabashi X型景观桥)",
-        title: "桜桥 看晴空塔 ★",
+        title: "桜桥 看晴空塔",
         sub: "隅田川唯一的纯步行景观桥",
         lat: 35.7196, lng: 139.8078,
         key: ["X 字形步行桥，没有车", "江心观景台拍母子合照"],
@@ -1831,8 +1841,8 @@ const DAYS = [
       {
         time: "15:20",
         short: "秋叶原",
-        name: "秋叶原 · 周日限定「步行者天国」★",
-        title: "秋叶原 周日步行者天国 ★",
+        name: "秋叶原 · 周日限定「步行者天国」",
+        title: "秋叶原 周日步行者天国",
         sub: "中央通大马路 · 17:00 准时结束封路",
         lat: 35.7022, lng: 139.7741,
         key: ["15:00 浅草站 → 银座线 9 分钟到末広町", "!步行者天国 17:00 结束"],
@@ -1997,7 +2007,7 @@ const DAYS = [
         time: "11:00",
         short: "伊豆荣",
         name: "伊豆荣 本店 (炭烤鳗鱼饭)",
-        title: "伊豆荣 本店 炭烤鳗鱼饭 ★",
+        title: "伊豆荣 本店 炭烤鳗鱼饭",
         sub: "不忍池南边 · 约 300 年鳗鱼老铺 · Google 4.1★",
         lat: 35.709671, lng: 139.7726906,
         key: ["11:00 开门就进", "全熟，妈妈能吃"],
@@ -2135,7 +2145,7 @@ const DAYS = [
         time: "18:45",
         short: "浅草寺",
         name: "浅草寺 夜间点灯",
-        title: "点灯的浅草寺 ★",
+        title: "点灯的浅草寺",
         sub: "むつみ往南走几分钟 · 亮到 23:00",
         lat: 35.7148, lng: 139.7967,
         key: ["本堂、五重塔、雷门亮灯", "人比白天少很多"],
@@ -2264,7 +2274,7 @@ const DAYS = [
         time: "11:00 - 12:00",
         short: "ほうとう",
         name: "ほうとう不動 河口湖駅前店",
-        title: "ほうとう不動 南瓜餺飥面 ★",
+        title: "ほうとう不動 南瓜餺飥面",
         sub: "出站 90 米 · 11:00 开门第一批",
         lat: 35.4988, lng: 138.7686,
         key: ["一锅 ¥1,210", "!只收现金"],
@@ -2374,7 +2384,7 @@ const DAYS = [
         time: "16:25 - 17:40",
         short: "大石公园",
         name: "大石公园",
-        title: "大石公园 夕照富士 ★",
+        title: "大石公园 夕照富士",
         sun: { kind: "set", at: "17:05", zh: "太阳入山" },
         sub: "平野の浜开约 24km · 约 40 分钟 · 免费停车",
         lat: 35.523, lng: 138.7456,
@@ -2490,8 +2500,8 @@ const DAYS = [
       {
         time: "05:00 - 06:05",
         short: "本栖湖",
-        name: "本栖湖 · 浩庵湖畔日出 ★★",
-        title: "本栖湖 浩庵 千圆日出 ★★",
+        name: "本栖湖 · 浩庵湖畔日出",
+        title: "本栖湖 浩庵 千圆日出",
         sun: { kind: "rise", at: "05:52", zh: "日出越山" },
         sub: "日币千圆纸钞日出原型 · 05:44–05:46 平地日出 / 约05:51–05:53 跃出东侧山棱",
         lat: 35.4719, lng: 138.5833,
@@ -2510,8 +2520,8 @@ const DAYS = [
       {
         time: "06:18 - 06:45",
         short: "精进湖",
-        name: "精进湖 他手合滨 (子抱富士) ★",
-        title: "精进湖 他手合滨 子抱富士 ★",
+        name: "精进湖 他手合滨 (子抱富士)",
+        title: "精进湖 他手合滨 子抱富士",
         sub: "県営精進湖他手合浜駐車場 (免费柏油车位+24h公厕)",
         lat: 35.4905, lng: 138.6087,
         key: ["平走 20 米到湖边", "!别把车开上砾石滩"],
@@ -2574,7 +2584,7 @@ const DAYS = [
         time: "09:30 - 11:35",
         short: "机动",
         name: "天上山缆车 → 曲奇 → 八木崎公园 (还车前)",
-        title: "天上山缆车 → 八木崎公园 ★",
+        title: "天上山缆车 → 八木崎公园",
         cat: "nature",
         sub: "趁人少先坐缆车看湖和富士 → Fujiyama Cookie → 湖边坐坐 · 备案：山中湖芒草",
         lat: 35.507, lng: 138.752,
@@ -2620,7 +2630,7 @@ const DAYS = [
         time: "12:00 - 13:10",
         short: "いだ天",
         name: "站西【天妇罗 いだ天】热食大餐 ＋ 专享洗手间",
-        title: "いだ天 天妇罗午餐 ★",
+        title: "いだ天 天妇罗午餐",
         sub: "避坑闭环：现炸大虾天妇罗 ＋ 避开车站公厕大长龙",
         lat: 35.4988, lng: 138.7678,
         key: ["走 5 分钟（350m），门口平板取号", "饭后用店里的洗手间"],
@@ -2658,8 +2668,8 @@ const DAYS = [
       {
         time: "16:05",
         short: "KITTE",
-        name: "KITTE 6F 屋顶花园 (免费露台) ★",
-        title: "KITTE 6F 屋顶花园 ★",
+        name: "KITTE 6F 屋顶花园 (免费露台)",
+        title: "KITTE 6F 屋顶花园",
         cat: "sight",
         sub: "木甲板俯瞰东京车站红砖与新干线",
         lat: 35.6797, lng: 139.7656,
@@ -2684,8 +2694,8 @@ const DAYS = [
       {
         time: "17:00",
         short: "牛排",
-        name: "THE BIFTEKI (KITTE B1F 铁板熟成牛排) ★",
-        title: "THE BIFTEKI 铁板牛排 ★",
+        name: "THE BIFTEKI (KITTE B1F 铁板熟成牛排)",
+        title: "THE BIFTEKI 铁板牛排",
         sub: "同一部电梯 6F 直下 B1F · 0 步转场 · 11:00–22:00 无休",
         lat: 35.67946, lng: 139.76512,
         key: ["17:00 一开晚市就进", "!饭、汤、沙拉要另点", "两人约 ¥3,500–4,500"],
@@ -2735,7 +2745,7 @@ const DAYS = [
     goal: "15:10 前到歌舞伎町上车点，坐开顶巴士，在 SKY 看 17:16 日落",
     date: "10/8",
     weekday: "四",
-    title: "明治神宫 → 蓝瓶 → 开顶巴士 → 涩谷SKY ★",
+    title: "明治神宫 → 蓝瓶 → 开顶巴士 → 涩谷SKY",
     intensity: "高强度 · 全程最累的一天 · 约 13,600 步",
     desc: [
       "07:35 出门，08:25 进人少的明治神宫森林",
@@ -2819,7 +2829,7 @@ const DAYS = [
         time: "08:25",
         short: "明治神宫",
         name: "明治神宫 (晨光巨木森林 · 门票免费)",
-        title: "明治神宫 森林参道 ★",
+        title: "明治神宫 森林参道",
         sub: "单程 852 米平缓 12 分 · 09:00 授与所开门",
         lat: 35.6764, lng: 139.6993,
         key: ["先去授与所买御守", "有免费轮椅", "!原路走回神宫桥"],
@@ -2838,8 +2848,8 @@ const DAYS = [
       {
         time: "10:00",
         short: "蓝瓶",
-        name: "Blue Bottle Coffee 青山店 ★ (核心圆梦)",
-        title: "Blue Bottle Coffee 青山店 2F 露台 ★",
+        name: "Blue Bottle Coffee 青山店 (核心圆梦)",
+        title: "Blue Bottle Coffee 青山店 2F 露台",
         sub: "千代田线 1 站 ¥178 · B3 出口",
         lat: 35.6652, lng: 139.7139,
         key: ["!A4 只有楼梯", "出站 150 米"],
@@ -2987,8 +2997,8 @@ const DAYS = [
       {
         time: "16:35",
         short: "SKY",
-        name: "SHIBUYA SKY (229m 露天全景日落) ★★",
-        title: "SHIBUYA SKY 日落 17:16 ★",
+        name: "SHIBUYA SKY (229m 露天全景日落)",
+        title: "SHIBUYA SKY 日落 17:16",
         cat: "sight",
         sun: { kind: "set", at: "17:16", zh: "日落" },
         sub: "Fukuras 下车平路 462m → Scramble Square 14F 换票",
@@ -3079,8 +3089,8 @@ const DAYS = [
         time: "07:40 - 09:15",
         short: "小网神社",
         mode: "train",
-        name: "小网神社 洗钱井 ★",
-        title: "小网神社 洗钱 ★",
+        name: "小网神社 洗钱井",
+        title: "小网神社 洗钱",
         sub: "三ノ輪日比谷线直达人形町约 10 分钟 · A3 出口电梯，平路 4 分钟",
         lat: 35.6841, lng: 139.7805,
         key: ["07:40 出门", "洗钱 24 小时都能洗", "!授与所 09:00 才开"],
@@ -3105,7 +3115,7 @@ const DAYS = [
         time: "09:25 - 10:45",
         short: "筑地",
         name: "筑地场外市场 (吃几家小的)",
-        title: "筑地场外市场 吃几家小的 ★",
+        title: "筑地场外市场 吃几家小的",
         sub: "人形町日比谷线 3 站约 5 分钟 · 1 号电梯出口",
         lat: 35.6655, lng: 139.7708,
         key: ["09:30 先去どんぶり市場", "!只点标价的，不能边走边吃"],
@@ -3217,8 +3227,8 @@ const DAYS = [
       {
         time: "16:15",
         short: "增上寺",
-        name: "增上寺 (大殿与东京铁塔同框) ★",
-        title: "增上寺 ★",
+        name: "增上寺 (大殿与东京铁塔同框)",
+        title: "增上寺",
         sub: "都营浅草线 2 站至大门 B4 垂直电梯 → 芝大门 350m",
         lat: 35.6575, lng: 139.7482,
         key: ["大殿与东京铁塔同框", "!逆光，手机开 HDR"],
@@ -3233,8 +3243,8 @@ const DAYS = [
       {
         time: "17:00",
         short: "东京铁塔",
-        name: "芝公园看 17:14 点灯 → 暖橙色铁塔夜景 ★",
-        title: "芝公园 铁塔夜景 ★",
+        name: "芝公园看 17:14 点灯 → 暖橙色铁塔夜景",
+        title: "芝公园 铁塔夜景",
         sub: "芝公园 4 号地林荫步道长椅 · 坐着等到 17:50",
         lat: 35.6558, lng: 139.749,
         key: ["约 17:14 点灯", "!17:30–17:50 天深蓝最好拍"],
@@ -3308,7 +3318,7 @@ const DAYS = [
     goal: "逛谷中祭、画招财猫，烤鸡串告别晚餐，夜里出发去羽田",
     date: "10/11",
     weekday: "日",
-    title: "谷根千一整天 → 烤鸡串告别晚餐 → 羽田 ★",
+    title: "谷根千一整天 → 烤鸡串告别晚餐 → 羽田",
     intensity: "中强度 · 不午睡 · 约 9,000 步",
     desc: [
       "前一晚先打包",
@@ -3370,8 +3380,8 @@ const DAYS = [
       {
         time: "09:40",
         short: "根津神社",
-        name: "根津神社 (重要文化財社殿 · 朱红千本鸟居) ★",
-        title: "根津神社 千本鸟居 ★",
+        name: "根津神社 (重要文化財社殿 · 朱红千本鸟居)",
+        title: "根津神社 千本鸟居",
         sub: "德川五代将军纲吉造营 · 重要文化财 · 锦鲤神桥",
         lat: 35.72014, lng: 139.76077,
         key: ["CIBI 走 833m、12 分钟，平路", "求一枚长寿御守"],
@@ -3388,8 +3398,8 @@ const DAYS = [
       {
         time: "10:55",
         short: "大道艺",
-        name: "第27回 谷中祭 · 旧吉田屋酒店大道艺 ★",
-        title: "谷中祭 旧吉田屋 大道艺 ★",
+        name: "第27回 谷中祭 · 旧吉田屋酒店大道艺",
+        title: "谷中祭 旧吉田屋 大道艺",
         sub: "谷中祭 10/10–11 · 10:00–16:00 · 明治木造老清酒店",
         lat: 35.72134, lng: 139.77094,
         key: ["根津神社走 1.2km、17 分钟，言問通り缓上坡", "!11:00 先到对面傳左衛門写名字"],
@@ -3445,8 +3455,8 @@ const DAYS = [
       {
         time: "13:20",
         short: "猫衛門",
-        name: "猫衛門 画自己的招财猫 ★",
-        title: "猫衛門 招财猫绘付 ★",
+        name: "猫衛門 画自己的招财猫",
+        title: "猫衛門 招财猫绘付",
         sub: "谷中 5-4-2 · Google 4.4★ · 周日 11:00–18:00 · 可刷卡",
         lat: 35.72378, lng: 139.76756,
         key: ["kokonn 走 101m、2 分钟", "¥2,750/人，含饮料和点心", "不用预约，有空位就能画"],
@@ -3498,8 +3508,8 @@ const DAYS = [
       {
         time: "17:30",
         short: "樫",
-        name: "炭火焼鳥 樫 最后一晚：比内地鸡烤鸡串 ★",
-        title: "樫 烤鸡串晚餐 ★",
+        name: "炭火焼鳥 樫 最后一晚：比内地鸡烤鸡串",
+        title: "樫 烤鸡串晚餐",
         sub: "千駄木 2-43-4 · Google 4.5★ · 周日 17:30 开 · 12 席",
         lat: 35.72279, lng: 139.76283,
         key: ["和栗や走 669m、9 分钟", "!要订位：03-5834-2581", "两人约 ¥8,000–12,000"],
@@ -3579,8 +3589,8 @@ const DAYS = [
         time: "21:17 / 21:34",
         short: "浅草线",
         mode: "train",
-        name: "浅草线 · 往羽田方向 ★",
-        title: "浅草线 往羽田 ★",
+        name: "浅草线 · 往羽田方向",
+        title: "浅草线 往羽田",
         sub: "浅草站 1 番線 · 车头写「羽田空港第1・第2ターミナル行」",
         lat: 35.7107, lng: 139.7965,
         key: ["!看到「羽田空港」就上，不会写 T3", "¥599/人"],
@@ -4232,7 +4242,22 @@ function initMap() {
   polylineLayer = makeLayerGroup();
 }
 
-// Google Maps calls this once its script has loaded (see the script tag at the end)
+// Google Maps JavaScript API：第一次看到地图（底栏「地图」、宽屏「分屏」）才载入。
+// 只看攻略就不载，不耗每天 300 次的额度，也不耗流量。
+// This browser key is public by design: it only works on weikhang95.github.io,
+// only for the Maps JavaScript API, and is capped at 300 map loads a day.
+const MAPS_SRC = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyA5rs71T6Mi38Y9nAwLS6NihCBaMr5zJZs&loading=async&callback=onGoogleMapsReady&language=zh-CN&region=JP';
+let mapsRequested = false;
+function ensureMap() {
+  if (mapsRequested || (currentViewMode !== 'map' && currentViewMode !== 'split')) return;
+  mapsRequested = true;
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = MAPS_SRC;
+  s.onerror = gm_authFailure;
+  document.head.appendChild(s);
+}
+// Google Maps calls this once its script has loaded (ensureMap adds the script)
 function onGoogleMapsReady() {
   initMap();
   updateMap(DAYS[currentDayIdx]);
@@ -4641,7 +4666,7 @@ function updateMap(day) {
       zIndex: nIdx
     });
     marker.popupHtml = `
-        <div style="font-family:'Inter','Noto Sans SC',sans-serif; min-width:160px;">
+        <div style="font-family:var(--sans); min-width:160px;">
           <div style="font-size:11px; font-weight:800; color:var(--shu); margin-bottom:2px; font-variant-numeric:tabular-nums;">${String(node.time).replace(/\s*-\s*/, '–')} · 第 ${nIdx + 1} 站</div>
           <div style="font-size:14px; font-weight:800; color:var(--ink); margin-bottom:4px;">${node.title || node.name}</div>
           <div style="font-size:12px; color:var(--muted); margin-bottom:6px; font-variant-numeric:tabular-nums;">${node.sub}</div>
@@ -4788,7 +4813,7 @@ function updateDeadline() {
   if (!dl) { el.hidden = true; syncDock(); return; }
   const left = hhmm(dl.at) - nowMins();
   const txt = !today ? dl.note : `还剩 ${leftTxt(left)}`;
-  el.innerHTML = `<span class="hd-what">${dl.at} 前${dl.what}</span><span class="hd-left">${txt}</span>`;
+  el.innerHTML = `${ph('timer')}<span class="hd-what">${dl.at} 前${dl.what}</span><span class="hd-left">${txt}</span>`;
   el.hidden = false;
   if (today) {
     dock.innerHTML = `${ph('timer')}<span class="dd-what">${dl.at} 前${dl.what}</span><span class="dd-left">${txt}</span>`;
@@ -4942,6 +4967,7 @@ function setViewMode(mode) {
     mapElem.style.height = (window.innerWidth >= 640) ? '340px' : '270px';
   }
   syncDock();
+  ensureMap();
 }
 
 // 转屏或窗口大小变了：地图高度按当前视图重算（地图视图要贴着底栏上沿）
@@ -4953,9 +4979,6 @@ window.addEventListener('resize', () => {
 
 document.addEventListener('DOMContentLoaded', initApp);
 </script>
-<!-- Google Maps JavaScript API. This browser key is public by design: it only works on
-     weikhang95.github.io, only for the Maps JavaScript API, and is capped at 300 map loads a day. -->
 <script src="tabbar.js?v=9" defer></script>
-<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5rs71T6Mi38Y9nAwLS6NihCBaMr5zJZs&loading=async&callback=onGoogleMapsReady&language=zh-CN&region=JP" onerror="gm_authFailure()"></script>
 </body>
 </html>

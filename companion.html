@@ -697,6 +697,8 @@ try {
      手机（点按）：按住时同样浮出底色；「现在」那一站的圆点慢慢呼吸；换天时太阳从高处落到此刻的位置。
      全部只在 html[data-motion="ready"]（首屏画完）之后才开；状态本身都另有文字或颜色，不只靠动效。 */
   .ph-tone { opacity: 0; }
+  /* 分类图标：餐食、咖啡用金色，饿的时候一眼找到；其余跟时间胶囊同色 */
+  .time-badge .cat-meal, .time-badge .cat-cafe { color: var(--kin); }
   html[data-motion="ready"] .ph-tone { transition: opacity .15s var(--ease); }
   html[data-motion="ready"] .nav-btn .ph { transition: translate .2s cubic-bezier(.2,0,0,1); }
   .node-card:active .time-badge .ph-tone, .nav-btn:active .ph-tone { opacity: .25; }
@@ -825,6 +827,7 @@ try {
 
 
 
+<script src="cat-icons.js?v=1"></script>
 <script>
 // 图标：Phosphor Icons Regular (MIT, phosphoricons.com)，内联 SVG，颜色跟文字走
 const PH = {
@@ -943,6 +946,7 @@ const DAY8_OPTIONS = {
         mode: "train",
         name: '江之电 镰仓 → 长谷 → 长谷寺',
         title: "江之电 → 长谷寺 看海",
+        cat: 'sight',
         sub: '11:54 发 → 11:59 长谷 · 走 6 分钟 · 拝観 ¥400 · 可刷卡',
         lat: 35.31248, lng: 139.53311,
         key: ["江之电直接刷 Suica", "上观音堂有台阶"],
@@ -960,6 +964,7 @@ const DAY8_OPTIONS = {
         mode: "walk",
         name: '高德院 镰仓大佛',
         title: "镰仓大佛 ★",
+        cat: 'sight',
         sub: '长谷寺走 8 分钟 · 门票 ¥300 · 08:00–17:00 · 有无障碍入口',
         lat: 35.3168, lng: 139.5357,
         key: ["0 阶梯", "胎内拝観今天不进"],
@@ -1010,6 +1015,7 @@ const DAY8_OPTIONS = {
         mode: "train",
         name: '江之电 → 江ノ島站 → 弁天桥 → 江島神社 → エスカー',
         title: "江之岛 · 江島神社 → 坐エスカー上山",
+        cat: 'sight',
         sub: '15:02 发 → 15:10 江ノ島 · 走到岛上 1.45km 约 22 分钟',
         lat: 35.30037, lng: 139.47960,
         key: ["!江島神社 17:00 关", "エスカー只有上行"],
@@ -1027,6 +1033,7 @@ const DAY8_OPTIONS = {
         time: '16:40 - 17:35',
         name: '江の島シーキャンドル（展望灯台）',
         title: "シーキャンドル 相模湾日落 ★",
+        cat: 'sight',
         sun: { kind: 'set', at: '17:14', zh: '日落' },
         sub: '日落 17:14 · 电梯直上 · 有室内展望层',
         lat: 35.29974, lng: 139.47843,
@@ -1414,6 +1421,7 @@ const DAYS = [
         time: "08:00",
         name: "FUGLEN ASAKUSA (浅草店)",
         title: "FUGLEN ASAKUSA 咖啡 ＋ 华夫饼",
+        cat: 'cafe',
         sub: "浅草 2-6-15 (本堂西侧步行 4 分)",
         lat: 35.7145, lng: 139.7937,
         key: ["08:00 开门第一批进", "2F 复古皮沙发坐 1 小时"],
@@ -1444,6 +1452,7 @@ const DAYS = [
         time: "10:40",
         name: "浅草文化观光中心 8F 免费展望台",
         title: "浅草文化观光中心 8F 展望台",
+        cat: 'sight',
         sub: "雷门正对面 · 开放至 22:00",
         lat: 35.7106, lng: 139.7966,
         key: ["免费，电梯直达", "有干净洗手间"],
@@ -1515,6 +1524,7 @@ const DAYS = [
         time: "14:00",
         name: "Belle & Emma ASAKUSA 舒芙蕾松饼",
         title: "Belle & Emma 舒芙蕾松饼",
+        cat: 'cafe',
         sub: "浅草 1-21-11 · 周四至周日 11:00–17:00",
         lat: 35.7118, lng: 139.7955,
         key: ["米粉舒芙蕾松饼 ¥1,200", "!出发前在 Hotpepper 订 14:00"],
@@ -1687,6 +1697,7 @@ const DAYS = [
           time: "12:45",
           name: "日本桥三越本店",
           title: "日本桥三越本店",
+          cat: 'shop',
           sub: "1673 年开业 · 日本第一家百货",
           lat: 35.6860, lng: 139.7735,
           key: ["11 米天女像 · 管风琴", "大正复古手摇电梯"],
@@ -1702,6 +1713,7 @@ const DAYS = [
           time: "14:15",
           name: "COREDO 室町 1 & 3",
           title: "COREDO 室町 · にんべん · 茅乃舎",
+          cat: 'shop',
           sub: "约 45 分钟",
           lat: 35.6872, lng: 139.7745,
           key: ["にんべん喝 ¥100 现削高汤", "茅乃舎高汤包当伴手礼"],
@@ -1726,6 +1738,7 @@ const DAYS = [
           time: "15:15",
           name: "日本桥高岛屋 S.C. 本馆",
           title: "日本桥高岛屋 本馆",
+          cat: 'shop',
           sub: "1933 年 · 重要文化财 · 每天 10:30–19:30",
           lat: 35.6808, lng: 139.7734,
           key: ["电梯有专人开", "屋顶花园 · 地下食品馆"],
@@ -1827,6 +1840,7 @@ const DAYS = [
         mode: "walk",
         name: "船津浜 河口湖畔",
         title: "走到船津浜湖边 看富士",
+        cat: 'nature',
         sub: "河口湖站走 11 分钟 · 约 850m 平路",
         lat: 35.5046, lng: 138.7710,
         key: ["早上云少，看到山的机会比下午大", "10:45 走回车站"],
@@ -2071,6 +2085,7 @@ const DAYS = [
         time: "09:45 - 11:35",
         name: "退房后双轨机动收官 (用足24小时租期)",
         title: "还车前两个方案",
+        cat: 'nature',
         sub: "方案A: 八木崎公园+曲奇旗舰店 / 方案B: 全景台芒草",
         lat: 35.5070, lng: 138.7520,
         key: ["A 八木崎公园 → Fujiyama Cookie", "!B 山中湖芒草，11:00 一定往回开"],
@@ -2135,6 +2150,7 @@ const DAYS = [
         time: "16:05",
         name: "KITTE 6F 屋顶花园 (免费露台) ★",
         title: "KITTE 6F 屋顶花园 ★",
+        cat: 'sight',
         sub: "木甲板俯瞰东京车站红砖与新干线",
         lat: 35.6797, lng: 139.7656,
         key: ["免费，开到 23:00", "16:15–16:45 金色余晖", "!露台不能饮食"],
@@ -2286,6 +2302,7 @@ const DAYS = [
         time: "16:35",
         name: "SHIBUYA SKY (229m 露天全景日落) ★★",
         title: "SHIBUYA SKY 日落 17:16 ★",
+        cat: 'sight',
         sun: { kind: 'set', at: '17:16', zh: '日落' },
         sub: "Fukuras 下车平路 462m → Scramble Square 14F 换票",
         lat: 35.6585, lng: 139.7022,
@@ -3177,6 +3194,13 @@ function selectDay(idx, updateHash = true) {
   updateMap(day);
 }
 
+// 每站一个分类图标（吃、走、买、看…），规则在 cat-icons.js；节点写了 cat 就用它，其次看交通方式
+function nodeCatIcon(node) {
+  if (!window.CatIcons) return node.mode ? ph(node.mode, PH_LABEL[node.mode]) : '';
+  const segs = (node.tags || []).flatMap(t => t.split(/\s*·\s*/)).concat([node.title || node.name]);
+  return CatIcons.svg(node.cat || CatIcons.classify(segs, node.mode), 'ph');
+}
+
 function renderTimeline(day) {
   const list = document.getElementById('timelineList');
   list.innerHTML = '';
@@ -3200,7 +3224,7 @@ function renderTimeline(day) {
       <button type="button" class="node-dot" aria-label="在地图上看第 ${nIdx + 1} 站">${nIdx + 1}</button>
       <div class="node-card">
         <div class="node-top">
-          <span class="node-when"><span class="time-badge">${node.mode ? ph(node.mode, PH_LABEL[node.mode]) : ''}${String(node.time).replace(/\s*-\s*/, '–')}</span>${tagHtml}${node.sun ? `<span class="sun-chip" data-kind="${node.sun.kind}" data-node="${nIdx}">${SUN_SVG}<span class="sun-txt"></span></span>` : ''}</span>
+          <span class="node-when"><span class="time-badge">${nodeCatIcon(node)}${String(node.time).replace(/\s*-\s*/, '–')}</span>${tagHtml}${node.sun ? `<span class="sun-chip" data-kind="${node.sun.kind}" data-node="${nIdx}">${SUN_SVG}<span class="sun-txt"></span></span>` : ''}</span>
           <a href="${gmapsNavUrl}" target="_blank" class="nav-btn" title="在 Google Maps 中导航">${ph('nav')}导航</a>
         </div>
         <h2 class="node-name">${node.title || node.name}</h2>

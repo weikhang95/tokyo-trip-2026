@@ -521,6 +521,15 @@ html[data-theme="dark"] .bplan-img-card:has(img)::after{outline-color:oklch(1 0 
 .t-sep{color:var(--ink-faint);font-weight:400;}
 .t-end{font-size:1em;font-weight:500;color:var(--ink-faint);}
 .tl-tag{display:block;margin-top:2px;font-size:var(--font-xs);font-weight:600;color:var(--ai);line-height:1.45;white-space:normal;}
+/* 分类图标（cat-icons.js）：标签前一个 Phosphor 小图标，一眼分出吃、走、买、看。
+   交通用靛蓝，餐食和咖啡用金色（饿的时候最好找），其余跟标签同色。
+   电脑悬停这一站、手机按住时，图标浮出 Duotone 底色 */
+.tl-tag .cat-ico{width:1.3em;height:1.3em;vertical-align:-.3em;margin-right:4px;}
+.cat-meal,.cat-cafe{color:var(--kin);}
+.cat-ico .ph-tone{opacity:0;}
+html[data-motion="ready"] .cat-ico .ph-tone{transition:opacity .15s var(--ease-out);}
+.tl-item:active .cat-ico .ph-tone{opacity:.25;}
+@media (hover:hover){.tl-item:hover .cat-ico .ph-tone{opacity:.25;}}
 /* 非时刻的小节标签（B Plan 对比表、备案） */
 .tl-time.is-label{font-size:var(--font-xs);font-weight:700;color:var(--ink-faint);letter-spacing:.04em;margin-bottom:4px;}
 .tl-main{
@@ -1896,7 +1905,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-cat="train">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time is-label">京成柜台排长龙或 Skyliner 出状况</div>
@@ -1979,7 +1988,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
         <img src="img/asakusa.jpg" class="day-banner" alt="浅草寺与传统街区" loading="lazy" decoding="async"/>
       </div>
       <div class="tl">
-        <div class="tl-item">
+        <div class="tl-item" data-cat="sight">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">06:30</span><span class="t-sep">–</span><span class="t-end">07:50</span></span><span class="tl-tag">出发 · 晨拍</span></div>
@@ -1997,7 +2006,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-cat="cafe">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">07:55</span><span class="t-sep">–</span><span class="t-end">09:15</span></span><span class="tl-tag">早餐</span></div>
@@ -2217,7 +2226,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
               </details>
             </div>
           </div>
-        <div class="tl-item">
+        <div class="tl-item" data-cat="shop">
             <div class="tl-icon">日本桥</div>
             <div>
               <div class="tl-time"><span class="tl-clock"><span class="t-start">12:45</span><span class="t-sep">-</span><span class="t-end">16:45</span></span></div>
@@ -2237,7 +2246,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
               </details>
             </div>
           </div>
-        <div class="tl-item">
+        <div class="tl-item" data-cat="meal">
             <div class="tl-icon">晚餐</div>
             <div>
               <div class="tl-time"><span class="tl-clock"><span class="t-start">16:50</span><span class="t-sep">-</span><span class="t-end">21:30</span></span></div>
@@ -2866,7 +2875,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-cat="nature">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">09:45</span><span class="t-sep">–</span><span class="t-end">11:35</span></span><span class="tl-tag">还车前两个方案</span></div>
@@ -2939,7 +2948,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-cat="sight">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">15:45</span><span class="t-sep">–</span><span class="t-end">17:00</span></span><span class="tl-tag">看新干线</span></div>
@@ -3207,7 +3216,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-cat="sight">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">16:35</span><span class="t-sep">–</span><span class="t-end">18:00</span></span><span class="tl-tag">日落 · 夜景</span></div>
@@ -3256,7 +3265,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
         </div>
 
         <!-- Day 6 Rain Contingency -->
-        <div class="tl-item" id="day6-rain">
+        <div class="tl-item" data-cat="sight" id="day6-rain">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time is-label">下雨怎么办（已查官方条款）</div>
@@ -3688,7 +3697,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </div>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-cat="sight">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">15:02</span><span class="t-sep">–</span><span class="t-end">16:40</span></span><span class="tl-tag">江之岛</span></div>
@@ -3710,7 +3719,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
             </details>
           </div>
         </div>
-        <div class="tl-item">
+        <div class="tl-item" data-cat="sight">
           <div class="tl-icon"></div>
           <div>
             <div class="tl-time"><span class="tl-clock"><span class="t-start">16:40</span><span class="t-sep">–</span><span class="t-end">17:35</span></span><span class="tl-tag">日落 · 富士</span></div>
@@ -6045,6 +6054,20 @@ window.addEventListener('DOMContentLoaded', () => {
   } else {
     setTimeout(boot, 0);
   }
+})();
+</script>
+<script src="cat-icons.js?v=1"></script>
+<script>
+/* 每一站的标签前加分类图标；这一站写了 data-cat 就照它，否则按标签和标题判断（规则在 cat-icons.js） */
+(function () {
+  if (!window.CatIcons) return;
+  document.querySelectorAll('.tl-item').forEach(function (item) {
+    var tag = item.querySelector('.tl-tag');
+    if (!tag || tag.querySelector('.cat-ico')) return;
+    var main = item.querySelector('.tl-main .zh') || item.querySelector('.tl-main');
+    var segs = tag.textContent.split(/\s*·\s*/).concat([main ? main.textContent : '']);
+    tag.insertAdjacentHTML('afterbegin', CatIcons.svg(item.dataset.cat || CatIcons.classify(segs)));
+  });
 })();
 </script>
 <script src="tabbar.js?v=5" defer></script>

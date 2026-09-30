@@ -1948,7 +1948,7 @@ const DAYS = [
       "上午：东照宫金色唐门，花园稻荷红鸟居拍照",
       "阿美横逛药妆零食，买明天巴士早餐",
       "午餐：伊豆荣鳗鱼饭",
-      "下午：JR 去池袋，东武百货地下食品街 → Sunshine City 逛商场、上展望台",
+      "下午：JR 去池袋，东武百货地下食品街 → Onitsuka Tiger 路过 → Sunshine City 逛商场、上展望台",
       "晚上：むつみ釜饭，饭后看点灯的浅草寺"
     ],
     transit: [
@@ -1958,7 +1958,7 @@ const DAYS = [
       "走路回家"
     ],
     gear: ["护照（药妆、百货免税）", "购物袋", "明天巴士早餐（阿美横买）"],
-    routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Tokyo+Taito+Ryusen+3-10-7&destination=Sunshine+City+Ikebukuro&waypoints=Ueno+Toshogu+Shrine%7CHanazono+Inari+Gojoten+Shrine%7CAmeyoko+Shopping+District%7CIzuei+Honten+Ueno%7CTobu+Department+Store+Ikebukuro&travelmode=transit",
+    routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Tokyo+Taito+Ryusen+3-10-7&destination=Sunshine+City+Ikebukuro&waypoints=Ueno+Toshogu+Shrine%7CHanazono+Inari+Gojoten+Shrine%7CAmeyoko+Shopping+District%7CIzuei+Honten+Ueno%7CTobu+Department+Store+Ikebukuro%7COnitsuka+Tiger+Ikebukuro+PARCO&travelmode=transit",
     nodes: [
       {
         time: "08:50",
@@ -2093,16 +2093,32 @@ const DAYS = [
         hero: false
       },
       {
-        time: "14:15",
+        time: "14:00",
+        short: "Onitsuka",
+        name: "Onitsuka Tiger 池袋 PARCO 店 (2F)",
+        title: "Onitsuka Tiger 池袋 PARCO",
+        cat: "shop",
+        sub: "东武走 318 米、5 分钟 · 池袋站东口 · 每天 11:00–21:00 · Google 4.0★",
+        lat: 35.7307756, lng: 139.7124392,
+        key: ["路过看看，先试尺码", "带护照，满 ¥5,000 现场免税"],
+        more: [
+          "Google 评论：比涩谷、银座店人少，店员会讲英文，有人在这里买到 Mexico 66。",
+          "在这里买到，10/8 新宿旗舰店就不用赶；没看上就当试尺码。"
+        ],
+        tags: ["鞋"],
+        hero: false
+      },
+      {
+        time: "14:30",
         short: "Sunshine",
         name: "Sunshine City（サンシャインシティ）",
         title: "Sunshine City 慢慢逛",
         cat: "shop",
-        sub: "东武走 896 米、13 分钟 · 每天 10:00–20:00 · Google 4.1★",
+        sub: "PARCO 走 873 米、12 分钟 · 每天 10:00–20:00 · Google 4.1★",
         lat: 35.7289709, lng: 139.7195415,
         key: ["商场慢慢逛，累了上 60F 展望台坐", "!16:25 往车站走"],
         more: [
-          "从东武出来走池袋站东口，沿 Sunshine 60 通り一直走，是池袋最热闹的一条街。",
+          "从 PARCO 沿 Sunshine 60 通り一直走，是池袋最热闹的一条街。",
           "Google 评论提到有宝可梦中心、一整层扭蛋、Loft，洗手间干净；周末人很多，周一会好一点。",
           "3COINS 在专门店街アルパ B1，顺路逛。"
         ],
@@ -3072,10 +3088,10 @@ const DAYS = [
   {
     day: "D7",
     chapter: "银座",
-    goal: "小网神社洗钱，筑地吃早午餐，银座逛 UNIQLO 和 GU，傍晚看东京铁塔点灯",
+    goal: "小网神社洗钱，筑地吃早午餐，银座逛 UNIQLO 和 GU，傍晚看东京铁塔点灯，饭后六本木打卡铁塔",
     date: "10/9",
     weekday: "五",
-    title: "小网神社洗钱 → 筑地 → 银座 → 东京铁塔夜景",
+    title: "小网神社洗钱 → 筑地 → 银座 → 东京铁塔 → 六本木",
     intensity: "中低强度 · 约 6,000 步",
     desc: [
       "08:30 出门（比前后几天多睡一会），人形町小网神社洗钱（妈妈想去）",
@@ -3085,7 +3101,7 @@ const DAYS = [
       "增上寺拍大殿与铁塔同框",
       "芝公园等 17:14 点灯，17:30–17:50 拍暖橙色铁塔夜景",
       "17:55 大门和食晚餐",
-      "看体力回银座喝一杯 Sapporo 黑标，日比谷线直达三ノ輪，约 20:45 到家"
+      "饭后六本木榉树坂拍东京铁塔，日比谷线直达三ノ輪，约 21:00 到家"
     ],
     transit: [
       "日比谷线直达人形町",
@@ -3093,11 +3109,11 @@ const DAYS = [
       "1 站到东银座",
       "银座地下步道穿过 GSIX；UNIQLO → GU → 和光都在 150m 内",
       "都营浅草线 2 站到大门",
-      "饭后浅草线 2 站回东银座",
-      "日比谷线直达三ノ輪（不喝就浅草线回浅草换都08）"
+      "饭后大江户线 7 分钟到六本木",
+      "六本木日比谷线直达三ノ輪"
     ],
     gear: ["几枚硬币（洗钱当「钱母」）", "护照（UNIQLO、GU 退税）", "折叠购物袋", "薄外套（傍晚 16–17°C）"],
-    routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Koami+Shrine&destination=Zojoji+Temple&waypoints=Tsukiji+Outer+Market%7CGINZA+SIX%7CUNIQLO+Ginza%7CGU+Ginza+Store%7CShiba+Park&travelmode=transit",
+    routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Koami+Shrine&destination=Roppongi+Hills+Keyakizaka&waypoints=Tsukiji+Outer+Market%7CGINZA+SIX%7CUNIQLO+Ginza%7CGU+Ginza+Store%7CZojoji+Temple%7CShiba+Park&travelmode=transit",
     nodes: [
       {
         time: "08:30 - 09:15",
@@ -3280,7 +3296,7 @@ const DAYS = [
         title: "大门和食晚餐",
         sub: "芝公园平路 350m · 周五 17:00–22:30 · 4.0★",
         lat: 35.6561778, lng: 139.7550719,
-        key: ["17:55 进店，19:15 吃完", "这顿少喝，留给饭后啤酒"],
+        key: ["17:55 进店，19:15 吃完", "吃完去六本木散步"],
         more: [
           "周五 18:00 后下班族变多，可能要等位。",
           "高汤锅物与和食定食，人均约 ¥2,500–3,500。"
@@ -3297,31 +3313,41 @@ const DAYS = [
       },
       {
         time: "19:15",
-        short: "回家",
-        mode: "train",
-        name: "（看体力）回银座 Sapporo 黑标 THE BAR 一杯 → 日比谷线直达三ノ輪",
-        title: "饭后一杯 → 日比谷线回家",
-        sub: "大门 → 东银座 浅草线 2 站 · 银座 → 三ノ輪 日比谷线直达",
-        lat: 35.6709, lng: 139.765,
-        key: ["!看体力，累了就直接回家", "站着喝，每人最多 2 杯", "20:15 银座 → 20:37 三ノ輪"],
+        short: "六本木",
+        name: "六本木之丘 榉树坂 · 打卡东京铁塔夜景",
+        title: "六本木 榉树坂 看东京铁塔",
+        sub: "大门站大江户线 7 分钟 · ¥178 · 逛约 45 分钟",
+        lat: 35.6591343, lng: 139.7281099,
+        key: ["榉树坂通り往下看，街尾是亮灯的东京铁塔", "只逛不买票"],
         more: [
-          "去：19:23 大门站搭都营浅草线 2 站，19:27 到东银座（¥178，下一班 19:27、19:32）。",
-          "沿晴海通り往和光方向走约 5 分钟，THE BAR 在和光斜对面 GINZA PLACE B1F（周五 11:30–22:00，最后点单 21:30 · 直通银座站 A4 出口 · 4.5★）。",
-          "同一款黑标生啤可选不同倒法，评价推荐「Perfect」和「First」，泡沫极细。",
-          "站着喝、每人最多 2 杯，只点一杯也可以。只有约 30 个站位，网上有人周日 15:00 排了约 30 分钟。",
-          "可刷卡。价格网上说约 ¥700 一杯，官网没列，现场看。",
-          "妈妈一起进去站着陪你：她不喝就点一份小菜（炸鸡好评、每月换口味的「銀座サンド」、炭烤腰果），官网没写有没有软饮。",
-          "回：20:15 银座站搭日比谷线【北越谷行】，不用换车，20:37 到三ノ輪（¥209，下一班 20:19、20:24）。1b 出口走 6 分钟，约 20:45 到家。"
+          "19:22／19:27／19:32 大门站大江户线【六本木・都庁前方面】，7 分钟到六本木（Yahoo! 乘换查的，未核实）。",
+          "出站跟着「六本木ヒルズ」指示走到 66 Plaza（大蜘蛛雕塑 Maman），再往下走けやき坂通り，边走边拍铁塔。",
+          "店逛不逛随意；20:15 左右走回 Metro Hat 搭日比谷线。"
         ],
-        tags: ["看体力 · 啤酒"],
-        hero: false,
+        tags: ["夜景 · 散步"],
+        hero: true,
         branch: [
           { q: "看体力", opts: [
-              ["累了", "不去喝，吃完直接从大门回家：浅草线 14 分钟到浅草（¥220），A4/A5 出口平路 200 米换都08，约 19:50 到家"],
-              ["排超过 15 分钟", "就走：店直通银座站，日比谷线直达三ノ輪"],
+              ["累了", "不去六本木，吃完直接从大门回家：浅草线 14 分钟到浅草（¥220），A4/A5 出口平路 200 米换都08，约 19:50 到家"],
+              ["想喝一杯", "改去银座 THE BAR（Sapporo 黑标）：19:23 大门浅草线 2 站到东银座，和光斜对面 GINZA PLACE B1F（周五开到 22:00，最后点单 21:30），站着喝、每人最多 2 杯；20:15 银座站日比谷线直达三ノ輪 20:37"],
               ["太累或下雨", "芝公园／大门站叫 GO，约 8.8 km，约 ¥4,000–4,500"]
             ] }
         ]
+      },
+      {
+        time: "20:20",
+        short: "回家",
+        mode: "train",
+        name: "六本木 → 日比谷线直达三ノ輪",
+        title: "日比谷线直达回家",
+        sub: "不用换车 · 32 分钟 · ¥209",
+        lat: 35.6633, lng: 139.7321,
+        key: ["六本木之丘 Metro Hat 直通日比谷线", "20:21／20:25／20:29 都有，约 21:00 到家"],
+        more: [
+          "日比谷线【北越谷／北千住行】坐到三ノ輪（Yahoo! 乘换查的，未核实）。1b 出口走 6 分钟到家。"
+        ],
+        tags: ["直达"],
+        hero: false
       }
     ]
   },

@@ -439,8 +439,8 @@ try {
     gap: 4px;
     font-size: 12px;
     font-weight: 800;
-    color: var(--shu);
-    background: var(--shu-soft);
+    color: var(--ai);
+    background: var(--ai-soft);
     text-decoration: none;
     padding: 6px 12px;
     border-radius: 99px;
@@ -450,7 +450,7 @@ try {
   /* 分屏时地图卡已有「Google 路线」，这里只在「行程」视图出现 */
   body:not([data-view="time"]) .hero-route-link { display: none; }
   @media (hover: hover) {
-    .hero-route-link:hover { background: var(--shu); color: var(--on-ai); }
+    .hero-route-link:hover { background: var(--ai); color: var(--on-ai); }
   }
 
   /* ── Timeline Nodes ── */
@@ -502,9 +502,10 @@ try {
     border-color: var(--shu);
     color: var(--shu);
   }
+  /* 选中 = 靛蓝；红色只留给「必看」(.hero)，两者要分得开 */
   .node-item.active .node-dot {
-    background: var(--shu);
-    border-color: var(--shu);
+    background: var(--ai);
+    border-color: var(--ai);
     color: var(--on-ai);
     transform: scale(1.15);
   }
@@ -518,8 +519,8 @@ try {
     transition: scale .15s var(--ease), border-color .15s var(--ease), box-shadow .15s var(--ease);
   }
   .node-item.active .node-card {
-    border-color: var(--shu);
-    box-shadow: 0 4px 18px rgba(194, 65, 45, 0.15);
+    border-color: var(--ai);
+    box-shadow: 0 4px 18px color-mix(in srgb, var(--ai) 15%, transparent);
   }
   .node-card:active {
     scale: .99;
@@ -580,7 +581,7 @@ try {
     padding: 4px 9px;
     border-radius: 99px;
     flex-shrink: 0;
-    transition: background-color .15s var(--ease), scale .1s var(--ease);
+    transition: background-color .15s var(--ease), opacity .15s var(--ease), scale .1s var(--ease);
   }
   .nav-btn:active { scale: .96; }
   .back-btn::after, .view-btn::after, .theme-btn::after, .route-toggle-btn::after, .map-link-btn::after {
@@ -590,7 +591,7 @@ try {
   /* 导航钮在可点的站点卡片里：只往上、左右扩，不压住下方站名（误触会跳出到 Google Maps）。
      往上 20px 凑满 44px 高：会伸出卡片顶 7px，落在两张卡片之间的空隙里 */
   .nav-btn::after { content: ""; position: absolute; inset: -20px -6px 0; }
-  @media (hover: hover) { .nav-btn:hover { background: var(--shu); } }
+  @media (hover: hover) { .nav-btn:hover { opacity: .9; } }
   .node-name {
     font-size: 15px;
     font-weight: 800;

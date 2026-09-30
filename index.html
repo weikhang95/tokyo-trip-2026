@@ -452,7 +452,7 @@ html[data-theme="dark"] .hero::after{outline-color:oklch(1 0 0 / .1);}
 @media (hover:hover){.day:hover{border-color:color-mix(in srgb,var(--ink-faint) 45%,var(--line));}}
 .day-hdr{
   display:flex;align-items:center;gap:var(--space-md);padding:var(--space-md) var(--space-lg);cursor:pointer;
-  user-select:none;position:relative;min-height:68px;background:var(--paper);transition:background-color .15s;
+  user-select:none;position:relative;min-height:68px;background:var(--paper);transition:background-color .15s var(--ease-out);
 }
 @media (hover:hover){.day-hdr:hover{background:var(--paper-tint);}}
 
@@ -642,7 +642,7 @@ html[data-motion="ready"] .cat-ico .ph-tone{transition:opacity .15s var(--ease-o
   position:relative;
   width:40px;height:40px;border-radius:50%;border:1px solid var(--line-soft);
   background:var(--paper-2);color:var(--ink-soft);display:flex;align-items:center;justify-content:center;
-  cursor:pointer;font-size:1.1rem;transition:background-color .15s,color .15s,scale .1s var(--ease-out);
+  cursor:pointer;font-size:1.1rem;transition:background-color .15s var(--ease-out),color .15s var(--ease-out),scale .1s var(--ease-out);
 }
 .drawer-close-btn::after{content:"";position:absolute;inset:50% auto auto 50%;width:44px;height:44px;transform:translate(-50%,-50%);}
 @media (hover:hover){.drawer-close-btn:hover{background:var(--line);color:var(--ink);}}
@@ -673,12 +673,12 @@ html[data-motion="ready"] .cat-ico .ph-tone{transition:opacity .15s var(--ease-o
 .check-item{
   display:flex;align-items:flex-start;gap:var(--space-sm);padding:var(--space-sm) var(--space-md);background:var(--paper-tint);
   border-radius:var(--r-md);border:1px solid var(--line-soft);font-size:var(--font-sub);font-weight:500;
-  cursor:pointer;transition:background-color .15s,border-color .15s,color .15s,opacity .15s;min-height:48px;line-height:1.55;color:var(--ink);
+  cursor:pointer;transition:background-color .15s var(--ease-out),border-color .15s var(--ease-out),color .15s var(--ease-out),opacity .15s var(--ease-out);min-height:48px;line-height:1.55;color:var(--ink);
 }
 @media (hover:hover){.check-item:hover{background:var(--paper-2);border-color:var(--line);}}
 .check-item strong{font-weight:600;}
-.check-item input[type="checkbox"]{width:19px;height:19px;margin-top:2px;accent-color:var(--shu);cursor:pointer;flex-shrink:0;}
-.check-item.done{background:var(--paper);color:var(--ink-faint);text-decoration:line-through;opacity:.75;}
+.check-item input[type="checkbox"]{width:19px;height:19px;margin-top:2px;accent-color:var(--ai);cursor:pointer;flex-shrink:0;}
+.check-item.done{background:var(--paper);color:var(--ink-faint);text-decoration:line-through;}
 
 /* Budget Box (Clean & Quiet) */
 .budget-box{padding:var(--space-md) var(--space-lg);border-top:1px solid var(--line-soft);background:var(--paper-tint);}
@@ -914,13 +914,13 @@ html[lang="en"] .cd-num{margin-left:0;}
 .day.is-today .day-daynum{color:var(--shu);}
 .day-today-tag{
   display:none;flex-shrink:0;font-size:var(--font-2xs);font-weight:800;letter-spacing:.06em;
-  color:#fff;background:var(--shu);padding:2px 8px;border-radius:99px;line-height:1.6;
+  color:var(--on-shu);background:var(--shu);padding:2px 8px;border-radius:99px;line-height:1.6;
 }
 .day.is-today .day-today-tag{display:inline-block;}
 
 /* 「今天」快捷键（day-nav-bar 第一颗） */
 .day-nav-btn.today-btn{color:var(--shu);}
-.day-nav-btn.today-btn .day-sub{color:var(--shu);opacity:.8;}
+.day-nav-btn.today-btn .day-sub{color:var(--shu);}
 
 /* ── 精简 / 完整 模式 ──────────────────────────── */
 /* 精简：时间轴只留「几点 + 做什么」，细节收成 2 行，点一下展开。 */

@@ -592,6 +592,35 @@ html[data-motion="ready"] .cat-ico .ph-tone{transition:opacity .15s var(--ease-o
 .tl-more .tl-detail>ol,.tl-more .tl-detail>ul{margin-top:0;}
 .tl-more .tl-detail{padding-bottom:var(--space-xs);}
 .tl-item .food-card{margin-top:var(--space-sm);}
+
+/* ── 卡片式时间轴：跟随身页同一种读法 ─────────────────
+   一站一张卡；时刻放进靛蓝小胶囊、标签跟在旁边；要点一条一行，前面一个圆点（划重点的是金点）。
+   选择器都带 .tl 前缀，盖过下面窄屏的密度规则 */
+.tl{background:var(--paper-tint);}
+.tl>.tl-item{
+  gap:0;margin-bottom:12px;padding:12px 14px;
+  background:var(--paper);border:1px solid var(--line);border-radius:14px;
+  box-shadow:0 1px 2px rgb(0 0 0 / .03),0 4px 14px rgb(0 0 0 / .04);
+}
+.tl>.tl-item:last-child{margin-bottom:0;padding-bottom:12px;}
+html[data-theme="dark"] .tl{background:var(--paper);}
+html[data-theme="dark"] .tl>.tl-item{background:var(--paper-2);box-shadow:none;}
+.tl>.tl-item.is-now{border-color:var(--ai);box-shadow:0 0 0 1px var(--ai);}
+.tl .tl-time{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin-bottom:6px;font-size:var(--font-xs);line-height:1.4;}
+.tl .tl-clock{gap:4px;padding:2px 8px;border-radius:6px;background:var(--ai-soft);color:var(--ai);}
+.tl .t-start{font-size:1.15em;font-weight:800;letter-spacing:0;color:inherit;}
+.tl .t-sep,.tl .t-end{font-size:1em;font-weight:600;color:inherit;}
+.tl .tl-item.is-past .tl-clock{background:transparent;box-shadow:inset 0 0 0 1px var(--line);color:var(--ink-faint);}
+.tl .tl-tag{display:inline;margin:0;font-size:1em;}
+.tl .now-tag{margin-left:0;vertical-align:baseline;}
+.tl .tl-main{font-size:var(--font-base);font-weight:800;line-height:1.4;margin-bottom:6px;text-wrap:pretty;}
+.tl .tl-main a{text-decoration-thickness:1px;text-underline-offset:3px;}
+.tl .tl-key{display:flex;flex-direction:column;gap:3px;margin:0 0 2px;color:var(--ink);line-height:1.6;}
+.tl .tl-key .f{display:block;position:relative;padding-left:14px;}
+.tl .tl-key .f::before{content:"";position:absolute;left:2px;top:.68em;width:5px;height:5px;border-radius:50%;background:var(--ink-faint);}
+.tl .tl-key .f:has(.kw)::before{background:var(--kin);}
+.tl .tl-key .sep{display:none;}
+@media (max-width:640px){.day-body .tl{padding:10px;}}
 @media (prefers-reduced-motion:reduce){.tl-more>summary::after{transition:none;}}
 
 .pill{display:inline-flex;align-items:center;gap:var(--space-2xs);font-size:var(--font-badge);padding:2px 8px;border-radius:var(--r-sm);background:var(--paper-2);border:0;color:var(--ink-soft);margin-top:var(--space-xs);font-weight:600;letter-spacing:0;}

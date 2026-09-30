@@ -17,7 +17,7 @@ Hand-off note for continuing on another machine. Started 2026-09-27. Each stop i
 |---|---|---|
 | 3 | 10/10 江のピコ birds: a pass-by hop-off inside the 15:02 Fujisawa transfer, not a stop | 6f4a7d6 |
 | 3 | 10/9 伊东屋: dropped (it was only there because a guide listed it) | 6f4a7d6 |
-| 4 | 10/9 小网神社: dropped. Sleep in, then Tsukiji from 08:30 to 11:15 | 6f4a7d6 |
+| 4 | 10/9 小网神社: dropped (6f4a7d6), then re-added 2026-09-30 because Mom really wants the money washing. Leave 07:40, wash coins about 08:05, optional omamori when the office opens at 09:00, Tsukiji 09:25–10:45 | 6f4a7d6 |
 | 5 | Tsukiji: several small shops instead of one expensive bowl. Mom has the grilled tuna-cheek don at どんぶり市場 plus 丸武 玉子烧, with 小田保 fried food as an option; I have 黒銀 大腹. The notes cover tourist-priced items to avoid | 6f4a7d6, dc34fd7 |
 | 6–9 | 10/5 lunch: 伊豆荣 本店 eel at 11:00. 海の幸 翔 (raw kaisendon only, weekdays) is a backup for me alone | dc34fd7 |
 | 8 | 10/4 秋叶原: keep. Mom and I both want it (electronics for her, anime for me) | — |

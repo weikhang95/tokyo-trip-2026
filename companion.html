@@ -387,6 +387,15 @@ try {
     font-size: 14px; font-weight: 700; line-height: 1.4;
     font-variant-numeric: tabular-nums; text-wrap: pretty;
   }
+  /* 死线：这一天有错过就作废的钟点（例如巴士）。金色＝警示，和站点里「!」要点同色 */
+  .hero-deadline {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 4px 10px; flex-wrap: wrap;
+    margin: 4px 0 0; padding: 8px 12px; border-radius: 10px;
+    background: var(--kin-soft); box-shadow: inset 3px 0 0 var(--kin);
+  }
+  .hero-deadline[hidden] { display: none; }
+  .hd-what { font-size: 14px; font-weight: 800; line-height: 1.4; color: var(--ink); text-wrap: pretty; font-variant-numeric: tabular-nums; }
+  .hd-left { font-size: 12px; font-weight: 700; color: var(--kin); white-space: nowrap; font-variant-numeric: tabular-nums; }
   /* 概要默认收起：路线已在标题里，逐站细节在下面的时间轴 */
   .hero-more > summary {
     display: inline-flex;
@@ -503,6 +512,18 @@ try {
     color: var(--shu);
   }
   /* 选中 = 靛蓝；红色只留给「必看」(.hero)，两者要分得开 */
+  /* 走过的站：圆点换淡色，一眼分出「已经过了」；卡片文字不淡化，晚点了照样看得清 */
+  .node-item.is-past:not(.active) .node-dot { border-color: var(--grid); color: var(--muted); box-shadow: none; }
+  /* 当天打开：走完的站收成一行，时间轴从「现在」开始 */
+  .node-item.is-folded { display: none; }
+  .done-fold {
+    display: flex; align-items: center; gap: 6px; width: 100%; min-height: 44px; margin: 0 0 16px; padding: 0 14px;
+    border: 1px dashed var(--grid); border-radius: 12px; background: none; color: var(--muted);
+    font: inherit; font-size: 13px; font-weight: 700; text-align: left; cursor: pointer;
+    transition: background-color .15s var(--ease);
+  }
+  .done-fold:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
+  @media (hover: hover) { .done-fold:hover { background: var(--ai-soft); } }
   .node-item.active .node-dot {
     background: var(--ai);
     border-color: var(--ai);
@@ -2206,6 +2227,7 @@ const DAYS = [
     intensity: "高负荷 (全行程唯一高光峰值) · 约 13,600 步",
     desc: "07:35 错峰出门，08:25 走进几乎无人的明治神宫巨木森林；蓝瓶青山 2F 露台坐 90 分钟，华夫饼合点一份、慢慢挑杯子；川上庵手打荞麦午餐；沿表参道散步，搭副都心线到新宿，和妈妈一起逛全球最大的 Onitsuka Tiger 旗舰店和 3COINS+plus，就在巴士上车点旁边；15:20 坐上开顶双层巴士，16:35 登顶涩谷SKY 看 17:16 日落与夜景，吃完炭烤鱼就搭银座线到浅草，转巴士到门口。",
     transit: "日比谷线→千代田线直达明治神宫前 2 号出口 → 千代田线 1 站至表参道(走 B3 出口才有电梯) → 表参道走到明治神宫前，13:00 前后副都心线 2 站至新宿三丁目 → Onitsuka → 3COINS → 15:20 双层巴士至涩谷 → 银座线坐到终点浅草 → 草63／都08 巴士到竜泉（下雨在上野换日比谷线）",
+    deadline: { at: "15:10", where: "歌舞伎町 Tower 1 番のりば", note: "巴士不等人" },
     routeUrl: "https://www.google.com/maps/dir/?api=1&origin=Meiji+Jingu&destination=SHIBUYA+SKY&waypoints=Blue+Bottle+Coffee+Aoyama%7COmotesando+Hills%7COnitsuka+Tiger+Shinjuku+Flagship+Store%7CTokyu+Kabukicho+Tower&travelmode=transit",
     nodes: [
       {
@@ -3268,11 +3290,13 @@ function selectDay(idx, updateHash = true) {
       <span class="hero-pacing">${day.intensity}</span>
     </div>
     <h1 class="hero-title">${day.title}</h1>
+    <div class="hero-deadline" id="heroDeadline" hidden></div>
     <button type="button" class="hero-next" id="heroNext" hidden></button>
     <details class="hero-more"><summary>今日概要 · 交通</summary><div class="hero-transit">${day.transit}</div><p class="hero-desc">${day.desc}</p></details>
     <a href="${day.routeUrl}" target="_blank" class="hero-route-link">今日完整路线 · Google Maps ↗</a>
   `;
 
+  updateDeadline();
   updateNextStop();
 
   // Render Timeline
@@ -3330,6 +3354,7 @@ function renderTimeline(day) {
 
     list.appendChild(item);
   });
+  foldDone(day, list);
   markNow();
   updateSun(true);
 }
@@ -3414,6 +3439,7 @@ function focusNode(idx) {
 }
 
 function highlightNodeCard(idx) {
+  if (document.getElementById(`node-${idx}`)?.classList.contains('is-folded')) unfoldDone();
   document.querySelectorAll('.node-item').forEach((card, i) => {
     card.classList.toggle('active', i === idx);
   });
@@ -3453,8 +3479,50 @@ function updateNextStop() {
   const n = day.nodes[i];
   const diff = nodeStartMins(n) - mins;
   const when = diff < 60 ? `${diff} 分钟后` : (diff % 60 ? `${Math.floor(diff / 60)} 小时 ${diff % 60} 分后` : `${diff / 60} 小时后`);
-  el.innerHTML = `<span class="hn-when">${n.mode ? ph(n.mode, PH_LABEL[n.mode]) : ''}下一站 · ${when}</span><span class="hn-what">${n.time.slice(0, 5)} ${n.title}</span>`;
+  el.innerHTML = `<span class="hn-when">${n.mode ? ph(n.mode, PH_LABEL[n.mode]) : ''}下一站 · ${when}</span><span class="hn-what">${n.time.slice(0, 5)} ${n.title || n.name}</span>`;
   el.onclick = () => focusNode(i);
+  el.hidden = false;
+}
+// 一站的起止（分钟）：没写结束时间就到下一站开始，最后一站算 60 分钟
+function nodeSpan(day, i) {
+  const n = day.nodes[i];
+  const start = hhmm(n.time);
+  const endM = /[-–]\s*(\d{1,2}:\d{2})/.exec(n.time);
+  const next = day.nodes[i + 1] ? hhmm(day.nodes[i + 1].time) : null;
+  return [start, endM ? hhmm(endM[1]) : (next ?? start + 60)];
+}
+// 当天打开：走完的站收成一行「已走完 N 站」，时间轴从现在开始；上一站留着，晚了也找得到
+function foldDone(day, list) {
+  if (!isToday(day)) return;
+  const mins = nowMins();
+  let live = day.nodes.findIndex((n, i) => nodeSpan(day, i)[1] > mins);
+  if (live < 0) live = day.nodes.length - 1;
+  const fold = live - 1;
+  if (fold < 1) return;
+  const items = list.querySelectorAll('.node-item');
+  for (let i = 0; i < fold; i++) items[i].classList.add('is-folded');
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'done-fold';
+  btn.textContent = `已走完 ${fold} 站 · 展开`;
+  btn.onclick = unfoldDone;
+  list.prepend(btn);
+}
+function unfoldDone() {
+  document.querySelectorAll('#timelineList .is-folded').forEach(el => el.classList.remove('is-folded'));
+  document.querySelector('#timelineList .done-fold')?.remove();
+}
+// 死线：当天倒数「还剩多久」，过了就收起；其他日子只写钟点和原因
+function updateDeadline() {
+  const el = document.getElementById('heroDeadline');
+  if (!el) return;
+  const day = DAYS[currentDayIdx];
+  const dl = day.deadline;
+  const today = isToday(day);
+  const left = dl ? hhmm(dl.at) - nowMins() : -1;
+  if (!dl || (today && left < 0)) { el.hidden = true; return; }
+  const txt = !today ? dl.note : left < 60 ? `还剩 ${left} 分` : `还剩 ${Math.floor(left / 60)} 小时${left % 60 ? ` ${left % 60} 分` : ''}`;
+  el.innerHTML = `<span class="hd-what">${dl.at} 前到${dl.where}</span><span class="hd-left">${txt}</span>`;
   el.hidden = false;
 }
 // 「现在」这一站：当天、且现在落在这一站的时间段里（没写结束时间就到下一站开始）
@@ -3465,11 +3533,9 @@ function markNow() {
   if (isToday(day)) {
     const mins = nowMins();
     day.nodes.forEach((n, i) => {
-      const start = hhmm(n.time);
-      const endM = /[-–]\s*(\d{1,2}:\d{2})/.exec(n.time);
-      const next = day.nodes[i + 1] ? hhmm(day.nodes[i + 1].time) : null;
-      const end = endM ? hhmm(endM[1]) : (next ?? start + 60);
+      const [start, end] = nodeSpan(day, i);
       if (start != null && mins >= start && mins < end) cur = i;
+      if (start != null && mins >= end) items[i]?.classList.add('is-past');
     });
   }
   items.forEach((el, i) => {
@@ -3525,7 +3591,7 @@ function updateSun(settle) {
   });
 }
 
-function tick() { updateNextStop(); markNow(); updateSun(false); }
+function tick() { updateDeadline(); updateNextStop(); markNow(); updateSun(false); }
 setInterval(tick, 30000);
 document.addEventListener('visibilitychange', () => { if (!document.hidden) tick(); });
 

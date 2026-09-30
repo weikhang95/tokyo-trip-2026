@@ -3088,6 +3088,16 @@ function initApp() {
   renderDayPills();
   const initIdx = getDayIdxFromHash();
   selectDay(initIdx, false);
+  // 底栏「日程」带 ?view=time、「地图」带 ?view=map；已经在随身页就只换视图，不重载
+  const v = /[?&]view=(time|map|split)/.exec(location.search);
+  if (v) setViewMode(v[1]);
+  document.addEventListener('click', e => {
+    const a = e.target.closest('.tabbar a[data-key="days"], .tabbar a[data-key="map"]');
+    if (!a || !a.href.includes('companion.html')) return;
+    e.preventDefault();
+    setViewMode(a.dataset.key === 'map' ? 'map' : 'time');
+    window.scrollTo({ top: 0, behavior: scrollBehavior() });
+  });
   // 首屏画完才开动效：打开页面时不播，之后换天、换站才有过渡
   requestAnimationFrame(() => requestAnimationFrame(() => { document.documentElement.dataset.motion = 'ready'; }));
 
@@ -3603,6 +3613,8 @@ document.addEventListener('visibilitychange', () => { if (!document.hidden) tick
 function setViewMode(mode) {
   currentViewMode = mode;
   document.body.dataset.view = mode;
+  document.body.dataset.tab = mode === 'map' ? 'map' : 'days';
+  if (window.TabBar) window.TabBar.setActive(document.body.dataset.tab);
   ['split', 'time', 'map'].forEach(m => document.getElementById('btn-' + m).setAttribute('aria-pressed', String(m === mode)));
   document.getElementById('btn-split').classList.toggle('active', mode === 'split');
   document.getElementById('btn-time').classList.toggle('active', mode === 'time');
@@ -3646,7 +3658,7 @@ document.addEventListener('DOMContentLoaded', initApp);
 </script>
 <!-- Google Maps JavaScript API. This browser key is public by design: it only works on
      weikhang95.github.io, only for the Maps JavaScript API, and is capped at 300 map loads a day. -->
-<script src="tabbar.js?v=5" defer></script>
+<script src="tabbar.js?v=6" defer></script>
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5rs71T6Mi38Y9nAwLS6NihCBaMr5zJZs&loading=async&callback=onGoogleMapsReady&language=zh-CN&region=JP" onerror="gm_authFailure()"></script>
 </body>
 </html>

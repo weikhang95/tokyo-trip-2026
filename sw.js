@@ -2,12 +2,12 @@
    页面走网络优先（有网就拿最新），没网退回缓存；图片、样式、字体走缓存优先。
    Google 地图底图和 API 不缓存（跨域、有配额），离线时地图空白，导航按钮仍会跳 Google Maps app。
    改了预缓存清单或想强制所有人更新时，把 VERSION 加一。 */
-const VERSION = 'v5';
+const VERSION = 'v6';
 const CACHE = 'tokyo-2026-' + VERSION;
 
 const PRECACHE = [
   './', 'index.html', 'companion.html',
-  'tabbar.css?v=5', 'tabbar.js?v=5', 'cat-icons.js?v=2', 'manifest.json',
+  'tabbar.css?v=5', 'tabbar.js?v=6', 'cat-icons.js?v=2', 'manifest.json',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-180.png',
   'img/fuji_hero.jpg', 'img/asakusa.jpg', 'img/ueno.jpg', 'img/fuji_dawn.jpg',
   'img/kamakura.jpg', 'img/shibuya.jpg', 'img/tokyo_tower.jpg', 'img/yanaka.jpg',

@@ -7,14 +7,13 @@
   var TRIP_START = new Date(2026, 9, 3); // 10 月 3 日（本地时间）
   var TRIP_DAYS = 10;
 
-  // 日程键：旅行中→当天；出发前→第 1 天；结束后→速览
+  // 日程键：随身页的时间轴（不带日期：旅行中落在今天，出发前落在第 1 天）；结束后→手册速览
   function daysTarget() {
     var now = new Date();
     var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     var n = Math.round((today - TRIP_START) / 86400000) + 1;
-    if (n < 1) return 'index.html#day-1';
     if (n > TRIP_DAYS) return 'index.html#overview';
-    return 'index.html#day-' + n;
+    return 'companion.html?view=time';
   }
 
   // Phosphor Icons (phosphoricons.com, MIT) · Regular 为默认，当前页换 Fill
@@ -34,7 +33,7 @@
   var TABS = [
     { key: 'handbook', zh: '手册', en: 'Guide', href: 'index.html#overview' },
     { key: 'days', zh: '日程', en: 'Days', href: null },
-    { key: 'map', zh: '地图', en: 'Map', href: 'companion.html' },
+    { key: 'map', zh: '地图', en: 'Map', href: 'companion.html?view=map' },
     { key: 'todo', zh: '待办', en: 'To-do', href: 'index.html#booking' },
     { key: 'more', zh: '更多', en: 'More', href: null }
   ];

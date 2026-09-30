@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-<title>东京 · 河口湖 2026 · 旅行手册</title>
+<title>资料 · 东京 · 河口湖 2026</title>
+<script>
+/* 主页是日程：直接打开网址（不带 #）就去日程；资料的每个入口都带 #，例如 #overview、#day-6 */
+if (!location.hash) location.replace('companion.html?view=time');
+</script>
 <meta name="description" content="东京 · 河口湖行程 2026 — 2026年10月3日至12日，两个人的富士山之旅"/>
 <meta name="theme-color" content="#f7f7f5"/>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗻</text></svg>"/>
@@ -227,6 +231,8 @@ p,li,.tl-desc,.card-lead{text-wrap:pretty;}
   display:none; /* 只留衬线字标，不要 app 图标式色块 */
 }
 .brand-txt{font-family:var(--font-serif);font-size:1.0625rem;font-weight:700;color:var(--ink);letter-spacing:.02em;}
+/* 页名：日程页写「日程」，这一页写「资料」，一眼知道自己在哪 */
+.page-tag{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:99px;background:var(--ai-soft);color:var(--ai);font-family:var(--font-sans);font-size:12px;font-weight:800;letter-spacing:.04em;vertical-align:2px;}
 
 .controls{display:flex;align-items:center;gap:var(--space-xs);}
 
@@ -1263,6 +1269,7 @@ html[data-motion="ready"] .lang-bar::before{transition:translate .28s cubic-bezi
         <div class="brand-txt">
           <span class="zh on">东京 · 河口湖 2026</span>
           <span class="en">Tokyo Trip 2026</span>
+          <span class="page-tag">资料</span>
         </div>
       </div>
       <div class="controls">

@@ -136,6 +136,8 @@ try {
   /* 昼 / 夜 切换 */
   /* 顶栏和资料页同一种样子：左边衬线站名，右边昼夜。手机上「行程／地图」在底栏，视图切换只在宽屏出现 */
   .bar-brand { font-family: 'Noto Serif SC', 'Songti SC', serif; font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: .02em; white-space: nowrap; }
+  /* 页名：这一页写「日程」，资料页写「资料」 */
+  .page-tag { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 99px; background: var(--ai-soft); color: var(--ai); font-family: 'Inter', 'Noto Sans SC', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: .04em; vertical-align: 2px; }
   .bar-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
   @media (max-width: 640px) { .view-toggles { display: none; } }
   .theme-btn {
@@ -791,7 +793,7 @@ try {
 <!-- ── Sticky Top Bar ── -->
 <header class="top-bar">
   <div class="bar-main">
-    <span class="bar-brand">东京 · 河口湖 2026</span>
+    <span class="bar-brand">东京 · 河口湖 2026<span class="page-tag">日程</span></span>
     <div class="bar-right">
       <div class="view-toggles" role="group" aria-label="视图模式">
         <button class="view-btn active" id="btn-split" onclick="setViewMode('split')" aria-pressed="true">分屏</button>

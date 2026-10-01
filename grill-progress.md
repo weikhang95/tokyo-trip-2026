@@ -1,5 +1,7 @@
 # Itinerary grill: progress
 
+> **Archived 2026-10-01.** This is the 9/27–9/30 discussion log, not the current plan. Later changes (10/5 Ikebukuro instead of Nihonbashi, new dinners, THE BAR in the afternoon, Roppongi on 10/9…) are only in `companion.html` `DAYS`. Read the 攻略 for the itinerary.
+
 Hand-off note for continuing on another machine. Started 2026-09-27. Each stop is being checked against one question: is it something we actually want, or is it only there because guides call it a must-do? The handbook is `index.html`; `companion.html` mirrors it.
 
 ## Ground rules (agreed)

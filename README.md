@@ -4,5 +4,5 @@
 
 网页版：https://weikhang95.github.io/tokyo-trip-2026/
 
-- `companion.html` — 日程（主页，每天现在做什么、下一站）
-- `index.html` — 资料（航班、住宿、交通、预算、待办和每一站的说明）
+- `companion.html` — 攻略（主页，十天十章：现在做什么、下一站）
+- `index.html` — 背包（航班、住宿、交通、订票与待办、预算；没有每天的行程）

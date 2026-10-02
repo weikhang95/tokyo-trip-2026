@@ -882,6 +882,16 @@ html[data-theme="dark"] #theme-toggle.swap .ic-moon, html:not([data-theme="dark"
 .gl-name{font-weight:700;font-size:var(--font-base);line-height:1.4;}
 .gl-sub{font-size:var(--font-xs);color:var(--ink-soft);line-height:1.6;text-wrap:pretty;}
 .gl-go{flex:none;color:var(--ai);font-weight:700;}
+
+/* 出发前的核实记录（楼名、执照、口碑）：旅行中用不到，收起来放在资料表后面；箭头和攻略的「本章简报」一样 */
+.verify{margin:var(--space-sm) 0;padding:0 var(--space-md);border-radius:var(--r-md);background:var(--paper-2);}
+.verify>summary{display:flex;align-items:center;gap:8px;min-height:44px;list-style:none;cursor:pointer;font-size:var(--font-sm);font-weight:600;color:var(--ink-soft);}
+.verify>summary::-webkit-details-marker{display:none;}
+.verify>summary::after{content:"";flex:none;width:6px;height:6px;margin-left:auto;border:solid currentColor;border-width:0 1.5px 1.5px 0;rotate:45deg;translate:0 -.15em;}
+.verify[open]>summary::after{rotate:225deg;translate:0 .15em;}
+html[data-motion="ready"] .verify>summary::after{transition:rotate .2s var(--ease-out),translate .2s var(--ease-out);}
+.verify>.note-box{margin:0;padding:0 0 var(--space-sm);background:none;}
+@media (max-width:640px){.verify{padding:0 var(--space-sm);}}
 </style>
 <link rel="stylesheet" href="tabbar.css?v=5"/>
 </head>
@@ -1086,10 +1096,6 @@ html[data-theme="dark"] #theme-toggle.swap .ic-moon, html:not([data-theme="dark"
       <span class="zh on">东京基地：Luxury 浅草 Ⅱ (303号房)</span>
       <span class="en">Tokyo Base: Luxury Asakusa II (Room 303)</span>
     </h3>
-    <div class="note-box tip">
-      <strong>官方确权：真实大楼名与正规旅行业执照彻底核实锁定！</strong>
-      <span class="zh on"><ul class="pts"><li><strong>门口楼名</strong>：<strong>Luxury 浅草 Ⅱ</strong>（房东 9/27 确认）<ul><li>旅馆业登记名 LUXURY STAY HOTEL 浅草竜泉店</li><li>Airbnb 房源名 <code>Yoin TOKYO in Asakusa</code></li></ul></li><li><strong>正规合法执照编号</strong>：<strong>7台台健生環 第10242号</strong><ul><li>东京都台东区保健所生活环境课依《旅馆业法》正式核发，消防卫生达标</li></ul></li><li><strong>物业属性与开业年份</strong>：<strong>2026 年崭新开幕公寓式酒店</strong><ul><li>全栋 23 间独立套房，配正规乘客电梯与无障碍设施</li><li>现代新耐震基准建筑，卫浴家电全新</li></ul></li><li><strong>多平台真实口碑</strong><ul><li>Trip.com 台湾钻石会员家庭住客 <strong>10/10 满分</strong>（2026年9月1日评价：“這次入住體驗非常滿意！地理位置很方便，附近交通、餐飲都很齊全，房間乾淨整潔，環境舒適，入住期間能感受到店家對細節的用心”）</li><li>Airbnb 维持 4.8~5.0 满分区间超赞房东</li></ul></li><li><strong>精确地址</strong>：<strong>〒110-0012 東京都台東区竜泉 3-10-7</strong><ul><li>原文件所提「フォルテハイツ」为 1976 年老楼旧名，已作废</li><li>给司机看地址和门口楼名「Luxury 浅草 Ⅱ」即可</li></ul></li></ul></span>
-    </div>
     <div class="kv-grid">
       <div class="kv-label"><span class="zh on">预订平台</span><span class="en">Platform</span></div>
       <div class="kv-val">Airbnb（房源名：Yoin TOKYO in Asakusa · Superhost）</div>
@@ -1112,6 +1118,13 @@ html[data-theme="dark"] #theme-toggle.swap .ic-moon, html:not([data-theme="dark"
       <div class="kv-label"><span class="zh on">出入时间</span><span class="en">Check-in / out</span></div>
       <div class="kv-val">Check-in 16:00 后 · Checkout 10:00 前 · 电子锁自助入住 (Lockbox)</div>
     </div>
+    <!-- 出发前的核实记录（9/27）：旅行中用不到，收起来放在资料表后面 -->
+    <details class="verify">
+      <summary><span class="zh on">核实记录（9/27）· 楼名、执照、口碑</span><span class="en">Verification notes (27 Sep)</span></summary>
+      <div class="note-box tip">
+        <span class="zh on"><ul class="pts"><li><strong>门口楼名</strong>：<strong>Luxury 浅草 Ⅱ</strong>（房东 9/27 确认）<ul><li>旅馆业登记名 LUXURY STAY HOTEL 浅草竜泉店</li><li>Airbnb 房源名 <code>Yoin TOKYO in Asakusa</code></li></ul></li><li><strong>正规合法执照编号</strong>：<strong>7台台健生環 第10242号</strong><ul><li>东京都台东区保健所生活环境课依《旅馆业法》正式核发，消防卫生达标</li></ul></li><li><strong>物业属性与开业年份</strong>：<strong>2026 年崭新开幕公寓式酒店</strong><ul><li>全栋 23 间独立套房，配正规乘客电梯与无障碍设施</li><li>现代新耐震基准建筑，卫浴家电全新</li></ul></li><li><strong>多平台真实口碑</strong><ul><li>Trip.com 台湾钻石会员家庭住客 <strong>10/10 满分</strong>（2026年9月1日评价：“這次入住體驗非常滿意！地理位置很方便，附近交通、餐飲都很齊全，房間乾淨整潔，環境舒適，入住期間能感受到店家對細節的用心”）</li><li>Airbnb 维持 4.8~5.0 满分区间超赞房东</li></ul></li><li><strong>精确地址</strong>：<strong>〒110-0012 東京都台東区竜泉 3-10-7</strong><ul><li>原文件所提「フォルテハイツ」为 1976 年老楼旧名，已作废</li><li>给司机看地址和门口楼名「Luxury 浅草 Ⅱ」即可</li></ul></li></ul></span>
+      </div>
+    </details>
     <div class="note-box tip">
       <strong>房源已确认设施 (Airbnb 官方列表 29 项)：</strong>
       <span class="zh on"><ul class="pts"><li><strong>电梯</strong>（正规电梯直达楼层）</li><li>厨房：<strong>微波炉</strong>、<strong>冰箱</strong>、瓦斯炉、锅具与调味料、碗筷杯盘、餐桌</li><li>洗衣：<strong>独立洗衣机</strong>、晾衣架</li><li>浴室：<strong>浴缸</strong>、吹风机、洗发水/护发素/沐浴乳、毛巾床单卫生纸</li><li>其他：衣柜、阳台与城市景观、Wi-Fi、冷气</li><li><strong>盥洗备品齐全，洗发水沐浴乳吹风机都不用带</strong></li></ul></span>

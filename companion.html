@@ -794,9 +794,10 @@ try {
   .toc-pro:focus-visible, .toc-go:focus-visible, .toc-ch:focus-visible, .ch-next:focus-visible, .ch-nav button:focus-visible, .rs-btn:focus-visible, .brief-go:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
   .toc-pro {
     display: flex; align-items: center; gap: 10px; width: 100%; min-height: 56px; margin: 0 0 10px; padding: 10px 14px;
-    border: 1px dashed var(--grid); border-radius: 14px; background: none; color: var(--ink); font: inherit; text-align: left; cursor: pointer; text-decoration: none;
-    transition: background-color .15s var(--ease);
+    border: 1px solid var(--grid); border-radius: 14px; background: var(--card-bg); box-shadow: var(--shadow); color: var(--ink); font: inherit; text-align: left; cursor: pointer; text-decoration: none;
+    transition: background-color .15s var(--ease), scale .15s var(--ease);
   }
+  .toc-pro:active { scale: .99; } /* 实线卡，和下面的章节卡一样能按；虚线只留给「已走完 N 站」这种收起的东西 */
   @media (hover: hover) { .toc-pro:hover { background: var(--ai-soft); } }
   .toc-pro .ph { width: 1.3em; height: 1.3em; color: var(--ai); flex: none; }
   .toc-pro b { display: block; font-family: var(--serif); font-size: 15px; }
@@ -4285,6 +4286,17 @@ function initApp() {
   else if (/\d/.test(hash)) { selectDay(getDayIdxFromHash(), false); setViewMode(v || chapterMode); }
   else if (v === 'map' || tripPhase() === 'during') { selectDay(todayIdx(), false); setViewMode(v || chapterMode); }
   else { selectDay(0, false); showToc(false); }
+  // 从背包「更多」点「日语短句」进来：照常打开今天那一章（或目录），再打开短句卡；网址换回这一章，返回键不会再弹一次
+  if (hash === '#talk') {
+    if (location.hash === '#talk') history.replaceState(null, '', `#${DAYS[currentDayIdx].day}`);
+    openOrderCard('talk');
+  }
+  // 已经在攻略页：「更多」里的「日语短句」直接打开，不重新载入（抽屉自己会先收起）
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.tb-sheet a[href$="#talk"]')) return;
+    e.preventDefault();
+    openOrderCard('talk', document.querySelector('.tabbar [data-key="more"]'));
+  });
 
   document.addEventListener('click', e => {
     const a = e.target.closest('.tabbar a[data-key="days"], .tabbar a[data-key="map"]');
@@ -5216,6 +5228,6 @@ window.addEventListener('resize', () => {
 
 document.addEventListener('DOMContentLoaded', initApp);
 </script>
-<script src="tabbar.js?v=9" defer></script>
+<script src="tabbar.js?v=10" defer></script>
 </body>
 </html>

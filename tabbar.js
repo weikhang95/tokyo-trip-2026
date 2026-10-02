@@ -29,7 +29,9 @@
     { key: 'more', zh: '更多', en: 'More', href: null }
   ];
 
+  // 第一格是日语短句：在店里要开口时点一下就到（攻略页直接打开，不重新载入）
   var MORE_LINKS = [
+    { href: 'companion.html#talk', zh: '日语短句', en: 'Phrases', subZh: '开口就用 · 有注音', subEn: 'Say & hear' },
     { href: 'index.html#flights', zh: '航班', en: 'Flights', subZh: '去程 · 返程', subEn: 'Out & back' },
     { href: 'index.html#hotels', zh: '住宿', en: 'Stays', subZh: '竜泉 · 河口湖', subEn: 'Ryusen · Kawaguchiko' },
     { href: 'index.html#transit', zh: '交通', en: 'Transit', subZh: '车票与线路', subEn: 'Passes & lines' },

@@ -90,9 +90,9 @@ body[data-tabbar="always"] { padding-bottom: calc(72px + env(safe-area-inset-bot
 .tb-backdrop {
   position: fixed; inset: 0; z-index: 950;
   background: rgba(0, 0, 0, .36);
-  opacity: 0; transition: opacity .25s var(--tb-ease);
+  opacity: 0; transition: opacity .18s var(--tb-ease); /* 收起 .18s，比打开快，和抽屉一起退 */
 }
-.tb-backdrop.open { opacity: 1; }
+.tb-backdrop.open { opacity: 1; transition-duration: .25s; }
 html[data-theme="dark"] .tb-backdrop { background: rgba(0, 0, 0, .56); }
 .tb-sheet {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 960;

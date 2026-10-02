@@ -4852,7 +4852,7 @@ function renderTimeline(day) {
       <div class="node-card">
         <div class="node-top">
           <span class="node-when"><span class="time-badge">${nodeCatIcon(node)}${String(node.time).replace(/\s*-\s*/, '–')}</span>${tagHtml}${node.sun ? `<span class="sun-chip" data-kind="${node.sun.kind}" data-node="${nIdx}">${SUN_SVG}<span class="sun-txt"></span></span>` : ''}</span>
-          <a href="${gmapsNavUrl}" target="_blank" class="nav-btn" title="在 Google Maps 中导航">${ph('nav')}导航</a>
+          <a href="${gmapsNavUrl}" target="_blank" class="nav-btn" title="在 Google Maps 中导航" aria-label="导航：${node.title || node.name}">${ph('nav')}导航</a>
         </div>
         <h2 class="node-name">${node.title || node.name}</h2>
         <div class="node-name-sub">${String(node.sub || '').replace(/(\d{1,2}:\d{2})\s*-\s*(\d{1,2}:\d{2})/g, '$1–$2')}</div>

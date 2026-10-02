@@ -42,21 +42,25 @@ html[data-theme="dark"] .tb-sheet { --tb-surface: var(--card-bg, var(--paper)); 
 .tb-ico { width: 24px; height: 24px; flex-shrink: 0; }
 /* 图标三态，同一个 Phosphor 图标的三种粗细，形状不变只换墨量：
    线框（平时）→ 双色（电脑悬停 / 手机按住：Fill 叠 20%，就是 Phosphor Duotone）→ 实心（当前页）。
-   状态本身靠颜色和加粗标签表达，动效只是过渡 */
+   状态本身靠颜色和加粗标签表达，动效只是过渡。
+   换到当前页时线框缩小、模糊、淡出，实心从小、从模糊里长出来（缩放 .25、模糊 4px，和昼夜按钮一样）；悬停／按住的双色只淡入，不缩放 */
 .tb-ico path { transform-box: fill-box; transform-origin: center; }
-.tb-ico .ph-fill { opacity: 0; scale: .8; }
+.tb-ico .ph-fill { opacity: 0; scale: .25; filter: blur(4px); }
 .tb-item[aria-current="page"] { color: var(--tb-ink); font-weight: 650; }
 .tb-item[aria-current="page"] .tb-ico { color: var(--tb-accent); }
-.tb-item[aria-current="page"] .ph-regular { opacity: 0; }
-.tb-item[aria-current="page"] .ph-fill { opacity: 1; scale: 1; }
-.tb-item:active:not([aria-current]) .ph-fill { opacity: .2; scale: 1; }
+.tb-item[aria-current="page"] .ph-regular { opacity: 0; scale: .25; filter: blur(4px); }
+.tb-item[aria-current="page"] .ph-fill { opacity: 1; scale: 1; filter: none; }
+.tb-item:active:not([aria-current]) .ph-fill { opacity: .2; scale: 1; filter: none; }
 @media (hover: hover) {
-  .tb-item:hover:not([aria-current]) .ph-fill { opacity: .2; scale: 1; }
+  .tb-item:hover:not([aria-current]) .ph-fill { opacity: .2; scale: 1; filter: none; }
   .tb-item:hover .tb-ico { translate: 0 -1px; }
 }
 /* 过渡只在 JS 标了 tb-ready（首屏画完）之后才开：打开页面时不播 */
 .tabbar.tb-ready .tb-ico { transition: translate .2s var(--tb-ease); }
-.tabbar.tb-ready .tb-ico path { transition: opacity .22s cubic-bezier(.2,0,0,1), scale .22s cubic-bezier(.2,0,0,1); }
+.tabbar.tb-ready .tb-ico path { transition: opacity .3s cubic-bezier(.2,0,0,1), scale .3s cubic-bezier(.2,0,0,1), filter .3s cubic-bezier(.2,0,0,1); }
+/* 双色预览是高频动作：只淡入 .15s，不缩放不去模糊 */
+.tabbar.tb-ready .tb-item:active:not([aria-current]) .ph-fill { transition: opacity .15s var(--tb-ease); }
+@media (hover: hover) { .tabbar.tb-ready .tb-item:hover:not([aria-current]) .ph-fill { transition: opacity .15s var(--tb-ease); } }
 
 /* 当前页的小横条：换页时从上一格滑过来，看得出「从哪到哪」 */
 .tabbar::before {

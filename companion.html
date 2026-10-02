@@ -4251,6 +4251,7 @@ let polylineLayer = null;
 let currentViewMode = matchMedia('(min-width: 900px)').matches ? 'split' : 'time'; // 'split', 'time', 'map', 'toc'
 let chapterMode = currentViewMode;   // 看某一章时用的视图：手机「行程」，宽屏「分屏」
 let lastGuide = 'chapter';           // 去地图之前在看目录还是某一章，点底栏「攻略」回到那里
+let guideSpot = null;                // 去地图之前读到哪：{ y, day, guide }；回来还是同一章就滚回原处
 
 // 现在几点：网址加 ?now=2026-10-10T16:50 可以假装是那个时刻，出发前预览「现在」和日落倒数
 const NOW_OVERRIDE = (() => {
@@ -4323,9 +4324,17 @@ function initApp() {
     const a = e.target.closest('.tabbar a[data-key="days"], .tabbar a[data-key="map"]');
     if (!a || !a.href.includes('companion.html')) return;
     e.preventDefault();
-    if (a.dataset.key === 'map') setViewMode('map');
-    // 「攻略」：从地图回来就回到刚才那一页；已经在攻略里再点一次 = 回到起点（旅行中是今天那一章，其他时候是目录）
-    else if (currentViewMode === 'map') lastGuide === 'toc' ? showToc(false) : setViewMode(chapterMode);
+    if (a.dataset.key === 'map') {
+      if (currentViewMode !== 'map') guideSpot = { y: window.scrollY, day: currentDayIdx, guide: lastGuide };
+      setViewMode('map');
+    }
+    // 「攻略」：从地图回来就回到刚才那一页、刚才读到的地方（在地图上换了天就从这一章开头读）；已经在攻略里再点一次 = 回到起点（旅行中是今天那一章，其他时候是目录）
+    else if (currentViewMode === 'map') {
+      lastGuide === 'toc' ? showToc(false) : setViewMode(chapterMode);
+      const back = guideSpot && guideSpot.day === currentDayIdx && guideSpot.guide === lastGuide;
+      window.scrollTo({ top: back ? guideSpot.y : 0, behavior: 'auto' });
+      return;
+    }
     else goHome();
     window.scrollTo({ top: 0, behavior: scrollBehavior() });
   });

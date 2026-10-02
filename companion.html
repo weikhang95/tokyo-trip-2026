@@ -41,7 +41,8 @@ try {
     --matcha-soft: rgba(80, 102, 40, 0.1);
     --kin: #855E16;
     --kin-soft: rgba(133, 94, 22, 0.08);
-    --shadow: 0 4px 16px rgba(35, 31, 27, 0.06);
+    /* 卡片的边：三层很淡的阴影代替 1px 线（一圈细环 + 贴身一层 + 远一点一层） */
+    --shadow: 0 0 0 1px oklch(0 0 0 / 0.06), 0 1px 2px -1px oklch(0 0 0 / 0.06), 0 2px 4px 0 oklch(0 0 0 / 0.04);
     --radius: 16px;
     --on-ai: #FFFFFF;
     --chip-bg: #EFECE6;
@@ -78,7 +79,7 @@ try {
     --matcha-soft: rgba(157, 191, 90, 0.12);
     --kin: #d9b25c;
     --kin-soft: rgba(217, 178, 92, 0.12);
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow: 0 0 0 1px oklch(1 0 0 / 0.08); /* 深色底上阴影看不见，只留一圈白环 */
     --on-ai: #0e1116;
     --chip-bg: #1c222b;
     --chip-bg-2: #1c222b;
@@ -214,7 +215,6 @@ try {
   /* ── Map Container ── */
   .map-card {
     background: var(--card-bg);
-    border: 1px solid var(--grid);
     border-radius: var(--radius);
     overflow: hidden;
     margin-bottom: 16px;
@@ -293,7 +293,6 @@ try {
   
   .day-hero-card {
     background: var(--card-bg);
-    border: 1px solid var(--grid);
     border-radius: var(--radius);
     padding: 14px 16px;
     margin-bottom: 16px;
@@ -493,20 +492,17 @@ try {
 
   .node-card {
     background: var(--card-bg);
-    border: 1px solid var(--grid);
     border-radius: 14px;
     padding: 12px 14px;
     box-shadow: var(--shadow);
-    transition: scale .15s var(--ease), border-color .15s var(--ease), box-shadow .15s var(--ease);
+    transition: scale .15s var(--ease), box-shadow .15s var(--ease);
   }
   .node-item.active .node-card {
-    border-color: var(--ai);
-    box-shadow: 0 4px 18px color-mix(in srgb, var(--ai) 15%, transparent);
+    box-shadow: 0 0 0 1px var(--ai), 0 4px 18px color-mix(in srgb, var(--ai) 15%, transparent);
   }
   /* 现在这一站：靛蓝框，和手册的「现在」卡一样 */
   .node-item.is-now .node-card {
-    border-color: var(--ai);
-    box-shadow: 0 0 0 1px var(--ai), var(--shadow);
+    box-shadow: 0 0 0 2px var(--ai), var(--shadow);
   }
   .node-card:active {
     scale: .99;
@@ -773,7 +769,7 @@ try {
   /* ── 目录 ── */
   .toc[hidden] { display: none; }
   .toc-cover {
-    background: var(--card-bg); border: 1px solid var(--grid); border-radius: var(--radius);
+    background: var(--card-bg); border-radius: var(--radius);
     box-shadow: var(--shadow); overflow: hidden; margin-bottom: 14px;
   }
   .toc-cover-art { height: min(200px, calc((100vw - 30px) * .325)); background: var(--chip-bg); }
@@ -798,7 +794,7 @@ try {
   .toc-pro:focus-visible, .toc-go:focus-visible, .toc-ch:focus-visible, .ch-next:focus-visible, .ch-nav button:focus-visible, .rs-btn:focus-visible, .brief-go:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
   .toc-pro {
     display: flex; align-items: center; gap: 10px; width: 100%; min-height: 56px; margin: 0 0 10px; padding: 10px 14px;
-    border: 1px solid var(--grid); border-radius: 14px; background: var(--card-bg); box-shadow: var(--shadow); color: var(--ink); font: inherit; text-align: left; cursor: pointer; text-decoration: none;
+    border: 0; border-radius: 14px; background: var(--card-bg); box-shadow: var(--shadow); color: var(--ink); font: inherit; text-align: left; cursor: pointer; text-decoration: none;
     transition: background-color .15s var(--ease), scale .15s var(--ease);
   }
   .toc-pro:active { scale: .99; } /* 实线卡，和下面的章节卡一样能按；虚线只留给「已走完 N 站」这种收起的东西 */
@@ -809,7 +805,7 @@ try {
   .toc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
   .toc-ch {
     display: grid; grid-template-columns: 108px 1fr; width: 100%; padding: 0;
-    border: 1px solid var(--grid); border-radius: 14px; background: var(--card-bg); box-shadow: var(--shadow);
+    border: 0; border-radius: 14px; background: var(--card-bg); box-shadow: var(--shadow);
     overflow: hidden; color: inherit; font: inherit; text-align: left; cursor: pointer;
     transition: scale .15s var(--ease), border-color .15s var(--ease);
   }
@@ -833,7 +829,7 @@ try {
   }
   .toc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin-top: 4px; font-size: 12px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
   .toc-dl { color: var(--kin); }
-  .toc-ch.is-today { border-color: var(--shu); box-shadow: 0 0 0 1px var(--shu), var(--shadow); }
+  .toc-ch.is-today { box-shadow: 0 0 0 2px var(--shu), var(--shadow); }
 
   /* ── 章节封面：插画左上角贴一张「题签」，像线装书封面 ── */
   .hero-illo { position: relative; }
@@ -1036,7 +1032,7 @@ try {
   .oc-back { min-height: 44px; padding: 0 16px; border: 0; border-radius: 99px; background: none; color: var(--muted); font: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer; }
 
   /* ── 雨天攻略（整章的下雨方案，章末一张卡） ── */
-  .rain-card { margin: 4px 0 16px; background: var(--card-bg); border: 1px solid var(--grid); border-radius: 14px; box-shadow: var(--shadow); padding: 0 14px; }
+  .rain-card { margin: 4px 0 16px; background: var(--card-bg); border-radius: 14px; box-shadow: var(--shadow); padding: 0 14px; }
   .rain-card[hidden] { display: none; }
   .rain-card > summary { display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 12px 0; list-style: none; cursor: pointer; }
   .rain-card > summary::-webkit-details-marker { display: none; }
@@ -1059,7 +1055,7 @@ try {
   .ch-end-sum { margin: 0 0 12px; text-align: center; font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   .ch-next {
     display: grid; grid-template-columns: 96px 1fr auto; align-items: center; width: 100%; padding: 0 12px 0 0;
-    border: 1px solid var(--grid); border-radius: 14px; background: var(--card-bg); box-shadow: var(--shadow);
+    border: 0; border-radius: 14px; background: var(--card-bg); box-shadow: var(--shadow);
     overflow: hidden; color: inherit; font: inherit; text-align: left; cursor: pointer; transition: scale .15s var(--ease);
   }
   .ch-next:active { scale: .99; }

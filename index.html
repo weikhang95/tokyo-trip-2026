@@ -349,8 +349,9 @@ html[data-theme="dark"] .hero img{filter:brightness(.8) saturate(.9);}
 }
 .note-box>strong{margin-right:5px;}
 /* 靠底色区分语气，不用侧边色条 */
-.note-box.warn{background:color-mix(in srgb,var(--shu) 6%,var(--paper));}
-.note-box.warn>strong{color:var(--shu);font-weight:600;} /* 只染开头标签；正文里的加粗保持墨色 */
+/* 警示用金色，和攻略一致：红色只留给「今天」和「必看」 */
+.note-box.warn{background:color-mix(in srgb,var(--kin) 6%,var(--paper));}
+.note-box.warn>strong{color:var(--kin);font-weight:600;} /* 只染开头标签；正文里的加粗保持墨色 */
 .note-box.tip{background:color-mix(in srgb,var(--ai) 6%,var(--paper));}
 .note-box.tip>strong{color:var(--ai);font-weight:600;}
 .note-box.kin{background:color-mix(in srgb,var(--kin) 6%,var(--paper));}
@@ -1095,7 +1096,7 @@ html[data-theme="dark"] #theme-toggle.swap .ic-moon, html:not([data-theme="dark"
       <div class="kv-label"><span class="zh on">房型与面积</span><span class="en">Room Size</span></div>
       <div class="kv-val">303号房（竜泉303）· 27㎡ · 2 Single Beds (两张独立单人床)</div>
       <div class="kv-label"><span class="zh on">详细地址</span><span class="en">Address</span></div>
-      <div class="kv-val"><a href="https://maps.google.com/?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%AB%9C%E6%B3%893-10-7+LUXURY+STAY+HOTEL" target="_blank" rel="noopener noreferrer">〒110-0012 東京都台東区竜泉 3-10-7 Luxury 浅草 Ⅱ</a><br/><span style="font-size:0.9em;color:var(--matcha);font-weight:600;">执照编号：7台台健生環 第10242号 · 全栋23间房 · 2026年开业</span></div>
+      <div class="kv-val"><a href="https://maps.google.com/?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E7%AB%9C%E6%B3%893-10-7+LUXURY+STAY+HOTEL" target="_blank" rel="noopener noreferrer">〒110-0012 東京都台東区竜泉 3-10-7 Luxury 浅草 Ⅱ</a><br/><span style="font-size:0.9em;color:var(--ink-faint);font-weight:600;">执照编号：7台台健生環 第10242号 · 全栋23间房 · 2026年开业</span></div>
       <div class="kv-label"><span class="zh on">入住与退房</span><span class="en">Check-in</span></div>
       <div class="kv-val">自助入住。入住指南 <strong>10/2 日本时间 18:00</strong> 自动发到 Airbnb，里面有钥匙密码和钥匙盒位置。进不去先 WhatsApp 房东（号码存在手机通讯录），或发 Airbnb 消息。退房：钥匙放回原处，关灯、电视、空调。房里有电热水壶和洗衣机；Wi-Fi 名称和密码房东还在确认。</div>
       <div class="kv-label"><span class="zh on">预订日期</span><span class="en">Dates</span></div>
@@ -1105,9 +1106,9 @@ html[data-theme="dark"] #theme-toggle.swap .ic-moon, html:not([data-theme="dark"
       <div class="kv-label"><span class="zh on">入住人数</span><span class="en">Guests</span></div>
       <div class="kv-val">2 adults (订单已确认为 2 人)</div>
       <div class="kv-label"><span class="zh on">扣款日期</span><span class="en">Payment</span></div>
-      <div class="kv-val" style="color:var(--shu);font-weight:800;">9月24日自动扣款 RM 3,868.47 (Pay later，无额外费用)</div>
+      <div class="kv-val">9月24日自动扣款 RM 3,868.47 (Pay later，无额外费用)</div>
       <div class="kv-label"><span class="zh on">取消政策</span><span class="en">Cancellation</span></div>
-      <div class="kv-val" style="color:var(--shu);font-weight:800;">10月2日 16:00 (日本时间) 前全额退 · 即大马时间 10/2 15:00</div>
+      <div class="kv-val">10月2日 16:00 (日本时间) 前全额退 · 即大马时间 10/2 15:00</div>
       <div class="kv-label"><span class="zh on">出入时间</span><span class="en">Check-in / out</span></div>
       <div class="kv-val">Check-in 16:00 后 · Checkout 10:00 前 · 电子锁自助入住 (Lockbox)</div>
     </div>
@@ -1121,7 +1122,7 @@ html[data-theme="dark"] #theme-toggle.swap .ic-moon, html:not([data-theme="dark"
     </div>
     <div style="margin-top:16px;">
       <h4 style="font-size:var(--font-sm);color:var(--ai);margin-bottom:8px;">住处周边生活圈与 24h 应急补给（Google Maps 步行实测 · 点击直达导航）</h4>
-      <p style="font-size:var(--font-xs);color:var(--muted);margin-bottom:8px;">基准起点：公寓大门 <code>東京都台東区竜泉 3-10-7 Luxury 浅草 Ⅱ</code>，全为平坦柏油街道（零台阶、零陡坡）：</p>
+      <p style="font-size:var(--font-xs);color:var(--ink-faint);margin-bottom:8px;">基准起点：公寓大门 <code>東京都台東区竜泉 3-10-7 Luxury 浅草 Ⅱ</code>，全为平坦柏油街道（零台阶、零陡坡）：</p>
       <table class="info-table">
         <thead>
           <tr>
@@ -1487,7 +1488,7 @@ html[data-theme="dark"] #theme-toggle.swap .ic-moon, html:not([data-theme="dark"
     </p>
   </div>
 
-  <div class="card" style="border:2px solid var(--shu);">
+  <div class="card">
     <div class="b-total" style="border:none;padding:0;">
       <span style="font-family:var(--font-serif);font-size:var(--font-md);color:var(--ink);"><strong>预估总额 (2人总计)</strong></span>
       <span class="b-total-val" style="font-size:var(--font-h2);">RM 14,348 (约 RM 7,174 / 人)</span>

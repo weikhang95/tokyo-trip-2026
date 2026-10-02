@@ -265,11 +265,11 @@ try {
     gap: 3px;
     font-size: 11px;
     font-weight: 700;
-    color: var(--shu-ink);
+    color: var(--ai); /* 和封面的「全天路线」同色；红色只留给「今天」和「必看」 */
     text-decoration: none;
     padding: 3px 8px;
     border-radius: 99px;
-    background: var(--shu-soft);
+    background: var(--ai-soft);
     transition: scale .1s var(--ease);
   }
   .map-link-btn:active { scale: .96; }
@@ -4886,7 +4886,7 @@ function updateMap(day) {
     });
     marker.popupHtml = `
         <div style="font-family:var(--sans); min-width:160px;">
-          <div style="font-size:11px; font-weight:800; color:var(--shu); margin-bottom:2px; font-variant-numeric:tabular-nums;">${String(node.time).replace(/\s*-\s*/, '–')} · 第 ${nIdx + 1} 站</div>
+          <div style="font-size:11px; font-weight:800; color:var(${node.hero ? '--shu' : '--ai'}); margin-bottom:2px; font-variant-numeric:tabular-nums;">${String(node.time).replace(/\s*-\s*/, '–')} · 第 ${nIdx + 1} 站</div>
           <div style="font-size:14px; font-weight:800; color:var(--ink); margin-bottom:4px;">${node.title || node.name}</div>
           <div style="font-size:12px; color:var(--muted); margin-bottom:6px; font-variant-numeric:tabular-nums;">${node.sub}</div>
           <a href="${gmapsNavUrl}" target="_blank" style="display:inline-flex; align-items:center; min-height:44px; font-size:12px; font-weight:700; color:var(--on-ai); background:var(--ai); text-decoration:none; padding:0 14px; border-radius:99px;">Google Maps 导航 ↗</a>

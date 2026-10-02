@@ -22,7 +22,7 @@ try {
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="tabbar.css?v=8">
+<link rel="stylesheet" href="tabbar.css?v=9">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -1085,6 +1085,8 @@ try {
   html[data-motion="ready"] .ch-enter { animation: ch-in .24s cubic-bezier(.2, 0, 0, 1) both; }
   html[data-motion="ready"] .ch-enter + .ch-enter { animation-delay: .04s; }
   @keyframes ch-in { from { opacity: 0; translate: 0 6px; } }
+  /* 高对比模式会去掉阴影：卡片的边改用系统文字色的实线 */
+  @media (forced-colors: active) { :is(.map-card, .day-hero-card, .node-card, .toc-cover, .toc-pro, .toc-ch, .rain-card, .ch-next) { border: 1px solid CanvasText; } }
   /* 从目录进一章（一天就几次）：拆成四段，每段晚 100ms——插画 → 题签 → 路线条 → 简报和第一站；章与章之间切换照旧，不等 */
   @media (prefers-reduced-motion: no-preference) {
     html[data-motion="ready"] .ch-stagger > *, html[data-motion="ready"] .ch-stagger ~ .ch-enter { animation: ch-in .24s cubic-bezier(.2, 0, 0, 1) both; }

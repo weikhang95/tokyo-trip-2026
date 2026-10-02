@@ -159,4 +159,9 @@ html[data-text-size="large"] .tb-settings button { font-size: 16px; min-height: 
   .tabbar.tb-ready .tb-ico, .tabbar.tb-ready .tb-ico path, .tabbar.tb-ready::before { transition: none; }
   .tb-item:hover .tb-ico { translate: none; }
 }
+/* 高对比模式会去掉阴影：抽屉和浮动底栏的边改用系统文字色的实线 */
+@media (forced-colors: active) {
+  .tb-sheet { border: 1px solid CanvasText; border-bottom: 0; }
+}
+@media (forced-colors: active) and (min-width: 641px) { body[data-tabbar="always"] .tabbar { border: 1px solid CanvasText; } }
 @media print { .tabbar, .tb-sheet, .tb-backdrop { display: none !important; } }

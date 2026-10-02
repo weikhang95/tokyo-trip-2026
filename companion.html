@@ -952,7 +952,14 @@ try {
   }
   dialog.oc::backdrop { background: rgba(20, 18, 15, .45); }
   html[data-motion="ready"] dialog.oc[open] { animation: oc-up .26s cubic-bezier(.2, 0, 0, 1); }
+  html[data-motion="ready"] dialog.oc[open]::backdrop { animation: oc-fade .26s cubic-bezier(.2, 0, 0, 1); }
+  /* 关闭：下沉一点再淡出，比打开轻（和底栏「更多」抽屉一样）；JS 播完才真的 close() */
+  html[data-motion="ready"] dialog.oc[open].is-closing { animation: oc-down .18s cubic-bezier(.2, 0, 0, 1) forwards; }
+  html[data-motion="ready"] dialog.oc[open].is-closing::backdrop { animation: oc-out .18s cubic-bezier(.2, 0, 0, 1) forwards; }
   @keyframes oc-up { from { translate: 0 24px; opacity: 0; } }
+  @keyframes oc-down { to { translate: 0 12px; opacity: 0; } }
+  @keyframes oc-fade { from { opacity: 0; } }
+  @keyframes oc-out { to { opacity: 0; } }
   .oc-head {
     position: sticky; top: 0; z-index: 1; display: flex; align-items: center; gap: 8px;
     padding: 10px 8px 8px 16px; background: var(--card-bg); border-bottom: 1px solid var(--grid);
@@ -4660,7 +4667,7 @@ function openOrderCard(k, from) {
       ${dishes.map((d, i) => `<div class="oc-row"><button type="button" class="oc-dish" data-dish="${i}"><span class="oc-jp" lang="ja">${rb(d.jp)}</span><span class="oc-zh">${d.zh}</span><span class="oc-meta"><span>${d.tip || ''}</span>${d.price ? `<span class="oc-price">${d.price}</span>` : ''}</span></button>${sayBtn(`data-say-dish="${i}"`, d.zh)}</div>`).join('')}
       <p class="oc-label">常用短句 · 点一下放大</p>
       <div class="oc-phrases">${phrases.map(phRow).join('')}</div>`;
-  dlg.classList.remove('is-big');
+  dlg.classList.remove('is-big', 'is-closing');
   dlg.innerHTML = `<div class="oc-head"><h2 id="ocTitle">${c.title}</h2><button type="button" class="oc-x" data-close aria-label="关闭">${ph('close')}</button></div>
     <div class="oc-body">
       ${c.sections && CAN_SAY ? '<p class="oc-hint">每句都有注音。点喇叭听念法，跟着念几遍；点句子放大，给对方看。</p>' : ''}
@@ -4692,8 +4699,18 @@ function openOrderCard(k, from) {
     bigEl.querySelector('[data-unbig]').focus({ preventScroll: true });
     ocKeepAwake(true); // 拿给店员看的时候屏幕别暗掉
   };
+  // 关闭：点背景、点 ×、按 Esc 都先播退场（下沉＋淡出）再真的关；减少动态或首屏前直接关
+  const closeOc = () => {
+    if (!dlg.open || dlg.classList.contains('is-closing')) return;
+    if (document.documentElement.dataset.motion !== 'ready' || matchMedia('(prefers-reduced-motion: reduce)').matches) { dlg.close(); return; }
+    dlg.classList.add('is-closing');
+    // 中途又打开了别的卡（is-closing 已被清掉）就不关
+    setTimeout(() => { if (dlg.classList.contains('is-closing')) { dlg.classList.remove('is-closing'); dlg.close(); } }, 180);
+  };
+  dlg.oncancel = e => { e.preventDefault(); closeOc(); };
   dlg.onclick = e => {
-    if (e.target === dlg || e.target.closest('[data-close]')) { dlg.close(); return; }
+    if (dlg.classList.contains('is-closing')) return;
+    if (e.target === dlg || e.target.closest('[data-close]')) { closeOc(); return; }
     const sy = e.target.closest('.oc-say');
     // 自己要说的念慢一点跟读；店员会说的用正常语速，练耳朵
     if (sy) { sayJa(sy.dataset.sayBig !== undefined ? big.src : sy.dataset.sayDish !== undefined ? dishes[+sy.dataset.sayDish].jp : phrases[+sy.dataset.sayPh][0], hearSet.has(sy.dataset.sayBig !== undefined ? big.i : +sy.dataset.sayPh) ? 1 : .85); return; }

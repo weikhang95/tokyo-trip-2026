@@ -163,10 +163,8 @@ try {
   #theme-toggle { display: grid; place-items: center; }
   #theme-toggle svg { grid-area: 1 / 1; width: 20px; height: 20px; fill: currentColor; }
   html[data-theme="dark"] #theme-toggle .ic-moon, html:not([data-theme="dark"]) #theme-toggle .ic-sun { opacity: 0; scale: .25; filter: blur(4px); }
-  #theme-toggle.swap svg { animation: glyph-in .3s cubic-bezier(.2,0,0,1); }
-  html[data-theme="dark"] #theme-toggle.swap .ic-moon, html:not([data-theme="dark"]) #theme-toggle.swap .ic-sun { animation-name: glyph-out; }
-  @keyframes glyph-in { from { opacity: 0; scale: .25; filter: blur(4px); } }
-  @keyframes glyph-out { from { opacity: 1; scale: 1; filter: blur(0); } }
+  /* 用 transition 不用 keyframes：连点两下时图标从当前位置折返，不会跳回起点重播 */
+  html[data-motion="ready"] #theme-toggle svg { transition: opacity .3s cubic-bezier(.2,0,0,1), scale .3s cubic-bezier(.2,0,0,1), filter .3s cubic-bezier(.2,0,0,1); }
 
   /* ── Day Selector Pills ── */
   .day-scroll {
@@ -4468,7 +4466,7 @@ function toggleTheme() {
   const next = isDark() ? 'light' : 'dark';
   // 换主题时先关掉所有过渡，整页一次切好，不让几十个元素各自淡入淡出
   const freeze = document.createElement('style');
-  freeze.textContent = '*,*::before,*::after{transition:none !important}';
+  freeze.textContent = '*:not(#theme-toggle > svg),*::before,*::after{transition:none !important}';
   document.head.appendChild(freeze);
   document.documentElement.dataset.theme = next;
   getComputedStyle(document.body).opacity;
@@ -4476,8 +4474,6 @@ function toggleTheme() {
   try { localStorage.setItem('tokyo_theme', next); } catch (e) {}
   document.querySelector('meta[name="theme-color"]').content = next === 'dark' ? '#0e1116' : '#F7F5F0';
   syncThemeButton();
-  const btn = document.getElementById('theme-toggle');
-  btn.classList.remove('swap'); void btn.offsetWidth; btn.classList.add('swap');
   if (map) {
     map.setOptions({ styles: isDark() ? NIGHT_MAP_STYLE : null, backgroundColor: cssVar('--map-bg') });
     updateMap(DAYS[currentDayIdx]); // 路线与图钉按新主题重新着色

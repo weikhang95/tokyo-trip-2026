@@ -922,8 +922,10 @@ try {
   .br-q { display: flex; align-items: center; gap: 5px; margin: 0 0 5px; font-size: 12.5px; font-weight: 800; color: var(--ink); }
   .br-q .ph { width: 1.2em; height: 1.2em; color: var(--ai); }
   .branch ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px; }
-  .branch li { display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 8px; font-size: 13.5px; line-height: 1.55; text-wrap: pretty; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
-  .br-if { padding: 0 7px; border-radius: 6px; background: var(--card-bg); color: var(--ai); font-size: 12px; font-weight: 800; line-height: 1.7; white-space: nowrap; }
+  /* 「如果」短：和「就」并排，「就」折行时缩进对齐。「如果」长到「就」剩不到 11 个字宽：「就」换到下一行占满整行，不挤成一条窄栏 */
+  .branch li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 3px 8px; font-size: 13.5px; line-height: 1.55; text-wrap: pretty; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+  .branch li > span:last-child { flex: 1 1 11em; min-width: 0; }
+  .br-if { padding: 0 7px; border-radius: 6px; background: var(--card-bg); color: var(--ai); font-size: 12px; font-weight: 800; line-height: 1.7; }
   .egg { display: flex; gap: 6px; margin: 6px 0 2px; font-size: 13.5px; line-height: 1.55; text-wrap: pretty; }
   .egg .ph { flex: none; width: 1.1em; height: 1.1em; margin-top: .22em; color: var(--ai); }
   .egg b { font-weight: 800; }

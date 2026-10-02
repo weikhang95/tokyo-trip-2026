@@ -996,9 +996,16 @@ try {
   .oc-say:active { scale: .96; }
   .oc-say:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
   .oc-say.is-big { display: inline-flex; gap: 6px; width: auto; padding: 0 16px; border-radius: 99px; font-size: 13px; font-weight: 800; }
-  /* 店员会问的：下面一行「回」＝怎么回答 */
-  .oc-ph > .oc-re { display: flex; align-items: baseline; gap: 6px; margin-top: 4px; color: var(--ink); font-size: 13.5px; font-weight: 700; line-height: 1.9; }
+  /* 店员会问的：问句下面紧跟「你答」，一种说法一行，各有喇叭（慢速，跟着念）；组内 4px、组间 8px */
+  .oc-qa { display: grid; gap: 4px; }
+  .oc-re {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; width: 100%; min-height: 44px; padding: 6px 12px; border: 0; border-radius: 12px;
+    background: var(--ai-soft); color: var(--ink); font: inherit; font-size: 15px; font-weight: 700; line-height: 1.9; text-align: left; cursor: pointer; transition: scale .1s var(--ease);
+  }
+  .oc-re:active { scale: .98; }
+  .oc-re:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
   .oc-re i { flex: none; padding: 0 6px; border-radius: 6px; background: var(--card-bg); color: var(--ai); font-style: normal; font-size: 11.5px; font-weight: 800; line-height: 1.7; }
+  .oc-re small { font-size: 12.5px; font-weight: 400; color: var(--muted); }
   .oc-hint { margin: 2px 0 0; font-size: 13px; line-height: 1.6; color: var(--muted); text-wrap: pretty; }
   .oc-ph {
     display: block; width: 100%; padding: 10px 12px; border: 0; border-radius: 12px; background: var(--chip-bg);
@@ -1095,7 +1102,7 @@ try {
 
   /* 大字：和背包同一个开关（底栏「更多」→ 大字），读的字放大约 1.25 倍，跟背包的大字一样；路线条、顶栏不变 */
   html[data-text-size="large"] :is(.node-key, .node-more ul, .hn-what, .hd-what, .brief-list, .hero-desc, .rain-body ul) { font-size: 18px; }
-  html[data-text-size="large"] :is(.branch li, .egg, .rain-body h3, .oc-zh, .oc-big-zh) { font-size: 17px; }
+  html[data-text-size="large"] :is(.branch li, .egg, .rain-body h3, .oc-zh, .oc-big-zh, .oc-re) { font-size: 17px; }
   html[data-text-size="large"] :is(.br-q, .hero-transit, .gear li, .brief-go, .rain-card > summary span, .oc-ph > span, .oc-hint) { font-size: 16px; }
   html[data-text-size="large"] :is(.node-name-sub, .br-if, .hn-when, .hd-left, .brief-list dt, .brief-go small) { font-size: 15px; }
   html[data-text-size="large"] :is(.time-badge, .node-tag, .rest-chip, .now-tag, .sun-chip) { font-size: 14px; }
@@ -4695,7 +4702,15 @@ function openOrderCard(k, from) {
   const hearSet = new Set();
   if (c.sections) { let k = 0; c.sections.forEach(x => x.phrases.forEach(() => { if (x.hear) hearSet.add(k); k++; })); }
   let pi = 0;
-  const phRow = ([jp, zh, re]) => { const i = pi++; return `<div class="oc-row"><button type="button" class="oc-ph" data-ph="${i}"><b lang="ja">${rb(jp)}</b><span>${zh}</span>${re ? `<span class="oc-re"><i>你答</i><span lang="ja">${rb(re)}</span></span>` : ''}</button>${sayBtn(`data-say-ph="${i}"`, zh)}</div>`; };
+  // 「你答」：「／」隔开的是几种说法，各自一行一颗喇叭；句末（…）是给你看的中文注解，不念
+  const answers = phrases.map(([, , re]) => re ? re.split(/\s*／\s*/).map(a => { const m = a.match(/^(.*?)\s*（([^）]*)）\s*$/); return m ? { jp: m[1], note: m[2] } : { jp: a, note: '' }; }) : []);
+  const phRow = ([jp, zh]) => {
+    const i = pi++;
+    const q = `<div class="oc-row"><button type="button" class="oc-ph" data-ph="${i}"><b lang="ja">${rb(jp)}</b><span>${zh}</span></button>${sayBtn(`data-say-ph="${i}"`, zh)}</div>`;
+    if (!answers[i].length) return q;
+    const re = answers[i].map((a, j) => `<div class="oc-row"><button type="button" class="oc-re" data-re="${i}.${j}"><i>你答</i><span lang="ja">${rb(a.jp)}</span>${a.note ? `<small>${a.note}</small>` : ''}</button>${sayBtn(`data-say-re="${i}.${j}"`, `你答：${kana(a.jp)}`)}</div>`).join('');
+    return `<div class="oc-qa">${q}${re}</div>`;
+  };
   const body = c.sections
     ? c.sections.map(x => `<p class="oc-label">${x.label}</p><div class="oc-phrases">${x.phrases.map(phRow).join('')}</div>`).join('')
     : `<p class="oc-label">指给店员看 · 点一下放大</p>
@@ -4748,10 +4763,13 @@ function openOrderCard(k, from) {
     if (e.target === dlg || e.target.closest('[data-close]')) { closeOc(); return; }
     const sy = e.target.closest('.oc-say');
     // 自己要说的念慢一点跟读；店员会说的用正常语速，练耳朵
+    if (sy && sy.dataset.sayRe) { const [i, j] = sy.dataset.sayRe.split('.'); sayJa(answers[i][j].jp); return; }
     if (sy) { sayJa(sy.dataset.sayBig !== undefined ? big.src : sy.dataset.sayDish !== undefined ? dishes[+sy.dataset.sayDish].jp : phrases[+sy.dataset.sayPh][0], hearSet.has(sy.dataset.sayBig !== undefined ? big.i : +sy.dataset.sayPh) ? 1 : .85); return; }
     const d = e.target.closest('[data-dish]'), p = e.target.closest('[data-ph]'), st = e.target.closest('[data-step]');
     if (d) { const x = dishes[+d.dataset.dish], q = qtyParts(x.jp); openBig({ jp: x.jp, zh: x.zh, q, n: q ? q.n : 1 }, d); return; }
     if (p) { const [jp, zh] = phrases[+p.dataset.ph]; openBig({ jp, zh, q: null, n: 1, i: +p.dataset.ph }, p); return; }
+    const r = e.target.closest('[data-re]');
+    if (r) { const [i, j] = r.dataset.re.split('.'), a = answers[i][j]; openBig({ jp: a.jp, zh: `你答「${phrases[i][1]}」${a.note ? `（${a.note}）` : ''}`, q: null, n: 1 }, r); return; }
     if (st) {
       big.n = Math.min(9, Math.max(1, big.n + +st.dataset.step)); drawBig(true);
       if (st.disabled) bigEl.querySelector('[data-step]:not(:disabled)').focus(); // 按到头，焦点换到另一颗

@@ -687,6 +687,7 @@ try {
   .now-tag {
     display: inline-flex; align-items: center; gap: 4px;
     font-size: 12px; font-weight: 800; color: var(--ai); letter-spacing: .02em;
+    font-variant-numeric: tabular-nums; /* 「还剩 35 分」每 30 秒变，数字等宽才不跳 */
   }
   .now-tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
   html[data-motion="ready"] .now-tag { animation: now-in .25s cubic-bezier(.2,0,0,1); }

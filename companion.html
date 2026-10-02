@@ -563,7 +563,7 @@ try {
     color: var(--on-ai);
     background: var(--ai);
     text-decoration: none;
-    padding: 4px 9px;
+    padding: 4px 9px 4px 6px; /* 图标侧收 3px：箭头图形自带留白，等宽内边距看起来偏右 */
     border-radius: 99px;
     flex-shrink: 0;
     transition: background-color .15s var(--ease), opacity .15s var(--ease), scale .1s var(--ease);
@@ -752,7 +752,7 @@ try {
   }
   .toc-btn {
     position: relative; flex: none; display: inline-flex; align-items: center; gap: 4px;
-    margin: 6px 0 10px 12px; padding: 6px 10px; border: 1px solid var(--grid); border-radius: 99px;
+    margin: 6px 0 10px 12px; padding: 6px 10px 6px 7px; border: 1px solid var(--grid); border-radius: 99px; /* 图标侧收 3px：视觉居中 */
     background: var(--paper); color: var(--ink); font: inherit; font-size: 12px; font-weight: 800; cursor: pointer;
     transition: background-color .15s var(--ease), color .15s var(--ease), border-color .15s var(--ease), scale .1s var(--ease);
   }
@@ -785,7 +785,7 @@ try {
   .toc-rail i.today { background: var(--shu); }
   .toc-go {
     display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; min-height: 48px;
-    padding: 8px 14px; border: 0; border-radius: 12px; background: var(--ai); color: var(--on-ai);
+    padding: 8px 9px 8px 14px; border: 0; border-radius: 12px; background: var(--ai); color: var(--on-ai); /* 箭头侧收 5px：视觉居中 */
     font: inherit; font-size: 14px; font-weight: 800; text-align: left; cursor: pointer; transition: scale .1s var(--ease);
   }
   .toc-go:active { scale: .98; }
@@ -871,7 +871,7 @@ try {
   .gear li { padding: 2px 9px; border-radius: 8px; background: var(--chip-bg); font-size: 13px; line-height: 1.6; }
   .brief-links { display: flex; flex-wrap: wrap; gap: 4px 6px; }
   .brief-go {
-    position: relative; display: inline-flex; align-items: center; gap: 4px; min-height: 28px; padding: 0 9px;
+    position: relative; display: inline-flex; align-items: center; gap: 4px; min-height: 28px; padding: 0 9px 0 8px; /* 图标侧收 1px：视觉居中 */
     border: 0; border-radius: 99px; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer;
     background: var(--ai-soft); color: var(--ai); transition: scale .1s var(--ease);
   }
@@ -936,7 +936,7 @@ try {
   /* ── 点餐卡：卡片里的按钮 + 从底部升起的对话框，日文放大给店员看 ── */
   .card-btns { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 2px; }
   .card-btn {
-    position: relative; display: inline-flex; align-items: center; gap: 5px; min-height: 32px; padding: 0 11px;
+    position: relative; display: inline-flex; align-items: center; gap: 5px; min-height: 32px; padding: 0 11px 0 8px; /* 图标侧收 3px：视觉居中 */
     border: 1px solid color-mix(in srgb, var(--ai) 35%, transparent); border-radius: 99px; background: var(--card-bg);
     color: var(--ai); font: inherit; font-size: 12.5px; font-weight: 800; cursor: pointer;
     transition: scale .1s var(--ease), background-color .15s var(--ease);

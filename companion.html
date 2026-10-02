@@ -281,8 +281,9 @@ try {
   @media (min-width: 640px) {
     #map { height: 340px; }
   }
-  /* 地图载入失败（没网、key 被拒、当日额度用完）：收成一行提示，别留一个空框占半个屏幕 */
-  .map-off #map { height: auto; background: none; }
+  /* 地图载入失败（没网、key 被拒、当日额度用完）：收成一行提示，别留一个空框占半个屏幕。
+     setViewMode 会给 #map 写行内高度，所以这里要 !important 才盖得过 */
+  .map-off #map { height: auto !important; background: none; }
   .map-off .route-toggle-btn { display: none; }
   .map-fail { margin: 0; padding: 10px 16px 12px; font-size: 13px; line-height: 1.6; color: var(--muted); text-wrap: pretty; }
 
@@ -4486,7 +4487,7 @@ function onGoogleMapsReady() {
 function gm_authFailure() {
   document.getElementById('mapCard').classList.add('map-off');
   document.getElementById('map').innerHTML =
-    '<p class="map-fail">地图暂时载入不了。每一站的「导航」按钮照样能打开 Google Maps。</p>';
+    '<p class="map-fail">地图暂时载入不了（没网，或今天的额度用完）。右上「Google 路线」能在 Google Maps 里看全天路线；每一站的「导航」在底栏「攻略」里。</p>';
 }
 
 // Small stand-in for Leaflet's layer group: holds overlays so a day switch can clear them

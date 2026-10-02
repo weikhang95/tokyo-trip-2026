@@ -81,8 +81,8 @@ body[data-tabbar="always"] { padding-bottom: calc(72px + env(safe-area-inset-bot
   body[data-tabbar="always"] .tabbar {
     left: 50%; right: auto; width: min(520px, calc(100vw - 32px)); translate: -50% 0;
     bottom: 16px; padding: 0 4px;
-    border: 1px solid var(--tb-line); border-radius: 18px;
-    box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.08);
+    border: 0; border-radius: 18px;
+    box-shadow: 0 0 0 1px oklch(0 0 0 / 0.06), 0 1px 2px -1px oklch(0 0 0 / 0.06), 0 8px 24px rgba(0,0,0,.08);
   }
 }
 
@@ -94,13 +94,17 @@ body[data-tabbar="always"] { padding-bottom: calc(72px + env(safe-area-inset-bot
 }
 .tb-backdrop.open { opacity: 1; transition-duration: .25s; }
 html[data-theme="dark"] .tb-backdrop { background: rgba(0, 0, 0, .56); }
+/* 深色底上阴影看不见：浮动底栏和抽屉的边只留一圈白环 */
+@media (min-width: 641px) { html[data-theme="dark"] body[data-tabbar="always"] .tabbar { box-shadow: 0 0 0 1px oklch(1 0 0 / 0.08); } }
+html[data-theme="dark"] .tb-sheet { box-shadow: 0 0 0 1px oklch(1 0 0 / 0.08); }
 .tb-sheet {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 960;
   max-width: 560px; margin: 0 auto; max-height: 82vh; overflow-y: auto;
   padding: 8px 16px calc(20px + env(safe-area-inset-bottom, 0px));
   background: var(--tb-surface); color: var(--tb-ink);
-  border: 1px solid var(--tb-line); border-bottom: 0; border-radius: 28px 28px 0 0;
-  box-shadow: 0 -8px 32px rgba(0, 0, 0, .14);
+  border: 0; border-radius: 28px 28px 0 0;
+  /* 边用阴影：一圈很淡的环 + 往上投的软影，不画 1px 线 */
+  box-shadow: 0 0 0 1px oklch(0 0 0 / 0.06), 0 -1px 2px -1px oklch(0 0 0 / 0.06), 0 -8px 32px rgba(0, 0, 0, .14);
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", sans-serif;
   translate: 0 100%;
   transition: translate .25s var(--tb-ease);

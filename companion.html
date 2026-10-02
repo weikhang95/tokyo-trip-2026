@@ -1089,6 +1089,13 @@ try {
   html[data-motion="ready"] .ch-enter { animation: ch-in .24s cubic-bezier(.2, 0, 0, 1) both; }
   html[data-motion="ready"] .ch-enter + .ch-enter { animation-delay: .04s; }
   @keyframes ch-in { from { opacity: 0; translate: 0 6px; } }
+  /* 从目录进一章（一天就几次）：拆成四段，每段晚 100ms——插画 → 题签 → 路线条 → 简报和第一站；章与章之间切换照旧，不等 */
+  @media (prefers-reduced-motion: no-preference) {
+    html[data-motion="ready"] .ch-stagger > *, html[data-motion="ready"] .ch-stagger ~ .ch-enter { animation: ch-in .24s cubic-bezier(.2, 0, 0, 1) both; }
+    html[data-motion="ready"] .ch-stagger > :is(.hero-meta, .hero-title) { animation-delay: .1s; }
+    html[data-motion="ready"] .ch-stagger > :is(.route-strip, .hero-deadline, .hero-next) { animation-delay: .2s; }
+    html[data-motion="ready"] .ch-stagger > :is(.brief, .hero-route-link), html[data-motion="ready"] .ch-stagger ~ .ch-enter { animation-delay: .3s; }
+  }
 
   /* 大字：和背包同一个开关（底栏「更多」→ 大字），读的字放大约 1.25 倍，跟背包的大字一样；路线条、顶栏不变 */
   html[data-text-size="large"] :is(.node-key, .node-more ul, .hn-what, .hd-what, .brief-list, .hero-desc, .rain-body ul) { font-size: 18px; }
@@ -4360,14 +4367,14 @@ function goHome() {
 }
 // 打开某一章：从目录进来记一笔历史，手机返回键能回目录
 function openChapter(idx, push = currentViewMode === 'toc') {
-  const switching = idx !== currentDayIdx || currentViewMode === 'toc';
-  if (currentViewMode === 'toc' || currentViewMode === 'map' && push) setViewMode(chapterMode);
+  const fromToc = currentViewMode === 'toc';
+  const switching = idx !== currentDayIdx || fromToc;
+  if (fromToc || currentViewMode === 'map' && push) setViewMode(chapterMode);
   selectDay(idx, true, push);
   if (switching && document.documentElement.dataset.motion === 'ready') {
-    ['dayHero', 'timelineList'].forEach(id => {
-      const el = document.getElementById(id);
-      el.classList.remove('ch-enter'); void el.offsetWidth; el.classList.add('ch-enter');
-    });
+    const hero = document.getElementById('dayHero'), list = document.getElementById('timelineList');
+    hero.classList.remove('ch-enter', 'ch-stagger'); list.classList.remove('ch-enter'); void hero.offsetWidth;
+    hero.classList.add(fromToc ? 'ch-stagger' : 'ch-enter'); list.classList.add('ch-enter');
   }
 }
 function showToc(push) {

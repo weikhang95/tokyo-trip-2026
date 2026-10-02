@@ -11,12 +11,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-title" content="东京 2026" />
 <script>
-// 与手册共用 tokyo_theme：在任一页切换，另一页跟着走
+// 与手册共用 tokyo_theme、tokyo_text_size（大字）：在任一页切换，另一页跟着走
 try {
   const savedTheme = localStorage.getItem('tokyo_theme');
   const t = savedTheme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   document.documentElement.dataset.theme = t;
   document.querySelector('meta[name="theme-color"]').content = t === 'dark' ? '#0e1116' : '#F7F5F0';
+  if (localStorage.getItem('tokyo_text_size') === 'large') document.documentElement.dataset.textSize = 'large';
 } catch (e) {}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1088,6 +1089,16 @@ try {
   html[data-motion="ready"] .ch-enter { animation: ch-in .24s cubic-bezier(.2, 0, 0, 1) both; }
   html[data-motion="ready"] .ch-enter + .ch-enter { animation-delay: .04s; }
   @keyframes ch-in { from { opacity: 0; translate: 0 6px; } }
+
+  /* 大字：和背包同一个开关（底栏「更多」→ 大字），读的字放大约 1.25 倍，跟背包的大字一样；路线条、顶栏不变 */
+  html[data-text-size="large"] :is(.node-key, .node-more ul, .hn-what, .hd-what, .brief-list, .hero-desc, .rain-body ul) { font-size: 18px; }
+  html[data-text-size="large"] :is(.branch li, .egg, .rain-body h3, .oc-zh, .oc-big-zh) { font-size: 17px; }
+  html[data-text-size="large"] :is(.br-q, .hero-transit, .gear li, .brief-go, .rain-card > summary span, .oc-ph > span, .oc-hint) { font-size: 16px; }
+  html[data-text-size="large"] :is(.node-name-sub, .br-if, .hn-when, .hd-left, .brief-list dt, .brief-go small) { font-size: 15px; }
+  html[data-text-size="large"] :is(.time-badge, .node-tag, .rest-chip, .now-tag, .sun-chip) { font-size: 14px; }
+  html[data-text-size="large"] .nav-btn { font-size: 13px; }
+  html[data-text-size="large"] :is(.node-name, .rain-card > summary b) { font-size: 19px; }
+  html[data-text-size="large"] .hero-title { font-size: 21px; }
 
   /* 减少动态：与手册 index.html 同一条规则，过渡与动画一律瞬间完成 */
   @media (prefers-reduced-motion: reduce) {
@@ -4465,6 +4476,14 @@ function toggleTheme() {
   }
 }
 syncThemeButton();
+// 大字：和背包同一个开关（存 tokyo_text_size，large / compact），底栏「更多」里切换
+function toggleTextSize() {
+  const large = document.documentElement.dataset.textSize !== 'large';
+  if (large) document.documentElement.dataset.textSize = 'large';
+  else delete document.documentElement.dataset.textSize;
+  try { localStorage.setItem('tokyo_text_size', large ? 'large' : 'compact'); } catch (e) {}
+  syncDock(); // 字变大以后封面变高，限时停靠条按新位置判断要不要出现
+}
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
